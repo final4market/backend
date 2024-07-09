@@ -10,6 +10,6 @@ public class MainController {
 	}
 	
 	public String index() {
-		return "main";
+		return "mdasd";
 	}
 }

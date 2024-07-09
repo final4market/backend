@@ -10,6 +10,6 @@ public class MainController {
 	}
 	
 	public String index() {
-		return "mdasd";
+		return "mdas12d";
 	}
 }

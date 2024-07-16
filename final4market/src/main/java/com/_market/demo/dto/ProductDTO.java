@@ -19,8 +19,26 @@ public class ProductDTO {
     private int categoryNo;
     private int deliveryNo;
     private String tradeArea;
+    private int deliveryCharge; 
 
-    public ProductDTO() {
+    public ProductDTO(int productNo, String memberId, int productPrice, String productStatus, String productContent,
+			String productTitle, int categoryNo, int deliveryNo, String tradeArea, int deliveryCharge) {
+		super();
+		ProductNo = productNo;
+		this.memberId = memberId;
+		this.productPrice = productPrice;
+		this.productStatus = productStatus;
+		this.productContent = productContent;
+		this.productTitle = productTitle;
+		this.categoryNo = categoryNo;
+		this.deliveryNo = deliveryNo;
+		this.tradeArea = tradeArea;
+		this.deliveryCharge = deliveryCharge;
+	}
+
+
+
+	public ProductDTO() {
     }
 
     
@@ -41,6 +59,18 @@ public class ProductDTO {
 		this.categoryNo = categoryNo;
 		this.deliveryNo = deliveryNo;
 		this.tradeArea = tradeArea;
+	}
+
+
+
+	public int getDeliveryCharge() {
+		return deliveryCharge;
+	}
+
+
+
+	public void setDeliveryCharge(int deliveryCharge) {
+		this.deliveryCharge = deliveryCharge;
 	}
 
 
@@ -143,7 +173,7 @@ public class ProductDTO {
 				+ ", productCount=" + productCount + ", productDate=" + productDate + ", productStatus=" + productStatus
 				+ ", productContent=" + productContent + ", productSale=" + productSale + ", productTitle="
 				+ productTitle + ", categoryNo=" + categoryNo + ", deliveryNo=" + deliveryNo + ", tradeArea="
-				+ tradeArea + "]";
+				+ tradeArea + ", deliveryCharge=" + deliveryCharge + "]";
 	}
     
 	}

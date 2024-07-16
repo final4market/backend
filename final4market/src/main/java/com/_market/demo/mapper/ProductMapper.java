@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com._market.demo.dto.CategoryDTO;
 import com._market.demo.dto.ProductDTO;
+import com._market.demo.dto.ProductImageDTO;
 
 @Mapper
 public interface ProductMapper {
@@ -19,6 +20,10 @@ public interface ProductMapper {
 	List<CategoryDTO> selectAllCategory();
 
 	List<CategoryDTO> selectParentCategory(int parNum);
+
+	int insertProductImage(ProductImageDTO productImageDTO);
+
+
 
 
 

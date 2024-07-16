@@ -3,9 +3,11 @@ package com._market.demo.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com._market.demo.dto.CategoryDTO;
 import com._market.demo.dto.ProductDTO;
+import com._market.demo.dto.ProductImageDTO;
 import com._market.demo.mapper.ProductMapper;
 
 @Service
@@ -37,5 +39,14 @@ public class ProductService {
 		return mapper.selectParentCategory(parNum);
 	}
 
+	public int insertProductImage(ProductImageDTO productImageDTO) {
+		return mapper.insertProductImage(productImageDTO);
+		
+	}
+
+
+
+  
 }
+
 

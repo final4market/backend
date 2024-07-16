@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com._market.demo.mapper.MemberMapper">
+	
+    <resultMap type="com.example.demo.dto.MemberDTO" id="member">
+        <id column="member_id" property="memberId" />
+        <result column="member_name" property="memberName" />
+        <result column="member_passwd" property="memberPwd" />
+        <result column="member_nick" property="memberNick" />
+        <result column="member_email" property="memberEmail" />
+        <result column="member_address" property="memberAddr" />
+        <result column="member_profile" property="memberProfile" />
+        <result column="member_grade" property="memberGrade" />
+        <result column="grade_name" property="memberGradeName" />
+        <result column="member_phone_number" property="memberPhoneNo" />
+        <result column="register_date" property="memberRegDate" />
+    </resultMap>
+
+	<select id="selectAllMembers" resultMap="member">
+       SELECT m.member_id AS memberId, m.member_name AS memberName, m.member_passwd AS memberPwd,
+               m.member_nick AS memberNick, m.member_email AS memberEmail, m.member_address AS memberAddr,
+               m.member_profile AS memberProfile, m.member_grade AS memberGrade, g.grade_name AS memberGradeName,
+               m.member_phone_number AS memberPhoneNo, m.register_date AS memberRegDate
+        FROM member m
+        JOIN member_grade g ON m.member_grade = g.member_grade
+    </select>
+    
+    <select id="searchMembers" parameterType="map" resultMap="member">
+        SELECT m.member_id AS memberId, m.member_name AS memberName, m.member_passwd AS memberPwd,
+               m.member_nick AS memberNick, m.member_email AS memberEmail, m.member_address AS memberAddr,
+               m.member_profile AS memberProfile, m.member_grade AS memberGrade, g.grade_name AS memberGradeName,
+               m.member_phone_number AS memberPhoneNo, m.register_date AS memberRegDate
+        FROM member m
+        JOIN member_grade g ON m.member_grade = g.member_grade
+        WHERE 1=1
+        <if test="memberId != null and memberId != ''">
+            AND m.member_id = #{memberId}
+        </if>
+        <if test="name != null and name != ''">
+            AND m.member_name LIKE CONCAT('%', #{name}, '%')
+        </if>
+        <if test="nickname != null and nickname != ''">
+            AND m.member_nick LIKE CONCAT('%', #{nickname}, '%')
+        </if>
+        <if test="email != null and email != ''">
+            AND m.member_email LIKE CONCAT('%', #{email}, '%')
+        </if>
+        <if test="phoneNumber != null and phoneNumber != ''">
+            AND m.member_phone_number LIKE CONCAT('%', #{phoneNumber}, '%')
+        </if>
+    </select>    
+    
+     <update id="updateMember" parameterType="member">
+        UPDATE member
+        SET member_name=#{memberName}, member_passwd=#{memberPwd}, member_nick=#{memberNick},
+            member_email=#{memberEmail}, member_address=#{memberAddr}, member_profile=#{memberProfile},
+            member_grade=#{memberGrade}, member_phone_number=#{memberPhoneNo}, register_date=#{memberRegDate}
+        WHERE member_id=#{memberId}
+    </update>
+    
+    <delete id="deleteMember" parameterType="String">
+        DELETE FROM member WHERE member_id=#{memberId}
+    </delete>   
+    
+</mapper>

@@ -15,6 +15,7 @@ public class MemberDTO {
 	private int memberGrade;
 	private String memberPhoneNo;
 	private LocalDate memberRegDate;
+	private String memberGradeName;
 	
 	
 	public MemberDTO() {
@@ -122,13 +123,26 @@ public class MemberDTO {
 	}
 
 
+
+	public String getMemberGradeName() {
+		return memberGradeName;
+	}
+
+
+	public void setMemberGradeName(String memberGradeName) {
+		this.memberGradeName = memberGradeName;
+	}
+
+
 	@Override
 	public String toString() {
 		return "MemberDTO [memberId=" + memberId + ", memberName=" + memberName + ", memberPwd=" + memberPwd
 				+ ", memberNick=" + memberNick + ", memberEmail=" + memberEmail + ", memberAddr=" + memberAddr
 				+ ", memberProfile=" + memberProfile + ", memberGrade=" + memberGrade + ", memberPhoneNo="
-				+ memberPhoneNo + ", memberRegDate=" + memberRegDate + "]";
-	}		
+				+ memberPhoneNo + ", memberRegDate=" + memberRegDate + ", memberGradeName=" + memberGradeName + "]";
+	}	
+	
+	
 	
 }
 

@@ -4,7 +4,7 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com._market.demo.mapper.MemberMapper">
 	
-    <resultMap type="com.example.demo.dto.MemberDTO" id="member">
+    <resultMap type="com._market.demo.dto.MemberDTO" id="member">
         <id column="member_id" property="memberId" />
         <result column="member_name" property="memberName" />
         <result column="member_passwd" property="memberPwd" />
@@ -19,45 +19,52 @@
     </resultMap>
 
 	<select id="selectAllMembers" resultMap="member">
-       SELECT m.member_id AS memberId, m.member_name AS memberName, m.member_passwd AS memberPwd,
-               m.member_nick AS memberNick, m.member_email AS memberEmail, m.member_address AS memberAddr,
-               m.member_profile AS memberProfile, m.member_grade AS memberGrade, g.grade_name AS memberGradeName,
-               m.member_phone_number AS memberPhoneNo, m.register_date AS memberRegDate
-        FROM member m
-        JOIN member_grade g ON m.member_grade = g.member_grade
+       SELECT m.member_id, m.member_name, m.member_nick, m.member_email, m.member_address,
+       m.member_profile, m.member_grade, g.grade_name,
+       m.member_phone_number, m.register_date
+		FROM member m
+		JOIN member_grade g ON m.member_grade = g.member_grade
+		WHERE m.member_grade IN (1, 2)
     </select>
     
     <select id="searchMembers" parameterType="map" resultMap="member">
-        SELECT m.member_id AS memberId, m.member_name AS memberName, m.member_passwd AS memberPwd,
-               m.member_nick AS memberNick, m.member_email AS memberEmail, m.member_address AS memberAddr,
-               m.member_profile AS memberProfile, m.member_grade AS memberGrade, g.grade_name AS memberGradeName,
-               m.member_phone_number AS memberPhoneNo, m.register_date AS memberRegDate
+        SELECT m.member_id, m.member_name, m.member_passwd, m.member_nick, m.member_email, m.member_address,
+               m.member_profile, m.member_grade, g.grade_name, m.member_phone_number, m.register_date
         FROM member m
         JOIN member_grade g ON m.member_grade = g.member_grade
-        WHERE 1=1
+        WHERE m.member_grade IN (1, 2)
         <if test="memberId != null and memberId != ''">
-            AND m.member_id = #{memberId}
+            AND m.member_id LIKE '%' || #{memberId} || '%'
         </if>
-        <if test="name != null and name != ''">
-            AND m.member_name LIKE CONCAT('%', #{name}, '%')
+        <if test="memberName != null and memberName != ''">
+            AND LOWER(m.member_name) LIKE '%' || LOWER(#{memberName}) || '%'
         </if>
-        <if test="nickname != null and nickname != ''">
-            AND m.member_nick LIKE CONCAT('%', #{nickname}, '%')
+        <if test="memberNick != null and memberNick != ''">
+            AND LOWER(m.member_nick) LIKE '%' || LOWER(#{memberNick}) || '%'
         </if>
-        <if test="email != null and email != ''">
-            AND m.member_email LIKE CONCAT('%', #{email}, '%')
+        <if test="memberEmail != null and memberEmail != ''">
+            AND m.member_email LIKE '%' || #{memberEmail} || '%'
         </if>
-        <if test="phoneNumber != null and phoneNumber != ''">
-            AND m.member_phone_number LIKE CONCAT('%', #{phoneNumber}, '%')
+        <if test="memberPhoneNo != null and memberPhoneNo != ''">
+            AND m.member_phone_number LIKE '%' || #{memberPhoneNo} || '%'
         </if>
-    </select>    
+     </select>   
     
-     <update id="updateMember" parameterType="member">
-        UPDATE member
-        SET member_name=#{memberName}, member_passwd=#{memberPwd}, member_nick=#{memberNick},
-            member_email=#{memberEmail}, member_address=#{memberAddr}, member_profile=#{memberProfile},
-            member_grade=#{memberGrade}, member_phone_number=#{memberPhoneNo}, register_date=#{memberRegDate}
-        WHERE member_id=#{memberId}
+     <update id="updateMember" parameterType="com._market.demo.dto.MemberDTO">
+            UPDATE member
+    		SET 
+       			member_name = #{memberName}, 
+        		member_nick = #{memberNick},
+        		member_email = #{memberEmail}, 
+        		member_phone_number = #{memberPhoneNo},
+        		member_grade = #{memberGrade}
+        		<if test="memberAddr != null and memberAddr != ''">
+            		, member_address = #{memberAddr}
+        		</if>
+        		<if test="memberPwd != null and memberPwd != ''">
+            		, member_passwd = #{memberPwd}
+        		</if>
+    		WHERE member_id = #{memberId}
     </update>
     
     <delete id="deleteMember" parameterType="String">

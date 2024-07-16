@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com._market.demo.mapper.ProductMapper">
+	<!-- ResultMap -->
+	<resultMap type="com._market.demo.dto.ProductDTO" id="product">
+		<id column="Product_no" property="productNo" />
+		<result column="Member_id" property="memberId" />
+		<result column="product_price" property="productCount" />
+	</resultMap>
+	
+	<select id="selectAllMypage" resultMap="product">
+		select * from product
+	</select>
+	
+	
+</mapper>
+
+
+
+
+
+

@@ -1,6 +1,7 @@
 package com.market.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -16,5 +17,8 @@ public interface MemberMapper {
 	String profilePath(int profileNo);
 
 	List<String> buyerProfileNo(List<String> buyerIds);
+
+	List<Map<String, Object>> buyerProfilePath(List<String> buyerProfileNo);
+
 
 }

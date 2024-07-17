@@ -43,13 +43,26 @@
 		SELECT MP.PROFILE_PATH  FROM MEMBER_PROFILE mp WHERE MP.MEMBER_PROFILE_NO = #{profileNo}
 	</select>
 	
-	<select id="buyerProfileNo" parameterType="list">
-		SELECT m.MEMBER_PROFILE_NO  FROM "MEMBER" M 
-		WHERE M.MEMBER_ID = 
-		<foreach collection="list" item="i">
-			#{i}
-		</foreach>
+	<select id="buyerProfileNo" parameterType="list" resultType="string">
+	    SELECT m.MEMBER_PROFILE_NO 
+	    FROM MEMBER M 
+	    WHERE M.MEMBER_ID IN 
+	    <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+	        #{item}
+	    </foreach>
 	</select>
+
+	<select id="buyerProfilePath" parameterType="list" resultType="map">
+	    SELECT M.MEMBER_ID AS memberId, MP.PROFILE_PATH AS profilePath 
+	    FROM MEMBER_PROFILE MP
+	    JOIN MEMBER M ON MP.MEMBER_PROFILE_NO = M.MEMBER_PROFILE_NO
+	    WHERE MP.MEMBER_PROFILE_NO IN 
+	    <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+	        #{item}
+	    </foreach>
+	</select>
+
+
 </mapper>
 
 

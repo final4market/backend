@@ -20,4 +20,10 @@ public interface ProductMapper {
 
 	List<CategoryDTO> categoryInfo(int categoryNo);
 
+	List<String> productNo(String memberId);
+
+	List<String> sellerProductImage(String productNo);
+
+	int sellerProductPrice(String productNo);
+
 }

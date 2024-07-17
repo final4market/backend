@@ -24,7 +24,7 @@ public class MemberController {
 	
 	@GetMapping("/storeInfo")
 	public List<StoreDTO> storeInfo(String memberId) {
-	    System.out.println(memberId);
+//	    System.out.println(memberId);
 	    List<StoreDTO> list = memberService.storeInfo(memberId);
 	    return list;
 	}
@@ -37,12 +37,12 @@ public class MemberController {
 	}
 	
 	@PostMapping("/buyerProfile")
-	public String buyerProfile(@RequestBody Map<String, Object> memberId) {
+	public List<Map<String, Object>> buyerProfile(@RequestBody Map<String, Object> memberId) {
 		List<String> buyerIds = (List<String>) memberId.get("memberId");
-		System.out.println(buyerIds);
-		List<String> list = memberService.buyerProfileNo(buyerIds);
-		System.out.println(list);
-		return null;
+		List<String> buyerProfileNo = memberService.buyerProfileNo(buyerIds);
+		List<Map<String, Object>> buyerProfilePath = memberService.buyerProfilePath(buyerProfileNo);
+//		System.out.println(buyerProfilePath);
+		return buyerProfilePath;
 	}
 
 }

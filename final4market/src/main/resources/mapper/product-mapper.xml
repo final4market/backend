@@ -54,6 +54,18 @@
 		START WITH CATEGORY_NO = #{categoryNo}
 		CONNECT BY PRIOR PARENT_CATEGORY_NO = CATEGORY_NO
 	</select>
+	
+	<select id="productNo" parameterType="String">
+		select product_no from product where member_id = #{memberId}
+	</select>
+	
+	<select id="sellerProductImage" parameterType="String">
+		select PRODUCT_IMAGE_PATH from product_image where product_no = #{productNo}
+	</select>
+	
+	<select id="sellerProductPrice" parameterType="String">
+		select product_price from product where product_no = #{productNo}
+	</select>
 </mapper>
 
 

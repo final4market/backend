@@ -34,4 +34,17 @@ public class ProductService {
 	public List<CategoryDTO> categoryInfo(int categoryNo) {
 		return mapper.categoryInfo(categoryNo);
 	}
+
+
+	public List<String> productNo(String memberId) {
+		return mapper.productNo(memberId);
+	}
+
+	public List<String> sellerProductImage(String productNo) {
+		return mapper.sellerProductImage(productNo);
+	}
+
+	public int sellerProductPrice(String productNo) {
+		return mapper.sellerProductPrice(productNo);
+	}
 }

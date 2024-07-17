@@ -1,6 +1,7 @@
 package com.market.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -30,6 +31,11 @@ public class MemberService {
 	public List<String> buyerProfileNo(List<String> buyerIds) {
 		return mapper.buyerProfileNo(buyerIds);
 	}
-	
+
+	public List<Map<String, Object>> buyerProfilePath(List<String> buyerProfileNo) {
+		return mapper.buyerProfilePath(buyerProfileNo);
+	}
+
+
 	
 }

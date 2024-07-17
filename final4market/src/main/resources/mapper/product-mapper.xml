@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com._market.demo.mapper.ProductMapper">
+ 	<!-- ProductDTO에 해당하는 resultMap -->
+ <resultMap type="com._market.demo.dto.ProductDTO" id="product">
+    <id column="PRODUCT_NO" property="productNO" />
+    <result column="MEMBER_ID" property="memberId"/>
+    <result column="PRODUCT_PRICE" property="productPrice"/>
+    <result column="PRODUCT_COUNT" property="productCount"/>
+    <result column="PRODUCT_DATE" property="productDate"/>
+    <result column="PRODUCT_STATUS" property="productStatus"/>
+    <result column="PRODUCT_CONTENT" property="productContent"/>
+    <result column="PRODUCT_SALE" property="productSale"/>
+    <result column="PRODUCT_TITLE" property="productTitle"/>
+    <result column="CATEGORY_NO" property="categoryNo"/>
+    <result column="DELIVERY_NO" property="deliveryNo"/>
+    <result column="TRADE_AREA" property="tradeArea"/>
+</resultMap>
+
+  <resultMap type="category" id="category" >
+        <id column="CATEGORY_NO" property="categoryNo"  />
+        <result column="PARENT_CATEGORY_NO"  property="parentCategoryNo" />
+        <result column="CATEGORY_NAME"  property="categoryName" />
+</resultMap>
+
+  <resultMap type="ProductImage" id="ProductImage" >
+        <id column="PRODUCT_IMAGE_PATH" property="path"  />
+        <result column="PRODUCT_NO"  property="productNo" />
+</resultMap>
+
+
+   <select id="selectAllProduct" resultMap="product">
+    select * from 
+    product
+   </select>
+   
+  <select id="selectParentCategory" resultMap="category">
+    SELECT category_no, category_name, parent_category_no
+    FROM Category
+    <if test="parentNumber == 1">
+        START WITH parent_category_no = 1
+    </if>
+    <if test="parentNumber == 2">
+        START WITH parent_category_no = 2
+    </if>
+    <if test="parentNumber == 3">
+        START WITH parent_category_no = 3
+    </if>
+    <if test="parentNumber == 4">
+        START WITH parent_category_no = 4
+    </if>
+    <if test="parentNumber == 5">
+        START WITH parent_category_no = 5
+    </if>
+      <if test="parentNumber == 6">
+        START WITH parent_category_no = 6
+    </if>
+    CONNECT BY PRIOR category_no = parent_category_no
+    ORDER SIBLINGS BY category_no
+</select>
+  
+
+<select id="selectAllCategory" resultMap="category">
+    SELECT category_no, category_name, parent_category_no
+   FROM Category
+   where parent_category_no is null
+</select>
+
+
+    <select id="getProductNo" resultType="int">
+		select PRODUCT_seq.nextval from dual
+	</select>
+	
+<insert id="insertProduct" parameterType="Product">
+    INSERT INTO Product (product_no, product_price, product_status, product_content, product_title, category_no, delivery_no, trade_area, member_id)
+    VALUES (#{productNo}, #{productPrice}, #{productStatus}, #{productContent}, #{productTitle}, #{categoryNo}, #{deliveryNo}, #{tradeArea}, 'member5')
+</insert>
+ 
+<insert id="insertProductImage" parameterType="ProductImage" >
+insert into PRODUCT_IMAGE(PRODUCT_IMAGE_PATH, product_no) 
+		values(#{path},#{productNo})
+</insert>
+
+
+</mapper>

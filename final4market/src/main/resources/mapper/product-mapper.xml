@@ -110,4 +110,3 @@
         VALUES (#{productImagePath}, #{productNo})
     </insert>
 </mapper>
-

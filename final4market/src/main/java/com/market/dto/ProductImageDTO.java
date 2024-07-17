@@ -1,11 +1,18 @@
 package com.market.dto;
 
+import org.apache.ibatis.type.Alias;
 
+@Alias("productImage")
 public class ProductImageDTO {
 	private int productNo;
 	private String productImagePath;
-		
+
 	public ProductImageDTO() {
+	}
+
+	public ProductImageDTO(String productImagePath, int productNo) {
+		this.productImagePath = productImagePath;
+		this.productNo = productNo;
 	}
 
 	public int getProductNo() {
@@ -28,6 +35,4 @@ public class ProductImageDTO {
 	public String toString() {
 		return "ProductImageDTO [productNo=" + productNo + ", productImagePath=" + productImagePath + "]";
 	}
-	
-	
 }

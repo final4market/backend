@@ -11,7 +11,7 @@ import com.market.mapper.MemberMapper;
 @Service
 public class MemberService {
 	private MemberMapper mapper;	
-	
+
 	public MemberService(MemberMapper mapper) {
 		this.mapper = mapper;
 	}
@@ -31,5 +31,4 @@ public class MemberService {
 	public int deleteMember(String memberId) {
         return mapper.deleteMember(memberId);
     }
-	
 }

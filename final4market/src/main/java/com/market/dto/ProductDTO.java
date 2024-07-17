@@ -1,11 +1,16 @@
 package com.market.dto;
 
+import java.sql.Date;
+
+import org.apache.ibatis.type.Alias;
+
+@Alias("product")
 public class ProductDTO {
 	private int productNo;
 	private String memberId;
 	private int productPrice;
 	private int productCount;
-	private String productDate;
+	private Date productDate;
 	private String productStatus;
 	private String productContent;
 	private String productSale;
@@ -13,27 +18,30 @@ public class ProductDTO {
 	private int productLike;
 	private int categoryNo;
 	private int deliveryNo;
-	
+	private String tradeArea;
+	private int deliveryCharge;
+
 	public ProductDTO() {
-		
 	}
 
-	public int getCategoryNo() {
-		return categoryNo;
-	}
-
-	public void setCategoryNo(int categoryNo) {
+	public ProductDTO(int productNo, String memberId, int productPrice, int productCount, Date productDate,
+			String productStatus, String productContent, String productSale, String productTitle, int productLike,
+			int categoryNo, int deliveryNo, String tradeArea, int deliveryCharge) {
+		this.productNo = productNo;
+		this.memberId = memberId;
+		this.productPrice = productPrice;
+		this.productCount = productCount;
+		this.productDate = productDate;
+		this.productStatus = productStatus;
+		this.productContent = productContent;
+		this.productSale = productSale;
+		this.productTitle = productTitle;
+		this.productLike = productLike;
 		this.categoryNo = categoryNo;
-	}
-
-	public int getDeliveryNo() {
-		return deliveryNo;
-	}
-
-	public void setDeliveryNo(int deliveryNo) {
 		this.deliveryNo = deliveryNo;
+		this.tradeArea = tradeArea;
+		this.deliveryCharge = deliveryCharge;
 	}
-
 
 	public int getProductNo() {
 		return productNo;
@@ -67,11 +75,11 @@ public class ProductDTO {
 		this.productCount = productCount;
 	}
 
-	public String getProductDate() {
+	public Date getProductDate() {
 		return productDate;
 	}
 
-	public void setProductDate(String productDate) {
+	public void setProductDate(Date productDate) {
 		this.productDate = productDate;
 	}
 
@@ -115,14 +123,44 @@ public class ProductDTO {
 		this.productLike = productLike;
 	}
 
+	public int getCategoryNo() {
+		return categoryNo;
+	}
+
+	public void setCategoryNo(int categoryNo) {
+		this.categoryNo = categoryNo;
+	}
+
+	public int getDeliveryNo() {
+		return deliveryNo;
+	}
+
+	public void setDeliveryNo(int deliveryNo) {
+		this.deliveryNo = deliveryNo;
+	}
+
+	public String getTradeArea() {
+		return tradeArea;
+	}
+
+	public void setTradeArea(String tradeArea) {
+		this.tradeArea = tradeArea;
+	}
+
+	public int getDeliveryCharge() {
+		return deliveryCharge;
+	}
+
+	public void setDeliveryCharge(int deliveryCharge) {
+		this.deliveryCharge = deliveryCharge;
+	}
+
 	@Override
 	public String toString() {
 		return "ProductDTO [productNo=" + productNo + ", memberId=" + memberId + ", productPrice=" + productPrice
 				+ ", productCount=" + productCount + ", productDate=" + productDate + ", productStatus=" + productStatus
 				+ ", productContent=" + productContent + ", productSale=" + productSale + ", productTitle="
 				+ productTitle + ", productLike=" + productLike + ", categoryNo=" + categoryNo + ", deliveryNo="
-				+ deliveryNo + "]";
+				+ deliveryNo + ", tradeArea=" + tradeArea + ", deliveryCharge=" + deliveryCharge + "]";
 	}
-	
-	
 }

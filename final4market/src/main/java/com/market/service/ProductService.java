@@ -10,10 +10,9 @@ import com.market.dto.ProductDTO;
 import com.market.dto.ProductImageDTO;
 import com.market.mapper.ProductMapper;
 
-
 @Service
 public class ProductService {
-	ProductMapper mapper;
+	private ProductMapper mapper;
 
 	public ProductService(ProductMapper mapper) {
 		this.mapper = mapper;
@@ -33,5 +32,14 @@ public class ProductService {
 
 	public List<CategoryDTO> categoryInfo(int categoryNo) {
 		return mapper.categoryInfo(categoryNo);
+	}
+
+	public List<ProductDTO> selectAllProduct() {
+		return mapper.selectAllProduct();
+	}
+
+	public String selectAllMypage() {
+		
+		return null;
 	}
 }

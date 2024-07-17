@@ -7,7 +7,7 @@
     <resultMap type="com.market.dto.MemberDTO" id="member">
         <id column="member_id" property="memberId" />
         <result column="member_name" property="memberName" />
-        <result column="member_passwd" property="memberPwd" />
+        <result column="member_passwd" property="memberPasswd" />
         <result column="member_nick" property="memberNick" />
         <result column="member_email" property="memberEmail" />
         <result column="member_address" property="memberAddr" />
@@ -72,3 +72,4 @@
     </delete>   
     
 </mapper>
+

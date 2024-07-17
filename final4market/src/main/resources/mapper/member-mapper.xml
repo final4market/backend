@@ -11,7 +11,7 @@
         <result column="member_nick" property="memberNick" />
         <result column="member_email" property="memberEmail" />
         <result column="member_address" property="memberAddr" />
-        <result column="member_profile" property="memberProfile" />
+        <result column="member_profile_no" property="memberProfileNo" />
         <result column="member_grade" property="memberGrade" />
         <result column="grade_name" property="memberGradeName" />
         <result column="member_phone_number" property="memberPhoneNo" />
@@ -20,7 +20,7 @@
 
 	<select id="selectAllMembers" resultMap="member">
        SELECT m.member_id, m.member_name, m.member_nick, m.member_email, m.member_address,
-       m.member_profile, m.member_grade, g.grade_name,
+       m.member_profile_no, m.member_grade, g.grade_name,
        m.member_phone_number, m.register_date
 		FROM member m
 		JOIN member_grade g ON m.member_grade = g.member_grade
@@ -29,7 +29,7 @@
     
     <select id="searchMembers" parameterType="map" resultMap="member">
         SELECT m.member_id, m.member_name, m.member_passwd, m.member_nick, m.member_email, m.member_address,
-               m.member_profile, m.member_grade, g.grade_name, m.member_phone_number, m.register_date
+               m.member_profile_no, m.member_grade, g.grade_name, m.member_phone_number, m.register_date
         FROM member m
         JOIN member_grade g ON m.member_grade = g.member_grade
         WHERE m.member_grade IN (1, 2)

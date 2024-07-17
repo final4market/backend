@@ -11,7 +11,7 @@ public class MemberDTO {
 	private String memberNick;
 	private String memberEmail;
 	private String memberAddr;	
-	private int memberProfile;
+	private int memberProfileNo;
 	private int memberGrade;
 	private String memberPhoneNo;
 	private LocalDate memberRegDate;
@@ -83,13 +83,13 @@ public class MemberDTO {
 	}
 
 
-	public int getMemberProfile() {
-		return memberProfile;
+	public int getMemberProfileNo() {
+		return memberProfileNo;
 	}
 
 
-	public void setMemberProfile(int memberProfile) {
-		this.memberProfile = memberProfile;
+	public void setMemberProfileNo(int memberProfileNo) {
+		this.memberProfileNo = memberProfileNo;
 	}
 
 
@@ -138,7 +138,7 @@ public class MemberDTO {
 	public String toString() {
 		return "MemberDTO [memberId=" + memberId + ", memberName=" + memberName + ", memberPwd=" + memberPwd
 				+ ", memberNick=" + memberNick + ", memberEmail=" + memberEmail + ", memberAddr=" + memberAddr
-				+ ", memberProfile=" + memberProfile + ", memberGrade=" + memberGrade + ", memberPhoneNo="
+				+ ", memberProfile=" + memberProfileNo + ", memberGrade=" + memberGrade + ", memberPhoneNo="
 				+ memberPhoneNo + ", memberRegDate=" + memberRegDate + ", memberGradeName=" + memberGradeName + "]";
 	}	
 	

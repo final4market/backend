@@ -46,9 +46,7 @@ public class ProductController {
 	
 	@GetMapping("/categoryInfo")
 	public List<CategoryDTO> categoryInfo(int categoryNo) {
-		System.out.println(categoryNo);
 		List<CategoryDTO> list = productService.categoryInfo(categoryNo);
-		System.out.println(list);
 		return list; 
 	}
 	

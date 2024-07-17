@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.market.mapper.MemberMapper">
+
+    <resultMap type="com.market.dto.MemberDTO" id="member">
+        <id column="member_id" property="memberId" />
+        <result column="member_name" property="memberName" />
+        <result column="member_passwd" property="memberPwd" />
+        <result column="member_nick" property="memberNick" />
+        <result column="member_email" property="memberEmail" />
+        <result column="member_address" property="memberAddr" />
+        <result column="member_profile_no" property="memberProfileNo" />
+        <result column="member_grade" property="memberGrade" />
+        <result column="grade_name" property="memberGradeName" />
+        <result column="member_phone_number" property="memberPhoneNo" />
+        <result column="register_date" property="memberRegDate" />
+    </resultMap>
+
+	<select id="selectAllMembers" resultMap="member">
+       SELECT m.member_id, m.member_name, m.member_nick, m.member_email, m.member_address,
+       m.member_profile_no, m.member_grade, g.grade_name,
+       m.member_phone_number, m.register_date
+		FROM member m
+		JOIN member_grade g ON m.member_grade = g.member_grade
+		WHERE m.member_grade IN (1, 2)
+    </select>
+    
+    <select id="searchMembers" parameterType="map" resultMap="member">
+        SELECT m.member_id, m.member_name, m.member_passwd, m.member_nick, m.member_email, m.member_address,
+               m.member_profile_no, m.member_grade, g.grade_name, m.member_phone_number, m.register_date
+        FROM member m
+        JOIN member_grade g ON m.member_grade = g.member_grade
+        WHERE m.member_grade IN (1, 2)
+        <if test="memberId != null and memberId != ''">
+            AND m.member_id LIKE '%' || #{memberId} || '%'
+        </if>
+        <if test="memberName != null and memberName != ''">
+            AND LOWER(m.member_name) LIKE '%' || LOWER(#{memberName}) || '%'
+        </if>
+        <if test="memberNick != null and memberNick != ''">
+            AND LOWER(m.member_nick) LIKE '%' || LOWER(#{memberNick}) || '%'
+        </if>
+        <if test="memberEmail != null and memberEmail != ''">
+            AND m.member_email LIKE '%' || #{memberEmail} || '%'
+        </if>
+        <if test="memberPhoneNo != null and memberPhoneNo != ''">
+            AND m.member_phone_number LIKE '%' || #{memberPhoneNo} || '%'
+        </if>
+     </select>   
+    
+     <update id="updateMember" parameterType="com.market.dto.MemberDTO">
+            UPDATE member
+    		SET 
+       			member_name = #{memberName}, 
+        		member_nick = #{memberNick},
+        		member_email = #{memberEmail}, 
+        		member_phone_number = #{memberPhoneNo},
+        		member_grade = #{memberGrade}
+        		<if test="memberAddr != null and memberAddr != ''">
+            		, member_address = #{memberAddr}
+        		</if>
+        		<if test="memberPwd != null and memberPwd != ''">
+            		, member_passwd = #{memberPwd}
+        		</if>
+    		WHERE member_id = #{memberId}
+    </update>
+    
+    <delete id="deleteMember" parameterType="String">
+        DELETE FROM member WHERE member_id=#{memberId}
+    </delete>   
+    
+</mapper>

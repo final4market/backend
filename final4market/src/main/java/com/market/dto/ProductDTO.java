@@ -1,4 +1,4 @@
-package com._market.demo.dto;
+package com.market.dto;
 
 import java.sql.Date;
 
@@ -8,6 +8,7 @@ import org.apache.ibatis.type.Alias;
 public class ProductDTO {
 	private int productNo;
 	private String memberId;
+	private int productPrice;
 	private int productCount;
 	private Date productDate;
 	private String productStatus;
@@ -22,12 +23,12 @@ public class ProductDTO {
 	public ProductDTO() {
 	}
 
-	public ProductDTO(int productNo, String memberId, int productCount, Date productDate, String productStatus,
-			String productContent, String productSale, String productTitle, int categoryNo, int deliveryNo,
-			String tradeArea, int deliveryCharge) {
-		super();
+	public ProductDTO(int productNo, String memberId, int productPrice, int productCount, Date productDate,
+			String productStatus, String productContent, String productSale, String productTitle, int categoryNo,
+			int deliveryNo, String tradeArea, int deliveryCharge) {
 		this.productNo = productNo;
 		this.memberId = memberId;
+		this.productPrice = productPrice;
 		this.productCount = productCount;
 		this.productDate = productDate;
 		this.productStatus = productStatus;
@@ -54,6 +55,14 @@ public class ProductDTO {
 
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
+	}
+
+	public int getProductPrice() {
+		return productPrice;
+	}
+
+	public void setProductPrice(int productPrice) {
+		this.productPrice = productPrice;
 	}
 
 	public int getProductCount() {
@@ -138,10 +147,10 @@ public class ProductDTO {
 
 	@Override
 	public String toString() {
-		return "ProductDTO [productNo=" + productNo + ", memberId=" + memberId + ", productCount=" + productCount
-				+ ", productDate=" + productDate + ", productStatus=" + productStatus + ", productContent="
-				+ productContent + ", productSale=" + productSale + ", productTitle=" + productTitle + ", categoryNo="
-				+ categoryNo + ", deliveryNo=" + deliveryNo + ", tradeArea=" + tradeArea + ", deliveryCharge="
-				+ deliveryCharge + "]";
+		return "ProductDTO [productNo=" + productNo + ", memberId=" + memberId + ", productPrice=" + productPrice
+				+ ", productCount=" + productCount + ", productDate=" + productDate + ", productStatus=" + productStatus
+				+ ", productContent=" + productContent + ", productSale=" + productSale + ", productTitle="
+				+ productTitle + ", categoryNo=" + categoryNo + ", deliveryNo=" + deliveryNo + ", tradeArea="
+				+ tradeArea + ", deliveryCharge=" + deliveryCharge + "]";
 	}
 }

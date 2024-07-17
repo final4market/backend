@@ -70,16 +70,6 @@
             <version>3.0.3</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>com.file.upload</groupId>
-            <artifactId>CkEditorTest</artifactId>
-            <version>0.0.1</version>
-        </dependency>
-        <dependency>
-            <groupId>com.login</groupId>
-            <artifactId>APILogin</artifactId>
-            <version>0.0.1</version>
-        </dependency>
     </dependencies>
     <build>
         <plugins>

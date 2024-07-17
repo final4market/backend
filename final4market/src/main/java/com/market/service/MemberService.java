@@ -26,6 +26,10 @@ public class MemberService {
 	public String profilePath(int profileNo) {
 		return mapper.profilePath(profileNo);
 	}
+
+	public List<String> buyerProfileNo(List<String> buyerIds) {
+		return mapper.buyerProfileNo(buyerIds);
+	}
 	
 	
 }

@@ -15,4 +15,6 @@ public interface MemberMapper {
 
 	String profilePath(int profileNo);
 
+	List<String> buyerProfileNo(List<String> buyerIds);
+
 }

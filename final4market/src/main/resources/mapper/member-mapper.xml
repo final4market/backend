@@ -43,6 +43,13 @@
 		SELECT MP.PROFILE_PATH  FROM MEMBER_PROFILE mp WHERE MP.MEMBER_PROFILE_NO = #{profileNo}
 	</select>
 	
+	<select id="buyerProfileNo" parameterType="list">
+		SELECT m.MEMBER_PROFILE_NO  FROM "MEMBER" M 
+		WHERE M.MEMBER_ID = 
+		<foreach collection="list" item="i">
+			#{i}
+		</foreach>
+	</select>
 </mapper>
 
 

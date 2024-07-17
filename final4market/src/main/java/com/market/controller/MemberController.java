@@ -37,8 +37,11 @@ public class MemberController {
 	}
 	
 	@PostMapping("/buyerProfile")
-	public String buyerProfile(@RequestBody List<String> memberId) {
-		System.out.println(memberId);
+	public String buyerProfile(@RequestBody Map<String, Object> memberId) {
+		List<String> buyerIds = (List<String>) memberId.get("memberId");
+		System.out.println(buyerIds);
+		List<String> list = memberService.buyerProfileNo(buyerIds);
+		System.out.println(list);
 		return null;
 	}
 

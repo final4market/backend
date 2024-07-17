@@ -1,0 +1,22 @@
+package com.market.controller;
+
+import java.util.List;
+
+import org.springframework.web.bind.annotation.RestController;
+
+import com.market.dto.StoreDTO;
+import com.market.service.MemberService;
+
+@RestController
+public class MemberController {
+	MemberService memberService;
+
+	public MemberController(MemberService memberService) {
+		this.memberService = memberService;
+	}
+	
+	public List<StoreDTO> storeInfo(String memberId){
+		List<StoreDTO> list = memberService.storeInfo(memberId);
+		return list;
+	}
+}

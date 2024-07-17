@@ -1,0 +1,87 @@
+package com.market.dto;
+
+public class StoreDTO {
+	private String sellerId;
+	private String buyerId;
+	private int productNo;
+	private int followers;
+	private int saleQuantity;
+	private int salePrice;
+	private String reviews;
+	private String saleStatus;
+
+	public StoreDTO() {
+	}
+	
+	public int getProductNo() {
+		return productNo;
+	}
+
+	public void setProductNo(int productNo) {
+		this.productNo = productNo;
+	}
+
+	public int getSalePrice() {
+		return salePrice;
+	}
+	
+	public void setSalePrice(int salePrice) {
+		this.salePrice = salePrice;
+	}
+	
+	public String getSellerId() {
+		return sellerId;
+	}
+
+	public void setSellerId(String sellerId) {
+		this.sellerId = sellerId;
+	}
+
+	public String getBuyerId() {
+		return buyerId;
+	}
+
+	public void setBuyerId(String buyerId) {
+		this.buyerId = buyerId;
+	}
+
+	public int getFollowers() {
+		return followers;
+	}
+
+	public void setFollowers(int followers) {
+		this.followers = followers;
+	}
+
+	public int getSaleQuantity() {
+		return saleQuantity;
+	}
+
+	public void setSaleQuantity(int saleQuantity) {
+		this.saleQuantity = saleQuantity;
+	}
+
+	public String getReviews() {
+		return reviews;
+	}
+
+	public void setReviews(String reviews) {
+		this.reviews = reviews;
+	}
+
+	public String getSaleStatus() {
+		return saleStatus;
+	}
+
+	public void setSaleStatus(String saleStatus) {
+		this.saleStatus = saleStatus;
+	}
+
+	@Override
+	public String toString() {
+		return "StoreDTO [sellerId=" + sellerId + ", buyerId=" + buyerId + ", followers=" + followers
+				+ ", saleQuantity=" + saleQuantity + ", salePrice=" + salePrice + ", reviews=" + reviews
+				+ ", saleStatus=" + saleStatus + "]";
+	}
+	
+}

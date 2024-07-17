@@ -1,0 +1,39 @@
+package com.market.controller;
+
+import java.util.List;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.market.dto.StoreDTO;
+import com.market.service.MemberService;
+
+@RestController
+@CrossOrigin(origins = "*" , allowedHeaders = "*" )
+public class MemberController {
+	MemberService memberService;
+
+	public MemberController(MemberService memberService) {
+		this.memberService = memberService;
+	}
+	
+	@GetMapping("/storeInfo")
+	public Map<String, Object> storeInfo(String memberId) {
+	    System.out.println(memberId);
+	    
+	    Map<String, Object> resultMap = new HashMap<>();
+	    
+	    // Retrieve store info list
+	    List<StoreDTO> storeInfoList = memberService.storeInfo(memberId);
+	    resultMap.put("storeInfo", storeInfoList);
+	    
+	    // Retrieve profile information
+	    int profileNo = memberService.profileNo(memberId);
+	    String profilePath = memberService.profilePath(profileNo);
+	    resultMap.put("profilePath", profilePath);
+	    
+	    return resultMap;
+	}
+
+}

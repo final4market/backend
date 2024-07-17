@@ -1,0 +1,7 @@
+package com.market.dto;
+
+public class SellerDTO {
+	private String memberId;
+	private int followers;
+	private int saleQuantity;
+}

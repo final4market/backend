@@ -1,0 +1,5 @@
+package com.market.dto;
+
+public class SellerDTO {
+
+}

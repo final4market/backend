@@ -78,8 +78,8 @@
         		<if test="memberAddr != null and memberAddr != ''">
             		, member_address = #{memberAddr}
         		</if>
-        		<if test="memberPwd != null and memberPwd != ''">
-            		, member_passwd = #{memberPwd}
+        		<if test="memberPasswd != null and memberPasswd != ''">
+            		, member_passwd = #{memberPasswd}
         		</if>
     		WHERE member_id = #{memberId}
     </update>

@@ -2,9 +2,9 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com._market.demo.mapper.MemberMapper">
-	
-    <resultMap type="com._market.demo.dto.MemberDTO" id="member">
+<mapper namespace="com.market.mapper.MemberMapper">
+
+    <resultMap type="com.market.dto.MemberDTO" id="member">
         <id column="member_id" property="memberId" />
         <result column="member_name" property="memberName" />
         <result column="member_passwd" property="memberPwd" />
@@ -50,7 +50,7 @@
         </if>
      </select>   
     
-     <update id="updateMember" parameterType="com._market.demo.dto.MemberDTO">
+     <update id="updateMember" parameterType="com.market.dto.MemberDTO">
             UPDATE member
     		SET 
        			member_name = #{memberName}, 

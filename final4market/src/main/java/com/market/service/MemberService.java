@@ -1,12 +1,12 @@
-package com._market.demo.service;
+package com.market.service;
 
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
-import com._market.demo.dto.MemberDTO;
-import com._market.demo.mapper.MemberMapper;
+import com.market.dto.MemberDTO;
+import com.market.mapper.MemberMapper;
 
 @Service
 public class MemberService {

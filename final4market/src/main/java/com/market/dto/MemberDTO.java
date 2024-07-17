@@ -1,4 +1,4 @@
-package com._market.demo.dto;
+package com.market.dto;
 
 import java.time.LocalDate;
 import org.apache.ibatis.type.Alias;

@@ -1,7 +1,7 @@
-package com._market.demo.controller;
+package com.market.controller;
 
-import com._market.demo.dto.MemberDTO;
-import com._market.demo.service.MemberService;
+import com.market.dto.MemberDTO;
+import com.market.service.MemberService;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

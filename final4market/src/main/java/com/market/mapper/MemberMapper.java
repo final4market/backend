@@ -1,11 +1,11 @@
-package com._market.demo.mapper;
+package com.market.mapper;
 
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com._market.demo.dto.MemberDTO;
+import com.market.dto.MemberDTO;
 
 @Mapper
 public interface MemberMapper {

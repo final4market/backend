@@ -54,6 +54,9 @@
     <if test="parentNumber == 5">
         START WITH parent_category_no = 5
     </if>
+      <if test="parentNumber == 6">
+        START WITH parent_category_no = 6
+    </if>
     CONNECT BY PRIOR category_no = parent_category_no
     ORDER SIBLINGS BY category_no
 </select>
@@ -62,7 +65,7 @@
 <select id="selectAllCategory" resultMap="category">
     SELECT category_no, category_name, parent_category_no
    FROM Category
-   where category_no in(1,2,3,4,5)
+   where parent_category_no is null
 </select>
 
 
@@ -76,7 +79,7 @@
 </insert>
  
 <insert id="insertProductImage" parameterType="ProductImage" >
-insert into board_file(PRODUCT_IMAGE_PATH, product_no) 
+insert into PRODUCT_IMAGE(PRODUCT_IMAGE_PATH, product_no) 
 		values(#{path},#{productNo})
 </insert>
 

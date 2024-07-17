@@ -3,61 +3,111 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.market.mapper.ProductMapper">
-	<!-- ResultMap -->
-	<resultMap type="com.market.dto.ProductDTO" id="product">
-		<id column="PRODUCT_NO" property="productNo" />
-		<result column="MEMBER_ID" property="memberId" />
-		<result column="PRODUCT_PRICE" property="productPrice" />
-		<result column="PRODUCT_COUNT" property="productCount" />
-		<result column="PRODUCT_DATE" property="productDate" />
-		<result column="PRODUCT_STATUS" property="productStatus" />
-		<result column="PRODUCT_CONTENT" property="productContent" />
-		<result column="PRODUCT_SALE" property="productSale" />
-		<result column="PRODUCT_TITLE" property="productTitle" />
-		<result column="PRODUCT_LIKE" property="productLike" />
-		<result column="CATEGORY_NO" property="categoryNo" />
-		<result column="DELIVERY_NO" property="deliveryNo" />
-	</resultMap>
-	
-	<resultMap type="com.market.dto.ProductImageDTO" id="productImg">
-		<id column="PRODUCT_NO" property="productNo" />
-		<result column="PRODUCT_IMAGE_PATH" property="productImagePath" />
-	</resultMap>
-	
-	<resultMap type="com.market.dto.DeliveryDTO" id="delivery">
-		<id column="DELIVERY_NO" property="deliveryNo" />
-		<result column="DELIVERY_NAME" property="deliveryName"/>
-		<result column="TRADE_AREA" property="tradeArea"/>
-		<result column="DELIVERY_CHARGE" property="deliveryCharge"/>
-	</resultMap>
-	
-	<resultMap type="com.market.dto.CategoryDTO" id="category">
-		<id column="CATEGORY_NO" property="categoryNo" />
-		<result column="CATEGORY_NAME" property="categoryName"/>
-	</resultMap>
-	
-	<select id="productImage" parameterType="int" resultMap="productImg">
-		select * from product_image where product_no = #{productNo}
-	</select>
-	
-	<select id="productInfo" parameterType="int" resultMap="product">
-		SELECT * FROM PRODUCT_VIEW WHERE PRODUCT_NO = #{productNo}
-	</select>
-	
-	<select id="deliveryInfo" parameterType="int" resultMap="delivery">
-		select * from delivery_view where product_no = #{productNo}
-	</select>
-	
-	<select id="categoryInfo" parameterType="int" resultMap="category">
-		SELECT *
-		FROM CATEGORY
-		START WITH CATEGORY_NO = #{categoryNo}
-		CONNECT BY PRIOR PARENT_CATEGORY_NO = CATEGORY_NO
-	</select>
+    <!-- ResultMap for ProductDTO -->
+    <resultMap type="com.market.dto.ProductDTO" id="product">
+        <id column="PRODUCT_NO" property="productNo" />
+        <result column="MEMBER_ID" property="memberId"/>
+        <result column="PRODUCT_PRICE" property="productPrice"/>
+        <result column="PRODUCT_COUNT" property="productCount"/>
+        <result column="PRODUCT_DATE" property="productDate"/>
+        <result column="PRODUCT_STATUS" property="productStatus"/>
+        <result column="PRODUCT_CONTENT" property="productContent"/>
+        <result column="PRODUCT_SALE" property="productSale"/>
+        <result column="PRODUCT_TITLE" property="productTitle"/>
+        <result column="CATEGORY_NO" property="categoryNo"/>
+        <result column="DELIVERY_NO" property="deliveryNo"/>
+        <result column="TRADE_AREA" property="tradeArea"/>
+        <result column="PRODUCT_LIKE" property="productLike"/>
+    </resultMap>
+
+    <!-- ResultMap for ProductImageDTO -->
+    <resultMap type="com.market.dto.ProductImageDTO" id="productImg">
+        <id column="PRODUCT_NO" property="productNo" />
+        <result column="PRODUCT_IMAGE_PATH" property="productImagePath" />
+    </resultMap>
+
+    <!-- ResultMap for DeliveryDTO -->
+    <resultMap type="com.market.dto.DeliveryDTO" id="delivery">
+        <id column="DELIVERY_NO" property="deliveryNo" />
+        <result column="DELIVERY_NAME" property="deliveryName"/>
+        <result column="TRADE_AREA" property="tradeArea"/>
+        <result column="DELIVERY_CHARGE" property="deliveryCharge"/>
+    </resultMap>
+
+    <!-- ResultMap for CategoryDTO -->
+    <resultMap type="com.market.dto.CategoryDTO" id="category">
+        <id column="CATEGORY_NO" property="categoryNo" />
+        <result column="CATEGORY_NAME" property="categoryName"/>
+        <result column="PARENT_CATEGORY_NO" property="parentCategoryNo" />
+    </resultMap>
+
+
+    <select id="productImage" parameterType="int" resultMap="productImg">
+        SELECT * FROM product_image WHERE product_no = #{productNo}
+    </select>
+
+    <select id="productInfo" parameterType="int" resultMap="product">
+        SELECT * FROM PRODUCT_VIEW WHERE PRODUCT_NO = #{productNo}
+    </select>
+
+    <select id="deliveryInfo" parameterType="int" resultMap="delivery">
+        SELECT * FROM delivery_view WHERE product_no = #{productNo}
+    </select>
+
+    <select id="categoryInfo" parameterType="int" resultMap="category">
+        SELECT *
+        FROM CATEGORY
+        START WITH CATEGORY_NO = #{categoryNo}
+        CONNECT BY PRIOR PARENT_CATEGORY_NO = CATEGORY_NO
+    </select>
+
+    <select id="selectAllProduct" resultMap="product">
+        SELECT * FROM product
+    </select>
+
+    <select id="selectParentCategory" resultMap="category">
+        SELECT category_no, category_name, parent_category_no
+        FROM Category
+        <if test="parentNumber == 1">
+            START WITH parent_category_no = 1
+        </if>
+        <if test="parentNumber == 2">
+            START WITH parent_category_no = 2
+        </if>
+        <if test="parentNumber == 3">
+            START WITH parent_category_no = 3
+        </if>
+        <if test="parentNumber == 4">
+            START WITH parent_category_no = 4
+        </if>
+        <if test="parentNumber == 5">
+            START WITH parent_category_no = 5
+        </if>
+        <if test="parentNumber == 6">
+            START WITH parent_category_no = 6
+        </if>
+        CONNECT BY PRIOR category_no = parent_category_no
+        ORDER SIBLINGS BY category_no
+    </select>
+
+    <select id="selectAllCategory" resultMap="category">
+        SELECT category_no, category_name, parent_category_no
+        FROM Category
+        WHERE parent_category_no IS NULL
+    </select>
+
+    <select id="getProductNo" resultType="int">
+        SELECT PRODUCT_seq.nextval FROM dual
+    </select>
+
+    <insert id="insertProduct" parameterType="com.market.dto.ProductDTO">
+        INSERT INTO Product (product_no, product_price, product_status, product_content, product_title, category_no, delivery_no, trade_area, member_id)
+        VALUES (#{productNo}, #{productPrice}, #{productStatus}, #{productContent}, #{productTitle}, #{categoryNo}, #{deliveryNo}, #{tradeArea}, 'member5')
+    </insert>
+
+    <insert id="insertProductImage" parameterType="com.market.dto.ProductImageDTO">
+        INSERT INTO PRODUCT_IMAGE(PRODUCT_IMAGE_PATH, product_no)
+        VALUES (#{productImagePath}, #{productNo})
+    </insert>
 </mapper>
-
-
-
-
-
 

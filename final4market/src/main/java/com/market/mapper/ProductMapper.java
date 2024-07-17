@@ -11,6 +11,7 @@ import com.market.dto.ProductImageDTO;
 
 @Mapper
 public interface ProductMapper {
+
 	List<ProductImageDTO> productImage(int productNo);
 
 	ProductDTO productInfo(int productNo);
@@ -20,4 +21,19 @@ public interface ProductMapper {
 	List<CategoryDTO> categoryInfo(int categoryNo);
 
 	List<ProductDTO> selectAllProduct();
+
+	int insertProduct(ProductDTO dto);
+
+	int getProductNo();
+
+	List<CategoryDTO> selectAllCategory();
+
+	List<CategoryDTO> selectParentCategory(int parNum);
+
+	int insertProductImage(ProductImageDTO productImageDTO);
+
+	List<ProductImageDTO> selectAllProductImage();
+
+	List<ProductDTO> selectSellerAllProduct();
+
 }

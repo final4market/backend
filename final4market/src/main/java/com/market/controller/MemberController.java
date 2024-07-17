@@ -15,27 +15,27 @@ import java.util.Map;
 @RequestMapping("/api/members")
 @CrossOrigin(origins = "http://localhost:3000")
 public class MemberController {
-    private MemberService service;
+    private MemberService memberService;
 
-    public MemberController(MemberService service) {
-        this.service = service;
+    public MemberController(MemberService memberService) {
+        this.memberService = memberService;
     }
 
     @GetMapping
     public ResponseEntity<List<MemberDTO>> selectAllMembers() {
-        List<MemberDTO> members = service.selectAllMembers();
+        List<MemberDTO> members = memberService.selectAllMembers();
         return ResponseEntity.ok(members);
     }
 
     @GetMapping("/admin/search")
     public ResponseEntity<List<MemberDTO>> searchMembers(@RequestParam Map<String, String> params) {
-        List<MemberDTO> members = service.searchMembers(params);
+        List<MemberDTO> members = memberService.searchMembers(params);
         return ResponseEntity.ok(members);
     }
 
     @PutMapping("/admin/update")
     public ResponseEntity<Map<String, Object>> updateMember(@RequestBody MemberDTO dto) {
-        int count = service.updateMember(dto);        
+        int count = memberService.updateMember(dto);        
         Map<String, Object> map = new HashMap<>();
         map.put("count", count);
         map.put("msg", count == 0 ? "회원정보 수정 실패" : "회원정보 수정 성공");
@@ -44,7 +44,7 @@ public class MemberController {
 
     @DeleteMapping("/admin/{memberId}")
     public ResponseEntity<Map<String, Object>> deleteMember(@PathVariable String memberId) {
-        int count = service.deleteMember(memberId);
+        int count = memberService.deleteMember(memberId);
         Map<String, Object> map = new HashMap<>();
         map.put("count", count);
         map.put("msg", count == 0 ? "회원정보 삭제 실패" : "회원정보 삭제 성공");

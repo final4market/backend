@@ -3,9 +3,11 @@ package com.market.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
-
 import com.market.dto.CategoryDTO;
 import com.market.dto.DeliveryDTO;
+
+import org.springframework.transaction.annotation.Transactional;
+
 import com.market.dto.ProductDTO;
 import com.market.dto.ProductImageDTO;
 import com.market.mapper.ProductMapper;
@@ -16,6 +18,10 @@ public class ProductService {
 
 	public ProductService(ProductMapper mapper) {
 		this.mapper = mapper;
+	}
+	
+	public List<ProductDTO> selectAllProduct() {
+		return mapper.selectAllProduct();
 	}
 
 	public List<ProductImageDTO> productImage(int productNo) {
@@ -32,14 +38,38 @@ public class ProductService {
 
 	public List<CategoryDTO> categoryInfo(int categoryNo) {
 		return mapper.categoryInfo(categoryNo);
+	}		
+
+	public List<CategoryDTO> selectAllCategory() {
+		return mapper.selectAllCategory();
 	}
 
-	public List<ProductDTO> selectAllProduct() {
-		return mapper.selectAllProduct();
+	public int insertProduct(ProductDTO dto) {
+		return mapper.insertProduct(dto);
 	}
 
-	public String selectAllMypage() {
+	public int getProductNo() {
+		return mapper.getProductNo();
+	}
+
+	public List<CategoryDTO> selectParentCategory(int parNum) {
+		return mapper.selectParentCategory(parNum);
+	}
+
+	public int insertProductImage(ProductImageDTO productImageDTO) {
+		return mapper.insertProductImage(productImageDTO);
 		
-		return null;
 	}
+
+	public List<ProductImageDTO> selectAllProductImage() {
+		return mapper.selectAllProductImage();
+	}
+
+	public List<ProductDTO> selectSellerAllProduct() {
+		return mapper.selectSellerAllProduct();
+	}
+
+  
 }
+
+

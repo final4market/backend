@@ -1,10 +1,14 @@
 package com.market.controller;
 
+import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.market.dto.CategoryDTO;
 import com.market.dto.DeliveryDTO;
@@ -14,6 +18,8 @@ import com.market.service.ProductService;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -50,6 +56,73 @@ public class ProductController {
 		List<CategoryDTO> list = productService.categoryInfo(categoryNo);
 		System.out.println(list);
 		return list; 
+	}
+	
+	@GetMapping("/product/list")
+	public List<ProductDTO> selectAllProduct() {
+	return productService.selectAllProduct();
+	}
+	
+	@GetMapping("/category/list")
+	public List<CategoryDTO> selectAllCategory() {
+		return productService.selectAllCategory();
+	}
+	@GetMapping("/category/list/{parNum}")
+	public List<CategoryDTO> selectParentCategory(@PathVariable int parNum) {
+		return productService.selectParentCategory(parNum);
+	}
+	
+
+	@PostMapping("/product/insert")
+	public Map<String, Object> insertProduct2(@RequestParam Map<String, String> params,
+	                                          @RequestParam("file") MultipartFile[] file) throws NumberFormatException {
+	    Map<String, Object> map = new HashMap<>();
+	    try {
+	        ProductDTO dto = new ProductDTO();
+	        dto.setProductTitle(params.get("productTitle"));
+	        dto.setProductPrice(Integer.parseInt(params.get("productPrice")));
+	        dto.setCategoryNo(Integer.parseInt(params.get("categoryNo")));
+	        dto.setProductContent(params.get("productContent"));
+	        dto.setProductStatus(params.get("productStatus"));
+	        dto.setDeliveryNo(Integer.parseInt(params.get("deliveryNo")));
+	        dto.setTradeArea(params.get("tradeArea"));
+	        
+	        // deliveryCharge 값이 null일 경우를 처리
+	        String deliveryChargeStr = params.get("deliveryCharge");
+	        dto.setDeliveryCharge(deliveryChargeStr != null && !deliveryChargeStr.isEmpty() ? Integer.parseInt(deliveryChargeStr) : 0);
+	        
+	        int productNo = productService.getProductNo();
+	        dto.setProductNo(productNo);
+	        
+	        productService.insertProduct(dto);
+	        
+	        File root = new File("c:\\fileupload");
+	        if (!root.exists()) {
+	            root.mkdirs();
+	        }
+	        
+	        for (int i = 0; i < file.length; i++) {
+	            if (file[i].getSize() == 0) {
+	                continue;
+	            }
+	            File f = new File(root, file[i].getOriginalFilename());
+	            file[i].transferTo(f);
+	            ProductImageDTO productImageDTO = new ProductImageDTO(f, productNo);
+	            productService.insertProductImage(productImageDTO);
+	        }
+	        
+	        map.put("msg", "상품 등록 성공");
+	        map.put("result", true);
+	    } catch (IllegalArgumentException e) {
+	        e.printStackTrace();
+	        map.put("msg", "입력 값 오류: " + e.getMessage());
+	        map.put("result", false);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        map.put("msg", "상품 등록 실패");
+	        map.put("result", false);
+	    }
+	    return map;
 	}
 	
 }

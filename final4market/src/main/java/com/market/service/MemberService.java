@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.market.dto.MemberDTO;
+import com.market.dto.ProfileImageDTO;
 import com.market.mapper.MemberMapper;
 
 @Service
@@ -31,4 +32,8 @@ public class MemberService {
 	public int deleteMember(String memberId) {
         return mapper.deleteMember(memberId);
     }
+
+	public List<ProfileImageDTO> selectAllProfileImage() {
+		return mapper.selectAllProfileImage();
+	}
 }

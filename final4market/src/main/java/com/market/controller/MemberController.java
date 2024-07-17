@@ -6,6 +6,8 @@ import java.util.Map;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.market.dto.StoreDTO;
@@ -34,14 +36,10 @@ public class MemberController {
 	    return profilePath;
 	}
 	
-	@GetMapping("/buyerProfile")
-	public String sellerProfilePath(String memberId) {
-		int profileNo = memberService.profileNo(memberId);
-		String profilePath = memberService.profilePath(profileNo);
-		return profilePath;
+	@PostMapping("/buyerProfile")
+	public String buyerProfile(@RequestBody List<String> memberId) {
+		System.out.println(memberId);
+		return null;
 	}
-	
-	
-
 
 }

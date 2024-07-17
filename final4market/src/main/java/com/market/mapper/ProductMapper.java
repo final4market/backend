@@ -36,4 +36,11 @@ public interface ProductMapper {
 
 	List<ProductDTO> selectSellerAllProduct();
 
+	List<String> productNo(String memberId);
+
+	List<String> sellerProductImage(String productNo);
+
+	int sellerProductPrice(String productNo);
+
+
 }

@@ -17,6 +17,23 @@
         <result column="member_phone_number" property="memberPhoneNo" />
         <result column="register_date" property="memberRegDate" />
     </resultMap>
+    
+    <resultMap type="com.market.dto.StoreDTO" id="store">
+		<id column="SELLER_ID" property="sellerId" />
+		<result column="BUYER_ID" property="buyerId"/>
+		<result column="PRODUCT_NO" property="productNo"/>
+		<result column="FOLLOWER_COUNT" property="followerCount"/>
+		<result column="SALE_COUNT" property="saleCount"/>
+		<result column="SALE_PRICE" property="salePrice"/>
+		<result column="REVIEW" property="review"/>
+		<result column="SALE_STATUS" property="saleStatus"/>
+		<result column="PROFILE_PATH" property="profileNo"/>
+	</resultMap>
+	
+	<resultMap type="com.market.dto.MemberProfileDTO" id="profile">
+		<id column="MEMBER_PROFILE_NO" property="memberProfileNo" />
+		<result column="MEMBER_PROFILE_PATH" property="memberProfilePath"/>
+	</resultMap>
 
 	<select id="selectAllMembers" resultMap="member">
        SELECT m.member_id, m.member_name, m.member_nick, m.member_email, m.member_address,
@@ -69,7 +86,45 @@
     
     <delete id="deleteMember" parameterType="String">
         DELETE FROM member WHERE member_id=#{memberId}
-    </delete>   
-    
-</mapper>
+    </delete>
+    <select id="storeInfo" resultMap="store" parameterType="String">
+		SELECT 
+		P.PRODUCT_NO ,
+		P.MEMBER_ID AS SELLER_ID,
+		(SELECT BUYER_ID FROM REVIEW r WHERE R.PRODUCT_NO = P.PRODUCT_NO) AS BUYER_ID,
+		P.PRODUCT_PRICE AS SALE_PRICE,
+		P.PRODUCT_SALE AS SALE_STATUS,
+		(SELECT COUNT(*) FROM PRODUCT p2 WHERE P2.MEMBER_ID = #{memberId}) AS SALE_COUNT,
+		(SELECT COUNT(*) FROM FAVORITES f WHERE F.SELLER_ID = #{memberId}) AS FOLLOWER_COUNT,
+		(SELECT REVIEW FROM REVIEW r WHERE R.PRODUCT_NO = P.PRODUCT_NO) AS REVIEW
+		FROM PRODUCT p
+		WHERE P.MEMBER_ID = #{memberId}
+	</select>
+	
+	<select id="profileNo" parameterType="String">
+		SELECT m.MEMBER_PROFILE_NO  FROM "MEMBER" M WHERE M.MEMBER_ID = #{memberId}
+	</select>
+	
+	<select id="profilePath" parameterType="int">
+		SELECT MP.PROFILE_PATH  FROM MEMBER_PROFILE mp WHERE MP.MEMBER_PROFILE_NO = #{profileNo}
+	</select>
+	
+	<select id="buyerProfileNo" parameterType="list" resultType="string">
+	    SELECT m.MEMBER_PROFILE_NO 
+	    FROM MEMBER M 
+	    WHERE M.MEMBER_ID IN 
+	    <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+	        #{item}
+	    </foreach>
+	</select>
 
+	<select id="buyerProfilePath" parameterType="list" resultType="map">
+	    SELECT M.MEMBER_ID AS memberId, MP.PROFILE_PATH AS profilePath 
+	    FROM MEMBER_PROFILE MP
+	    JOIN MEMBER M ON MP.MEMBER_PROFILE_NO = M.MEMBER_PROFILE_NO
+	    WHERE MP.MEMBER_PROFILE_NO IN 
+	    <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+	        #{item}
+	    </foreach>
+	</select>     
+</mapper>

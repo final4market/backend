@@ -69,7 +69,18 @@ public class ProductService {
 		return mapper.selectSellerAllProduct();
 	}
 
-  
+	public List<String> productNo(String memberId) {
+		return mapper.productNo(memberId);
+	}
+
+	public List<String> sellerProductImage(String productNo) {
+		return mapper.sellerProductImage(productNo);
+	}
+
+	public int sellerProductPrice(String productNo) {
+		return mapper.sellerProductPrice(productNo);
+	}
+
 }
 
 

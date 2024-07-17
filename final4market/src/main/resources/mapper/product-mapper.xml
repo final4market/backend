@@ -25,7 +25,7 @@
     <!-- ResultMap for ProductImageDTO -->
     <resultMap type="com.market.dto.ProductImageDTO" id="productImage">
         <id column="PRODUCT_NO" property="productNo" />
-        <result column="PRODUCT_IMAGE_PATH" property="productImagePath" />
+        <result column="PRODUCT_IMAGE_PATH" property="path" />
     </resultMap>
 
     <!-- ResultMap for DeliveryDTO -->
@@ -43,37 +43,10 @@
         <result column="PARENT_CATEGORY_NO" property="parentCategoryNo" />
     </resultMap>
 
+    <!-- Select statements -->
     <select id="productImage" parameterType="int" resultMap="productImage">
         SELECT * FROM product_image WHERE product_no = #{productNo}
     </select>
-   
-  <select id="selectParentCategory" resultMap="category">
-    SELECT category_no, category_name, parent_category_no
-    FROM Category
-    <if test="parentNumber == 1">
-        START WITH parent_category_no = 1
-    </if>
-    <if test="parentNumber == 2">
-        START WITH parent_category_no = 2
-    </if>
-    <if test="parentNumber == 3">
-        START WITH parent_category_no = 3
-    </if>
-    <if test="parentNumber == 4">
-        START WITH parent_category_no = 4
-    </if>
-    <if test="parentNumber == 5">
-        START WITH parent_category_no = 5
-    </if>
-      <if test="parentNumber == 6">
-        START WITH parent_category_no = 6
-    </if>
-      <if test="parentNumber == 7">
-        START WITH parent_category_no = 7
-    </if>
-    CONNECT BY PRIOR category_no = parent_category_no
-    ORDER SIBLINGS BY category_no
-</select>  
 
     <select id="productInfo" parameterType="int" resultMap="product">
         SELECT * FROM PRODUCT_VIEW WHERE PRODUCT_NO = #{productNo}
@@ -94,6 +67,34 @@
         SELECT * FROM product
     </select>
 
+    <select id="selectParentCategory" resultMap="category">
+        SELECT category_no, category_name, parent_category_no
+        FROM Category
+        <if test="parentNumber == 1">
+            START WITH parent_category_no = 1
+        </if>
+        <if test="parentNumber == 2">
+            START WITH parent_category_no = 2
+        </if>
+        <if test="parentNumber == 3">
+            START WITH parent_category_no = 3
+        </if>
+        <if test="parentNumber == 4">
+            START WITH parent_category_no = 4
+        </if>
+        <if test="parentNumber == 5">
+            START WITH parent_category_no = 5
+        </if>
+        <if test="parentNumber == 6">
+            START WITH parent_category_no = 6
+        </if>
+        <if test="parentNumber == 7">
+            START WITH parent_category_no = 7
+        </if>
+        CONNECT BY PRIOR category_no = parent_category_no
+        ORDER SIBLINGS BY category_no
+    </select>
+
     <select id="selectAllCategory" resultMap="category">
         SELECT category_no, category_name, parent_category_no
         FROM Category
@@ -104,15 +105,28 @@
         SELECT PRODUCT_seq.nextval FROM dual
     </select>
 
-	
-<insert id="insertProduct" parameterType="Product">
-    INSERT INTO Product (product_no, product_price, product_status, product_content, product_title, category_no, delivery_no, trade_area, DELIVERY_CHARGE, member_id)
-    VALUES (#{productNo}, #{productPrice}, #{productStatus}, #{productContent}, #{productTitle}, #{categoryNo}, #{deliveryNo}, #{tradeArea},#{deliveryCharge}, 'member5')
-</insert>
- 
-<insert id="insertProductImage" parameterType="ProductImage" >
-insert into PRODUCT_IMAGE(PRODUCT_IMAGE_PATH, product_no) 
-		values(#{productImagePath},#{productNo})
-</insert>
+    <!-- Insert statements -->
+    <insert id="insertProduct" parameterType="com.market.dto.ProductDTO">
+        INSERT INTO Product (product_no, product_price, product_status, product_content, product_title, category_no, delivery_no, trade_area, delivery_charge, member_id)
+        VALUES (#{productNo}, #{productPrice}, #{productStatus}, #{productContent}, #{productTitle}, #{categoryNo}, #{deliveryNo}, #{tradeArea}, #{deliveryCharge}, 'member5')
+    </insert>
+
+    <insert id="insertProductImage" parameterType="com.market.dto.ProductImageDTO">
+        INSERT INTO PRODUCT_IMAGE(PRODUCT_IMAGE_PATH, product_no)
+        VALUES (#{path}, #{productNo})
+    </insert>
+
+    <!-- Additional Select statements -->
+    <select id="productNo" parameterType="String">
+        SELECT product_no FROM product WHERE member_id = #{memberId}
+    </select>
+
+    <select id="sellerProductImage" parameterType="String">
+        SELECT PRODUCT_IMAGE_PATH FROM product_image WHERE product_no = #{productNo}
+    </select>
+
+    <select id="sellerProductPrice" parameterType="String">
+        SELECT product_price FROM product WHERE product_no = #{productNo}
+    </select>
 
 </mapper>

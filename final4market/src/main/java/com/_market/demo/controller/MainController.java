@@ -49,38 +49,15 @@ public class MainController {
 	                                          @RequestParam("file") MultipartFile[] file) throws NumberFormatException {
 	    Map<String, Object> map = new HashMap<>();
 	    try {
-	        String productPriceStr = params.get("productPrice");
-	        int productPrice = 0; // 기본값 설정
-	        if (productPriceStr != null && !productPriceStr.isEmpty()) {
-	            productPrice = Integer.parseInt(productPriceStr);
-	        } else {
-	            throw new IllegalArgumentException("productPrice is missing or empty");
-	        }
-	        
-	        String categoryNoStr = params.get("categoryNo");
-	        int categoryNo = 0; // 기본값 설정
-	        if (categoryNoStr != null && !categoryNoStr.isEmpty()) {
-	            categoryNo = Integer.parseInt(categoryNoStr);
-	        } else {
-	            throw new IllegalArgumentException("categoryNo is missing or empty");
-	        }
-	        
-	        String deliveryNoStr = params.get("deliveryNo");
-	        int deliveryNo = 0; // 기본값 설정
-	        if (deliveryNoStr != null && !deliveryNoStr.isEmpty()) {
-	            deliveryNo = Integer.parseInt(deliveryNoStr);
-	        } else {
-	            throw new IllegalArgumentException("deliveryNo is missing or empty");
-	        }
-	        
 	        ProductDTO dto = new ProductDTO();
 	        dto.setProductTitle(params.get("productTitle"));
-	        dto.setProductPrice(productPrice);
-	        dto.setCategoryNo(categoryNo);
+	        dto.setProductPrice(Integer.parseInt(params.get("productPrice")));
+	        dto.setCategoryNo(Integer.parseInt( params.get("categoryNo")));
 	        dto.setProductContent(params.get("productContent"));
 	        dto.setProductStatus(params.get("productStatus"));
-	        dto.setDeliveryNo(deliveryNo);
+	        dto.setDeliveryNo(Integer.parseInt(params.get("deliveryNo")));
 	        dto.setTradeArea(params.get("tradeArea"));
+	     
 	        
 	        int productNo = service.getProductNo();
 	        dto.setProductNo(productNo);

@@ -17,6 +17,7 @@
     <result column="CATEGORY_NO" property="categoryNo"/>
     <result column="DELIVERY_NO" property="deliveryNo"/>
     <result column="TRADE_AREA" property="tradeArea"/>
+    <result column="DELIVERY_CHARGE" property="deliveryCharge"/>
 </resultMap>
 
   <resultMap type="category" id="category" >
@@ -57,6 +58,9 @@
       <if test="parentNumber == 6">
         START WITH parent_category_no = 6
     </if>
+      <if test="parentNumber == 7">
+        START WITH parent_category_no = 7
+    </if>
     CONNECT BY PRIOR category_no = parent_category_no
     ORDER SIBLINGS BY category_no
 </select>
@@ -74,8 +78,8 @@
 	</select>
 	
 <insert id="insertProduct" parameterType="Product">
-    INSERT INTO Product (product_no, product_price, product_status, product_content, product_title, category_no, delivery_no, trade_area, member_id)
-    VALUES (#{productNo}, #{productPrice}, #{productStatus}, #{productContent}, #{productTitle}, #{categoryNo}, #{deliveryNo}, #{tradeArea}, 'member5')
+    INSERT INTO Product (product_no, product_price, product_status, product_content, product_title, category_no, delivery_no, trade_area, DELIVERY_CHARGE, member_id)
+    VALUES (#{productNo}, #{productPrice}, #{productStatus}, #{productContent}, #{productTitle}, #{categoryNo}, #{deliveryNo}, #{tradeArea},#{deliveryCharge}, 'member5')
 </insert>
  
 <insert id="insertProductImage" parameterType="ProductImage" >

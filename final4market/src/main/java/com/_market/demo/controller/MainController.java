@@ -52,12 +52,15 @@ public class MainController {
 	        ProductDTO dto = new ProductDTO();
 	        dto.setProductTitle(params.get("productTitle"));
 	        dto.setProductPrice(Integer.parseInt(params.get("productPrice")));
-	        dto.setCategoryNo(Integer.parseInt( params.get("categoryNo")));
+	        dto.setCategoryNo(Integer.parseInt(params.get("categoryNo")));
 	        dto.setProductContent(params.get("productContent"));
 	        dto.setProductStatus(params.get("productStatus"));
 	        dto.setDeliveryNo(Integer.parseInt(params.get("deliveryNo")));
 	        dto.setTradeArea(params.get("tradeArea"));
-	     
+	        
+	        // deliveryCharge 값이 null일 경우를 처리
+	        String deliveryChargeStr = params.get("deliveryCharge");
+	        dto.setDeliveryCharge(deliveryChargeStr != null && !deliveryChargeStr.isEmpty() ? Integer.parseInt(deliveryChargeStr) : 0);
 	        
 	        int productNo = service.getProductNo();
 	        dto.setProductNo(productNo);

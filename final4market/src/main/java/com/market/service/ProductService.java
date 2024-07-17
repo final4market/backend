@@ -1,14 +1,14 @@
-package com._market.demo.service;
+package com.market.service;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com._market.demo.dto.CategoryDTO;
-import com._market.demo.dto.ProductDTO;
-import com._market.demo.dto.ProductImageDTO;
-import com._market.demo.mapper.ProductMapper;
+import com.market.dto.CategoryDTO;
+import com.market.dto.ProductDTO;
+import com.market.dto.ProductImageDTO;
+import com.market.mapper.ProductMapper;
 
 @Service
 public class ProductService {

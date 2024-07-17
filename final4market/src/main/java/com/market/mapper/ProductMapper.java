@@ -1,12 +1,12 @@
-package com._market.demo.mapper;
+package com.market.mapper;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com._market.demo.dto.CategoryDTO;
-import com._market.demo.dto.ProductDTO;
-import com._market.demo.dto.ProductImageDTO;
+import com.market.dto.CategoryDTO;
+import com.market.dto.ProductDTO;
+import com.market.dto.ProductImageDTO;
 
 @Mapper
 public interface ProductMapper {

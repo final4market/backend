@@ -1,4 +1,4 @@
-package com._market.demo.controller;
+package com.market.controller;
 
 import java.io.File;
 import java.util.HashMap;
@@ -14,11 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com._market.demo.dto.CategoryDTO;
-import com._market.demo.dto.ProductDTO;
-import com._market.demo.dto.ProductImageDTO;
-import com._market.demo.service.ProductService;
-
+import com.market.dto.CategoryDTO;
+import com.market.dto.ProductDTO;
+import com.market.dto.ProductImageDTO;
+import com.market.service.ProductService;
 
 
 @RestController

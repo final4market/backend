@@ -22,10 +22,10 @@ import com.market.service.ProductService;
 
 @RestController
 @CrossOrigin(origins="*", allowedHeaders = "*")
-public class MainController {
+public class ProductController {
   private ProductService service;
   
-  public MainController(ProductService service) {
+  public ProductController(ProductService service) {
 	  this.service = service;
   }
 	@GetMapping("/Product/list")

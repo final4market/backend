@@ -1,31 +1,39 @@
 package com.market.dto;
 
+import org.apache.ibatis.type.Alias;
+
+@Alias("profile")
 public class MemberProfileDTO {
-	private int MemberProfileNo;
-	private String MemberProfilePath;
+	private int memberProfileNo;
+	private String memberProfilePath;
 	
 	public MemberProfileDTO() {
 	}
+	
+	public MemberProfileDTO(int memberProfileNo, String memberProfilePath) {
+		this.memberProfileNo = memberProfileNo;
+		this.memberProfilePath = memberProfilePath;
+	}
 
 	public int getMemberProfileNo() {
-		return MemberProfileNo;
+		return memberProfileNo;
 	}
 
 	public void setMemberProfileNo(int memberProfileNo) {
-		MemberProfileNo = memberProfileNo;
+		this.memberProfileNo = memberProfileNo;
 	}
 
 	public String getMemberProfilePath() {
-		return MemberProfilePath;
+		return memberProfilePath;
 	}
 
 	public void setMemberProfilePath(String memberProfilePath) {
-		MemberProfilePath = memberProfilePath;
+		this.memberProfilePath = memberProfilePath;
 	}
 
 	@Override
 	public String toString() {
-		return "MemberProfileDTO [MemberProfileNo=" + MemberProfileNo + ", MemberProfilePath=" + MemberProfilePath
+		return "MemberProfileDTO [MemberProfileNo=" + memberProfileNo + ", MemberProfilePath=" + memberProfilePath
 				+ "]";
 	}
 	

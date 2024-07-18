@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,8 @@ import jakarta.servlet.http.HttpServletRequest;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class ReportController {
 
+	private static final Logger logger = LoggerFactory.getLogger(ReportController.class);
+	
     private final ReportService reportService;
 
     @Autowired
@@ -42,7 +46,10 @@ public class ReportController {
                                                               @RequestParam Map<String, String> params) {
         String adminId = request.getHeader("Admin-Id");
         String claimerId = request.getHeader("Claimer-Id");
-        List<ReportDTO> reports = reportService.getFilteredReports(adminId, claimerId, params);
+        params.put("adminId", adminId);
+        params.put("claimerId", claimerId);
+        logger.debug("Filters received: {}", params);
+        List<ReportDTO> reports = reportService.getFilteredReports(params);
         return ResponseEntity.ok(reports);
     }
 
@@ -63,12 +70,17 @@ public class ReportController {
     }
 
     @PutMapping("/reports")
-    public ResponseEntity<Map<String, Object>> updateReportStatus(@RequestParam("productNo") int productNo,
-                                                                  @RequestParam("sellerId") String sellerId,
-                                                                  @RequestBody ReportDTO reportDTO,
-                                                                  HttpServletRequest request) {
+    public ResponseEntity<Map<String, Object>> updateReportStatus(
+        @RequestBody Map<String, String> body,
+        HttpServletRequest request) {
+
+        int productNo = Integer.parseInt(body.get("productNo"));
+        String sellerId = body.get("sellerId");
+        char reportStatus = body.get("reportStatus").charAt(0);
+
         String claimerId = request.getHeader("Claimer-Id");
-        int count = reportService.updateReportStatus(productNo, claimerId, sellerId, reportDTO.getReportStatus());
+
+        int count = reportService.updateReportStatus(productNo, claimerId, sellerId, reportStatus);
         Map<String, Object> response = new HashMap<>();
         response.put("count", count);
         response.put("msg", count == 0 ? "신고 처리 상태 수정 실패" : "신고 처리 상태 수정 성공");

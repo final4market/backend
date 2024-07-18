@@ -12,7 +12,7 @@
         <result property="reportDate" column="REPORT_DATE"/>
         <result property="reportContent" column="REPORT_CONTENT"/>
         <result property="reportStatus" column="REPORT_STATUS"/>
-        <result property="readStatus" column="READ_STATUS"/> <!-- Map the readStatus -->
+        <result property="readStatus" column="READ_STATUS"/>
     </resultMap>
 
     <select id="getAllReports" resultMap="reportResultMap">
@@ -22,8 +22,23 @@
         ON R.PRODUCT_NO = RS.PRODUCT_NO
         AND R.CLAIMER_ID = RS.CLAIMER_ID
         AND R.SELLER_ID = RS.SELLER_ID
+        WHERE RS.ADMIN_ID = #{adminId}
     </select>
 
+    <select id="getFilteredReports" parameterType="map" resultMap="reportResultMap">
+        SELECT R.PRODUCT_NO, R.CLAIMER_ID, R.SELLER_ID, R.REPORT_DATE, R.REPORT_CONTENT, R.REPORT_STATUS, RS.READ_STATUS
+        FROM REPORT R
+        LEFT JOIN REPORT_READ_STATUS RS
+        ON R.PRODUCT_NO = RS.PRODUCT_NO
+        AND R.CLAIMER_ID = RS.CLAIMER_ID
+        AND R.SELLER_ID = RS.SELLER_ID
+        WHERE RS.ADMIN_ID = #{adminId}
+        <if test="productNo != null">AND R.PRODUCT_NO = #{productNo}</if>
+        <if test="sellerId != null">AND R.SELLER_ID = #{sellerId}</if>
+        <if test="claimerId != null">AND R.CLAIMER_ID = #{claimerId}</if>
+        <if test="startDate != null and endDate != null">AND R.REPORT_DATE BETWEEN #{startDate} AND #{endDate}</if>
+    </select>
+    
     <select id="getReportById" parameterType="map" resultMap="reportResultMap">
         SELECT R.PRODUCT_NO, R.CLAIMER_ID, R.SELLER_ID, R.REPORT_DATE, R.REPORT_CONTENT, R.REPORT_STATUS, RS.READ_STATUS
         FROM REPORT R
@@ -34,10 +49,16 @@
         WHERE R.PRODUCT_NO = #{productNo} AND R.CLAIMER_ID = #{claimerId} AND R.SELLER_ID = #{sellerId}
     </select>
 
-    <update id="updateReportStatus" parameterType="map">
+    <update id="updateReportStatus">
         UPDATE REPORT
         SET REPORT_STATUS = #{reportStatus}
         WHERE PRODUCT_NO = #{productNo} AND CLAIMER_ID = #{claimerId} AND SELLER_ID = #{sellerId}
+    </update>
+    
+    <update id="updateReadStatus" parameterType="map">
+        UPDATE REPORT_READ_STATUS
+        SET READ_STATUS = #{readStatus}
+        WHERE PRODUCT_NO = #{productNo} AND CLAIMER_ID = #{claimerId} AND SELLER_ID = #{sellerId} AND ADMIN_ID = #{adminId}
     </update>
 
 </mapper>

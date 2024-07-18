@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.market.mapper.ReportMapper">
+
+    <resultMap id="reportResultMap" type="report">
+        <id property="productNo" column="PRODUCT_NO"/>
+        <id property="claimerId" column="CLAIMER_ID"/>
+        <id property="sellerId" column="SELLER_ID"/>
+        <result property="reportDate" column="REPORT_DATE"/>
+        <result property="reportContent" column="REPORT_CONTENT"/>
+        <result property="reportStatus" column="REPORT_STATUS"/>
+        <result property="readStatus" column="READ_STATUS"/> <!-- Map the readStatus -->
+    </resultMap>
+
+    <select id="getAllReports" resultMap="reportResultMap">
+        SELECT R.PRODUCT_NO, R.CLAIMER_ID, R.SELLER_ID, R.REPORT_DATE, R.REPORT_CONTENT, R.REPORT_STATUS, RS.READ_STATUS
+        FROM REPORT R
+        LEFT JOIN REPORT_READ_STATUS RS
+        ON R.PRODUCT_NO = RS.PRODUCT_NO
+        AND R.CLAIMER_ID = RS.CLAIMER_ID
+        AND R.SELLER_ID = RS.SELLER_ID
+    </select>
+
+    <select id="getReportById" parameterType="map" resultMap="reportResultMap">
+        SELECT R.PRODUCT_NO, R.CLAIMER_ID, R.SELLER_ID, R.REPORT_DATE, R.REPORT_CONTENT, R.REPORT_STATUS, RS.READ_STATUS
+        FROM REPORT R
+        LEFT JOIN REPORT_READ_STATUS RS
+        ON R.PRODUCT_NO = RS.PRODUCT_NO
+        AND R.CLAIMER_ID = RS.CLAIMER_ID
+        AND R.SELLER_ID = RS.SELLER_ID
+        WHERE R.PRODUCT_NO = #{productNo} AND R.CLAIMER_ID = #{claimerId} AND R.SELLER_ID = #{sellerId}
+    </select>
+
+    <update id="updateReportStatus" parameterType="map">
+        UPDATE REPORT
+        SET REPORT_STATUS = #{reportStatus}
+        WHERE PRODUCT_NO = #{productNo} AND CLAIMER_ID = #{claimerId} AND SELLER_ID = #{sellerId}
+    </update>
+
+</mapper>

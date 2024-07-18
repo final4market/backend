@@ -3,6 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.market.mapper.ProductMapper">
+
     <!-- ResultMap for ProductDTO -->
     <resultMap type="com.market.dto.ProductDTO" id="product">
         <id column="PRODUCT_NO" property="productNo" />
@@ -17,13 +18,14 @@
         <result column="CATEGORY_NO" property="categoryNo"/>
         <result column="DELIVERY_NO" property="deliveryNo"/>
         <result column="TRADE_AREA" property="tradeArea"/>
+        <result column="DELIVERY_CHARGE" property="deliveryCharge"/>
         <result column="PRODUCT_LIKE" property="productLike"/>
     </resultMap>
 
     <!-- ResultMap for ProductImageDTO -->
-    <resultMap type="com.market.dto.ProductImageDTO" id="productImg">
+    <resultMap type="com.market.dto.ProductImageDTO" id="productImage">
         <id column="PRODUCT_NO" property="productNo" />
-        <result column="PRODUCT_IMAGE_PATH" property="productImagePath" />
+        <result column="PRODUCT_IMAGE_PATH" property="path" />
     </resultMap>
 
     <!-- ResultMap for DeliveryDTO -->
@@ -41,8 +43,8 @@
         <result column="PARENT_CATEGORY_NO" property="parentCategoryNo" />
     </resultMap>
 
-
-    <select id="productImage" parameterType="int" resultMap="productImg">
+    <!-- Select statements -->
+    <select id="productImage" parameterType="int" resultMap="productImage">
         SELECT * FROM product_image WHERE product_no = #{productNo}
     </select>
 
@@ -86,6 +88,9 @@
         <if test="parentNumber == 6">
             START WITH parent_category_no = 6
         </if>
+        <if test="parentNumber == 7">
+            START WITH parent_category_no = 7
+        </if>
         CONNECT BY PRIOR category_no = parent_category_no
         ORDER SIBLINGS BY category_no
     </select>
@@ -100,13 +105,28 @@
         SELECT PRODUCT_seq.nextval FROM dual
     </select>
 
+    <!-- Insert statements -->
     <insert id="insertProduct" parameterType="com.market.dto.ProductDTO">
-        INSERT INTO Product (product_no, product_price, product_status, product_content, product_title, category_no, delivery_no, trade_area, member_id)
-        VALUES (#{productNo}, #{productPrice}, #{productStatus}, #{productContent}, #{productTitle}, #{categoryNo}, #{deliveryNo}, #{tradeArea}, 'member5')
+        INSERT INTO Product (product_no, product_price, product_status, product_content, product_title, category_no, delivery_no, trade_area, delivery_charge, member_id)
+        VALUES (#{productNo}, #{productPrice}, #{productStatus}, #{productContent}, #{productTitle}, #{categoryNo}, #{deliveryNo}, #{tradeArea}, #{deliveryCharge}, 'member5')
     </insert>
 
     <insert id="insertProductImage" parameterType="com.market.dto.ProductImageDTO">
         INSERT INTO PRODUCT_IMAGE(PRODUCT_IMAGE_PATH, product_no)
-        VALUES (#{productImagePath}, #{productNo})
+        VALUES (#{path}, #{productNo})
     </insert>
+
+    <!-- Additional Select statements -->
+    <select id="productNo" parameterType="String">
+        SELECT product_no FROM product WHERE member_id = #{memberId}
+    </select>
+
+    <select id="sellerProductImage" parameterType="String">
+        SELECT PRODUCT_IMAGE_PATH FROM product_image WHERE product_no = #{productNo}
+    </select>
+
+    <select id="sellerProductPrice" parameterType="String">
+        SELECT product_price FROM product WHERE product_no = #{productNo}
+    </select>
+
 </mapper>

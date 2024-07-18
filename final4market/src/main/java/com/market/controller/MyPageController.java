@@ -13,29 +13,23 @@ import com.market.dto.ProductImageDTO;
 import com.market.dto.ProfileImageDTO;
 import com.market.dto.ReviewDTO;
 import com.market.service.ChatService;
-import com.market.service.ImageService;
 import com.market.service.MemberService;
 import com.market.service.ProductService;
-import com.market.service.ProfileService;
 import com.market.service.ReviewService;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class MyPageController {
 	private ChatService chatService;
-	private ImageService imageService;
 	private MemberService memberService;
 	private ProductService productService;
-	private ProfileService profileService;
 	private ReviewService reviewService;
 
-	public MyPageController(ChatService chatService, ImageService imageService, MemberService memberService,
-			ProductService productService, ProfileService profileService, ReviewService reviewService) {
+	public MyPageController(ChatService chatService, MemberService memberService,
+			ProductService productService, ReviewService reviewService) {
 		this.chatService = chatService;
-		this.imageService = imageService;
 		this.memberService = memberService;
 		this.productService = productService;
-		this.profileService = profileService;
 		this.reviewService = reviewService;
 	}
 
@@ -44,24 +38,24 @@ public class MyPageController {
 		return chatService.selectAllChat();
 	}
 
-	@GetMapping("/image/list")
-	public List<ProductImageDTO> selectAllImage() {
-		return imageService.selectAllImage();
-	}
-
 	@GetMapping("/member/list")
 	public List<MemberDTO> selectAllMembers() {
 		return memberService.selectAllMembers();
 	}
 
-	@GetMapping("/product/list")
-	public List<ProductDTO> selectAllProduct() {
-		return productService.selectAllProduct();
+	@GetMapping("/member/product/list")
+	public List<ProductDTO> selectSellerAllProduct() {
+		return productService.selectSellerAllProduct();
 	}
 
+	@GetMapping("/image/list")
+	public List<ProductImageDTO> selectAllProductImage() {
+		return productService.selectAllProductImage();
+	}
+	
 	@GetMapping("/profile/list")
-	public List<ProfileImageDTO> selectAllProfile() {
-		return profileService.selectAllProfile();
+	public List<ProfileImageDTO> selectAllProfileImage() {
+		return memberService.selectAllProfileImage();
 	}
 
 	@GetMapping("/review/list")

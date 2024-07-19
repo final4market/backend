@@ -5,7 +5,7 @@ import java.util.Map;
 
 
 import com.market.dto.MemberDTO;
-import com.market.dto.ProfileImageDTO;
+import com.market.dto.MemberProfileDTO;
 
 import org.apache.ibatis.annotations.Mapper;
 import com.market.dto.StoreDTO;
@@ -23,7 +23,7 @@ public interface MemberMapper {
 
 	int deleteMember(String memberId);
 
-	List<ProfileImageDTO> selectAllProfileImage();
+	List<MemberProfileDTO> selectAllProfileImage();
 
 	List<StoreDTO> storeInfo(String memberId);
 

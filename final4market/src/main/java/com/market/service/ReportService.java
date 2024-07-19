@@ -3,6 +3,8 @@ package com.market.service;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,8 @@ import com.market.mapper.ReportMapper;
 
 @Service
 public class ReportService {
+	
+	private static final Logger logger = LoggerFactory.getLogger(ReportService.class);
 
     @Autowired
     private ReportMapper reportMapper;
@@ -19,9 +23,10 @@ public class ReportService {
         return reportMapper.getAllReports(adminId);
     }
     
-    public List<ReportDTO> getFilteredReports(String adminId, String claimerId, Map<String, String> params) {
-        return reportMapper.getFilteredReports(adminId, claimerId, params);
-    }
+    public List<ReportDTO> getFilteredReports(Map<String, String> params) {
+    	logger.debug("Params in service: {}", params);
+    	return reportMapper.getFilteredReports(params);
+	}
 
     public ReportDTO getReportById(int productNo, String claimerId, String sellerId) {
         return reportMapper.getReportById(productNo, claimerId, sellerId);
@@ -34,4 +39,5 @@ public class ReportService {
     public int updateReadStatus(int productNo, String claimerId, String sellerId, String adminId, char readStatus) {
         return reportMapper.updateReadStatus(productNo, claimerId, sellerId, adminId, readStatus);
     }
+
 }

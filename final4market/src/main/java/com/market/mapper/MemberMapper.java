@@ -22,17 +22,6 @@ public interface MemberMapper {
 
 	int deleteMember(String memberId);
 
-
-	List<MemberDTO> selectAllMembers();
-
-	List<MemberDTO> searchMembers(Map<String, String> params);
-
-	int updateMember(MemberDTO dto);
-
-	int deleteMember(String memberId);
-
-	List<ProfileImageDTO> selectAllProfileImage();
-
 	List<StoreDTO> storeInfo(String memberId);
 
 	int profileNo(String memberId);

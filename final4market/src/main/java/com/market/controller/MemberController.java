@@ -29,7 +29,6 @@ public class MemberController {
         this.memberService = memberService;
     }
 
-
     @GetMapping
     public ResponseEntity<List<MemberDTO>> selectAllMembers() {
         List<MemberDTO> members = memberService.selectAllMembers();

@@ -36,10 +36,6 @@ public class MemberService {
         return mapper.deleteMember(memberId);
     }
 
-	public List<ProfileImageDTO> selectAllProfileImage() {
-		return mapper.selectAllProfileImage();
-	}
-
 	public List<StoreDTO> storeInfo(String memberId) {
 		return mapper.storeInfo(memberId);
 	}

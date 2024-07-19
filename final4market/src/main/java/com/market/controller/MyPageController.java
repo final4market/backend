@@ -17,56 +17,21 @@ import com.market.dto.ReviewDTO;
 import com.market.dto.MemberProfileDTO;
 import com.market.dto.ProductLikeDTO;
 
-import com.market.service.ChatService;
 import com.market.service.MemberService;
 import com.market.service.ProductService;
-import com.market.service.ReviewService;
-
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class MyPageController {
-	private ChatService chatService;
 	private MemberService memberService;
 	private ProductService productService;
-	private ReviewService reviewService;
 
-	public MyPageController(ChatService chatService, MemberService memberService,
-			ProductService productService, ReviewService reviewService) {
-		this.chatService = chatService;
+	public MyPageController(MemberService memberService,
+			ProductService productService) {
 		this.memberService = memberService;
 		this.productService = productService;
-		this.reviewService = reviewService;
-	}
 
-	@GetMapping("/chat/list")
-	public List<ChatDTO> selectAllChat() {
-		return chatService.selectAllChat();
 	}
-
-	@GetMapping("/member/list")
-	public List<MemberDTO> selectAllMembers() {
-		return memberService.selectAllMembers();
-	}
-
-	@GetMapping("/member/product/list")
-	public List<ProductDTO> selectSellerAllProduct() {
-		return productService.selectSellerAllProduct();
-	}
-
-	@GetMapping("/image/list")
-	public List<ProductImageDTO> selectAllProductImage() {
-		return productService.selectAllProductImage();
-	}
-	
-	@GetMapping("/profile/list")
-	public List<ProfileImageDTO> selectAllProfileImage() {
-		return memberService.selectAllProfileImage();
-	}
-
-	@GetMapping("/review/list")
-	public List<ReviewDTO> selectAllReview() {
-		return reviewService.selectAllReview();
 
 	@GetMapping("/member/{memberProfileNo}/profile")
 	public List<MemberProfileDTO> selectMemberProfile(@PathVariable int memberProfileNo) {
@@ -96,6 +61,7 @@ public class MyPageController {
 	@GetMapping("product/{productNo}/like")
 	public List<ProductLikeDTO> selectProductLike(@PathVariable int productNo) {
 		return productService.selectProductLike(productNo);
+	}
 
 	@GetMapping("product/{productNo}/chat")
 	public List<ChatDTO> selectProductChat(@PathVariable int productNo) {

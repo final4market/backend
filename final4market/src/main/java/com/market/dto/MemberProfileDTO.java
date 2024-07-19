@@ -15,11 +15,6 @@ public class MemberProfileDTO {
 		this.profilePath = profilePath;
 	}
 
-	public MemberProfileDTO(int memberProfileNo, String profilePath) {
-		this.memberProfileNo = memberProfileNo;
-		this.profilePath = profilePath;
-	}
-
 	public int getMemberProfileNo() {
 		return memberProfileNo;
 	}

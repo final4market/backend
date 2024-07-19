@@ -26,9 +26,6 @@ public class ProductService {
 		return mapper.selectAllProduct();
 	}
 
-	public List<ProductDTO> selectAllProduct() {
-		return mapper.selectAllProduct();
-	}
 
 	public List<ProductImageDTO> productImage(int productNo) {
 		return mapper.productImage(productNo);
@@ -45,18 +42,6 @@ public class ProductService {
 	public List<CategoryDTO> categoryInfo(int categoryNo) {
 		return mapper.categoryInfo(categoryNo);
 	}		
-
-	public List<CategoryDTO> selectAllCategory() {
-		return mapper.selectAllCategory();
-	}
-
-	public int insertProduct(ProductDTO dto) {
-		return mapper.insertProduct(dto);
-	}
-
-	public int getProductNo() {
-		return mapper.getProductNo();
-	}
 
 	public List<CategoryDTO> selectAllCategory() {
 		return mapper.selectAllCategory();

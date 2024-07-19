@@ -33,10 +33,12 @@
     AND R.CLAIMER_ID = RS.CLAIMER_ID
     AND R.SELLER_ID = RS.SELLER_ID
     WHERE RS.ADMIN_ID = #{params.adminId}
-    <if test="params.productNo != null">AND R.PRODUCT_NO = #{params.productNo}</if>
-    <if test="params.sellerId != null">AND R.SELLER_ID = #{params.sellerId}</if>
-    <if test="params.claimerId != null">AND R.CLAIMER_ID = #{params.claimerId}</if>
-    <if test="params.startDate != null and params.endDate != null">AND R.REPORT_DATE BETWEEN #{params.startDate} AND #{params.endDate}</if>
+    <if test="params.productNo != null and params.productNo != ''">AND R.PRODUCT_NO = #{params.productNo}</if>
+    <if test="params.sellerId != null and params.sellerId != ''">AND R.SELLER_ID LIKE '%' || #{params.sellerId} || '%'</if>
+    <if test="params.claimerId != null and params.claimerId != ''">AND R.CLAIMER_ID LIKE '%' || #{params.claimerId} || '%'</if>
+    <if test="params.startDate != null and params.endDate != null">
+      AND R.REPORT_DATE BETWEEN TRUNC(TO_DATE(#{params.startDate}, 'YYYY-MM-DD')) AND TRUNC(TO_DATE(#{params.endDate}, 'YYYY-MM-DD')) + INTERVAL '1' DAY
+    </if>
 </select>
     
     <select id="getReportById" parameterType="map" resultMap="reportResultMap">

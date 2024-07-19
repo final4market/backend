@@ -47,7 +47,9 @@ public class ReportController {
         String adminId = request.getHeader("Admin-Id");
         String claimerId = request.getHeader("Claimer-Id");
         params.put("adminId", adminId);
-        params.put("claimerId", claimerId);
+        if (claimerId != null) {
+            params.put("claimerId", claimerId);
+        }
         logger.debug("Filters received: {}", params);
         List<ReportDTO> reports = reportService.getFilteredReports(params);
         return ResponseEntity.ok(reports);

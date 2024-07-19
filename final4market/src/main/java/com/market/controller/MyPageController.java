@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.market.dto.ChatDTO;
 import com.market.dto.MemberDTO;
+import com.market.dto.MemberProfileDTO;
 import com.market.dto.ProductDTO;
 import com.market.dto.ProductImageDTO;
-import com.market.dto.ProfileImageDTO;
 import com.market.dto.ReviewDTO;
 import com.market.service.ChatService;
 import com.market.service.MemberService;
@@ -54,7 +54,7 @@ public class MyPageController {
 	}
 	
 	@GetMapping("/profile/list")
-	public List<ProfileImageDTO> selectAllProfileImage() {
+	public List<MemberProfileDTO> selectAllProfileImage() {
 		return memberService.selectAllProfileImage();
 	}
 

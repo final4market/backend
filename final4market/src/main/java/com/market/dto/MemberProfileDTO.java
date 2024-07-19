@@ -5,14 +5,19 @@ import org.apache.ibatis.type.Alias;
 @Alias("profile")
 public class MemberProfileDTO {
 	private int memberProfileNo;
-	private String memberProfilePath;
-	
+	private String profilePath;
+
 	public MemberProfileDTO() {
 	}
 	
-	public MemberProfileDTO(int memberProfileNo, String memberProfilePath) {
+	public MemberProfileDTO(int memberProfileNo, String profilePath) {
 		this.memberProfileNo = memberProfileNo;
-		this.memberProfilePath = memberProfilePath;
+		this.profilePath = profilePath;
+	}
+
+	public MemberProfileDTO(int memberProfileNo, String profilePath) {
+		this.memberProfileNo = memberProfileNo;
+		this.profilePath = profilePath;
 	}
 
 	public int getMemberProfileNo() {
@@ -23,22 +28,16 @@ public class MemberProfileDTO {
 		this.memberProfileNo = memberProfileNo;
 	}
 
-	public String getMemberProfilePath() {
-		return memberProfilePath;
+	public String getProfilePath() {
+		return profilePath;
 	}
 
-	public void setMemberProfilePath(String memberProfilePath) {
-		this.memberProfilePath = memberProfilePath;
+	public void setProfilePath(String profilePath) {
+		this.profilePath = profilePath;
 	}
 
 	@Override
 	public String toString() {
-		return "MemberProfileDTO [MemberProfileNo=" + memberProfileNo + ", MemberProfilePath=" + memberProfilePath
-				+ "]";
+		return "MemberProfileDTO [memberProfileNo=" + memberProfileNo + ", profilePath=" + profilePath + "]";
 	}
-	
-	
-	
-	
-	
 }

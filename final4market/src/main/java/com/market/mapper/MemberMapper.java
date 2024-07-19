@@ -3,18 +3,16 @@ package com.market.mapper;
 import java.util.List;
 import java.util.Map;
 
-
 import com.market.dto.MemberDTO;
 import com.market.dto.MemberProfileDTO;
+import com.market.dto.ReviewDTO;
+
 
 import org.apache.ibatis.annotations.Mapper;
 import com.market.dto.StoreDTO;
 
-
 @Mapper
 public interface MemberMapper {
-
-
 	List<MemberDTO> selectAllMembers();
 
 	List<MemberDTO> searchMembers(Map<String, String> params);
@@ -22,8 +20,6 @@ public interface MemberMapper {
 	int updateMember(MemberDTO dto);
 
 	int deleteMember(String memberId);
-
-	List<MemberProfileDTO> selectAllProfileImage();
 
 	List<StoreDTO> storeInfo(String memberId);
 
@@ -35,5 +31,9 @@ public interface MemberMapper {
 
 	List<Map<String, Object>> buyerProfilePath(List<String> buyerProfileNo);
 
+	List<MemberProfileDTO> selectMemberProfile(int memberProfileNo);
 
+	List<MemberDTO> selectMemberNick(String memberId);
+
+	List<ReviewDTO> selectMemberScore(String memberId);
 }

@@ -47,6 +47,5 @@ public class CategoryDTO {
 			return "CategoryDTO [categoryNo=" + categoryNo + ", parentCategoryNo=" + parentCategoryNo
 					+ ", categoryName=" + categoryName + "]";
 		}
-	
-	    
+
 }

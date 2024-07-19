@@ -1,45 +1,76 @@
 package com.market.controller;
 
+
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.ArrayList;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.market.dto.CategoryDTO;
+import com.market.dto.DeliveryDTO;
 import com.market.dto.ProductDTO;
 import com.market.dto.ProductImageDTO;
 import com.market.service.ProductService;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
-@CrossOrigin(origins="*", allowedHeaders = "*")
+@CrossOrigin(origins = "*" , allowedHeaders = "*" )
 public class ProductController {
-  private ProductService service;
-  
-  public ProductController(ProductService service) {
-	  this.service = service;
-  }
-	@GetMapping("/Product/list")
-	public List<ProductDTO> selectAllProduct() {
-	return service.selectAllProduct();
+	ProductService productService;
+
+	public ProductController(ProductService productService) {
+		this.productService = productService;
+	}
+
+	@GetMapping("/productImage")
+	public List<ProductImageDTO> productImage(int productNo) {
+		List<ProductImageDTO> list = productService.productImage(productNo);
+		return list;
 	}
 	
-	@GetMapping("/Category/list")
-	public List<CategoryDTO> selectAllCategory() {
-		return service.selectAllCategory();
+	@GetMapping("/productInfo")
+	public ProductDTO productInfo(int productNo) {
+		ProductDTO dto = productService.productInfo(productNo);
+		return dto; 
 	}
-	@GetMapping("/Category/list/{parNum}")
+	
+	@GetMapping("/deliveryInfo")
+	public DeliveryDTO deliveryInfo(int productNo) {
+		DeliveryDTO dto = productService.deliveryInfo(productNo);
+		return dto; 
+	}
+	
+	@GetMapping("/categoryInfo")
+	public List<CategoryDTO> categoryInfo(int categoryNo) {
+		List<CategoryDTO> list = productService.categoryInfo(categoryNo);
+		return list; 
+	}
+	
+	@GetMapping("/product/list")
+	public List<ProductDTO> selectAllProduct() {
+	return productService.selectAllProduct();
+	}
+	
+	@GetMapping("/category/list")
+	public List<CategoryDTO> selectAllCategory() {
+		return productService.selectAllCategory();
+	}
+	@GetMapping("/category/list/{parNum}")
 	public List<CategoryDTO> selectParentCategory(@PathVariable int parNum) {
-		return service.selectParentCategory(parNum);
+		return productService.selectParentCategory(parNum);
 	}
 	
 
@@ -61,10 +92,10 @@ public class ProductController {
 	        String deliveryChargeStr = params.get("deliveryCharge");
 	        dto.setDeliveryCharge(deliveryChargeStr != null && !deliveryChargeStr.isEmpty() ? Integer.parseInt(deliveryChargeStr) : 0);
 	        
-	        int productNo = service.getProductNo();
+	        int productNo = productService.getProductNo();
 	        dto.setProductNo(productNo);
 	        
-	        service.insertProduct(dto);
+	        productService.insertProduct(dto);
 	        
 	        File root = new File("c:\\fileupload");
 	        if (!root.exists()) {
@@ -78,7 +109,7 @@ public class ProductController {
 	            File f = new File(root, file[i].getOriginalFilename());
 	            file[i].transferTo(f);
 	            ProductImageDTO productImageDTO = new ProductImageDTO(f, productNo);
-	            service.insertProductImage(productImageDTO);
+	            productService.insertProductImage(productImageDTO);
 	        }
 	        
 	        map.put("msg", "상품 등록 성공");
@@ -94,4 +125,28 @@ public class ProductController {
 	    }
 	    return map;
 	}
+
+	@GetMapping("/sellerProductImage")
+	public List<Map<String, Object>> sellerProductImage(String memberId) {
+	    List<String> productNoList = productService.productNo(memberId);
+	    List<Map<String, Object>> productImages = new ArrayList<>();
+	    
+	    for (String productNo : productNoList) {
+	        List<String> images = productService.sellerProductImage(productNo); // productService에 제품 번호에 해당하는 이미지 목록을 가져오는 메서드를 정의해야 함
+	        int price = productService.sellerProductPrice(productNo);
+	        if (!images.isEmpty()) {
+	            String firstImage = images.get(0); // 각 제품의 첫 번째 이미지만 가져옴
+	            
+	            Map<String, Object> imageMap = new HashMap<>();
+	            imageMap.put("productNo", productNo);
+	            imageMap.put("image", firstImage);
+	            imageMap.put("price", price);
+	            
+	            productImages.add(imageMap);
+	        }
+	    }
+	    
+	    return productImages;
 	}
+
+}

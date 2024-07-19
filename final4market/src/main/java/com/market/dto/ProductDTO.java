@@ -4,79 +4,51 @@ import java.sql.Date;
 
 import org.apache.ibatis.type.Alias;
 
-@Alias("Product")
+@Alias("product")
 public class ProductDTO {
-
-	private int ProductNo;
-    private String memberId;
-    private int productPrice;
-    private int productCount;
-    private Date productDate;
-    private String productStatus;
-    private String productContent;
-    private String productSale;
-    private String productTitle;
-    private int categoryNo;
-    private int deliveryNo;
-    private String tradeArea;
-    private int deliveryCharge; 
-
-    public ProductDTO(int productNo, String memberId, int productPrice, String productStatus, String productContent,
-			String productTitle, int categoryNo, int deliveryNo, String tradeArea, int deliveryCharge) {
-		super();
-		ProductNo = productNo;
-		this.memberId = memberId;
-		this.productPrice = productPrice;
-		this.productStatus = productStatus;
-		this.productContent = productContent;
-		this.productTitle = productTitle;
-		this.categoryNo = categoryNo;
-		this.deliveryNo = deliveryNo;
-		this.tradeArea = tradeArea;
-		this.deliveryCharge = deliveryCharge;
-	}
-
-
+	private int productNo;
+	private String memberId;
+	private int productPrice;
+	private int productCount;
+	private Date productDate;
+	private String productStatus;
+	private String productContent;
+	private String productSale;
+	private String productTitle;
+	private int productLike;
+	private int categoryNo;
+	private int deliveryNo;
+	private String tradeArea;
+	private int deliveryCharge;
 
 	public ProductDTO() {
-    }
-
-    
-    
-	public int getProductNo() {
-		return ProductNo;
 	}
 
-	public ProductDTO(int productNo, String memberId, int productPrice, String productStatus, String productContent,
-			String productTitle, int categoryNo, int deliveryNo, String tradeArea) {
-		
-		ProductNo = productNo;
+	public ProductDTO(int productNo, String memberId, int productPrice, int productCount, Date productDate,
+			String productStatus, String productContent, String productSale, String productTitle, int productLike,
+			int categoryNo, int deliveryNo, String tradeArea, int deliveryCharge) {
+		this.productNo = productNo;
 		this.memberId = memberId;
 		this.productPrice = productPrice;
+		this.productCount = productCount;
+		this.productDate = productDate;
 		this.productStatus = productStatus;
 		this.productContent = productContent;
+		this.productSale = productSale;
 		this.productTitle = productTitle;
+		this.productLike = productLike;
 		this.categoryNo = categoryNo;
 		this.deliveryNo = deliveryNo;
 		this.tradeArea = tradeArea;
-	}
-
-
-
-	public int getDeliveryCharge() {
-		return deliveryCharge;
-	}
-
-
-
-	public void setDeliveryCharge(int deliveryCharge) {
 		this.deliveryCharge = deliveryCharge;
 	}
 
-
+	public int getProductNo() {
+		return productNo;
+	}
 
 	public void setProductNo(int productNo) {
-		ProductNo = productNo;
+		this.productNo = productNo;
 	}
 
 	public String getMemberId() {
@@ -143,6 +115,14 @@ public class ProductDTO {
 		this.productTitle = productTitle;
 	}
 
+	public int getProductLike() {
+		return productLike;
+	}
+
+	public void setProductLike(int productLike) {
+		this.productLike = productLike;
+	}
+
 	public int getCategoryNo() {
 		return categoryNo;
 	}
@@ -167,13 +147,20 @@ public class ProductDTO {
 		this.tradeArea = tradeArea;
 	}
 
+	public int getDeliveryCharge() {
+		return deliveryCharge;
+	}
+
+	public void setDeliveryCharge(int deliveryCharge) {
+		this.deliveryCharge = deliveryCharge;
+	}
+
 	@Override
 	public String toString() {
-		return "ProductDTO [ProductNo=" + ProductNo + ", memberId=" + memberId + ", productPrice=" + productPrice
+		return "ProductDTO [productNo=" + productNo + ", memberId=" + memberId + ", productPrice=" + productPrice
 				+ ", productCount=" + productCount + ", productDate=" + productDate + ", productStatus=" + productStatus
 				+ ", productContent=" + productContent + ", productSale=" + productSale + ", productTitle="
-				+ productTitle + ", categoryNo=" + categoryNo + ", deliveryNo=" + deliveryNo + ", tradeArea="
-				+ tradeArea + ", deliveryCharge=" + deliveryCharge + "]";
+				+ productTitle + ", productLike=" + productLike + ", categoryNo=" + categoryNo + ", deliveryNo="
+				+ deliveryNo + ", tradeArea=" + tradeArea + ", deliveryCharge=" + deliveryCharge + "]";
 	}
-    
-	}
+}

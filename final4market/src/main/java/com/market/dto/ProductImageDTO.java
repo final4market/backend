@@ -1,21 +1,26 @@
 package com.market.dto;
 
+
 import java.io.File;
 
 import org.apache.ibatis.type.Alias;
 
-@Alias("ProductImage")
+@Alias("productImage")
 public class ProductImageDTO {
 	private int productNo;
-	private String path;
-	
+	private String productImagePath;
+
 	public ProductImageDTO() {
 	}
 
-	public ProductImageDTO(File file, int productNo) {
-		super();
+	public ProductImageDTO(String productImagePath, int productNo) {
+		this.productImagePath = productImagePath;
 		this.productNo = productNo;
-		this.path = file.getAbsolutePath();
+	}
+	
+	public ProductImageDTO(File file, int productNo) {
+		this.productNo = productNo;
+		this.productImagePath = file.getAbsolutePath();
 	}
 
 	public int getProductNo() {
@@ -26,17 +31,18 @@ public class ProductImageDTO {
 		this.productNo = productNo;
 	}
 
-	public String getPath() {
-		return path;
+
+	public String getProductImagePath() {
+		return productImagePath;
 	}
 
-	public void setPath(String path) {
-		this.path = path;
+	public void setProductImagePath(String productImagePath) {
+		this.productImagePath = productImagePath;
 	}
 
 	@Override
 	public String toString() {
-		return "ProductImageDTO [productNo=" + productNo + ", path=" + path + "]";
+		return "ProductImageDTO [productNo=" + productNo + ", productImagePath=" + productImagePath + "]";
 	}
-	
+
 }

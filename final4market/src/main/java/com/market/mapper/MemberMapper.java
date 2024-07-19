@@ -7,6 +7,7 @@ import com.market.dto.MemberDTO;
 import com.market.dto.MemberProfileDTO;
 import com.market.dto.ReviewDTO;
 
+
 import org.apache.ibatis.annotations.Mapper;
 import com.market.dto.StoreDTO;
 

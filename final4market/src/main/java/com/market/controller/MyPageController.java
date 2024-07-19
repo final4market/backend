@@ -56,7 +56,6 @@ public class MyPageController {
 	@GetMapping("product/{productNo}/like")
 	public List<ProductLikeDTO> selectProductLike(@PathVariable int productNo) {
 		return productService.selectProductLike(productNo);
-	}
 
 	@GetMapping("product/{productNo}/chat")
 	public List<ChatDTO> selectProductChat(@PathVariable int productNo) {

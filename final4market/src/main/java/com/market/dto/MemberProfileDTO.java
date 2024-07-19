@@ -9,6 +9,11 @@ public class MemberProfileDTO {
 
 	public MemberProfileDTO() {
 	}
+	
+	public MemberProfileDTO(int memberProfileNo, String profilePath) {
+		this.memberProfileNo = memberProfileNo;
+		this.profilePath = profilePath;
+	}
 
 	public MemberProfileDTO(int memberProfileNo, String profilePath) {
 		this.memberProfileNo = memberProfileNo;

@@ -20,10 +20,27 @@ public interface ProductMapper {
 
 	List<CategoryDTO> categoryInfo(int categoryNo);
 
+	List<ProductDTO> selectAllProduct();
+
+	int insertProduct(ProductDTO dto);
+
+	int getProductNo();
+
+	List<CategoryDTO> selectAllCategory();
+
+	List<CategoryDTO> selectParentCategory(int parNum);
+
+	int insertProductImage(ProductImageDTO productImageDTO);
+
+	List<ProductImageDTO> selectAllProductImage();
+
+	List<ProductDTO> selectSellerAllProduct();
+
 	List<String> productNo(String memberId);
 
 	List<String> sellerProductImage(String productNo);
 
 	int sellerProductPrice(String productNo);
+
 
 }

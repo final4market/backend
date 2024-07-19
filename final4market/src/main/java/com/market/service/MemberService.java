@@ -5,15 +5,40 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.market.dto.MemberDTO;
+import com.market.dto.ProfileImageDTO;
+
 import com.market.dto.StoreDTO;
+
 import com.market.mapper.MemberMapper;
 
 @Service
 public class MemberService {
-	MemberMapper mapper;
+
+	private MemberMapper mapper;	
 
 	public MemberService(MemberMapper mapper) {
 		this.mapper = mapper;
+	}
+
+	public List<MemberDTO> selectAllMembers() {
+		return mapper.selectAllMembers();
+	}
+
+	public List<MemberDTO> searchMembers(Map<String, String> params) {
+		return mapper.searchMembers(params);
+	}
+
+	public int updateMember(MemberDTO dto) {
+        return mapper.updateMember(dto);
+    }
+
+	public int deleteMember(String memberId) {
+        return mapper.deleteMember(memberId);
+    }
+
+	public List<ProfileImageDTO> selectAllProfileImage() {
+		return mapper.selectAllProfileImage();
 	}
 
 	public List<StoreDTO> storeInfo(String memberId) {
@@ -36,6 +61,4 @@ public class MemberService {
 		return mapper.buyerProfilePath(buyerProfileNo);
 	}
 
-
-	
 }

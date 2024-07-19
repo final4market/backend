@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.market.dto.StoreDTO;
 
 @RestController
-@RequestMapping("/api/members")
 @CrossOrigin(origins = "*" , allowedHeaders = "*" )
 public class MemberController {
     private MemberService memberService;

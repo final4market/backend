@@ -38,6 +38,7 @@ public class ProductController {
 	@GetMapping("/productImage")
 	public List<ProductImageDTO> productImage(int productNo) {
 		List<ProductImageDTO> list = productService.productImage(productNo);
+		System.out.println(list);
 		return list;
 	}
 	

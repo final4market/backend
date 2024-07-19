@@ -29,19 +29,21 @@ public class MemberController {
         this.memberService = memberService;
     }
 
-    @GetMapping("/members")
+
+    @GetMapping
     public ResponseEntity<List<MemberDTO>> selectAllMembers() {
         List<MemberDTO> members = memberService.selectAllMembers();
         return ResponseEntity.ok(members);
     }
 
-    @GetMapping("/members/admin/search")
+    @GetMapping("/admin/search")
     public ResponseEntity<List<MemberDTO>> searchMembers(@RequestParam Map<String, String> params) {
         List<MemberDTO> members = memberService.searchMembers(params);
         return ResponseEntity.ok(members);
     }
 
-    @PutMapping("/members/admin/update")
+
+    @PutMapping("/admin/update")
     public ResponseEntity<Map<String, Object>> updateMember(@RequestBody MemberDTO dto) {
         int count = memberService.updateMember(dto);        
         Map<String, Object> map = new HashMap<>();
@@ -50,7 +52,7 @@ public class MemberController {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
-    @DeleteMapping("/members/admin/{memberId}")
+    @DeleteMapping("/admin/{memberId}")
     public ResponseEntity<Map<String, Object>> deleteMember(@PathVariable String memberId) {
         int count = memberService.deleteMember(memberId);
         Map<String, Object> map = new HashMap<>();

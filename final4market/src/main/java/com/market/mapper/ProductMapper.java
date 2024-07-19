@@ -51,3 +51,4 @@ public interface ProductMapper {
 
 	List<ChatDTO> selectProductChat(int productNo);
 }
+

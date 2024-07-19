@@ -85,12 +85,25 @@ public class ProductController {
 	        dto.setCategoryNo(Integer.parseInt(params.get("categoryNo")));
 	        dto.setProductContent(params.get("productContent"));
 	        dto.setProductStatus(params.get("productStatus"));
-	        dto.setDeliveryNo(Integer.parseInt(params.get("deliveryNo")));
-	        dto.setTradeArea(params.get("tradeArea"));
+	       
 	        
 	        // deliveryCharge 값이 null일 경우를 처리
 	        String deliveryChargeStr = params.get("deliveryCharge");
 	        dto.setDeliveryCharge(deliveryChargeStr != null && !deliveryChargeStr.isEmpty() ? Integer.parseInt(deliveryChargeStr) : 0);
+	        
+	        String deliveryNoStr = params.get("deliveryNo");
+	        if (deliveryNoStr != null && !deliveryNoStr.isEmpty()) {
+	            dto.setDeliveryNo(Integer.parseInt(deliveryNoStr));
+	        } else {
+	            dto.setDeliveryNo(0);
+	        }
+	        
+	        String tradeArea = params.get("tradeArea");
+	        if (tradeArea != null && !tradeArea.isEmpty()) {
+	            dto.setTradeArea(tradeArea);
+	        } else {
+	            dto.setTradeArea("0"); // 기본값 설정
+	        }
 	        
 	        int productNo = productService.getProductNo();
 	        dto.setProductNo(productNo);
@@ -116,7 +129,7 @@ public class ProductController {
 	        map.put("result", true);
 	    } catch (IllegalArgumentException e) {
 	        e.printStackTrace();
-	        map.put("msg", "입력 값 오류: " + e.getMessage());
+	        map.put("msg", "입력 값 오류 다시입력해세요: " + e.getMessage());
 	        map.put("result", false);
 	    } catch (Exception e) {
 	        e.printStackTrace();

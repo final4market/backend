@@ -29,6 +29,7 @@ public class MemberController {
         this.memberService = memberService;
     }
 
+
     @GetMapping
     public ResponseEntity<List<MemberDTO>> selectAllMembers() {
         List<MemberDTO> members = memberService.selectAllMembers();
@@ -40,6 +41,7 @@ public class MemberController {
         List<MemberDTO> members = memberService.searchMembers(params);
         return ResponseEntity.ok(members);
     }
+
 
     @PutMapping("/admin/update")
     public ResponseEntity<Map<String, Object>> updateMember(@RequestBody MemberDTO dto) {

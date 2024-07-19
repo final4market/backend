@@ -129,4 +129,20 @@
         SELECT product_price FROM product WHERE product_no = #{productNo}
     </select>
 
+	<select id="selectProductImage" parameterType="int" resultType="map">
+		SELECT PRODUCT_IMAGE_PATH FROM PRODUCT_IMAGE WHERE PRODUCT_NO = #{productNo}
+	</select>
+
+	<select id="selectProductPrice" parameterType="int" resultType="map">
+		SELECT PRODUCT_PRICE FROM PRODUCT WHERE PRODUCT_NO = #{productNo}
+	</select>
+
+	<select id="selectProductLike" parameterType="int" resultType="map">
+		SELECT BUYER_ID FROM PRODUCT_LIKE WHERE PRODUCT_NO = #{productNo}
+	</select>
+
+	<select id="selectProductChat" parameterType="int" resultType="map">
+		SELECT CHAT_NO FROM CHAT WHERE PRODUCT_NO = #{productNo}
+	</select>
 </mapper>
+

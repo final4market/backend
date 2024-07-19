@@ -17,7 +17,6 @@ public class ReviewDTO {
 	}
 
 	public ReviewDTO(int productNo, String buyerId, String review, String sellerId, Date reviewDate, int reviewScore) {
-		super();
 		this.productNo = productNo;
 		this.buyerId = buyerId;
 		this.review = review;

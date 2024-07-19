@@ -6,15 +6,14 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.market.dto.MemberDTO;
-import com.market.dto.ProfileImageDTO;
-
+import com.market.dto.MemberProfileDTO;
+import com.market.dto.ReviewDTO;
 import com.market.dto.StoreDTO;
 
 import com.market.mapper.MemberMapper;
 
 @Service
 public class MemberService {
-
 	private MemberMapper mapper;	
 
 	public MemberService(MemberMapper mapper) {
@@ -61,4 +60,16 @@ public class MemberService {
 		return mapper.buyerProfilePath(buyerProfileNo);
 	}
 
+	public List<MemberProfileDTO> selectMemberProfile(int memberProfileNo) {
+		return mapper.selectMemberProfile(memberProfileNo);
+	}
+
+	public List<MemberDTO> selectMemberNick(String memberId) {
+		return mapper.selectMemberNick(memberId);
+	}
+
+	public List<ReviewDTO> selectMemberScore(String memberId) {
+		return mapper.selectMemberScore(memberId);
+	}
 }
+

@@ -144,5 +144,14 @@
 	<select id="selectProductChat" parameterType="int" resultType="map">
 		SELECT CHAT_NO FROM CHAT WHERE PRODUCT_NO = #{productNo}
 	</select>
+	
+	<insert id="insertProductLike" parameterType="map">
+		insert into product_like values(#{memberId},#{productNo})
+	</insert>
+	
+	<delete id="deleteProductLike" parameterType="map">
+		delete from product_like where buyer_id = #{memberId} and product_no = #{productNo}
+	</delete>
+		
 </mapper>
 

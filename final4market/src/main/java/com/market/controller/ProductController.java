@@ -149,5 +149,22 @@ public class ProductController {
 	    
 	    return productImages;
 	}
-
+	
+	@GetMapping("/insertProductLike")
+	public Map<String, Object> productLike(String memberId, int productNo) {
+		Map<String, Object> map = new HashMap<>();
+		try {			
+			productService.insertProductLike(memberId, productNo);
+			map.put("msg", "좋아요를 하셨습니다");
+		} catch (Exception e) {
+			productService.deleteProductLike(memberId, productNo);
+			map.put("msg", "좋아요를 취소하셨습니다");
+			return map;
+		}
+		
+		
+		return map;
+	}
+	
+	
 }

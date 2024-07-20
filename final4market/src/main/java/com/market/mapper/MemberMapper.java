@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.market.dto.MemberDTO;
 import com.market.dto.MemberProfileDTO;
+import com.market.dto.ProfileImageDTO;
 import com.market.dto.ReviewDTO;
 import com.market.dto.StoreDTO;
 
@@ -23,13 +24,13 @@ public interface MemberMapper {
 	int deleteMember(String memberId);
 
 
-	List<MemberDTO> selectAllMembers();
+	List<MemberDTO> selectAllMembers1();
 
-	List<MemberDTO> searchMembers(Map<String, String> params);
+	List<MemberDTO> searchMembers1(Map<String, String> params);
 
-	int updateMember(MemberDTO dto);
+	int updateMember1(MemberDTO dto);
 
-	int deleteMember(String memberId);
+	int deleteMember1(String memberId);
 
 	List<ProfileImageDTO> selectAllProfileImage();
 
@@ -48,4 +49,8 @@ public interface MemberMapper {
 	List<MemberDTO> selectMemberNick(String memberId);
 
 	List<ReviewDTO> selectMemberScore(String memberId);
+
+	int insertFollow(Map<String, Object> map);
+
+	int deleteFollow(Map<String, Object> map);
 }

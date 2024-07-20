@@ -139,4 +139,12 @@
 	<select id="selectMemberScore" parameterType="String" resultType="map">
 		SELECT REVIEW_SCORE FROM REVIEW WHERE SELLER_ID = #{MEMBER_ID}
 	</select>
+	
+	<insert id="insertFollow" parameterType="map">
+		insert into favorites values(#{buyerId},#{sellerId})
+	</insert>
+	
+	<delete id="deleteFollow" parameterType="map">
+		delete from favorites where buyer_id = #{buyerId} and seller_id = #{sellerId}
+	</delete>
 </mapper>

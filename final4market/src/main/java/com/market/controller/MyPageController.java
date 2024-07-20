@@ -16,7 +16,7 @@ import com.market.dto.ProductImageDTO;
 import com.market.dto.ReviewDTO;
 import com.market.dto.MemberProfileDTO;
 import com.market.dto.ProductLikeDTO;
-
+import com.market.dto.ProfileImageDTO;
 import com.market.service.ChatService;
 import com.market.service.MemberService;
 import com.market.service.ProductService;
@@ -59,14 +59,6 @@ public class MyPageController {
 		return productService.selectAllProductImage();
 	}
 	
-	@GetMapping("/profile/list")
-	public List<ProfileImageDTO> selectAllProfileImage() {
-		return memberService.selectAllProfileImage();
-	}
-
-	@GetMapping("/review/list")
-	public List<ReviewDTO> selectAllReview() {
-		return reviewService.selectAllReview();
 
 	@GetMapping("/member/{memberProfileNo}/profile")
 	public List<MemberProfileDTO> selectMemberProfile(@PathVariable int memberProfileNo) {
@@ -93,9 +85,6 @@ public class MyPageController {
 		return productService.selectProductPrice(productNo);
 	}
 
-	@GetMapping("product/{productNo}/like")
-	public List<ProductLikeDTO> selectProductLike(@PathVariable int productNo) {
-		return productService.selectProductLike(productNo);
 
 	@GetMapping("product/{productNo}/chat")
 	public List<ChatDTO> selectProductChat(@PathVariable int productNo) {

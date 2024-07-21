@@ -1,6 +1,7 @@
 package com.market.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import com.market.dto.CategoryDTO;
@@ -83,19 +84,19 @@ public class ProductService {
 		return mapper.sellerProductPrice(productNo);
 	}
 
-	public List<ProductImageDTO> selectProductImage(int productNo) {
+	public Map<String, ProductImageDTO> selectProductImage(int productNo) {
 		return mapper.selectProductImage(productNo);
 	}
 
-	public List<ProductDTO> selectProductPrice(int productNo) {
+	public Map<Double, ProductDTO> selectProductPrice(int productNo) {
 		return mapper.selectProductPrice(productNo);
 	}
 
-	public List<ProductLikeDTO> selectProductLike(int productNo) {
+	public Map<Double, ProductLikeDTO> selectProductLike(int productNo) {
 		return mapper.selectProductLike(productNo);
 	}
 
-	public List<ChatDTO> selectProductChat(int productNo) {
+	public Map<Double, ChatDTO> selectProductChat(int productNo) {
 		return mapper.selectProductChat(productNo);
 	}
 }

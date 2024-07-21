@@ -1,6 +1,6 @@
 package com.market.controller;
 
-import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,36 +29,37 @@ public class MyPageController {
 	}
 
 	@GetMapping("/member/{memberProfileNo}/profile")
-	public List<MemberProfileDTO> selectMemberProfile(@PathVariable int memberProfileNo) {
+	public Map<String, MemberProfileDTO> selectMemberProfile(@PathVariable int memberProfileNo) {
 		return memberService.selectMemberProfile(memberProfileNo);
 	}
 
 	@GetMapping("/member/{memberId}/nick")
-	public List<MemberDTO> selectMemberNick(@PathVariable String memberId) {
+	public Map<String, MemberDTO> selectMemberNick(@PathVariable String memberId) {
 		return memberService.selectMemberNick(memberId);
 	}
 
 	@GetMapping("/member/{memberId}/score")
-	public List<ReviewDTO> selectMemberScore(@PathVariable String memberId) {
+	public Map<Double, ReviewDTO> selectMemberScore(@PathVariable String memberId) {
 		return memberService.selectMemberScore(memberId);
 	}
 
 	@GetMapping("/product/{productNo}/image")
-	public List<ProductImageDTO> selectProductImage(@PathVariable int productNo) {
+	public Map<String, ProductImageDTO> selectProductImage(@PathVariable int productNo) {
 		return productService.selectProductImage(productNo);
 	}
 
 	@GetMapping("/product/{productNo}/price")
-	public List<ProductDTO> selectProductPrice(@PathVariable int productNo) {
+	public Map<Double, ProductDTO> selectProductPrice(@PathVariable int productNo) {
 		return productService.selectProductPrice(productNo);
 	}
 
 	@GetMapping("product/{productNo}/like")
-	public List<ProductLikeDTO> selectProductLike(@PathVariable int productNo) {
+	public Map<Double, ProductLikeDTO> selectProductLike(@PathVariable int productNo) {
 		return productService.selectProductLike(productNo);
+	}
 
 	@GetMapping("product/{productNo}/chat")
-	public List<ChatDTO> selectProductChat(@PathVariable int productNo) {
+	public Map<Double, ChatDTO> selectProductChat(@PathVariable int productNo) {
 		return productService.selectProductChat(productNo);
 	}
 }

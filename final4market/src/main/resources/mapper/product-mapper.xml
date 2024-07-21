@@ -130,18 +130,26 @@
     </select>
 
 	<select id="selectProductImage" parameterType="int" resultType="map">
-		SELECT PRODUCT_IMAGE_PATH FROM PRODUCT_IMAGE WHERE PRODUCT_NO = #{productNo}
+		SELECT PRODUCT_IMAGE_PATH
+		FROM PRODUCT_IMAGE
+		WHERE PRODUCT_NO = #{PRODUCT_NO}
 	</select>
 
 	<select id="selectProductPrice" parameterType="int" resultType="map">
-		SELECT PRODUCT_PRICE FROM PRODUCT WHERE PRODUCT_NO = #{productNo}
+		SELECT PRODUCT_PRICE
+		FROM PRODUCT
+		WHERE PRODUCT_NO = #{PRODUCT_NO}
 	</select>
 
 	<select id="selectProductLike" parameterType="int" resultType="map">
-		SELECT BUYER_ID FROM PRODUCT_LIKE WHERE PRODUCT_NO = #{productNo}
+		SELECT COUNT(BUYER_ID) AS PRODUCT_LIKE
+		FROM PRODUCT_LIKE
+		WHERE PRODUCT_NO = #{PRODUCT_NO}
 	</select>
 
 	<select id="selectProductChat" parameterType="int" resultType="map">
-		SELECT CHAT_NO FROM CHAT WHERE PRODUCT_NO = #{productNo}
+		SELECT COUNT(DISTINCT(CHAT_NO)) AS PRODUCT_CHAT
+		FROM CHAT
+		WHERE PRODUCT_NO = #{PRODUCT_NO}
 	</select>
 </mapper>

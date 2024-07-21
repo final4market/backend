@@ -56,15 +56,15 @@ public class MemberService {
 		return mapper.buyerProfilePath(buyerProfileNo);
 	}
 
-	public List<MemberProfileDTO> selectMemberProfile(int memberProfileNo) {
+	public Map<String, MemberProfileDTO> selectMemberProfile(int memberProfileNo) {
 		return mapper.selectMemberProfile(memberProfileNo);
 	}
 
-	public List<MemberDTO> selectMemberNick(String memberId) {
+	public Map<String, MemberDTO> selectMemberNick(String memberId) {
 		return mapper.selectMemberNick(memberId);
 	}
 
-	public List<ReviewDTO> selectMemberScore(String memberId) {
+	public Map<Double, ReviewDTO> selectMemberScore(String memberId) {
 		return mapper.selectMemberScore(memberId);
 	}
 }

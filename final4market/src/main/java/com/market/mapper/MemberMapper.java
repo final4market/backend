@@ -31,9 +31,9 @@ public interface MemberMapper {
 
 	List<Map<String, Object>> buyerProfilePath(List<String> buyerProfileNo);
 
-	List<MemberProfileDTO> selectMemberProfile(int memberProfileNo);
+	Map<String, MemberProfileDTO> selectMemberProfile(int memberProfileNo);
 
-	List<MemberDTO> selectMemberNick(String memberId);
+	Map<String, MemberDTO> selectMemberNick(String memberId);
 
-	List<ReviewDTO> selectMemberScore(String memberId);
+	Map<Double, ReviewDTO> selectMemberScore(String memberId);
 }

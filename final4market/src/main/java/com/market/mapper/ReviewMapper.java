@@ -9,4 +9,6 @@ import com.market.dto.ReviewDTO;
 @Mapper
 public interface ReviewMapper {
 	List<ReviewDTO> selectAllReview();
+
+	int insertReview(ReviewDTO dto);
 }

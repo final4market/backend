@@ -10,23 +10,12 @@ public class ReviewDTO {
 	private String buyerId;
 	private String review;
 	private String sellerId;
-	private Date reviewDate;
+	private String reviewDate;
 	private int reviewScore;
 
 	public ReviewDTO() {
 	}
 
-	public ReviewDTO(int productNo, String buyerId, String review, String sellerId, Date reviewDate, int reviewScore) {
-		super();
-		this.productNo = productNo;
-		this.buyerId = buyerId;
-		this.review = review;
-		this.sellerId = sellerId;
-		this.reviewDate = reviewDate;
-		this.reviewScore = reviewScore;
-	}
-
-	
 	public int getProductNo() {
 		return productNo;
 	}
@@ -59,11 +48,11 @@ public class ReviewDTO {
 		this.sellerId = sellerId;
 	}
 
-	public Date getReviewDate() {
+	public String getReviewDate() {
 		return reviewDate;
 	}
 
-	public void setReviewDate(Date reviewDate) {
+	public void setReviewDate(String reviewDate) {
 		this.reviewDate = reviewDate;
 	}
 
@@ -75,9 +64,18 @@ public class ReviewDTO {
 		this.reviewScore = reviewScore;
 	}
 
-	@Override
-	public String toString() {
-		return "ReviewDTO [productNo=" + productNo + ", buyerId=" + buyerId + ", review=" + review + ", sellerId="
-				+ sellerId + ", reviewDate=" + reviewDate + ", reviewScore=" + reviewScore + "]";
+	public ReviewDTO(int productNo, String buyerId, String review, String sellerId, String reviewDate,
+			int reviewScore) {
+		super();
+		this.productNo = productNo;
+		this.buyerId = buyerId;
+		this.review = review;
+		this.sellerId = sellerId;
+		this.reviewDate = reviewDate;
+		this.reviewScore = reviewScore;
 	}
+
+	
 }
+
+	

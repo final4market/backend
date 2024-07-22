@@ -75,7 +75,7 @@ public class ProductController {
 	
 
 	@PostMapping("/product/insert")
-	public Map<String, Object> insertProduct2(@RequestParam Map<String, String> params,
+	public Map<String, Object> insertProduct(@RequestParam Map<String, String> params,
 	                                          @RequestParam("file") MultipartFile[] file) throws NumberFormatException {
 	    Map<String, Object> map = new HashMap<>();
 	    try {

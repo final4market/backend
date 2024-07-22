@@ -1,11 +1,15 @@
 package com.market.controller;
 
+import java.io.Console;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.market.dto.ChatDTO;
@@ -72,7 +76,32 @@ public class MyPageController {
 	}
 
 	@PostMapping("/review/insert")
-	public List<ReviewDTO> selectAllReview() {
-		return null;
+	public Map<String, Object> insertReview(@RequestParam Map<String, String> params) {
+	    Map<String, Object> map = new HashMap<>();
+	    try {
+	    	 System.out.println("Received params: " + params);
+	        ReviewDTO dto = new ReviewDTO();
+
+	        dto.setProductNo(Integer.parseInt(params.get("productNo")));
+	        dto.setBuyerId(params.get("buyerId"));
+	        dto.setSellerId(params.get("sellerId"));
+	        dto.setReview(params.get("reviewText"));
+	        dto.setReviewScore(Integer.parseInt(params.get("reviewScore")));
+
+	        reviewService.insertReview(dto);
+	        map.put("msg", "상품 등록 성공");
+	        map.put("result", true);
+	    } catch (IllegalArgumentException e) {
+	        e.printStackTrace();
+	        map.put("msg", "입력 값 오류 다시입력해세요: " + e.getMessage());
+	        map.put("result", false);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        map.put("msg", "상품 등록 실패");
+	        map.put("result", false);
+	    }
+	    return map;
 	}
-}
+
+
+	}

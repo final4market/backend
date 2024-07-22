@@ -18,4 +18,9 @@ public class ReviewService {
 	public List<ReviewDTO> selectAllReview() {
 		return mapper.selectAllReview();
 	}
+
+	public int insertReview(ReviewDTO dto) {
+		return mapper.insertReview(dto);
+		
+	}
 }

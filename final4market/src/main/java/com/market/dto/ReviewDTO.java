@@ -26,6 +26,7 @@ public class ReviewDTO {
 		this.reviewScore = reviewScore;
 	}
 
+	
 	public int getProductNo() {
 		return productNo;
 	}

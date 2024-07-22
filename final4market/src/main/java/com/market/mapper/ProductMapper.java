@@ -44,6 +44,8 @@ public interface ProductMapper {
 
 	List<ProductDTO> productSaleslist(String memberId);
 
+	List<ProductDTO> ProductPurchaseHistory(String buyerId);
+
 
 
 

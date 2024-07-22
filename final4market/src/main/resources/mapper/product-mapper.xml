@@ -43,13 +43,15 @@
         <result column="PARENT_CATEGORY_NO" property="parentCategoryNo" />
     </resultMap>
     
-      <resultMap type="com.market.dto.ProductSalesListDTO" id="productSalesList">
-       <id column="MEMBER_ID" property="memberId"/>
+      <resultMap type="com.market.dto.MypageProductLIstDTO" id="productSalesList">
+       <id column="PRODUCT_NO" property="productNo" />
+        <result column="MEMBER_ID" property="memberId"/>
          <result column="PRODUCT_PRICE" property="productPrice"/>
          <result column="PRODUCT_STATUS" property="productStatus"/>
          <result column="PRODUCT_TITLE" property="productTitle"/>
          <result column="PRODUCT_IMAGE_PATH" property="productImagePath" />
          <result column="TH_DATE" property="thDate" />
+          <result column="buyer_id" property="buyerId"/>
     </resultMap>
 
     <!-- Select statements -->
@@ -140,6 +142,11 @@
 
     <select id="productSaleslist" parameterType="String"  resultMap="productSalesList">
         SELECT * FROM MEMBER_PRODUCTSALES_LIST WHERE MEMBER_ID = #{memberId}
+        ORDER BY TH_DATE DESC
+    </select>
+    
+        <select id="ProductPurchaseHistory" parameterType="String"  resultMap="productSalesList">
+        SELECT * FROM MEMBER_PRODUCTSALES_LIST WHERE buyer_id = #{buyerId}
         ORDER BY TH_DATE DESC
     </select>
    

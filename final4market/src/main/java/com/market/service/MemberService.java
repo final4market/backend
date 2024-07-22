@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.market.dto.MemberAddressDTO;
 import com.market.dto.MemberDTO;
 import com.market.dto.MemberProfileDTO;
 import com.market.dto.ProfileImageDTO;
@@ -86,6 +87,10 @@ public class MemberService {
 		map.put("sellerId", sellerId);
 		return mapper.deleteFollow(map);
 		
+	}
+
+	public List<MemberAddressDTO> selectMemberAddress(String memberId) {
+		return mapper.selectMemberAddress(memberId);
 	}
 }
 

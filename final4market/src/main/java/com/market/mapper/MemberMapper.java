@@ -3,7 +3,7 @@ package com.market.mapper;
 import java.util.List;
 import java.util.Map;
 
-
+import com.market.dto.MemberAddressDTO;
 import com.market.dto.MemberDTO;
 import com.market.dto.MemberProfileDTO;
 import com.market.dto.ProfileImageDTO;
@@ -53,4 +53,6 @@ public interface MemberMapper {
 	int insertFollow(Map<String, Object> map);
 
 	int deleteFollow(Map<String, Object> map);
+
+	List<MemberAddressDTO> selectMemberAddress(String memberId);
 }

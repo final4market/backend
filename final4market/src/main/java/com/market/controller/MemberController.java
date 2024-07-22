@@ -1,6 +1,7 @@
 package com.market.controller;
 
 
+import com.market.dto.MemberAddressDTO;
 import com.market.dto.MemberDTO;
 import com.market.service.MemberService;
 
@@ -99,5 +100,14 @@ public class MemberController {
 		
 		return map;
 	}
-
+	
+	@GetMapping("/addressInfo")
+	public List<MemberAddressDTO> selectMemberAddress(String memberId){
+		System.out.println(memberId);
+		
+		List<MemberAddressDTO> count = memberService.selectMemberAddress(memberId);
+		
+		return memberService.selectMemberAddress(memberId);
+	}
+	
 }

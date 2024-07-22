@@ -51,6 +51,7 @@ public class ProductController {
 	@GetMapping("/deliveryInfo")
 	public DeliveryDTO deliveryInfo(int productNo) {
 		DeliveryDTO dto = productService.deliveryInfo(productNo);
+		System.out.println(dto);
 		return dto; 
 	}
 	

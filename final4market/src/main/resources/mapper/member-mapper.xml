@@ -35,6 +35,16 @@
 		<result column="MEMBER_PROFILE_PATH" property="memberProfilePath"/>
 	</resultMap>
 
+	<resultMap type="com.market.dto.MemberAddressDTO" id="address">
+		<id column="MEMBER_ADDRESS_NO" property="memberAddressNo"/>
+		<result column="MEMBER_ID" property="memberId"/>
+		<result column="ADDRESS" property="address"/>
+		<result column="POSTAL_CODE" property="postalCode"/>
+		<result column="MAIN_ADDRESS" property="mainAddress"/>
+		<result column="MEMBER_NAME" property="memberName"/>
+		<result column="MEMBER_PHONE_NUMBER" property="memberPhoneNumber"/>
+	</resultMap>
+
 	<select id="selectAllMembers" resultMap="member">
        SELECT m.member_id, m.member_name, m.member_nick, m.member_email, m.member_address,
        m.member_profile_no, m.member_grade, g.grade_name,
@@ -147,4 +157,8 @@
 	<delete id="deleteFollow" parameterType="map">
 		delete from favorites where buyer_id = #{buyerId} and seller_id = #{sellerId}
 	</delete>
+	
+	<select id="selectMemberAddress" parameterType="String" resultMap="address">
+		select * from member_delivery_address where member_id = #{memberId}
+	</select>
 </mapper>

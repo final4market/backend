@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.market.dto.ChatDTO;
@@ -48,6 +49,12 @@ public class MyPageController {
 		return productService.selectSellerAllProduct();
 	}
 
+	@GetMapping("/member/productSales/list/{memberId}")
+	public List<ProductDTO> productInfo(@PathVariable String memberId) {
+		return productService.productSaleslist(memberId);	
+	}
+	
+	
 	@GetMapping("/image/list")
 	public List<ProductImageDTO> selectAllProductImage() {
 		return productService.selectAllProductImage();

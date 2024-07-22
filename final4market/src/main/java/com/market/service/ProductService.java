@@ -81,6 +81,12 @@ public class ProductService {
 		return mapper.sellerProductPrice(productNo);
 	}
 
+	public List<ProductDTO> productSaleslist(String memberId) {
+		return mapper.productSaleslist(memberId);
+	}
+
+
+
 }
 
 

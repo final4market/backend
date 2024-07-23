@@ -3,37 +3,67 @@ package com.market.mapper;
 import java.util.List;
 import java.util.Map;
 
+import com.market.dto.MemberAddressDTO;
 
 import com.market.dto.MemberDTO;
 
+import com.market.dto.MemberProfileDTO;
+import com.market.dto.ReviewDTO;
+import com.market.dto.StoreDTO;
+import com.market.models.Member;
+
 
 import org.apache.ibatis.annotations.Mapper;
-import com.market.dto.StoreDTO;
-
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface MemberMapper {
+    List<MemberDTO> selectAllMembers();
+
+    List<MemberDTO> searchMembers(Map<String, String> params);
+
+    int updateMember(MemberDTO dto);
+
+    int deleteMember(String memberId);
+
+    List<StoreDTO> storeInfo(String memberId);
+
+    int profileNo(String memberId);
 
 
-	List<MemberDTO> selectAllMembers();
-
-	List<MemberDTO> searchMembers(Map<String, String> params);
-
-	int updateMember(MemberDTO dto);
-
-	int deleteMember(String memberId);
+    String profilePath(int profileNo);
 
 
+    List<String> buyerProfileNo(List<String> buyerIds);
 
-	List<StoreDTO> storeInfo(String memberId);
+    List<Map<String, Object>> buyerProfilePath(List<String> buyerProfileNo);
 
-	int profileNo(String memberId);
+	List<MemberDTO> selectAllMembers1();
 
-	String profilePath(int profileNo);
+	List<MemberDTO> searchMembers1(Map<String, String> params);
 
-	List<String> buyerProfileNo(List<String> buyerIds);
+	int updateMember1(MemberDTO dto);
 
-	List<Map<String, Object>> buyerProfilePath(List<String> buyerProfileNo);
+	int deleteMember1(String memberId);
 
+    List<MemberProfileDTO> selectMemberProfile(int memberProfileNo);
 
+    List<MemberDTO> selectMemberNick(String memberId);
+
+    List<ReviewDTO> selectMemberScore(String memberId);
+    
+    Member getMemberWithGradeName(@Param("memberId") String memberId);
+    
+    void insertMember(Member member);    
+
+    Member getMemberByIdWithPassword(@Param("memberId") String memberId);
+    
+    void updatePassword(@Param("memberId") String memberId, @Param("memberPasswd") String memberPasswd);
+
+	int insertFollow(Map<String, Object> map);
+
+	int deleteFollow(Map<String, Object> map);
+
+	List<MemberAddressDTO> selectMemberAddress(String memberId);
 }
+

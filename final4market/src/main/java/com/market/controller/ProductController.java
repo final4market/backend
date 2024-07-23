@@ -41,6 +41,7 @@ public class ProductController {
 	@GetMapping("/productImage")
 	public List<ProductImageDTO> productImage(int productNo) {
 		List<ProductImageDTO> list = productService.productImage(productNo);
+		System.out.println(list);
 		return list;
 	}
 	
@@ -53,6 +54,7 @@ public class ProductController {
 	@GetMapping("/deliveryInfo")
 	public DeliveryDTO deliveryInfo(int productNo) {
 		DeliveryDTO dto = productService.deliveryInfo(productNo);
+		System.out.println(dto);
 		return dto; 
 	}
 	
@@ -165,6 +167,7 @@ public class ProductController {
 	    return productImages;
 	}
 	
+
 	@PostMapping("/file/ajax")
 	public ResponseEntity<String> fileAjaxUpload(@RequestParam(value="upload") MultipartFile file) throws IllegalStateException, IOException{
 	    File root = new File("c:\\fileupload");
@@ -247,4 +250,23 @@ public class ProductController {
 	    bos.close();
 	    fis.close();
 	}
+
+	@GetMapping("/insertProductLike")
+	public Map<String, Object> productLike(String memberId, int productNo) {
+		Map<String, Object> map = new HashMap<>();
+		try {			
+			productService.insertProductLike(memberId, productNo);
+			map.put("msg", "좋아요를 하셨습니다");
+		} catch (Exception e) {
+			productService.deleteProductLike(memberId, productNo);
+			map.put("msg", "좋아요를 취소하셨습니다");
+			return map;
+		}
+		
+		
+		return map;
+	}
+	
+	
+
 }

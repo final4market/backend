@@ -38,6 +38,7 @@
 	<resultMap type="com.market.dto.MemberAddressDTO" id="address">
 		<id column="MEMBER_ADDRESS_NO" property="memberAddressNo"/>
 		<result column="MEMBER_ID" property="memberId"/>
+		<result column="ADDRESS_NAME" property="addressName"/>
 		<result column="ADDRESS" property="address"/>
 		<result column="POSTAL_CODE" property="postalCode"/>
 		<result column="MAIN_ADDRESS" property="mainAddress"/>
@@ -161,4 +162,24 @@
 	<select id="selectMemberAddress" parameterType="String" resultMap="address">
 		select * from member_delivery_address where member_id = #{memberId}
 	</select>
+	
+	<select id="currentAddressNO" resultType="int">
+		SELECT ADDRESS_NO.NEXTVAL FROM DUAL
+	</select>
+
+	<insert id="insertMemberAddress" parameterType="com.market.dto.MemberAddressDTO">
+		insert into member_delivery_address values(#{memberAddressNo},#{memberId},#{address},#{postalCode},#{mainAddress},#{memberName},#{memberPhoneNumber},#{addressName})
+	</insert>
+	
+	<delete id="deleteMemberAddress" parameterType="int">
+		delete from member_delivery_address where member_address_no = #{memberAddressNo}
+	</delete>
+	
+	<update id="changeMainAddressExisting" parameterType="address">
+		update member_delivery_address set main_address = 0 where member_id = #{memberId} and main_address = 1
+	</update>
+	
+	<update id="changeMainAddressNew" parameterType="address">
+		update member_delivery_address set main_address = 1 where member_id = #{memberId} and member_address_no = #{memberAddressNo}	
+ 	</update>
 </mapper>

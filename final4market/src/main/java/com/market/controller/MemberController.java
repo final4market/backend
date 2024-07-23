@@ -110,4 +110,49 @@ public class MemberController {
 		return memberService.selectMemberAddress(memberId);
 	}
 	
+	@PostMapping("/insertMemberAddress")
+	public Map<String, Object> insertMemberAddress(@RequestBody MemberAddressDTO dto) {
+		Map<String, Object> map = new HashMap<>();
+		int addressNo = memberService.currentAddressNO();
+		dto.setMemberAddressNo(addressNo);
+		try {			
+			memberService.insertMemberAddress(dto);
+			map.put("msg", "등록되었습니다");
+			return map;
+		} catch (Exception e) {
+			map.put("msg", "3개까지만 추가 하실 수 있습니다");
+			return map;
+		}
+		
+	}
+	@DeleteMapping("/deleteMemberAddress")
+	public Map<String, Object> deleteMemberAddress(int memberAddressNo) {
+		System.out.println(memberAddressNo);
+		Map<String, Object> map = new HashMap<>();
+		try {			
+			memberService.deleteMemberAddress(memberAddressNo);
+			map.put("msg", "삭제되었습니다");
+			return map;
+		} catch (Exception e) {
+			map.put("msg", "삭제실패했습니다");
+			return map;
+		}
+		
+	}
+	
+	@PutMapping("/changeMainAddress")
+	public Map<String, Object> changeMainAddress(@RequestBody MemberAddressDTO dto){
+		Map<String, Object> map = new HashMap<>();
+		System.out.println(dto);
+		try {			
+			memberService.changeMainAddressExisting(dto);
+			memberService.changeMainAddressNew(dto);
+			map.put("msg", "배송지가 수정되었습니다");
+			return map;
+		} catch (Exception e) {
+			map.put("msg", "배송지 수정에 실패했습니다");
+			return map;
+		}
+	}
+	
 }

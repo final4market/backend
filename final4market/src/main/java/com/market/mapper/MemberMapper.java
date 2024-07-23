@@ -55,4 +55,14 @@ public interface MemberMapper {
 	int deleteFollow(Map<String, Object> map);
 
 	List<MemberAddressDTO> selectMemberAddress(String memberId);
+
+	int insertMemberAddress(MemberAddressDTO dto);
+
+	int currentAddressNO();
+
+	int deleteMemberAddress(int memberAddressNo);
+
+	int changeMainAddressExisting(MemberAddressDTO dto);
+
+	int changeMainAddressNew(MemberAddressDTO dto);
 }

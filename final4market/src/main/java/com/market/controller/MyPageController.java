@@ -16,7 +16,6 @@ import com.market.dto.ChatDTO;
 import com.market.dto.MemberDTO;
 import com.market.dto.ProductDTO;
 import com.market.dto.ProductImageDTO;
-import com.market.dto.ProfileImageDTO;
 import com.market.dto.ReviewDTO;
 import com.market.service.ChatService;
 import com.market.service.MemberService;
@@ -49,10 +48,12 @@ public class MyPageController {
 		return memberService.selectAllMembers();
 	}
 
-	@GetMapping("/member/product/list")
-	public List<ProductDTO> selectSellerAllProduct() { 
-		return productService.selectSellerAllProduct();
+	
+	@GetMapping("/image/list")
+	public List<ProductImageDTO> selectAllProductImage() {
+		return productService.selectAllProductImage();
 	}
+	
 
 	@GetMapping("/member/ProductPurchaseHistory/{buyerId}")
 	public List<ProductDTO> ProductPurchaseHistory(@PathVariable String buyerId) {
@@ -64,16 +65,11 @@ public class MyPageController {
 		return productService.productSaleslist(memberId);	
 	}
 	
-	
-	@GetMapping("/image/list")
-	public List<ProductImageDTO> selectAllProductImage() {
-		return productService.selectAllProductImage();
+	@GetMapping("/member/product/list/{memberId}")
+	public List<ProductDTO> productList(@PathVariable String memberId) {
+		return productService.productList(memberId);	
 	}
 	
-	@GetMapping("/profile/list")
-	public List<ProfileImageDTO> selectAllProfileImage() {
-		return memberService.selectAllProfileImage();
-	}
 
 	@PostMapping("/review/insert")
 	public Map<String, Object> insertReview(@RequestParam Map<String, String> params) {
@@ -89,7 +85,7 @@ public class MyPageController {
 	        dto.setReviewScore(Integer.parseInt(params.get("reviewScore")));
 
 	        reviewService.insertReview(dto);
-	        map.put("msg", "상품 등록 성공");
+	        map.put("msg", "리뷰 등록 성공");
 	        map.put("result", true);
 	    } catch (IllegalArgumentException e) {
 	        e.printStackTrace();
@@ -97,7 +93,7 @@ public class MyPageController {
 	        map.put("result", false);
 	    } catch (Exception e) {
 	        e.printStackTrace();
-	        map.put("msg", "상품 등록 실패");
+	        map.put("msg", "리뷰 등록 실패");
 	        map.put("result", false);
 	    }
 	    return map;

@@ -1,6 +1,8 @@
 package com.market.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import com.market.dto.CategoryDTO;
@@ -87,6 +89,30 @@ public class ProductService {
 
 	public List<ProductDTO> productSaleslist(String memberId) {
 		return mapper.productSaleslist(memberId);
+	}
+
+	public List<ProductDTO> productList(String memberId) {
+		return mapper.productList(memberId);
+	}
+
+	public int selectFileNo() {
+		return mapper.selectFileNo();
+	}
+
+	public int insertImageFile(ProductImageDTO fileDTO) {
+		return mapper.insertImageFile(fileDTO);
+		
+	}
+
+	public ProductImageDTO selectImageFile(int productImageNo) {
+		return mapper.selectImageFile(productImageNo);
+	}
+
+	public ProductImageDTO selectFile(int productNo, int productImageNo) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("productNo", productNo);
+		map.put("productImageNo", productImageNo);
+		return mapper.selectProductdFile(map);
 	}
 
 	

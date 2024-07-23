@@ -1,6 +1,7 @@
 package com.market.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -45,6 +46,16 @@ public interface ProductMapper {
 	List<ProductDTO> productSaleslist(String memberId);
 
 	List<ProductDTO> ProductPurchaseHistory(String buyerId);
+
+	List<ProductDTO> productList(String memberId);
+
+	int selectFileNo();
+
+	int insertImageFile(ProductImageDTO fileDTO);
+
+	ProductImageDTO selectImageFile(int productImageNo);
+
+	ProductImageDTO selectProductdFile(Map<String, Object> map);
 
 
 

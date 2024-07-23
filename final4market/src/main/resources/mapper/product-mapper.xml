@@ -26,6 +26,7 @@
     <resultMap type="com.market.dto.ProductImageDTO" id="productImage">
         <id column="PRODUCT_NO" property="productNo" />
         <result column="PRODUCT_IMAGE_PATH" property="productImagePath" />
+        <result column="PRODUCT_IMAGE_NO" property="productImageNo" />
     </resultMap>
 
     <!-- ResultMap for DeliveryDTO -->
@@ -47,7 +48,7 @@
        <id column="PRODUCT_NO" property="productNo" />
         <result column="MEMBER_ID" property="memberId"/>
          <result column="PRODUCT_PRICE" property="productPrice"/>
-         <result column="PRODUCT_STATUS" property="productStatus"/>
+         <result column="PRODUCT_SALE" property="productSale"/>
          <result column="PRODUCT_TITLE" property="productTitle"/>
          <result column="PRODUCT_IMAGE_PATH" property="productImagePath" />
          <result column="TH_DATE" property="thDate" />
@@ -123,8 +124,8 @@
     </insert>
 
     <insert id="insertProductImage" parameterType="productImage">
-        INSERT INTO PRODUCT_IMAGE(PRODUCT_IMAGE_PATH, product_no)
-        VALUES (#{productImagePath}, #{productNo})
+        INSERT INTO PRODUCT_IMAGE(PRODUCT_IMAGE_PATH, PRODUCT_IMAGE_NO, product_no)
+        VALUES (#{productImagePath}, #{productImageNo}, #{productNo})
     </insert>
 
     <!-- Additional Select statements -->
@@ -141,14 +142,39 @@
     </select>
 
     <select id="productSaleslist" parameterType="String"  resultMap="productSalesList">
-        SELECT * FROM MEMBER_PRODUCTSALES_LIST WHERE MEMBER_ID = #{memberId}
+        SELECT * FROM MEMBER_PRODUCT_LIST_VIEW WHERE MEMBER_ID = #{memberId}
+         AND PRODUCT_SALE ='완료'
         ORDER BY TH_DATE DESC
     </select>
     
+      <select id="productList" parameterType="String"  resultMap="productSalesList">
+        SELECT * FROM MEMBER_PRODUCT_LIST_VIEW WHERE MEMBER_ID = #{memberId}
+         AND PRODUCT_SALE ='판매중'
+        ORDER BY product_date DESC
+    </select>
+    
         <select id="ProductPurchaseHistory" parameterType="String"  resultMap="productSalesList">
-        SELECT * FROM MEMBER_PRODUCTSALES_LIST WHERE buyer_id = #{buyerId}
+        SELECT * FROM MEMBER_PRODUCT_LIST_VIEW WHERE buyer_id = #{buyerId}
         ORDER BY TH_DATE DESC
     </select>
+
+   	<select id="selectFileNo" resultType="int">
+		select PRODUCT_IMAGE_NO_SEQ.nextval from dual
+	</select>
+	
+	<insert id="insertImageFile" parameterType="productImage">
+		insert into product_view_image
+		values(#{productNo}, #{productImagePath})
+	</insert>
+	
+	<select id="selectImageFile" parameterType="int" resultMap="productImage">
+		select PRODUCT_IMAGE_NO, PRODUCT_IMAGE_PATH from product_view_image where PRODUCT_IMAGE_NO = #{productImageNo}
+	</select>
+   
+   <select id="selectProductdFile" parameterType="map" resultMap="productImage">
+		select PRODUCT_IMAGE_NO, PRODUCT_NO, PRODUCT_IMAGE_PATH from PRODUCT_IMAGE
+		where PRODUCT_NO = #{productNo} and PRODUCT_IMAGE_NO = #{productImageNo}
+	</select>
    
    
 </mapper>

@@ -7,7 +7,7 @@ public class MypageProductLIstDTO {
 	private String memberId;
     private int productNo;
 	private int productPrice;
-	private String productStatus;
+	private String productSale;
 	private String productTitle;
 	private String productImagePath;
 	private Date thDate;
@@ -19,13 +19,13 @@ public class MypageProductLIstDTO {
 	}
 
 
-	public MypageProductLIstDTO(String memberId, int productNo, int productPrice, String productStatus,
+	public MypageProductLIstDTO(String memberId, int productNo, int productPrice, String productSale,
 			String productTitle, String productImagePath, Date thDate, String buyerId) {
 		super();
 		this.memberId = memberId;
 		this.productNo = productNo;
 		this.productPrice = productPrice;
-		this.productStatus = productStatus;
+		this.productSale = productSale;
 		this.productTitle = productTitle;
 		this.productImagePath = productImagePath;
 		this.thDate = thDate;
@@ -63,13 +63,13 @@ public class MypageProductLIstDTO {
 	}
 
 
-	public String getProductStatus() {
-		return productStatus;
+	public String getProductSale() {
+		return productSale;
 	}
 
 
-	public void setProductStatus(String productStatus) {
-		this.productStatus = productStatus;
+	public void setProductSale(String productSale) {
+		this.productSale = productSale;
 	}
 
 
@@ -111,5 +111,6 @@ public class MypageProductLIstDTO {
 	public void setBuyerId(String buyerId) {
 		this.buyerId = buyerId;
 	}
+
 	
 }

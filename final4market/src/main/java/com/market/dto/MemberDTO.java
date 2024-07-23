@@ -1,134 +1,178 @@
 package com.market.dto;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import com.market.models.Member;
 
-import org.apache.ibatis.type.Alias;
-
-@Alias("member")
 public class MemberDTO {
-	private String memberId;
-	private String memberName;
-	private String memberPasswd;
-	private String memberNick;
-	private String memberEmail;
-	private String memberAddr;	
-	private int memberProfileNo;
-	private int memberGrade;
-	private String memberPhoneNo;
-	private LocalDate memberRegDate;
-	private String memberGradeName;
-	
-	public MemberDTO() {
+    private String memberId;
+    private String memberName;
+    private String memberPasswd;
+    private String memberNick;
+    private String memberEmail;
+    private String memberAddr;
+    private int memberProfileNo;
+    private int memberGrade;
+    private String memberPhoneNo;
+    private LocalDateTime memberRegDate;
+    private String memberGradeName;
+    private String token;
 
-	}
-	
-	public MemberDTO(String memberId, String memberName, String memberPasswd, String memberNick, String memberEmail,
-			String memberAddr, int memberProfileNo, int memberGrade, String memberPhoneNo, LocalDate memberRegDate) {
-		this.memberId = memberId;
-		this.memberName = memberName;
-		this.memberPasswd = memberPasswd;
-		this.memberNick = memberNick;
-		this.memberEmail = memberEmail;
-		this.memberAddr = memberAddr;
-		this.memberProfileNo = memberProfileNo;
-		this.memberGrade = memberGrade;
-		this.memberPhoneNo = memberPhoneNo;
-		this.memberRegDate = memberRegDate;
-	}
+    public MemberDTO() {
+    }
 
-	public String getMemberId() {
-		return memberId;
-	}
+    // 모든 필드 포함 생성자
+    public MemberDTO(String memberId, String memberName, String memberPasswd, String memberNick, String memberEmail,
+                     String memberAddr, int memberProfileNo, int memberGrade, String memberPhoneNo, LocalDateTime memberRegDate,
+                     String memberGradeName, String token) {
+        this.memberId = memberId;
+        this.memberName = memberName;
+        this.memberPasswd = memberPasswd;
+        this.memberNick = memberNick;
+        this.memberEmail = memberEmail;
+        this.memberAddr = memberAddr;
+        this.memberProfileNo = memberProfileNo;
+        this.memberGrade = memberGrade;
+        this.memberPhoneNo = memberPhoneNo;
+        this.memberRegDate = memberRegDate;
+        this.memberGradeName = memberGradeName;
+        this.token = token;
+    }
+    
+    public MemberDTO(String memberId, String memberName, String memberPasswd, String memberEmail, String memberPhoneNo) {
+    	this.memberId = memberId;
+    	this.memberName = memberName;
+    	this.memberPasswd = memberPasswd;
+    	this.memberEmail = memberEmail;
+    	this.memberPhoneNo = memberPhoneNo;
+    }
 
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
-	}
+    // member 클래스로부터 memberDTO를 만드는 생성자
+    public MemberDTO(Member member) {
+        this.memberId = member.getMemberId();
+        this.memberName = member.getMemberName();
+        this.memberPasswd = member.getMemberPasswd();
+        this.memberNick = member.getMemberNick();
+        this.memberEmail = member.getMemberEmail();
+        this.memberAddr = member.getMemberAddr();
+        this.memberProfileNo = member.getMemberProfileNo();
+        this.memberGrade = member.getMemberGrade();
+        this.memberPhoneNo = member.getMemberPhoneNo();
+        this.memberRegDate = member.getMemberRegDate();
+        this.memberGradeName = member.getMemberGradeName();
+    }
 
-	public String getMemberName() {
-		return memberName;
-	}
 
-	public void setMemberName(String memberName) {
-		this.memberName = memberName;
-	}
+    public String getToken() {
+        return token;
+    }
 
-	public String getMemberPasswd() {
-		return memberPasswd;
-	}
+    public void setToken(String token) {
+        this.token = token;
+    }
 
-	public void setMemberPasswd(String memberPasswd) {
-		this.memberPasswd = memberPasswd;
-	}
+    public String getMemberId() {
+        return memberId;
+    }
 
-	public String getMemberNick() {
-		return memberNick;
-	}
+    public void setMemberId(String memberId) {
+        this.memberId = memberId;
+    }
 
-	public void setMemberNick(String memberNick) {
-		this.memberNick = memberNick;
-	}
+    public String getMemberName() {
+        return memberName;
+    }
 
-	public String getMemberEmail() {
-		return memberEmail;
-	}
+    public void setMemberName(String memberName) {
+        this.memberName = memberName;
+    }
 
-	public void setMemberEmail(String memberEmail) {
-		this.memberEmail = memberEmail;
-	}
+    public String getMemberPasswd() {
+        return memberPasswd;
+    }
 
-	public String getMemberAddr() {
-		return memberAddr;
-	}
+    public void setMemberPasswd(String memberPasswd) {
+        this.memberPasswd = memberPasswd;
+    }
 
-	public void setMemberAddr(String memberAddr) {
-		this.memberAddr = memberAddr;
-	}
+    public String getMemberNick() {
+        return memberNick;
+    }
 
-	public int getMemberProfileNo() {
-		return memberProfileNo;
-	}
+    public void setMemberNick(String memberNick) {
+        this.memberNick = memberNick;
+    }
 
-	public void setMemberProfileNo(int memberProfileNo) {
-		this.memberProfileNo = memberProfileNo;
-	}
+    public String getMemberEmail() {
+        return memberEmail;
+    }
 
-	public int getMemberGrade() {
-		return memberGrade;
-	}
+    public void setMemberEmail(String memberEmail) {
+        this.memberEmail = memberEmail;
+    }
 
-	public void setMemberGrade(int memberGrade) {
-		this.memberGrade = memberGrade;
-	}
+    public String getMemberAddr() {
+        return memberAddr;
+    }
 
-	public String getMemberPhoneNo() {
-		return memberPhoneNo;
-	}
+    public void setMemberAddr(String memberAddr) {
+        this.memberAddr = memberAddr;
+    }
 
-	public void setMemberPhoneNo(String memberPhoneNo) {
-		this.memberPhoneNo = memberPhoneNo;
-	}
+    public int getMemberProfileNo() {
+        return memberProfileNo;
+    }
 
-	public LocalDate getMemberRegDate() {
-		return memberRegDate;
-	}
+    public void setMemberProfileNo(int memberProfileNo) {
+        this.memberProfileNo = memberProfileNo;
+    }
 
-	public void setMemberRegDate(LocalDate memberRegDate) {
-		this.memberRegDate = memberRegDate;
-	}
+    public int getMemberGrade() {
+        return memberGrade;
+    }
 
-	public String getMemberGradeName() {
-		return memberGradeName;
-	}
+    public void setMemberGrade(int memberGrade) {
+        this.memberGrade = memberGrade;
+    }
 
-	public void setMemberGradeName(String memberGradeName) {
-		this.memberGradeName = memberGradeName;
-	}
+    public String getMemberPhoneNo() {
+        return memberPhoneNo;
+    }
 
-	@Override
-	public String toString() {
-		return "MemberDTO [memberId=" + memberId + ", memberName=" + memberName + ", memberPasswd=" + memberPasswd
-				+ ", memberNick=" + memberNick + ", memberEmail=" + memberEmail + ", memberAddr=" + memberAddr
-				+ ", memberProfileNo=" + memberProfileNo + ", memberGrade=" + memberGrade + ", memberPhoneNo="
-				+ memberPhoneNo + ", memberRegDate=" + memberRegDate + ", memberGradeName=" + memberGradeName + "]";
-	}	
+    public void setMemberPhoneNo(String memberPhoneNo) {
+        this.memberPhoneNo = memberPhoneNo;
+    }
+
+    public LocalDateTime getMemberRegDate() {
+        return memberRegDate;
+    }
+
+    public void setMemberRegDate(LocalDateTime memberRegDate) {
+        this.memberRegDate = memberRegDate;
+    }
+
+    public String getMemberGradeName() {
+        return memberGradeName;
+    }
+
+    public void setMemberGradeName(String memberGradeName) {
+        this.memberGradeName = memberGradeName;
+    }
+
+    @Override
+    public String toString() {
+        return "MemberDTO{" +
+                "memberId='" + memberId + '\'' +
+                ", memberName='" + memberName + '\'' +
+                ", memberPasswd='" + memberPasswd + '\'' +
+                ", memberNick='" + memberNick + '\'' +
+                ", memberEmail='" + memberEmail + '\'' +
+                ", memberAddr='" + memberAddr + '\'' +
+                ", memberProfileNo=" + memberProfileNo +
+                ", memberGrade=" + memberGrade +
+                ", memberPhoneNo='" + memberPhoneNo + '\'' +
+                ", memberRegDate=" + memberRegDate +
+                ", memberGradeName='" + memberGradeName + '\'' +
+                ", token='" + token + '\'' +
+                '}';
+    }
 }

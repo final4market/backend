@@ -1,6 +1,8 @@
 package com.market.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import com.market.dto.CategoryDTO;
@@ -25,7 +27,6 @@ public class ProductService {
 	public List<ProductDTO> selectAllProduct() {
 		return mapper.selectAllProduct();
 	}
-
 
 	public List<ProductImageDTO> productImage(int productNo) {
 		return mapper.productImage(productNo);
@@ -98,5 +99,21 @@ public class ProductService {
 	public List<ChatDTO> selectProductChat(int productNo) {
 		return mapper.selectProductChat(productNo);
 	}
+
+	public int insertProductLike(String memberId, int productNo) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("memberId", memberId);
+		map.put("productNo", productNo);
+		return mapper.insertProductLike(map);
+	}
+
+	public int deleteProductLike(String memberId, int productNo) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("memberId", memberId);
+		map.put("productNo", productNo);
+		return mapper.deleteProductLike(map);
+		
+	}
+
 }
 

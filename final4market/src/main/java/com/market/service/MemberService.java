@@ -1,10 +1,12 @@
 package com.market.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.market.dto.MemberAddressDTO;
 import com.market.dto.MemberDTO;
 import com.market.dto.MemberProfileDTO;
 import com.market.dto.ReviewDTO;
@@ -66,6 +68,24 @@ public class MemberService {
 
 	public List<ReviewDTO> selectMemberScore(String memberId) {
 		return mapper.selectMemberScore(memberId);
+	}
+	public int insertFollow(String buyerId, String sellerId) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("buyerId", buyerId);
+		map.put("sellerId", sellerId);
+		return mapper.insertFollow(map);
+	}
+
+	public int deleteFollow(String buyerId, String sellerId) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("buyerId", buyerId);
+		map.put("sellerId", sellerId);
+		return mapper.deleteFollow(map);
+		
+	}
+
+	public List<MemberAddressDTO> selectMemberAddress(String memberId) {
+		return mapper.selectMemberAddress(memberId);
 	}
 }
 

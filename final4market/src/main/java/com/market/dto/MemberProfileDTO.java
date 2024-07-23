@@ -2,7 +2,6 @@ package com.market.dto;
 
 import org.apache.ibatis.type.Alias;
 
-@Alias("profile")
 public class MemberProfileDTO {
 	private int memberProfileNo;
 	private String profilePath;

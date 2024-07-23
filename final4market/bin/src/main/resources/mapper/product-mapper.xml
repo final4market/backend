@@ -106,12 +106,20 @@
     </select>
 
     <!-- Insert statements -->
+<<<<<<< HEAD
     <insert id="insertProduct" parameterType="Product">
+=======
+    <insert id="insertProduct" parameterType="com.market.dto.ProductDTO">
+>>>>>>> 80ab1e76913aca1720b4cc4b3d525308028f7fe2
         INSERT INTO Product (product_no, product_price, product_status, product_content, product_title, category_no, delivery_no, trade_area, delivery_charge, member_id)
         VALUES (#{productNo}, #{productPrice}, #{productStatus}, #{productContent}, #{productTitle}, #{categoryNo}, #{deliveryNo}, #{tradeArea}, #{deliveryCharge}, 'member5')
     </insert>
 
+<<<<<<< HEAD
     <insert id="insertProductImage" parameterType="productImage">
+=======
+    <insert id="insertProductImage" parameterType="com.market.dto.ProductImageDTO">
+>>>>>>> 80ab1e76913aca1720b4cc4b3d525308028f7fe2
         INSERT INTO PRODUCT_IMAGE(PRODUCT_IMAGE_PATH, product_no)
         VALUES (#{productImagePath}, #{productNo})
     </insert>

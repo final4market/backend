@@ -16,7 +16,6 @@ import com.market.dto.ProductImageDTO;
 import com.market.dto.ReviewDTO;
 import com.market.dto.MemberProfileDTO;
 import com.market.dto.ProductLikeDTO;
-
 import com.market.service.MemberService;
 import com.market.service.ProductService;
 
@@ -32,7 +31,22 @@ public class MyPageController {
 		this.productService = productService;
 
 	}
+	
+	@GetMapping("/member/list")
+	public List<MemberDTO> selectAllMembers() {
+		return memberService.selectAllMembers();
+	}
 
+	@GetMapping("/member/product/list")
+	public List<ProductDTO> selectSellerAllProduct() {
+		return productService.selectSellerAllProduct();
+	}
+
+	@GetMapping("/image/list")
+	public List<ProductImageDTO> selectAllProductImage() {
+		return productService.selectAllProductImage();
+	}
+	
 	@GetMapping("/member/{memberProfileNo}/profile")
 	public List<MemberProfileDTO> selectMemberProfile(@PathVariable int memberProfileNo) {
 		return memberService.selectMemberProfile(memberProfileNo);

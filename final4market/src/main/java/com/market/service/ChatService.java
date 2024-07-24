@@ -18,4 +18,8 @@ public class ChatService {
 	public List<ChatDTO> selectAllChat() {
 		return mapper.selectAllChat();
 	}
+
+	public List<ChatDTO> selectChatInfo(String memberId) {
+		return mapper.selectChatInfo(memberId);
+	}
 }

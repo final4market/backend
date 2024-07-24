@@ -56,5 +56,9 @@ public interface ProductMapper {
 
 	int deleteProductLike(Map<String, Object> map);
 
+	List<String> selectLikeStatus(int productNo);
+
+	int updateProductSaleSatus(int productNo);
+
 }
 

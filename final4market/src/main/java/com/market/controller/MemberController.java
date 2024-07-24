@@ -1,8 +1,10 @@
 package com.market.controller;
 
 
+import com.market.dto.ChatDTO;
 import com.market.dto.MemberAddressDTO;
 import com.market.dto.MemberDTO;
+import com.market.dto.ReportDTO;
 import com.market.service.MemberService;
 
 import org.springframework.http.HttpStatus;
@@ -154,5 +156,12 @@ public class MemberController {
 			return map;
 		}
 	}
+	
+	@GetMapping("/selectFollowStatus")
+	public List<String> selectFollowStatus(String memberId) {
+		List<String> list = memberService.selectFollowStatus(memberId);
+		return list;
+	}
+	
 	
 }

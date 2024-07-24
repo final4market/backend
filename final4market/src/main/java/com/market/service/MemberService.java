@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.market.dto.ChatDTO;
 import com.market.dto.MemberAddressDTO;
 import com.market.dto.MemberDTO;
 import com.market.dto.MemberProfileDTO;
@@ -112,5 +113,10 @@ public class MemberService {
 	public int changeMainAddressNew(MemberAddressDTO dto) {
 		return mapper.changeMainAddressNew(dto);
 	}
+
+	public List<String> selectFollowStatus(String memberId) {
+		return mapper.selectFollowStatus(memberId);
+	}
+
 }
 

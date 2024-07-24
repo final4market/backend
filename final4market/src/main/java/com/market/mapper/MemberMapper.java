@@ -3,6 +3,7 @@ package com.market.mapper;
 import java.util.List;
 import java.util.Map;
 
+import com.market.dto.ChatDTO;
 import com.market.dto.MemberAddressDTO;
 import com.market.dto.MemberDTO;
 import com.market.dto.MemberProfileDTO;
@@ -65,4 +66,7 @@ public interface MemberMapper {
 	int changeMainAddressExisting(MemberAddressDTO dto);
 
 	int changeMainAddressNew(MemberAddressDTO dto);
+
+	List<String> selectFollowStatus(String memberId);
+
 }

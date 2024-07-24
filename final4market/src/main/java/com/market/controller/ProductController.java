@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -167,5 +167,23 @@ public class ProductController {
 		return map;
 	}
 	
+	@GetMapping("/selectLikeStatus")
+	public List<String> selectLikeStatus(int productNo) {
+		List<String> list = productService.selectLikeStatus(productNo);
+		return list;
+	}
+	
+	@PutMapping("/updateProductSaleSatus")
+	public Map<String, Object> updateProductSaleSatus(int productNo){
+		System.out.println(productNo);
+		Map<String, Object> map = new HashMap<>();
+		try {
+			productService.updateProductSaleSatus(productNo);
+			map.put("msg", "결제 완료되었습니다");
+		} catch (Exception e) {
+			map.put("msg", "결제 실패했습니다");
+		}
+		return map;
+	}
 	
 }

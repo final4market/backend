@@ -131,5 +131,13 @@ public class ProductService {
 		
 	}
 
+	public List<String> selectLikeStatus(int productNo) {
+		return mapper.selectLikeStatus(productNo);
+	}
+
+	public int updateProductSaleSatus(int productNo) {
+		return mapper.updateProductSaleSatus(productNo);
+	}
+
 }
 

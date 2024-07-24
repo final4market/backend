@@ -3,14 +3,14 @@ package com.market.mapper;
 import java.util.List;
 import java.util.Map;
 
-
 import com.market.dto.MemberDTO;
 import com.market.dto.MemberProfileDTO;
+import com.market.dto.MyStoreProfileDTO;
 import com.market.dto.ReviewDTO;
-import com.market.dto.StoreDTO;
+
 
 import org.apache.ibatis.annotations.Mapper;
-
+import com.market.dto.StoreDTO;
 
 @Mapper
 public interface MemberMapper {
@@ -32,9 +32,5 @@ public interface MemberMapper {
 
 	List<Map<String, Object>> buyerProfilePath(List<String> buyerProfileNo);
 
-	List<MemberProfileDTO> selectMemberProfile(int memberProfileNo);
-
-	List<MemberDTO> selectMemberNick(String memberId);
-
-	List<ReviewDTO> selectMemberScore(String memberId);
+	MyStoreProfileDTO myStoreProfile(String memberId);
 }

@@ -1,11 +1,13 @@
 package com.market.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import com.market.dto.CategoryDTO;
 import com.market.dto.ChatDTO;
 import com.market.dto.DeliveryDTO;
+import com.market.dto.MyStoreProductDTO;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,11 +23,10 @@ public class ProductService {
 	public ProductService(ProductMapper mapper) {
 		this.mapper = mapper;
 	}
-	
+
 	public List<ProductDTO> selectAllProduct() {
 		return mapper.selectAllProduct();
 	}
-
 
 	public List<ProductImageDTO> productImage(int productNo) {
 		return mapper.productImage(productNo);
@@ -41,7 +42,7 @@ public class ProductService {
 
 	public List<CategoryDTO> categoryInfo(int categoryNo) {
 		return mapper.categoryInfo(categoryNo);
-	}		
+	}
 
 	public List<CategoryDTO> selectAllCategory() {
 		return mapper.selectAllCategory();
@@ -61,6 +62,7 @@ public class ProductService {
 
 	public int insertProductImage(ProductImageDTO productImageDTO) {
 		return mapper.insertProductImage(productImageDTO);
+
 	}
 
 	public List<ProductImageDTO> selectAllProductImage() {
@@ -83,20 +85,7 @@ public class ProductService {
 		return mapper.sellerProductPrice(productNo);
 	}
 
-	public List<ProductImageDTO> selectProductImage(int productNo) {
-		return mapper.selectProductImage(productNo);
-	}
-
-	public List<ProductDTO> selectProductPrice(int productNo) {
-		return mapper.selectProductPrice(productNo);
-	}
-
-	public List<ProductLikeDTO> selectProductLike(int productNo) {
-		return mapper.selectProductLike(productNo);
-	}
-
-	public List<ChatDTO> selectProductChat(int productNo) {
-		return mapper.selectProductChat(productNo);
+	public MyStoreProductDTO myStoreProduct(int productNo) {
+		return mapper.myStoreProduct(productNo);
 	}
 }
-

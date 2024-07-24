@@ -35,12 +35,6 @@
 		<result column="MEMBER_PROFILE_PATH" property="memberProfilePath"/>
 	</resultMap>
 
-	<resultMap type="com.market.dto.MyStoreProfileDTO" id="myStoreProfile">
-		<result column="PROFILE_PATH" property="memberProfilePath"/>
-		<result column="MEMBER_NICK" property="memberNick"/>
-		<result column="REVIEW_SCORE" property="memberScore"/>
-	</resultMap>
-
 	<select id="selectAllMembers" resultMap="member">
        SELECT m.member_id, m.member_name, m.member_nick, m.member_email, m.member_address,
        m.member_profile_no, m.member_grade, g.grade_name,
@@ -134,17 +128,21 @@
 	    </foreach>
 	</select>
 
-	<select id="myStoreProfile" parameterType="String" resultMap="myStoreProfile">
-		SELECT
-		    MP.PROFILE_PATH, M.MEMBER_NICK,
-		    (SELECT ROUND(AVG(REVIEW_SCORE), 2)
-		    FROM REVIEW R
-		    WHERE M.MEMBER_ID = R.SELLER_ID) AS REVIEW_SCORE
-		FROM
-		    MEMBER M
-		LEFT JOIN
-			MEMBER_PROFILE MP ON M.MEMBER_PROFILE_NO = MP.MEMBER_PROFILE_NO
-		WHERE
-			M.MEMBER_ID = #{MEMBER_ID}
+    <select id="selectMemberProfile" parameterType="int" resultType="map">
+        SELECT PROFILE_PATH
+        FROM MEMBER_PROFILE
+        WHERE MEMBER_PROFILE_NO = #{MEMBER_PROFILE_NO}
+    </select>
+
+	<select id="selectMemberNick" parameterType="String" resultType="map">
+		SELECT MEMBER_NICK
+		FROM MEMBER
+		WHERE MEMBER_ID = #{MEMBER_ID}
+	</select>
+
+	<select id="selectMemberScore" parameterType="String" resultType="map">
+		SELECT TRUNC(AVG(REVIEW_SCORE), 2) AS MEMBER_SCORE
+		FROM REVIEW
+		WHERE SELLER_ID = #{MEMBER_ID}
 	</select>
 </mapper>

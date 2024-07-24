@@ -1,12 +1,14 @@
 package com.market.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
 import com.market.dto.CategoryDTO;
 import com.market.dto.ChatDTO;
 import com.market.dto.DeliveryDTO;
+import com.market.dto.MyStoreProductDTO;
 import com.market.dto.ProductDTO;
 import com.market.dto.ProductImageDTO;
 import com.market.dto.ProductLikeDTO;
@@ -43,12 +45,5 @@ public interface ProductMapper {
 
 	int sellerProductPrice(String productNo);
 
-	List<ProductImageDTO> selectProductImage(int productNo);
-
-	List<ProductDTO> selectProductPrice(int productNo);
-
-	List<ProductLikeDTO> selectProductLike(int productNo);
-
-	List<ChatDTO> selectProductChat(int productNo);
+	MyStoreProductDTO myStoreProduct(int productNo);
 }
-

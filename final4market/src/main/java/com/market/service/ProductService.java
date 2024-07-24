@@ -97,18 +97,6 @@ public class ProductService {
 		return mapper.productList(memberId);
 	}
 
-	public int selectFileNo() {
-		return mapper.selectFileNo();
-	}
-
-	public int insertImageFile(ProductImageDTO fileDTO) {
-		return mapper.insertImageFile(fileDTO);
-		
-	}
-
-	public ProductImageDTO selectImageFile(int productImageNo) {
-		return mapper.selectImageFile(productImageNo);
-	}
 
 	public ProductImageDTO selectFile(int productNo, int productImageNo) {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -116,11 +104,6 @@ public class ProductService {
 		map.put("productImageNo", productImageNo);
 		return mapper.selectProductdFile(map);
 	}
-
-	
-
-
-
 
 	public List<ProductImageDTO> selectProductImage(int productNo) {
 		return mapper.selectProductImage(productNo);

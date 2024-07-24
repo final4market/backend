@@ -51,16 +51,7 @@ public interface ProductMapper {
 
 	List<ProductDTO> productList(String memberId);
 
-	int selectFileNo();
-
-	int insertImageFile(ProductImageDTO fileDTO);
-
-	ProductImageDTO selectImageFile(int productImageNo);
-
 	ProductImageDTO selectProductdFile(Map<String, Object> map);
-
-
-
 
 	List<ProductImageDTO> selectProductImage(int productNo);
 

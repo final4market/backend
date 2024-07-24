@@ -30,7 +30,7 @@ public class MyPageController {
 	private ReviewService reviewService;
 
 	public MyPageController(MemberService memberService,
-			ProductService productService) {
+			ProductService productService, ReviewService reviewService) {
 		this.memberService = memberService;
 		this.productService = productService;
 		this.reviewService = reviewService;

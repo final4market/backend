@@ -52,7 +52,7 @@ public class SecurityConfig {
                 return corsConfig;
             }))
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/auth/login", "/api/auth/signup").permitAll()
+                .requestMatchers("/api/auth/login", "/api/auth/signup","/file/**").permitAll()
                 .anyRequest().authenticated()
             )
             .sessionManagement(session -> session

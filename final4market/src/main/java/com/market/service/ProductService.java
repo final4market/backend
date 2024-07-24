@@ -89,12 +89,12 @@ public class ProductService {
 		return mapper.ProductPurchaseHistory(buyerId);
 	}
 
-	public List<ProductDTO> productSaleslist(String memberId) {
-		return mapper.productSaleslist(memberId);
+	public List<ProductDTO> productsoldoutlist(String memberId) {
+		return mapper.productsoldoutlist(memberId);
 	}
 
-	public List<ProductDTO> productList(String memberId) {
-		return mapper.productList(memberId);
+	public List<ProductDTO> productSaleslist(String memberId) {
+		return mapper.productSaleslist(memberId);
 	}
 
 

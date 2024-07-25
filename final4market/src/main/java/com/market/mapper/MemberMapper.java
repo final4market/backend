@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.market.dto.MemberDTO;
 import com.market.dto.MemberProfileDTO;
-import com.market.dto.MyStoreProfileDTO;
+import com.market.dto.MyPageProfileDTO;
 import com.market.dto.ReviewDTO;
 
 
@@ -32,5 +32,5 @@ public interface MemberMapper {
 
 	List<Map<String, Object>> buyerProfilePath(List<String> buyerProfileNo);
 
-	MyStoreProfileDTO myStoreProfile(String memberId);
+	MyPageProfileDTO myPageProfile(String memberId);
 }

@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.market.dto.CategoryDTO;
 import com.market.dto.ChatDTO;
 import com.market.dto.DeliveryDTO;
-import com.market.dto.MyStoreProductDTO;
+import com.market.dto.MyPageProductDTO;
 import com.market.dto.ProductDTO;
 import com.market.dto.ProductImageDTO;
 import com.market.dto.ProductLikeDTO;
@@ -45,5 +45,7 @@ public interface ProductMapper {
 
 	int sellerProductPrice(String productNo);
 
-	MyStoreProductDTO myStoreProduct(int productNo);
+	MyPageProductDTO myPageProduct(int productNo);
+
+	MyPageProductDTO myPageInterest(int productNo);
 }

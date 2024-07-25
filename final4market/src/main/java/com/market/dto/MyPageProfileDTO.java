@@ -1,14 +1,14 @@
 package com.market.dto;
 
-public class MyStoreProfileDTO {
+public class MyPageProfileDTO {
 	private String memberProfilePath;
 	private String memberNick;
 	private double memberScore;
 
-	public MyStoreProfileDTO() {
+	public MyPageProfileDTO() {
 	}
 
-	public MyStoreProfileDTO(String memberProfilePath, String memberNick, double memberScore) {
+	public MyPageProfileDTO(String memberProfilePath, String memberNick, double memberScore) {
 		this.memberProfilePath = memberProfilePath;
 		this.memberNick = memberNick;
 		this.memberScore = memberScore;

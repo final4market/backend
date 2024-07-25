@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.market.dto.MemberDTO;
 import com.market.dto.MemberProfileDTO;
-import com.market.dto.MyStoreProfileDTO;
+import com.market.dto.MyPageProfileDTO;
 import com.market.dto.ReviewDTO;
 import com.market.dto.StoreDTO;
 
@@ -57,7 +57,7 @@ public class MemberService {
 		return mapper.buyerProfilePath(buyerProfileNo);
 	}
 
-	public MyStoreProfileDTO myStoreProfile(String memberId) {
-		return mapper.myStoreProfile(memberId);
+	public MyPageProfileDTO myPageProfile(String memberId) {
+		return mapper.myPageProfile(memberId);
 	}
 }

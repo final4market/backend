@@ -35,7 +35,7 @@
 		<result column="MEMBER_PROFILE_PATH" property="memberProfilePath"/>
 	</resultMap>
 
-	<resultMap type="com.market.dto.MyStoreProfileDTO" id="myStoreProfile">
+	<resultMap type="com.market.dto.MyPageProfileDTO" id="myPageProfile">
 		<result column="PROFILE_PATH" property="memberProfilePath"/>
 		<result column="MEMBER_NICK" property="memberNick"/>
 		<result column="REVIEW_SCORE" property="memberScore"/>
@@ -134,7 +134,7 @@
 	    </foreach>
 	</select>
 
-	<select id="myStoreProfile" parameterType="String" resultMap="myStoreProfile">
+	<select id="myPageProfile" parameterType="String" resultMap="myPageProfile">
 		SELECT
 		    MP.PROFILE_PATH, M.MEMBER_NICK,
 		    (SELECT ROUND(AVG(REVIEW_SCORE), 2)

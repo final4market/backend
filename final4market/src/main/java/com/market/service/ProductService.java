@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import com.market.dto.CategoryDTO;
 import com.market.dto.ChatDTO;
 import com.market.dto.DeliveryDTO;
-import com.market.dto.MyStoreProductDTO;
+import com.market.dto.MyPageProductDTO;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -85,7 +85,11 @@ public class ProductService {
 		return mapper.sellerProductPrice(productNo);
 	}
 
-	public MyStoreProductDTO myStoreProduct(int productNo) {
-		return mapper.myStoreProduct(productNo);
+	public MyPageProductDTO myPageProduct(int productNo) {
+		return mapper.myPageProduct(productNo);
+	}
+
+	public MyPageProductDTO myPageInterest(int productNo) {
+		return mapper.myPageInterest(productNo);
 	}
 }

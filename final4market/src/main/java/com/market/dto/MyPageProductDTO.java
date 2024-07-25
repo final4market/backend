@@ -1,16 +1,16 @@
 package com.market.dto;
 
-public class MyStoreProductDTO {
+public class MyPageProductDTO {
 	private String ProductImagePath;
 	private String ProductTitle;
 	private int ProductPrice;
 	private int InterestCount;
 	private int ChatCount;
 
-	public MyStoreProductDTO() {
+	public MyPageProductDTO() {
 	}
 
-	public MyStoreProductDTO(String productImagePath, String productTitle, int productPrice, int interestCount,
+	public MyPageProductDTO(String productImagePath, String productTitle, int productPrice, int interestCount,
 			int chatCount) {
 		ProductImagePath = productImagePath;
 		ProductTitle = productTitle;
@@ -61,7 +61,7 @@ public class MyStoreProductDTO {
 
 	@Override
 	public String toString() {
-		return "MyStoreProductDTO [ProductImagePath=" + ProductImagePath + ", ProductTitle=" + ProductTitle
+		return "MyPageProductDTO [ProductImagePath=" + ProductImagePath + ", ProductTitle=" + ProductTitle
 				+ ", ProductPrice=" + ProductPrice + ", InterestCount=" + InterestCount + ", ChatCount=" + ChatCount
 				+ "]";
 	}

@@ -22,7 +22,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String memberId) throws UsernameNotFoundException {
         Member member = memberMapper.getMemberByIdWithPassword(memberId);
         if (member == null) {
-            throw new UsernameNotFoundException("User not found");
+            throw new UsernameNotFoundException(memberId + " 아이디를 찾을 수 없습니다");
         }
         return new CustomUserDetails(member);
     }

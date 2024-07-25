@@ -136,12 +136,7 @@
     <insert id="insertProductImage" parameterType="productImage">
         INSERT INTO PRODUCT_IMAGE(PRODUCT_IMAGE_PATH, PRODUCT_IMAGE_NO, product_no)
         VALUES (#{productImagePath}, #{productImageNo}, #{productNo})
-
-    <insert id="insertProductImage" parameterType="com.market.dto.ProductImageDTO">
-        INSERT INTO PRODUCT_IMAGE(PRODUCT_IMAGE_PATH, product_no)
-        VALUES (#{path}, #{productNo})
-
-    </insert>
+   </insert>
 
  
     <select id="productNo" parameterType="String">
@@ -206,20 +201,15 @@
 		insert into INTEREST_PRODUCT values(#{memberId},#{productNo})
 	</insert>
 	
-	<delete id="deleteProductLike" parameterType="map">
 
-		delete from product_like where buyer_id = #{memberId} and product_no = #{productNo}
-	</delete>
-	
 	<delete id="productDelete" parameterType="map">
     delete from product
      where product_no = #{productNo}
   </delete>
 
-
-    <delete id="deleteProductLike" parameterType="map">
+<delete id="deleteProductLike" parameterType="map">
 		delete from INTEREST_PRODUCT where buyer_id = #{memberId} and product_no = #{productNo}
-	</delete>	
+	</delete>
 	
 	<select id="selectLikeStatus" parameterType="int">
 		select buyer_id from INTEREST_PRODUCT where product_no = #{productNo}

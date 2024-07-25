@@ -169,12 +169,6 @@ public class MyPageController {
 		return productService.selectProductImage(productNo);
 	}
 
-	
-
-	public MyPageController(MemberService memberService, ProductService productService) {
-		this.memberService = memberService;
-		this.productService = productService;
-	}
 
 	@GetMapping("/api/myPageProfile/{memberId}")
 	public MyPageProfileDTO myPageProfile(@PathVariable String memberId) {

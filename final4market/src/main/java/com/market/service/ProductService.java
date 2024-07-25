@@ -136,6 +136,10 @@ public class ProductService {
 		
 	}
 
+	public int productDelete(int productNo) {
+		return mapper.productDelete(productNo) ;
+	}
+
 
 }
 

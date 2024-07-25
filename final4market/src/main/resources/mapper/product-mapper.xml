@@ -53,6 +53,7 @@
          <result column="PRODUCT_IMAGE_PATH" property="productImagePath" />
          <result column="TH_DATE" property="thDate" />
           <result column="buyer_id" property="buyerId"/>
+           <result column="PRODUCT_DATE" property="productDate"/>
     </resultMap>
 
     <!-- Select statements -->
@@ -146,7 +147,7 @@
         SELECT * FROM MEMBER_PRODUCT_LIST_VIEW WHERE MEMBER_ID = #{memberId}
          AND PRODUCT_SALE ='판매중'
          AND product_image_no=0
-        ORDER BY TH_DATE DESC
+        ORDER BY PRODUCT_DATE DESC 
     </select>
     
     <select id="productsoldoutlist" parameterType="String"  resultMap="productSalesList">
@@ -195,6 +196,11 @@
 	<delete id="deleteProductLike" parameterType="map">
 		delete from product_like where buyer_id = #{memberId} and product_no = #{productNo}
 	</delete>
+	
+	<delete id="productDelete" parameterType="map">
+    delete from product
+     where product_no = #{productNo}
+ </delete>
 
 </mapper>
 

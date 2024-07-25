@@ -117,6 +117,16 @@ public class MyPageController {
 	    }
 	}
 	
+	@DeleteMapping("/product/delete/{productNo}")
+	public ResponseEntity<String> productDelete(@PathVariable int productNo) {
+	    int result = productService.productDelete(productNo);
+	    if (result > 0) {
+	        return ResponseEntity.ok("삭제가 완료됐습니다.");
+	    } else {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("상품을 찾을 수 없습니다.");
+	    }
+	}
+	
 	@PutMapping("/review/update/{productNo}")
 	public Map<String, Object> reviewUpdate(
 	    @PathVariable int productNo, 

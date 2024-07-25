@@ -65,6 +65,8 @@ public interface ProductMapper {
 
 	int deleteProductLike(Map<String, Object> map);
 
+	int productDelete(int productNo);
+
 
 }
 

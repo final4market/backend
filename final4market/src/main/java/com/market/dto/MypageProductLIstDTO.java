@@ -10,12 +10,39 @@ public class MypageProductLIstDTO {
 	private String productSale;
 	private String productTitle;
 	private String productImagePath;
+	private Date productDate;
+	public Date getProductDate() {
+		return productDate;
+	}
+
+
+	public void setProductDate(Date productDate) {
+		this.productDate = productDate;
+	}
+
+
 	private Date thDate;
 	private String buyerId;
 
 
 	public MypageProductLIstDTO() {
 
+	}
+
+	
+
+	public MypageProductLIstDTO(String memberId, int productNo, int productPrice, String productSale,
+			String productTitle, String productImagePath, Date productDate, Date thDate, String buyerId) {
+		super();
+		this.memberId = memberId;
+		this.productNo = productNo;
+		this.productPrice = productPrice;
+		this.productSale = productSale;
+		this.productTitle = productTitle;
+		this.productImagePath = productImagePath;
+		this.productDate = productDate;
+		this.thDate = thDate;
+		this.buyerId = buyerId;
 	}
 
 

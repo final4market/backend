@@ -40,4 +40,7 @@ public class ReportService {
         return reportMapper.updateReadStatus(productNo, claimerId, sellerId, adminId, readStatus);
     }
 
+	public int insertReport(ReportDTO dto) {
+		return reportMapper.insertReport(dto);
+	}
 }

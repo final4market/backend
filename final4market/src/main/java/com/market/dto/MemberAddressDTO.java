@@ -1,7 +1,9 @@
 package com.market.dto;
 
+import org.apache.ibatis.type.Alias;
 import org.springframework.web.bind.annotation.RestController;
 
+@Alias("address")
 public class MemberAddressDTO {
 	private int memberAddressNo;
 	private String memberId;

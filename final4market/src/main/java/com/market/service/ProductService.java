@@ -103,4 +103,12 @@ public class ProductService {
 		map.put("productNo", productNo);
 		return mapper.deleteProductLike(map);
 	}
+	
+	public List<String> selectLikeStatus(int productNo) {
+		return mapper.selectLikeStatus(productNo);
+	}
+
+	public int updateProductSaleSatus(int productNo) {
+		return mapper.updateProductSaleSatus(productNo);
+	}
 }

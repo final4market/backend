@@ -149,4 +149,12 @@
 		WHERE
 			P.PRODUCT_NO = #{PRODUCT_NO}
 	</select>
+
+	<insert id="insertProductLike" parameterType="map">
+		insert into product_like values(#{memberId},#{productNo})
+	</insert>
+	
+	<delete id="deleteProductLike" parameterType="map">
+		delete from product_like where buyer_id = #{memberId} and product_no = #{productNo}
+	</delete>	
 </mapper>

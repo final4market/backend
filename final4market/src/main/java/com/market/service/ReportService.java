@@ -24,7 +24,7 @@ public class ReportService {
     }
     
     public List<ReportDTO> getFilteredReports(Map<String, String> params) {
-    	logger.debug("Params in service: {}", params);
+    	System.out.println("Params in service: " + params);
     	return reportMapper.getFilteredReports(params);
 	}
 

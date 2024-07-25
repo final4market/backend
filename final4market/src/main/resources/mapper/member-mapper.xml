@@ -19,20 +19,44 @@
     </resultMap>
     
     <resultMap type="com.market.dto.StoreDTO" id="store">
-		<id column="SELLER_ID" property="sellerId" />
-		<result column="BUYER_ID" property="buyerId"/>
-		<result column="PRODUCT_NO" property="productNo"/>
-		<result column="FOLLOWER_COUNT" property="followerCount"/>
-		<result column="SALE_COUNT" property="saleCount"/>
-		<result column="SALE_PRICE" property="salePrice"/>
-		<result column="REVIEW" property="review"/>
-		<result column="SALE_STATUS" property="saleStatus"/>
-		<result column="PROFILE_PATH" property="profileNo"/>
-	</resultMap>
-	
-	<resultMap type="com.market.dto.MemberProfileDTO" id="profile">
-		<id column="MEMBER_PROFILE_NO" property="memberProfileNo" />
-		<result column="MEMBER_PROFILE_PATH" property="memberProfilePath"/>
+        <id column="SELLER_ID" property="sellerId" />
+        <result column="BUYER_ID" property="buyerId"/>
+        <result column="PRODUCT_NO" property="productNo"/>
+        <result column="FOLLOWER_COUNT" property="followerCount"/>
+        <result column="SALE_COUNT" property="saleCount"/>
+        <result column="SALE_PRICE" property="salePrice"/>
+        <result column="REVIEW" property="review"/>
+        <result column="SALE_STATUS" property="saleStatus"/>
+        <result column="PROFILE_PATH" property="profileNo"/>
+    </resultMap>
+    
+    <resultMap type="com.market.dto.MemberProfileDTO" id="profile">
+        <id column="MEMBER_PROFILE_NO" property="memberProfileNo" />
+        <result column="MEMBER_PROFILE_PATH" property="memberProfilePath"/>
+    </resultMap>
+    
+    <resultMap type="com.market.models.Member" id="MemberResultMap">
+        <id column="member_id" property="memberId" />
+        <result column="member_name" property="memberName" />
+        <result column="member_passwd" property="memberPasswd" />
+        <result column="member_nick" property="memberNick" />
+        <result column="member_email" property="memberEmail" />
+        <result column="member_address" property="memberAddr" />
+        <result column="member_profile_no" property="memberProfileNo" />
+        <result column="member_grade" property="memberGrade" />
+        <result column="grade_name" property="memberGradeName" />
+        <result column="member_phone_number" property="memberPhoneNo" />
+        <result column="register_date" property="memberRegDate" />
+    </resultMap>
+
+	<resultMap type="com.market.dto.MemberAddressDTO" id="address">
+		<id column="MEMBER_ADDRESS_NO" property="memberAddressNo"/>
+		<result column="MEMBER_ID" property="memberId"/>
+		<result column="ADDRESS" property="address"/>
+		<result column="POSTAL_CODE" property="postalCode"/>
+		<result column="MAIN_ADDRESS" property="mainAddress"/>
+		<result column="MEMBER_NAME" property="memberName"/>
+		<result column="MEMBER_PHONE_NUMBER" property="memberPhoneNumber"/>
 	</resultMap>
 
 	<resultMap type="com.market.dto.MyPageProfileDTO" id="myPageProfile">
@@ -45,9 +69,9 @@
        SELECT m.member_id, m.member_name, m.member_nick, m.member_email, m.member_address,
        m.member_profile_no, m.member_grade, g.grade_name,
        m.member_phone_number, m.register_date
-		FROM member m
-		JOIN member_grade g ON m.member_grade = g.member_grade
-		WHERE m.member_grade IN (1, 2)
+        FROM member m
+        JOIN member_grade g ON m.member_grade = g.member_grade
+        WHERE m.member_grade IN (1, 2)
     </select>
     
     <select id="searchMembers" parameterType="map" resultMap="member">
@@ -75,64 +99,64 @@
     
      <update id="updateMember" parameterType="com.market.dto.MemberDTO">
             UPDATE member
-    		SET 
-       			member_name = #{memberName}, 
-        		member_nick = #{memberNick},
-        		member_email = #{memberEmail}, 
-        		member_phone_number = #{memberPhoneNo},
-        		member_grade = #{memberGrade}
-        		<if test="memberAddr != null and memberAddr != ''">
-            		, member_address = #{memberAddr}
-        		</if>
-        		<if test="memberPasswd != null and memberPasswd != ''">
-            		, member_passwd = #{memberPasswd}
-        		</if>
-    		WHERE member_id = #{memberId}
+            SET 
+                member_name = #{memberName}, 
+                member_nick = #{memberNick},
+                member_email = #{memberEmail}, 
+                member_phone_number = #{memberPhoneNo},
+                member_grade = #{memberGrade}
+                <if test="memberAddr != null and memberAddr != ''">
+                    , member_address = #{memberAddr}
+                </if>
+                <if test="memberPasswd != null and memberPasswd != ''">
+                    , member_passwd = #{memberPasswd}
+                </if>
+            WHERE member_id = #{memberId}
     </update>
     
     <delete id="deleteMember" parameterType="String">
         DELETE FROM member WHERE member_id=#{memberId}
     </delete>
     <select id="storeInfo" resultMap="store" parameterType="String">
-		SELECT 
-		P.PRODUCT_NO ,
-		P.MEMBER_ID AS SELLER_ID,
-		(SELECT BUYER_ID FROM REVIEW r WHERE R.PRODUCT_NO = P.PRODUCT_NO) AS BUYER_ID,
-		P.PRODUCT_PRICE AS SALE_PRICE,
-		P.PRODUCT_SALE AS SALE_STATUS,
-		(SELECT COUNT(*) FROM PRODUCT p2 WHERE P2.MEMBER_ID = #{memberId}) AS SALE_COUNT,
-		(SELECT COUNT(*) FROM FAVORITES f WHERE F.SELLER_ID = #{memberId}) AS FOLLOWER_COUNT,
-		(SELECT REVIEW FROM REVIEW r WHERE R.PRODUCT_NO = P.PRODUCT_NO) AS REVIEW
-		FROM PRODUCT p
-		WHERE P.MEMBER_ID = #{memberId}
-	</select>
-	
-	<select id="profileNo" parameterType="String">
-		SELECT m.MEMBER_PROFILE_NO  FROM "MEMBER" M WHERE M.MEMBER_ID = #{memberId}
-	</select>
-	
-	<select id="profilePath" parameterType="int">
-		SELECT MP.PROFILE_PATH  FROM MEMBER_PROFILE mp WHERE MP.MEMBER_PROFILE_NO = #{profileNo}
-	</select>
-	
-	<select id="buyerProfileNo" parameterType="list" resultType="string">
-	    SELECT m.MEMBER_PROFILE_NO 
-	    FROM MEMBER M 
-	    WHERE M.MEMBER_ID IN 
-	    <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
-	        #{item}
-	    </foreach>
-	</select>
+        SELECT 
+        P.PRODUCT_NO ,
+        P.MEMBER_ID AS SELLER_ID,
+        (SELECT BUYER_ID FROM REVIEW r WHERE R.PRODUCT_NO = P.PRODUCT_NO) AS BUYER_ID,
+        P.PRODUCT_PRICE AS SALE_PRICE,
+        P.PRODUCT_SALE AS SALE_STATUS,
+        (SELECT COUNT(*) FROM PRODUCT p2 WHERE P2.MEMBER_ID = #{memberId}) AS SALE_COUNT,
+        (SELECT COUNT(*) FROM FAVORITES f WHERE F.SELLER_ID = #{memberId}) AS FOLLOWER_COUNT,
+        (SELECT REVIEW FROM REVIEW r WHERE R.PRODUCT_NO = P.PRODUCT_NO) AS REVIEW
+        FROM PRODUCT p
+        WHERE P.MEMBER_ID = #{memberId}
+    </select>
+    
+    <select id="profileNo" parameterType="String">
+        SELECT m.MEMBER_PROFILE_NO  FROM "MEMBER" M WHERE M.MEMBER_ID = #{memberId}
+    </select>
+    
+    <select id="profilePath" parameterType="int">
+        SELECT MP.PROFILE_PATH  FROM MEMBER_PROFILE mp WHERE MP.MEMBER_PROFILE_NO = #{profileNo}
+    </select>
+    
+    <select id="buyerProfileNo" parameterType="list" resultType="string">
+        SELECT m.MEMBER_PROFILE_NO 
+        FROM MEMBER M 
+        WHERE M.MEMBER_ID IN 
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
 
-	<select id="buyerProfilePath" parameterType="list" resultType="map">
-	    SELECT M.MEMBER_ID AS memberId, MP.PROFILE_PATH AS profilePath 
-	    FROM MEMBER_PROFILE MP
-	    JOIN MEMBER M ON MP.MEMBER_PROFILE_NO = M.MEMBER_PROFILE_NO
-	    WHERE MP.MEMBER_PROFILE_NO IN 
-	    <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
-	        #{item}
-	    </foreach>
-	</select>
+    <select id="buyerProfilePath" parameterType="list" resultType="map">
+        SELECT M.MEMBER_ID AS memberId, MP.PROFILE_PATH AS profilePath 
+        FROM MEMBER_PROFILE MP
+        JOIN MEMBER M ON MP.MEMBER_PROFILE_NO = M.MEMBER_PROFILE_NO
+        WHERE MP.MEMBER_PROFILE_NO IN 
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
 
 	<select id="myPageProfile" parameterType="String" resultMap="myPageProfile">
 		SELECT
@@ -146,5 +170,46 @@
 			MEMBER_PROFILE MP ON M.MEMBER_PROFILE_NO = MP.MEMBER_PROFILE_NO
 		WHERE
 			M.MEMBER_ID = #{MEMBER_ID}
+	</select>
+
+    <select id="getMemberWithGradeName" parameterType="String" resultMap="MemberResultMap">
+        SELECT m.member_id, m.member_name, m.member_passwd, m.member_nick, m.member_email, 
+               m.member_address, m.member_profile_no, m.member_grade, g.grade_name, 
+               m.member_phone_number, m.register_date 
+        FROM member m 
+        JOIN member_grade g ON m.member_grade = g.member_grade 
+        WHERE m.member_id = #{memberId}
+    </select>
+    
+    <insert id="insertMember" parameterType="com.market.models.Member">
+        INSERT INTO member (member_id, member_name, member_passwd, member_email,
+                            member_profile_no, member_grade, member_phone_number, register_date)
+        VALUES (#{memberId}, #{memberName}, #{memberPasswd}, #{memberEmail},
+                #{memberProfileNo}, #{memberGrade}, #{memberPhoneNo}, #{memberRegDate})
+    </insert>
+    
+    <select id="getMemberByIdWithPassword" resultMap="MemberResultMap">
+        SELECT m.member_id, m.member_name, m.member_passwd, m.member_nick, m.member_email, 
+               m.member_address, m.member_profile_no, m.member_grade, g.grade_name, 
+               m.member_phone_number, m.register_date 
+        FROM member m 
+        JOIN member_grade g ON m.member_grade = g.member_grade 
+        WHERE m.member_id = #{memberId}
+    </select>
+    
+    <update id="updatePassword">
+        UPDATE member SET member_passwd = #{memberPasswd} WHERE member_id = #{memberId}
+    </update>
+	
+	<insert id="insertFollow" parameterType="map">
+		insert into favorites values(#{buyerId},#{sellerId})
+	</insert>
+	
+	<delete id="deleteFollow" parameterType="map">
+		delete from favorites where buyer_id = #{buyerId} and seller_id = #{sellerId}
+	</delete>
+	
+	<select id="selectMemberAddress" parameterType="String" resultMap="address">
+		select * from member_delivery_address where member_id = #{memberId}
 	</select>
 </mapper>

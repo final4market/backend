@@ -129,6 +129,7 @@
 	</select>
 
     <select id="selectMemberProfile" parameterType="int" resultType="map">
+<<<<<<< HEAD
         SELECT PROFILE_PATH
         FROM MEMBER_PROFILE
         WHERE MEMBER_PROFILE_NO = #{MEMBER_PROFILE_NO}
@@ -144,5 +145,16 @@
 		SELECT TRUNC(AVG(REVIEW_SCORE), 2) AS MEMBER_SCORE
 		FROM REVIEW
 		WHERE SELLER_ID = #{MEMBER_ID}
+=======
+        SELECT PROFILE_PATH FROM MEMBER_PROFILE WHERE MEMBER_PROFILE_NO = #{MEMBER_PROFILE_NO}
+    </select>
+
+	<select id="selectMemberNick" parameterType="String" resultType="map">
+		SELECT MEMBER_NICK FROM MEMBER WHERE MEMBER_ID = #{MEMBER_ID}
+	</select>
+
+	<select id="selectMemberScore" parameterType="String" resultType="map">
+		SELECT REVIEW_SCORE FROM REVIEW WHERE SELLER_ID = #{MEMBER_ID}
+>>>>>>> de0d84e42fe544e08c9c5bbf6712a6def8bdea48
 	</select>
 </mapper>

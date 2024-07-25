@@ -1,6 +1,7 @@
 package com.market.controller;
 
 
+import com.market.dto.MemberAddressDTO;
 import com.market.dto.MemberDTO;
 import com.market.service.MemberService;
 
@@ -81,6 +82,31 @@ public class MemberController {
 		List<Map<String, Object>> buyerProfilePath = memberService.buyerProfilePath(buyerProfileNo);
 //		System.out.println(buyerProfilePath);
 		return buyerProfilePath;
-	}	
-
+	}
+	
+	@GetMapping("/insertFollow")
+	public Map<String, Object> insertFollow(String buyerId, String sellerId) {
+		Map<String, Object> map = new HashMap<>();
+		try {			
+			memberService.insertFollow(buyerId, sellerId);
+			map.put("msg", "팔로우를 하셨습니다");
+		} catch (Exception e) {
+			memberService.deleteFollow(buyerId, sellerId);
+			map.put("msg", "팔로우를 취소하셨습니다");
+			return map;
+		}
+		
+		
+		return map;
+	}
+	
+	@GetMapping("/addressInfo")
+	public List<MemberAddressDTO> selectMemberAddress(String memberId){
+		System.out.println(memberId);
+		
+		List<MemberAddressDTO> count = memberService.selectMemberAddress(memberId);
+		
+		return memberService.selectMemberAddress(memberId);
+	}
+	
 }

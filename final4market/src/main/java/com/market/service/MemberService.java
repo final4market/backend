@@ -1,21 +1,21 @@
 package com.market.service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.market.dto.MemberAddressDTO;
 import com.market.dto.MemberDTO;
-import com.market.dto.MemberProfileDTO;
 import com.market.dto.MyPageProfileDTO;
-import com.market.dto.ReviewDTO;
 import com.market.dto.StoreDTO;
 
 import com.market.mapper.MemberMapper;
 
 @Service
 public class MemberService {
-	private MemberMapper mapper;	
+	private MemberMapper mapper;
 
 	public MemberService(MemberMapper mapper) {
 		this.mapper = mapper;
@@ -30,12 +30,12 @@ public class MemberService {
 	}
 
 	public int updateMember(MemberDTO dto) {
-        return mapper.updateMember(dto);
-    }
+		return mapper.updateMember(dto);
+	}
 
 	public int deleteMember(String memberId) {
-        return mapper.deleteMember(memberId);
-    }
+		return mapper.deleteMember(memberId);
+	}
 
 	public List<StoreDTO> storeInfo(String memberId) {
 		return mapper.storeInfo(memberId);
@@ -59,5 +59,23 @@ public class MemberService {
 
 	public MyPageProfileDTO myPageProfile(String memberId) {
 		return mapper.myPageProfile(memberId);
+	}
+
+	public int insertFollow(String buyerId, String sellerId) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("buyerId", buyerId);
+		map.put("sellerId", sellerId);
+		return mapper.insertFollow(map);
+	}
+
+	public int deleteFollow(String buyerId, String sellerId) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("buyerId", buyerId);
+		map.put("sellerId", sellerId);
+		return mapper.deleteFollow(map);
+	}
+
+	public List<MemberAddressDTO> selectMemberAddress(String memberId) {
+		return mapper.selectMemberAddress(memberId);
 	}
 }

@@ -9,6 +9,7 @@ public class StoreDTO {
 	private int salePrice;
 	private String review;
 	private String saleStatus;
+	private int reviewScore;
 
 	public StoreDTO() {
 	}
@@ -77,12 +78,22 @@ public class StoreDTO {
 		this.saleStatus = saleStatus;
 	}
 
+	public int getReviewScore() {
+		return reviewScore;
+	}
+
+	public void setReviewScore(int reviewScore) {
+		this.reviewScore = reviewScore;
+	}
+
 	@Override
 	public String toString() {
 		return "StoreDTO [sellerId=" + sellerId + ", buyerId=" + buyerId + ", productNo=" + productNo
 				+ ", followerCount=" + followerCount + ", saleCount=" + saleCount + ", salePrice=" + salePrice
-				+ ", review=" + review + ", saleStatus=" + saleStatus + "]";
+				+ ", review=" + review + ", saleStatus=" + saleStatus + ", reviewScore=" + reviewScore + "]";
 	}
+
+	
 	
 	
 }

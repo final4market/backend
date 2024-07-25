@@ -78,4 +78,28 @@ public class MemberService {
 	public List<MemberAddressDTO> selectMemberAddress(String memberId) {
 		return mapper.selectMemberAddress(memberId);
 	}
+	
+	public int insertMemberAddress(MemberAddressDTO dto) {
+		return mapper.insertMemberAddress(dto);
+	}
+
+	public int currentAddressNO() {
+		return mapper.currentAddressNO();
+	}
+
+	public int deleteMemberAddress(int memberAddressNo) {
+		return mapper.deleteMemberAddress(memberAddressNo);
+	}
+
+	public int changeMainAddressExisting(MemberAddressDTO dto) {
+		return mapper.changeMainAddressExisting(dto);
+	}
+
+	public int changeMainAddressNew(MemberAddressDTO dto) {
+		return mapper.changeMainAddressNew(dto);
+	}
+
+	public List<String> selectFollowStatus(String memberId) {
+		return mapper.selectFollowStatus(memberId);
+	}
 }

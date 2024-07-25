@@ -52,9 +52,11 @@ public class SecurityConfig {
                 return corsConfig;
             }))
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/auth/login", "/api/auth/signup","/file/**").permitAll()
-                .anyRequest().authenticated()
-            )
+
+                    .requestMatchers("/api/auth/**", "/api/auth/signup", "/file/**", "/api/product/**", "/api/member/**").permitAll() //공개 허용
+                    .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                    .anyRequest().authenticated()
+                )
             .sessionManagement(session -> session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             )
@@ -62,7 +64,7 @@ public class SecurityConfig {
 
         return http.build();
     }
-
+    
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();

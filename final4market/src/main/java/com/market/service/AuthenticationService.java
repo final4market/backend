@@ -9,9 +9,9 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import com.market.mapper.MemberMapper;
 import com.market.models.Member;
-import com.market.dto.MemberDTO;
 import javax.crypto.SecretKey;
 import java.util.Date;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -61,12 +61,28 @@ public class AuthenticationService {
 
     private String generateJwtToken(Member member) {
     	long expirationTimeInMillis = 1000 * 60 * 60 * 24;
+    	
+    	List<String> roles = mapGradeToRoles(member.getMemberGrade());
+    	
         return Jwts.builder()
                 .setSubject(member.getMemberId())
-                .claim("role", member.getMemberGradeName())
+                .claim("role", roles)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expirationTimeInMillis)) // 24시간
                 .signWith(key, SignatureAlgorithm.HS512)
                 .compact();
+    }
+    
+    private List<String> mapGradeToRoles(int memberGrade) {
+        switch (memberGrade) {
+            case 0: // 관리자
+                return List.of("ROLE_ADMIN");
+            case 1: // 일반회원
+                return List.of("ROLE_USER");
+            case 2: // 차단된회원
+                return List.of("ROLE_BLOCKED");
+            default:
+                return List.of("ROLE_USER");
+        }
     }
 }

@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.market.dto.CategoryDTO;
 import com.market.dto.ChatDTO;
 import com.market.dto.DeliveryDTO;
+import com.market.dto.MyPageProductDTO;
 import com.market.dto.ProductDTO;
 import com.market.dto.ProductImageDTO;
 import com.market.dto.ProductLikeDTO;
@@ -61,12 +62,22 @@ public interface ProductMapper {
 
 	List<ChatDTO> selectProductChat(int productNo);
 
+	MyPageProductDTO myPageProduct(int productNo);
+
+
 	int insertProductLike(Map<String, Object> map);
 
 	int deleteProductLike(Map<String, Object> map);
 
+
 	int productDelete(int productNo);
 
 
-}
+	MyPageProductDTO myPageInterest(int productNo);
+	
+	List<String> selectLikeStatus(int productNo);
 
+
+	int updateProductSaleSatus(int productNo);
+
+}

@@ -14,7 +14,6 @@ public class MemberDTO {
     private int memberGrade;
     private String memberPhoneNo;
     private LocalDateTime memberRegDate;
-    private String memberGradeName;
     private String token;
 
     public MemberDTO() {
@@ -23,7 +22,7 @@ public class MemberDTO {
     // 모든 필드 포함 생성자
     public MemberDTO(String memberId, String memberName, String memberPasswd, String memberNick, String memberEmail,
                      String memberAddr, int memberProfileNo, int memberGrade, String memberPhoneNo, LocalDateTime memberRegDate,
-                     String memberGradeName, String token) {
+                     String token) {
         this.memberId = memberId;
         this.memberName = memberName;
         this.memberPasswd = memberPasswd;
@@ -34,7 +33,6 @@ public class MemberDTO {
         this.memberGrade = memberGrade;
         this.memberPhoneNo = memberPhoneNo;
         this.memberRegDate = memberRegDate;
-        this.memberGradeName = memberGradeName;
         this.token = token;
     }
     
@@ -58,7 +56,6 @@ public class MemberDTO {
         this.memberGrade = member.getMemberGrade();
         this.memberPhoneNo = member.getMemberPhoneNo();
         this.memberRegDate = member.getMemberRegDate();
-        this.memberGradeName = member.getMemberGradeName();
     }
 
 
@@ -150,14 +147,6 @@ public class MemberDTO {
         this.memberRegDate = memberRegDate;
     }
 
-    public String getMemberGradeName() {
-        return memberGradeName;
-    }
-
-    public void setMemberGradeName(String memberGradeName) {
-        this.memberGradeName = memberGradeName;
-    }
-
     @Override
     public String toString() {
         return "MemberDTO{" +
@@ -171,7 +160,6 @@ public class MemberDTO {
                 ", memberGrade=" + memberGrade +
                 ", memberPhoneNo='" + memberPhoneNo + '\'' +
                 ", memberRegDate=" + memberRegDate +
-                ", memberGradeName='" + memberGradeName + '\'' +
                 ", token='" + token + '\'' +
                 '}';
     }

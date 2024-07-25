@@ -13,7 +13,6 @@ public class Member {
     private int memberProfileNo = -1; // 프로필 사진 없을 때 기본값
     private int memberGrade = 1; // 기본값
     private LocalDateTime memberRegDate = LocalDateTime.now(); // 기본값
-    private String memberGradeName;
 
 
     public Member() {
@@ -26,13 +25,11 @@ public class Member {
         this.memberPasswd = memberPasswd;
         this.memberEmail = memberEmail;
         this.memberPhoneNo = memberPhoneNo;
-        this.memberGradeName = determineGradeName(this.memberGrade);
     }
 
     // 회원 정보 전체에 대한 생성자
     public Member(String memberId, String memberName, String memberPasswd, String memberEmail, String memberPhoneNo,
-                  String memberNick, String memberAddr, int memberProfileNo, int memberGrade, LocalDateTime memberRegDate,
-                  String memberGradeName) {
+                  String memberNick, String memberAddr, int memberProfileNo, int memberGrade, LocalDateTime memberRegDate) {
         this.memberId = memberId;
         this.memberName = memberName;
         this.memberPasswd = memberPasswd;
@@ -43,17 +40,8 @@ public class Member {
         this.memberProfileNo = memberProfileNo;
         this.memberGrade = memberGrade;
         this.memberRegDate = memberRegDate;
-        this.memberGradeName = memberGradeName;
     }
 
-    private String determineGradeName(int grade) {
-        switch (grade) {
-            case 0: return "일반회원";
-            case 1: return "관리자";
-            case 2: return "차단된회원";
-            default: return "일반회원";
-        }
-    }
 
     public String getMemberId() { return memberId; }
     public void setMemberId(String memberId) { this.memberId = memberId; }
@@ -72,14 +60,9 @@ public class Member {
     public int getMemberProfileNo() { return memberProfileNo; }
     public void setMemberProfileNo(int memberProfileNo) { this.memberProfileNo = memberProfileNo; }
     public int getMemberGrade() { return memberGrade; }
-    public void setMemberGrade(int memberGrade) { 
-        this.memberGrade = memberGrade;
-        this.memberGradeName = determineGradeName(memberGrade);
-    }
+    public void setMemberGrade(int memberGrade) { this.memberGrade = memberGrade; }
     public LocalDateTime getMemberRegDate() { return memberRegDate; }
     public void setMemberRegDate(LocalDateTime memberRegDate) { this.memberRegDate = memberRegDate; }
-    public String getMemberGradeName() { return memberGradeName; }
-    public void setMemberGradeName(String memberGradeName) { this.memberGradeName = memberGradeName; }
 
     @Override
     public String toString() {
@@ -93,7 +76,6 @@ public class Member {
                 ", memberProfileNo=" + memberProfileNo +
                 ", memberGrade=" + memberGrade +
                 ", memberRegDate=" + memberRegDate +
-                ", memberGradeName='" + memberGradeName + '\'' +
                 '}';
     }
 }

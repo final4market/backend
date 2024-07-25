@@ -26,7 +26,18 @@ import com.market.dto.ProductDTO;
 import com.market.dto.ProductImageDTO;
 import com.market.service.ProductService;
 
+
 import jakarta.servlet.http.HttpServletResponse;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @RestController
@@ -38,38 +49,38 @@ public class ProductController {
 		this.productService = productService;
 	}
 
-	@GetMapping("/productImage")
+	@GetMapping("/api/product/productImage")
 	public List<ProductImageDTO> productImage(int productNo) {
 		List<ProductImageDTO> list = productService.productImage(productNo);
 		System.out.println(list);
 		return list;
 	}
 	
-	@GetMapping("/productInfo")
+	@GetMapping("/api/product/productInfo")
 	public ProductDTO productInfo(int productNo) {
 		ProductDTO dto = productService.productInfo(productNo);
 		return dto; 
 	}
 	
-	@GetMapping("/deliveryInfo")
+	@GetMapping("/api/product/deliveryInfo")
 	public DeliveryDTO deliveryInfo(int productNo) {
 		DeliveryDTO dto = productService.deliveryInfo(productNo);
 		System.out.println(dto);
 		return dto; 
 	}
 	
-	@GetMapping("/categoryInfo")
+	@GetMapping("/api/product/categoryInfo")
 	public List<CategoryDTO> categoryInfo(int categoryNo) {
 		List<CategoryDTO> list = productService.categoryInfo(categoryNo);
 		return list; 
 	}
 	
-	@GetMapping("/product/list")
+	@GetMapping("/api/product/product/list")
 	public List<ProductDTO> selectAllProduct() {
 	return productService.selectAllProduct();
 	}
 	
-	@GetMapping("/category/list")
+	@GetMapping("/api/product/category/list")
 	public List<CategoryDTO> selectAllCategory() {
 		return productService.selectAllCategory();
 	}
@@ -145,7 +156,7 @@ public class ProductController {
 	    return map;
 	}
 
-	@GetMapping("/sellerProductImage")
+	@GetMapping("/api/product/sellerProductImage")
 	public List<Map<String, Object>> sellerProductImage(String memberId) {
 	    List<String> productNoList = productService.productNo(memberId);
 	    List<Map<String, Object>> productImages = new ArrayList<>();
@@ -210,6 +221,25 @@ public class ProductController {
 		}
 		
 		
+		return map;
+	}
+	
+	@GetMapping("/selectLikeStatus")
+	public List<String> selectLikeStatus(int productNo) {
+		List<String> list = productService.selectLikeStatus(productNo);
+		return list;
+	}
+	
+	@PutMapping("/updateProductSaleSatus")
+	public Map<String, Object> updateProductSaleSatus(int productNo){
+		System.out.println(productNo);
+		Map<String, Object> map = new HashMap<>();
+		try {
+			productService.updateProductSaleSatus(productNo);
+			map.put("msg", "결제 완료되었습니다");
+		} catch (Exception e) {
+			map.put("msg", "결제 실패했습니다");
+		}
 		return map;
 	}
 	

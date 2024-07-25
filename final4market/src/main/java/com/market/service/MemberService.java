@@ -12,13 +12,14 @@ import com.market.dto.MemberDTO;
 import com.market.dto.MemberProfileDTO;
 import com.market.dto.ReviewDTO;
 
+import com.market.dto.MyPageProfileDTO;
 import com.market.dto.StoreDTO;
 
 import com.market.mapper.MemberMapper;
 
 @Service
 public class MemberService {
-	private MemberMapper mapper;	
+	private MemberMapper mapper;
 
 	public MemberService(MemberMapper mapper) {
 		this.mapper = mapper;
@@ -33,12 +34,12 @@ public class MemberService {
 	}
 
 	public int updateMember(MemberDTO dto) {
-        return mapper.updateMember(dto);
-    }
+		return mapper.updateMember(dto);
+	}
 
 	public int deleteMember(String memberId) {
-        return mapper.deleteMember(memberId);
-    }
+		return mapper.deleteMember(memberId);
+	}
 
 
 	public List<StoreDTO> storeInfo(String memberId) {
@@ -61,17 +62,10 @@ public class MemberService {
 		return mapper.buyerProfilePath(buyerProfileNo);
 	}
 
-	public List<MemberProfileDTO> selectMemberProfile(int memberProfileNo) {
-		return mapper.selectMemberProfile(memberProfileNo);
+	public MyPageProfileDTO myPageProfile(String memberId) {
+		return mapper.myPageProfile(memberId);
 	}
 
-	public List<MemberDTO> selectMemberNick(String memberId) {
-		return mapper.selectMemberNick(memberId);
-	}
-
-	public List<ReviewDTO> selectMemberScore(String memberId) {
-		return mapper.selectMemberScore(memberId);
-	}
 	public int insertFollow(String buyerId, String sellerId) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("buyerId", buyerId);
@@ -84,11 +78,33 @@ public class MemberService {
 		map.put("buyerId", buyerId);
 		map.put("sellerId", sellerId);
 		return mapper.deleteFollow(map);
-		
 	}
 
 	public List<MemberAddressDTO> selectMemberAddress(String memberId) {
 		return mapper.selectMemberAddress(memberId);
 	}
-}
+	
+	public int insertMemberAddress(MemberAddressDTO dto) {
+		return mapper.insertMemberAddress(dto);
+	}
 
+	public int currentAddressNO() {
+		return mapper.currentAddressNO();
+	}
+
+	public int deleteMemberAddress(int memberAddressNo) {
+		return mapper.deleteMemberAddress(memberAddressNo);
+	}
+
+	public int changeMainAddressExisting(MemberAddressDTO dto) {
+		return mapper.changeMainAddressExisting(dto);
+	}
+
+	public int changeMainAddressNew(MemberAddressDTO dto) {
+		return mapper.changeMainAddressNew(dto);
+	}
+
+	public List<String> selectFollowStatus(String memberId) {
+		return mapper.selectFollowStatus(memberId);
+	}
+}

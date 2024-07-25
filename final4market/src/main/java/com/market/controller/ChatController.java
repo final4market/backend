@@ -2,6 +2,7 @@ package com.market.controller;
 
 import java.util.List;
 
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +20,12 @@ public class ChatController {
 		this.chatService = chatService;
 	}
 
+	@GetMapping("/selectChatRoom")
+	public List<ChatDTO> selectChatRoom(String memberId){
+		List<ChatDTO> list = chatService.selectChatRoom(memberId);
+		System.out.println(list);
+		return list;
+	}
 	@GetMapping("/selectChatInfo")
 	public List<ChatDTO> selectChatInfo(String memberId){
 		List<ChatDTO> list = chatService.selectChatInfo(memberId);

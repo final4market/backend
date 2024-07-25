@@ -19,6 +19,10 @@ public class ChatService {
 		return mapper.selectAllChat();
 	}
 
+	public List<ChatDTO> selectChatRoom(String memberId) {
+		return mapper.selectChatRoom(memberId);
+	}
+
 	public List<ChatDTO> selectChatInfo(String memberId) {
 		return mapper.selectChatInfo(memberId);
 	}

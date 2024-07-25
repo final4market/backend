@@ -10,5 +10,7 @@ import com.market.dto.ChatDTO;
 public interface ChatMapper {
 	List<ChatDTO> selectAllChat();
 
+	List<ChatDTO> selectChatRoom(String memberId);
+
 	List<ChatDTO> selectChatInfo(String memberId);
 }

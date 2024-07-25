@@ -13,13 +13,13 @@ public class ChatDTO {
 	private String senderId;
 	private int productNo;
 	private String chatContent;
-	private Date chatDate;
+	private String chatDate;
 
 	public ChatDTO() {
 	}
 
 	public ChatDTO(int chatNo, int messageNo, String sellerId, String buyerId, String senderId, int productNo,
-			String chatContent, Date chatDate) {
+			String chatContent, String chatDate) {
 		super();
 		this.chatNo = chatNo;
 		this.messageNo = messageNo;
@@ -87,11 +87,11 @@ public class ChatDTO {
 		this.chatContent = chatContent;
 	}
 
-	public Date getChatDate() {
+	public String getChatDate() {
 		return chatDate;
 	}
 
-	public void setChatDate(Date chatDate) {
+	public void setChatDate(String chatDate) {
 		this.chatDate = chatDate;
 	}
 

@@ -44,7 +44,6 @@
         <result column="member_address" property="memberAddr" />
         <result column="member_profile_no" property="memberProfileNo" />
         <result column="member_grade" property="memberGrade" />
-        <result column="grade_name" property="memberGradeName" />
         <result column="member_phone_number" property="memberPhoneNo" />
         <result column="register_date" property="memberRegDate" />
     </resultMap>

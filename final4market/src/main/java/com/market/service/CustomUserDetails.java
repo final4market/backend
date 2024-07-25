@@ -19,16 +19,16 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+        String role = "ROLE_USER"; // 기본 role
         switch (member.getMemberGrade()) {
-            case 1: // 관리자
-                return Collections.singletonList(new SimpleGrantedAuthority(Role.ROLE_ADMIN.name()));
-            case 0: // 일반회원
-                return Collections.singletonList(new SimpleGrantedAuthority(Role.ROLE_USER.name()));
-            case 2: // 차단된회원
-                return Collections.singletonList(new SimpleGrantedAuthority(Role.ROLE_BLOCKED.name()));
-            default:
-                return Collections.singletonList(new SimpleGrantedAuthority(Role.ROLE_USER.name()));
+            case 0:
+                role = "ROLE_ADMIN";
+                break;
+            case 2:
+                role = "ROLE_BLOCKED";
+                break;
         }
+        return Collections.singletonList(new SimpleGrantedAuthority(role));
     }
 
     @Override

@@ -25,7 +25,7 @@
     <!-- ResultMap for ProductImageDTO -->
     <resultMap type="com.market.dto.ProductImageDTO" id="productImage">
         <id column="PRODUCT_NO" property="productNo" />
-        <result column="PRODUCT_IMAGE_PATH" property="productImagePath" />
+        <result column="PRODUCT_IMAGE_PATH" property="path" />
     </resultMap>
 
     <!-- ResultMap for DeliveryDTO -->
@@ -42,6 +42,14 @@
         <result column="CATEGORY_NAME" property="categoryName"/>
         <result column="PARENT_CATEGORY_NO" property="parentCategoryNo" />
     </resultMap>
+
+	<resultMap type="com.market.dto.MyPageProductDTO" id="myPageProduct">
+		<result column="PRODUCT_IMAGE_PATH" property="productImagePath"/>
+		<result column="PRODUCT_TITLE" property="productTitle"/>
+		<result column="PRODUCT_PRICE" property="productPrice"/>
+		<result column="INTEREST_COUNT" property="interestCount"/>
+		<result column="CHAT_COUNT" property="ChatCount"/>
+	</resultMap>
 
     <!-- Select statements -->
     <select id="productImage" parameterType="int" resultMap="productImage">
@@ -106,14 +114,14 @@
     </select>
 
     <!-- Insert statements -->
-    <insert id="insertProduct" parameterType="Product">
+    <insert id="insertProduct" parameterType="com.market.dto.ProductDTO">
         INSERT INTO Product (product_no, product_price, product_status, product_content, product_title, category_no, delivery_no, trade_area, delivery_charge, member_id)
         VALUES (#{productNo}, #{productPrice}, #{productStatus}, #{productContent}, #{productTitle}, #{categoryNo}, #{deliveryNo}, #{tradeArea}, #{deliveryCharge}, 'member5')
     </insert>
 
-    <insert id="insertProductImage" parameterType="productImage">
+    <insert id="insertProductImage" parameterType="com.market.dto.ProductImageDTO">
         INSERT INTO PRODUCT_IMAGE(PRODUCT_IMAGE_PATH, product_no)
-        VALUES (#{productImagePath}, #{productNo})
+        VALUES (#{path}, #{productNo})
     </insert>
 
     <!-- Additional Select statements -->
@@ -129,29 +137,24 @@
         SELECT product_price FROM product WHERE product_no = #{productNo}
     </select>
 
-	<select id="selectProductImage" parameterType="int" resultType="map">
-		SELECT PRODUCT_IMAGE_PATH FROM PRODUCT_IMAGE WHERE PRODUCT_NO = #{productNo}
+	<select id="myPageProduct" parameterType="int" resultMap="myPageProduct">
+		SELECT
+			PI.PRODUCT_IMAGE_PATH, P.PRODUCT_PRICE, P.PRODUCT_TITLE,
+			(SELECT COUNT(BUYER_ID) FROM INTEREST_PRODUCT IP WHERE P.PRODUCT_NO = IP.PRODUCT_NO) AS INTEREST_COUNT,
+			(SELECT COUNT(DISTINCT(CHAT_NO)) FROM CHAT C WHERE P.PRODUCT_NO = C.PRODUCT_NO) AS CHAT_COUNT
+		FROM
+			PRODUCT_IMAGE PI
+		LEFT JOIN
+			PRODUCT P ON P.PRODUCT_NO = PI.PRODUCT_NO
+		WHERE
+			P.PRODUCT_NO = #{PRODUCT_NO}
 	</select>
 
-	<select id="selectProductPrice" parameterType="int" resultType="map">
-		SELECT PRODUCT_PRICE FROM PRODUCT WHERE PRODUCT_NO = #{productNo}
-	</select>
-
-	<select id="selectProductLike" parameterType="int" resultType="map">
-		SELECT BUYER_ID FROM PRODUCT_LIKE WHERE PRODUCT_NO = #{productNo}
-	</select>
-
-	<select id="selectProductChat" parameterType="int" resultType="map">
-		SELECT CHAT_NO FROM CHAT WHERE PRODUCT_NO = #{productNo}
-	</select>
-	
 	<insert id="insertProductLike" parameterType="map">
 		insert into product_like values(#{memberId},#{productNo})
 	</insert>
 	
 	<delete id="deleteProductLike" parameterType="map">
 		delete from product_like where buyer_id = #{memberId} and product_no = #{productNo}
-	</delete>
-		
+	</delete>	
 </mapper>
-

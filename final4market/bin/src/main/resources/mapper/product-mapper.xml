@@ -109,8 +109,12 @@
 <<<<<<< HEAD
     <insert id="insertProduct" parameterType="Product">
 =======
+<<<<<<< HEAD
+    <insert id="insertProduct" parameterType="Product">
+=======
     <insert id="insertProduct" parameterType="com.market.dto.ProductDTO">
 >>>>>>> 80ab1e76913aca1720b4cc4b3d525308028f7fe2
+>>>>>>> de0d84e42fe544e08c9c5bbf6712a6def8bdea48
         INSERT INTO Product (product_no, product_price, product_status, product_content, product_title, category_no, delivery_no, trade_area, delivery_charge, member_id)
         VALUES (#{productNo}, #{productPrice}, #{productStatus}, #{productContent}, #{productTitle}, #{categoryNo}, #{deliveryNo}, #{tradeArea}, #{deliveryCharge}, 'member5')
     </insert>
@@ -118,8 +122,12 @@
 <<<<<<< HEAD
     <insert id="insertProductImage" parameterType="productImage">
 =======
+<<<<<<< HEAD
+    <insert id="insertProductImage" parameterType="productImage">
+=======
     <insert id="insertProductImage" parameterType="com.market.dto.ProductImageDTO">
 >>>>>>> 80ab1e76913aca1720b4cc4b3d525308028f7fe2
+>>>>>>> de0d84e42fe544e08c9c5bbf6712a6def8bdea48
         INSERT INTO PRODUCT_IMAGE(PRODUCT_IMAGE_PATH, product_no)
         VALUES (#{productImagePath}, #{productNo})
     </insert>
@@ -138,6 +146,29 @@
     </select>
 
 	<select id="selectProductImage" parameterType="int" resultType="map">
+<<<<<<< HEAD
+		SELECT PRODUCT_IMAGE_PATH
+		FROM PRODUCT_IMAGE
+		WHERE PRODUCT_NO = #{PRODUCT_NO}
+	</select>
+
+	<select id="selectProductPrice" parameterType="int" resultType="map">
+		SELECT PRODUCT_PRICE
+		FROM PRODUCT
+		WHERE PRODUCT_NO = #{PRODUCT_NO}
+	</select>
+
+	<select id="selectProductLike" parameterType="int" resultType="map">
+		SELECT COUNT(BUYER_ID) AS PRODUCT_LIKE
+		FROM PRODUCT_LIKE
+		WHERE PRODUCT_NO = #{PRODUCT_NO}
+	</select>
+
+	<select id="selectProductChat" parameterType="int" resultType="map">
+		SELECT COUNT(DISTINCT(CHAT_NO)) AS PRODUCT_CHAT
+		FROM CHAT
+		WHERE PRODUCT_NO = #{PRODUCT_NO}
+=======
 		SELECT PRODUCT_IMAGE_PATH FROM PRODUCT_IMAGE WHERE PRODUCT_NO = #{productNo}
 	</select>
 
@@ -151,6 +182,7 @@
 
 	<select id="selectProductChat" parameterType="int" resultType="map">
 		SELECT CHAT_NO FROM CHAT WHERE PRODUCT_NO = #{productNo}
+>>>>>>> de0d84e42fe544e08c9c5bbf6712a6def8bdea48
 	</select>
 </mapper>
 

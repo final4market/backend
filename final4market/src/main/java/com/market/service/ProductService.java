@@ -5,15 +5,13 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+
 import com.market.dto.CategoryDTO;
-import com.market.dto.ChatDTO;
 import com.market.dto.DeliveryDTO;
-
-import org.springframework.transaction.annotation.Transactional;
-
+import com.market.dto.MyPageProductDTO;
 import com.market.dto.ProductDTO;
 import com.market.dto.ProductImageDTO;
-import com.market.dto.ProductLikeDTO;
+
 import com.market.mapper.ProductMapper;
 
 @Service
@@ -23,7 +21,7 @@ public class ProductService {
 	public ProductService(ProductMapper mapper) {
 		this.mapper = mapper;
 	}
-	
+
 	public List<ProductDTO> selectAllProduct() {
 		return mapper.selectAllProduct();
 	}
@@ -42,7 +40,7 @@ public class ProductService {
 
 	public List<CategoryDTO> categoryInfo(int categoryNo) {
 		return mapper.categoryInfo(categoryNo);
-	}		
+	}
 
 	public List<CategoryDTO> selectAllCategory() {
 		return mapper.selectAllCategory();
@@ -84,20 +82,12 @@ public class ProductService {
 		return mapper.sellerProductPrice(productNo);
 	}
 
-	public List<ProductImageDTO> selectProductImage(int productNo) {
-		return mapper.selectProductImage(productNo);
+	public MyPageProductDTO myPageProduct(int productNo) {
+		return mapper.myPageProduct(productNo);
 	}
 
-	public List<ProductDTO> selectProductPrice(int productNo) {
-		return mapper.selectProductPrice(productNo);
-	}
-
-	public List<ProductLikeDTO> selectProductLike(int productNo) {
-		return mapper.selectProductLike(productNo);
-	}
-
-	public List<ChatDTO> selectProductChat(int productNo) {
-		return mapper.selectProductChat(productNo);
+	public MyPageProductDTO myPageInterest(int productNo) {
+		return mapper.myPageInterest(productNo);
 	}
 
 	public int insertProductLike(String memberId, int productNo) {
@@ -112,8 +102,5 @@ public class ProductService {
 		map.put("memberId", memberId);
 		map.put("productNo", productNo);
 		return mapper.deleteProductLike(map);
-		
 	}
-
 }
-

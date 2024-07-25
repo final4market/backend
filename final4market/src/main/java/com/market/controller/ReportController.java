@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -102,4 +103,18 @@ public class ReportController {
         response.put("msg", count == 0 ? "신고 읽기 상태 수정 실패" : "신고 읽기 상태 수정 성공");
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+    
+    @PostMapping("/insertReport")
+	public Map<String, Object> insertReport(@RequestBody ReportDTO dto){
+		Map<String, Object> map = new HashMap<>();
+		System.out.println(dto);
+		try {			
+			reportService.insertReport(dto);
+			map.put("msg", "신고가 접수되었습니다");
+			return map;
+		} catch (Exception e) {
+			map.put("msg", "신고 접수에 실패했습니다");
+			return map;
+		}
+	}
 }

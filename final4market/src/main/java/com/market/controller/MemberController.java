@@ -61,21 +61,21 @@ public class MemberController {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
     
-    @GetMapping("/storeInfo")
+    @GetMapping("/api/member/storeInfo")
 	public List<StoreDTO> storeInfo(String memberId) {
 //	    System.out.println(memberId);
 	    List<StoreDTO> list = memberService.storeInfo(memberId);
 	    return list;
 	}
 
-	@GetMapping("/sellerProfile")
+	@GetMapping("/api/member/sellerProfile")
 	public String sellerProfile(String memberId) {
 	    int profileNo = memberService.profileNo(memberId);
 	    String profilePath = memberService.profilePath(profileNo);
 	    return profilePath;
 	}
 	
-	@PostMapping("/buyerProfile")
+	@PostMapping("/api/member/buyerProfile")
 	public List<Map<String, Object>> buyerProfile(@RequestBody Map<String, Object> memberId) {
 		List<String> buyerIds = (List<String>) memberId.get("memberId");
 		List<String> buyerProfileNo = memberService.buyerProfileNo(buyerIds);
@@ -107,6 +107,58 @@ public class MemberController {
 		List<MemberAddressDTO> count = memberService.selectMemberAddress(memberId);
 		
 		return memberService.selectMemberAddress(memberId);
+	}
+	
+	
+	@PostMapping("/insertMemberAddress")
+	public Map<String, Object> insertMemberAddress(@RequestBody MemberAddressDTO dto) {
+		Map<String, Object> map = new HashMap<>();
+		int addressNo = memberService.currentAddressNO();
+		dto.setMemberAddressNo(addressNo);
+		try {			
+			memberService.insertMemberAddress(dto);
+			map.put("msg", "등록되었습니다");
+			return map;
+		} catch (Exception e) {
+			map.put("msg", "3개까지만 추가 하실 수 있습니다");
+			return map;
+		}
+		
+	}
+	@DeleteMapping("/deleteMemberAddress")
+	public Map<String, Object> deleteMemberAddress(int memberAddressNo) {
+		System.out.println(memberAddressNo);
+		Map<String, Object> map = new HashMap<>();
+		try {			
+			memberService.deleteMemberAddress(memberAddressNo);
+			map.put("msg", "삭제되었습니다");
+			return map;
+		} catch (Exception e) {
+			map.put("msg", "삭제실패했습니다");
+			return map;
+		}
+		
+	}
+	
+	@PutMapping("/changeMainAddress")
+	public Map<String, Object> changeMainAddress(@RequestBody MemberAddressDTO dto){
+		Map<String, Object> map = new HashMap<>();
+		System.out.println(dto);
+		try {			
+			memberService.changeMainAddressExisting(dto);
+			memberService.changeMainAddressNew(dto);
+			map.put("msg", "배송지가 수정되었습니다");
+			return map;
+		} catch (Exception e) {
+			map.put("msg", "배송지 수정에 실패했습니다");
+			return map;
+		}
+	}
+	
+	@GetMapping("/selectFollowStatus")
+	public List<String> selectFollowStatus(String memberId) {
+		List<String> list = memberService.selectFollowStatus(memberId);
+		return list;
 	}
 	
 }

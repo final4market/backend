@@ -71,5 +71,20 @@
         SET READ_STATUS = #{readStatus}
         WHERE PRODUCT_NO = #{productNo} AND CLAIMER_ID = #{claimerId} AND SELLER_ID = #{sellerId} AND ADMIN_ID = #{adminId}
     </update>
+    
+    	<insert id="insertReport" parameterType="report">
+	    INSERT INTO REPORT (
+	        PRODUCT_NO,
+	        CLAIMER_ID,
+	        SELLER_ID,
+	        REPORT_CONTENT
+	    )
+	    VALUES (
+	        #{productNo},
+	        #{claimerId},
+	        #{sellerId},
+	        #{reportContent}
+	    )
+		</insert>
 
 </mapper>

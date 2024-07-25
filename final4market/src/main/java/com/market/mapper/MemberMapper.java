@@ -4,10 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.market.dto.MemberAddressDTO;
-
 import com.market.dto.MemberDTO;
-import com.market.dto.MemberProfileDTO;
-import com.market.dto.ReviewDTO;
+import com.market.dto.MyPageProfileDTO;
 import com.market.dto.StoreDTO;
 import com.market.models.Member;
 
@@ -16,23 +14,25 @@ import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface MemberMapper {
-    List<MemberDTO> selectAllMembers();
+	List<MemberDTO> selectAllMembers();
 
-    List<MemberDTO> searchMembers(Map<String, String> params);
+	List<MemberDTO> searchMembers(Map<String, String> params);
 
-    int updateMember(MemberDTO dto);
+	int updateMember(MemberDTO dto);
 
-    int deleteMember(String memberId);
+	int deleteMember(String memberId);
 
-    List<StoreDTO> storeInfo(String memberId);
+	List<StoreDTO> storeInfo(String memberId);
 
-    int profileNo(String memberId);
+	int profileNo(String memberId);
 
-    String profilePath(int profileNo);
+	String profilePath(int profileNo);
 
-    List<String> buyerProfileNo(List<String> buyerIds);
+	List<String> buyerProfileNo(List<String> buyerIds);
 
-    List<Map<String, Object>> buyerProfilePath(List<String> buyerProfileNo);
+	List<Map<String, Object>> buyerProfilePath(List<String> buyerProfileNo);
+
+	MyPageProfileDTO myPageProfile(String memberId);
 
 	List<MemberDTO> selectAllMembers1();
 
@@ -42,24 +42,29 @@ public interface MemberMapper {
 
 	int deleteMember1(String memberId);
 
-    List<MemberProfileDTO> selectMemberProfile(int memberProfileNo);
+	Member getMemberWithGradeName(@Param("memberId") String memberId);
 
-    List<MemberDTO> selectMemberNick(String memberId);
+	void insertMember(Member member);
 
-    List<ReviewDTO> selectMemberScore(String memberId);
-    
-    Member getMemberWithGradeName(@Param("memberId") String memberId);
-    
-    void insertMember(Member member);    
+	Member getMemberByIdWithPassword(@Param("memberId") String memberId);
 
-    Member getMemberByIdWithPassword(@Param("memberId") String memberId);
-    
-    void updatePassword(@Param("memberId") String memberId, @Param("memberPasswd") String memberPasswd);
+	void updatePassword(@Param("memberId") String memberId, @Param("memberPasswd") String memberPasswd);
 
 	int insertFollow(Map<String, Object> map);
 
 	int deleteFollow(Map<String, Object> map);
 
 	List<MemberAddressDTO> selectMemberAddress(String memberId);
-}
+	
+	int insertMemberAddress(MemberAddressDTO dto);
 
+	int currentAddressNO();
+
+	int deleteMemberAddress(int memberAddressNo);
+
+	int changeMainAddressExisting(MemberAddressDTO dto);
+
+	int changeMainAddressNew(MemberAddressDTO dto);
+
+	List<String> selectFollowStatus(String memberId);
+}

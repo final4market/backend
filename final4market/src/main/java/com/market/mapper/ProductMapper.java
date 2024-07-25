@@ -45,11 +45,11 @@ public interface ProductMapper {
 	int sellerProductPrice(String productNo);
 
 
-	List<ProductDTO> productSaleslist(String memberId);
+	List<ProductDTO> productsoldoutlist(String memberId);
 
 	List<ProductDTO> ProductPurchaseHistory(String buyerId);
 
-	List<ProductDTO> productList(String memberId);
+	List<ProductDTO> productSaleslist(String memberId);
 
 	ProductImageDTO selectProductdFile(Map<String, Object> map);
 

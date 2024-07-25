@@ -144,18 +144,24 @@
 
     <select id="productSaleslist" parameterType="String"  resultMap="productSalesList">
         SELECT * FROM MEMBER_PRODUCT_LIST_VIEW WHERE MEMBER_ID = #{memberId}
-         AND PRODUCT_SALE ='완료'
+         AND PRODUCT_SALE ='판매중'
+         AND product_image_no=0
         ORDER BY TH_DATE DESC
     </select>
     
-      <select id="productList" parameterType="String"  resultMap="productSalesList">
+    <select id="productsoldoutlist" parameterType="String"  resultMap="productSalesList">
         SELECT * FROM MEMBER_PRODUCT_LIST_VIEW WHERE MEMBER_ID = #{memberId}
-         AND PRODUCT_SALE ='판매중'
-        ORDER BY product_date DESC
+         AND PRODUCT_SALE ='완료'
+         AND product_image_no=0
+        ORDER BY TH_DATE DESC
     </select>
+    
+  
+  
     
         <select id="ProductPurchaseHistory" parameterType="String"  resultMap="productSalesList">
         SELECT * FROM MEMBER_PRODUCT_LIST_VIEW WHERE buyer_id = #{buyerId}
+        AND product_image_no=0
         ORDER BY TH_DATE DESC
     </select>
 

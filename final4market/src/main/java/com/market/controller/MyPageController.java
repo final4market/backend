@@ -4,10 +4,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -48,20 +53,19 @@ public class MyPageController {
 	}
 	
 
-
 	@GetMapping("/member/ProductPurchaseHistory/{buyerId}")
 	public List<ProductDTO> ProductPurchaseHistory(@PathVariable String buyerId) {
 		return productService.ProductPurchaseHistory(buyerId);	
 	}
 	
-	@GetMapping("/member/productSales/list/{memberId}")
-	public List<ProductDTO> productSalesList(@PathVariable String memberId) {
-		return productService.productSaleslist(memberId);	
+	@GetMapping("/member/productsoldoutlist/list/{memberId}")
+	public List<ProductDTO> productsoldoutlist(@PathVariable String memberId) {
+		return productService.productsoldoutlist(memberId);	
 	}
 	
-	@GetMapping("/member/product/list/{memberId}")
+	@GetMapping("/member/productSaleslist/{memberId}")
 	public List<ProductDTO> productList(@PathVariable String memberId) {
-		return productService.productList(memberId);	
+		return productService.productSaleslist(memberId);	
 	}
 	
 
@@ -93,7 +97,53 @@ public class MyPageController {
 	    return map;
 	}
 
+	@GetMapping("/review/productWroteList/{memberId}")
+	public List<MemberDTO> productWroteList(@PathVariable String memberId) {
+		return reviewService.productWroteList(memberId);	
+	}
+	
+	@GetMapping("/review/wroteList/{productNo}")
+	public List<MemberDTO> wroteReviewList(@PathVariable int productNo) {
+		return reviewService.wroteReviewList(productNo);	
+	}
+	
+	@DeleteMapping("/review/delete/{productNo}")
+	public ResponseEntity<String> reviewDelete(@PathVariable int productNo) {
+	    int result = reviewService.reviewDelete(productNo);
+	    if (result > 0) {
+	        return ResponseEntity.ok("삭제가 완료됐습니다.");
+	    } else {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("리뷰를 찾을 수 없습니다.");
+	    }
+	}
+	
+	@PutMapping("/review/update/{productNo}")
+	public Map<String, Object> reviewUpdate(
+	    @PathVariable int productNo, 
+	    @RequestBody ReviewDTO dto) {
+	    Map<String, Object> map = new HashMap<>();
+	    try {
+	        System.out.println("받아온값:" + dto); // 받아온 데이터 확인
+	        
+	        // DTO에 값을 설정
+	        dto.setProductNo(productNo);
 
+	        // 리뷰 수정 서비스 호출
+	        reviewService.updateReview(dto);
+	        
+	        map.put("msg", "리뷰 수정 성공");
+	        map.put("result", true);
+	    } catch (NumberFormatException e) {
+	        map.put("msg", "입력된 값이 올바르지 않습니다.");
+	        map.put("result", false);
+	    } catch (Exception e) {
+	        map.put("msg", "서버 오류가 발생했습니다.");
+	        map.put("result", false);
+	    }
+	    return map;
+	}
+
+	
 
 	@GetMapping("/member/{memberProfileNo}/profile")
 	public List<MemberProfileDTO> selectMemberProfile(@PathVariable int memberProfileNo) {

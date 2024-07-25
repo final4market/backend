@@ -127,7 +127,7 @@ public class ProductController {
 	            }
 	            File f = new File(root, file[i].getOriginalFilename());
 	            file[i].transferTo(f);
-	            ProductImageDTO productImageDTO = new ProductImageDTO(f, productNo, i+1);
+	            ProductImageDTO productImageDTO = new ProductImageDTO(f, productNo, i);
 	            productService.insertProductImage(productImageDTO);
 	        }
 	        

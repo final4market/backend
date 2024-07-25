@@ -20,7 +20,6 @@ public class ChatDTO {
 
 	public ChatDTO(int chatNo, int messageNo, String sellerId, String buyerId, String senderId, int productNo,
 			String chatContent, String chatDate) {
-		super();
 		this.chatNo = chatNo;
 		this.messageNo = messageNo;
 		this.sellerId = sellerId;
@@ -101,7 +100,4 @@ public class ChatDTO {
 				+ buyerId + ", senderId=" + senderId + ", productNo=" + productNo + ", chatContent=" + chatContent
 				+ ", chatDate=" + chatDate + "]";
 	}
-
-	
-	
 }

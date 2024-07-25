@@ -1,14 +1,12 @@
 package com.market.dto;
 
-import org.apache.ibatis.type.Alias;
-
 public class MemberProfileDTO {
 	private int memberProfileNo;
 	private String profilePath;
 
 	public MemberProfileDTO() {
 	}
-	
+
 	public MemberProfileDTO(int memberProfileNo, String profilePath) {
 		this.memberProfileNo = memberProfileNo;
 		this.profilePath = profilePath;

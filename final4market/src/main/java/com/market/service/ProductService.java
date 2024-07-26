@@ -82,12 +82,8 @@ public class ProductService {
 		return mapper.sellerProductPrice(productNo);
 	}
 
-	public MyPageProductDTO myPageProduct(int productNo) {
-		return mapper.myPageProduct(productNo);
-	}
-
-	public MyPageProductDTO myPageInterest(int productNo) {
-		return mapper.myPageInterest(productNo);
+	public List<MyPageProductDTO> myPageProduct(String memberId) {
+		return mapper.myPageProduct(memberId);
 	}
 
 	public int insertProductLike(String memberId, int productNo) {

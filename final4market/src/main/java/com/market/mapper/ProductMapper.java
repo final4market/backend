@@ -43,7 +43,7 @@ public interface ProductMapper {
 
 	int sellerProductPrice(String productNo);
 
-	MyPageProductDTO myPageProduct(int productNo);
+	List<MyPageProductDTO> myPageProduct(String memberId);
 
 	int insertProductLike(Map<String, Object> map);
 

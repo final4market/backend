@@ -1,5 +1,7 @@
 package com.market.controller;
 
+import java.util.List;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,18 +23,13 @@ public class MyPageController {
 		this.productService = productService;
 	}
 
-	@GetMapping("/api/myPageProfile/{memberId}")
+	@GetMapping("/myPageProfile/{memberId}")
 	public MyPageProfileDTO myPageProfile(@PathVariable String memberId) {
 		return memberService.myPageProfile(memberId);
 	}
 
-	@GetMapping("/myPageProduct/{productNo}")
-	public MyPageProductDTO myPageProduct(@PathVariable int productNo) {
-		return productService.myPageProduct(productNo);
-	}
-
-	@GetMapping("/myPageInterest/{productNo}")
-	public MyPageProductDTO myPageInterest(@PathVariable int productNo) {
-		return productService.myPageInterest(productNo);
+	@GetMapping("/myPageProduct/{memberId}")
+	public List<MyPageProductDTO> myPageProduct(@PathVariable String memberId) {
+		return productService.myPageProduct(memberId);
 	}
 }

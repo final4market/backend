@@ -23,12 +23,12 @@ public class MyPageController {
 		this.productService = productService;
 	}
 
-	@GetMapping("/myPageProfile/{memberId}")
+	@GetMapping("/api/member/myPageProfile/{memberId}")
 	public MyPageProfileDTO myPageProfile(@PathVariable String memberId) {
 		return memberService.myPageProfile(memberId);
 	}
 
-	@GetMapping("/myPageProduct/{memberId}")
+	@GetMapping("/api/product/myPageProduct/{memberId}")
 	public List<MyPageProductDTO> myPageProduct(@PathVariable String memberId) {
 		return productService.myPageProduct(memberId);
 	}

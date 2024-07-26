@@ -15,7 +15,7 @@
     <result column="chat_date" property="chatDate" jdbcType="VARCHAR"/>
   </resultMap>
 
-  <select id="selectAllChat" resultMap="ChatResultMap">
+<!--   <select id="selectAllChat" resultMap="ChatResultMap">
     SELECT chat_no, seller_id, buyer_id, product_no, chat_content, chat_date
     FROM chat
   </select>
@@ -36,5 +36,5 @@
 		FROM CHAT c
 		WHERE (buyer_id = #{memberId} OR seller_id = #{memberId})
 		order by chat_date
-  </select>
+  </select> -->
 </mapper>

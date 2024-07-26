@@ -71,7 +71,7 @@ public class ProductController {
 	public List<CategoryDTO> selectAllCategory() {
 		return productService.selectAllCategory();
 	}
-	@GetMapping("/category/list/{parNum}")
+	@GetMapping("/api/product/category/list/{parNum}")
 	public List<CategoryDTO> selectParentCategory(@PathVariable int parNum) {
 		return productService.selectParentCategory(parNum);
 	}

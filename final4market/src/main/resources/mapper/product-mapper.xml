@@ -219,9 +219,8 @@
 		update product set product_sale = '완료' where product_no = #{productNo}
 	</update>
 	
-	<select id=" productUpdate" resultType="map">
-	SELECT * FROM  PRODUCT 
-   where product_no = #{productNo}
+	<select id=" productUpdate" parameterType="com.market.dto.ProductDTO" resultMap="product">
+	SELECT * FROM PRODUCT WHERE PRODUCT_NO = #{productNo}
 	</select>
 	
 	<select id=" parentCategory" resultType="int">

@@ -53,7 +53,7 @@ public class SecurityConfig {
             }))
             .authorizeHttpRequests(auth -> auth
 
-                    .requestMatchers("/api/auth/**", "/api/auth/signup", "/file/**", "/api/product/**", "/api/member/**").permitAll() //공개 허용
+                    .requestMatchers("/api/auth/**", "/api/auth/signup", "/file/**", "/api/product/**", "/api/member/**", "/api/product/update").permitAll() //공개 허용
                     .requestMatchers("/api/admin/**").hasRole("ADMIN")
                     .anyRequest().authenticated()
                 )

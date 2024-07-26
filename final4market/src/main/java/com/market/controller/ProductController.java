@@ -41,7 +41,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
-@CrossOrigin(origins = "*" , allowedHeaders = "*" )
+@CrossOrigin(origins = "http://localhost:3000" , allowedHeaders = "*" )
 public class ProductController {
 	ProductService productService;
 
@@ -157,8 +157,10 @@ public class ProductController {
 	}
 	
 	@GetMapping("/api/product/update/{productNo}")
-	public ProductDTO productUpdate(@PathVariable int productNo) {
-		return productService.productUpdate(productNo);
+	public ProductDTO productUpdate(@RequestParam int productNo) {
+	    System.out.println(productNo);
+	    return productService.productUpdate(productNo);
+	   
 	}
 	
 	@GetMapping("api/product/category/parent/{categoryNumber}")

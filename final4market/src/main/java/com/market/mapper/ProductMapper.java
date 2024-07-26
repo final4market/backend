@@ -80,4 +80,8 @@ public interface ProductMapper {
 
 	int updateProductSaleSatus(int productNo);
 
+	ProductDTO productUpdate(int productNo);
+
+	int parentCategory(int categoryNumber);
+
 }

@@ -142,5 +142,13 @@ public class ProductService {
 	public int updateProductSaleSatus(int productNo) {
 		return mapper.updateProductSaleSatus(productNo);
 	}
+
+	public ProductDTO productUpdate(int productNo) {
+		return mapper.productUpdate(productNo);
+	}
+
+	public int parentCategory(int categoryNumber) {
+		return mapper. parentCategory(categoryNumber);
+	}
 }
 

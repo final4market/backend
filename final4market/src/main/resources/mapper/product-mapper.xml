@@ -218,5 +218,18 @@
 	<update id="updateProductSaleSatus" parameterType="int">
 		update product set product_sale = '완료' where product_no = #{productNo}
 	</update>
+	
+	<select id=" productUpdate" resultType="map">
+	SELECT * FROM  PRODUCT 
+   where product_no = #{productNo}
+	</select>
+	
+	<select id=" parentCategory" resultType="int">
+	SELECT PARENT_CATEGORY_NO
+FROM Category 
+WHERE CATEGORY_NO =#{categoryNo};
+	</select>
+	
+	
 </mapper>
 

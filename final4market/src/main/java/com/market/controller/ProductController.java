@@ -84,7 +84,7 @@ public class ProductController {
 	public List<CategoryDTO> selectAllCategory() {
 		return productService.selectAllCategory();
 	}
-	@GetMapping("/category/list/{parNum}")
+	@GetMapping("/api/product/category/list/{parNum}")
 	public List<CategoryDTO> selectParentCategory(@PathVariable int parNum) {
 		return productService.selectParentCategory(parNum);
 	}
@@ -155,6 +155,17 @@ public class ProductController {
 	    }
 	    return map;
 	}
+	
+	@GetMapping("/api/product/update/{productNo}")
+	public ProductDTO productUpdate(@PathVariable int productNo) {
+		return productService.productUpdate(productNo);
+	}
+	
+	@GetMapping("api/product/category/parent/{categoryNumber}")
+	public int parentCategory(@PathVariable int categoryNumber) {
+		return  productService.parentCategory(categoryNumber);
+	}
+	
 
 	@GetMapping("/api/product/sellerProductImage")
 	public List<Map<String, Object>> sellerProductImage(String memberId) {

@@ -145,7 +145,6 @@ public class MemberController {
 	@PutMapping("/changeMainAddress")
 	public Map<String, Object> changeMainAddress(@RequestBody MemberAddressDTO dto){
 		Map<String, Object> map = new HashMap<>();
-		System.out.println(dto);
 		try {			
 			memberService.changeMainAddressExisting(dto);
 			memberService.changeMainAddressNew(dto);

@@ -1,34 +1,35 @@
 package com.market.dto;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 import org.apache.ibatis.type.Alias;
 
 @Alias("chat")
 public class ChatDTO {
-	private int chatNo;
-	private int messageNo;
-	private String sellerId;
-	private String buyerId;
-	private String senderId;
-	private int productNo;
-	private String chatContent;
-	private String chatDate;
+    private int chatNo;
+    private int messageNo;
+    private String receiverId;
+    private String senderId;
+    private int productNo;
+    private String chatContent;
+    private LocalDateTime chatDate;
+    private String chatStatus;
 
-	public ChatDTO() {
-	}
+    // 기본 생성자
+    public ChatDTO() {
+    }
 
-	public ChatDTO(int chatNo, int messageNo, String sellerId, String buyerId, String senderId, int productNo,
-			String chatContent, String chatDate) {
+	public ChatDTO(int chatNo, int messageNo, String receiverId, String senderId, int productNo, String chatContent,
+			LocalDateTime chatDate, String chatStatus) {
 		super();
 		this.chatNo = chatNo;
 		this.messageNo = messageNo;
-		this.sellerId = sellerId;
-		this.buyerId = buyerId;
+		this.receiverId = receiverId;
 		this.senderId = senderId;
 		this.productNo = productNo;
 		this.chatContent = chatContent;
 		this.chatDate = chatDate;
+		this.chatStatus = chatStatus;
 	}
 
 	public int getChatNo() {
@@ -47,20 +48,12 @@ public class ChatDTO {
 		this.messageNo = messageNo;
 	}
 
-	public String getSellerId() {
-		return sellerId;
+	public String getReceiverId() {
+		return receiverId;
 	}
 
-	public void setSellerId(String sellerId) {
-		this.sellerId = sellerId;
-	}
-
-	public String getBuyerId() {
-		return buyerId;
-	}
-
-	public void setBuyerId(String buyerId) {
-		this.buyerId = buyerId;
+	public void setReceiverId(String receiverId) {
+		this.receiverId = receiverId;
 	}
 
 	public String getSenderId() {
@@ -87,21 +80,28 @@ public class ChatDTO {
 		this.chatContent = chatContent;
 	}
 
-	public String getChatDate() {
+	public LocalDateTime getChatDate() {
 		return chatDate;
 	}
 
-	public void setChatDate(String chatDate) {
+	public void setChatDate(LocalDateTime chatDate) {
 		this.chatDate = chatDate;
+	}
+
+	public String getChatStatus() {
+		return chatStatus;
+	}
+
+	public void setChatStatus(String chatStatus) {
+		this.chatStatus = chatStatus;
 	}
 
 	@Override
 	public String toString() {
-		return "ChatDTO [chatNo=" + chatNo + ", messageNo=" + messageNo + ", sellerId=" + sellerId + ", buyerId="
-				+ buyerId + ", senderId=" + senderId + ", productNo=" + productNo + ", chatContent=" + chatContent
-				+ ", chatDate=" + chatDate + "]";
+		return "ChatDTO [chatNo=" + chatNo + ", messageNo=" + messageNo + ", receiverId=" + receiverId + ", senderId="
+				+ senderId + ", productNo=" + productNo + ", chatContent=" + chatContent + ", chatDate=" + chatDate
+				+ ", chatStatus=" + chatStatus + "]";
 	}
 
-	
-	
+ 
 }

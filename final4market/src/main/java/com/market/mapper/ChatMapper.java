@@ -1,6 +1,7 @@
 package com.market.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -12,5 +13,15 @@ public interface ChatMapper {
 
 	List<ChatDTO> selectChatRoom(String memberId);
 
-	List<ChatDTO> selectChatInfo(String memberId);
+	List<ChatDTO> selectChatInfo(int chatNo);
+
+	List<ChatDTO> chatRoomExist(Map<String, Object> map);
+
+	int createChatRoom(ChatDTO dto);
+
+	int nextChatNo();
+
+	int nextMessageNo();
+
+	int insertMessage(ChatDTO messageDto);
 }

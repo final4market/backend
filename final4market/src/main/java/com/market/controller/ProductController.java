@@ -38,7 +38,6 @@ public class ProductController {
 	@GetMapping("/productImage")
 	public List<ProductImageDTO> productImage(int productNo) {
 		List<ProductImageDTO> list = productService.productImage(productNo);
-		System.out.println(list);
 		return list;
 	}
 	
@@ -51,7 +50,6 @@ public class ProductController {
 	@GetMapping("/deliveryInfo")
 	public DeliveryDTO deliveryInfo(int productNo) {
 		DeliveryDTO dto = productService.deliveryInfo(productNo);
-		System.out.println(dto);
 		return dto; 
 	}
 	
@@ -175,7 +173,6 @@ public class ProductController {
 	
 	@PutMapping("/updateProductSaleSatus")
 	public Map<String, Object> updateProductSaleSatus(int productNo){
-		System.out.println(productNo);
 		Map<String, Object> map = new HashMap<>();
 		try {
 			productService.updateProductSaleSatus(productNo);

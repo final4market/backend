@@ -51,4 +51,8 @@ public class ChatService {
 	public int insertMessage(ChatDTO messageDto) {
 		return mapper.insertMessage(messageDto);
 	}
+
+	public ChatDTO selectImageFile(String imagePath) {
+		return mapper.selectImageFile(imagePath);
+	}
 }

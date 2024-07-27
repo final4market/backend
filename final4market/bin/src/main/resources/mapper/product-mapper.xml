@@ -138,11 +138,27 @@
 	</select>
 
 	<select id="selectProductLike" parameterType="int" resultType="map">
-		SELECT BUYER_ID FROM PRODUCT_LIKE WHERE PRODUCT_NO = #{productNo}
+		SELECT BUYER_ID FROM INTEREST_PRODUCT WHERE PRODUCT_NO = #{productNo}
 	</select>
 
 	<select id="selectProductChat" parameterType="int" resultType="map">
 		SELECT CHAT_NO FROM CHAT WHERE PRODUCT_NO = #{productNo}
 	</select>
+	
+	<insert id="insertProductLike" parameterType="map">
+		insert into INTEREST_PRODUCT values(#{memberId},#{productNo})
+	</insert>
+	
+	<delete id="deleteProductLike" parameterType="map">
+		delete from INTEREST_PRODUCT where buyer_id = #{memberId} and product_no = #{productNo}
+	</delete>
+		
+	<select id="selectLikeStatus" parameterType="int">
+		select buyer_id from INTEREST_PRODUCT where product_no = #{productNo}
+	</select>
+	
+	<update id="updateProductSaleSatus" parameterType="int">
+		update product set product_sale = '완료' where product_no = #{productNo}
+	</update>
 </mapper>
 

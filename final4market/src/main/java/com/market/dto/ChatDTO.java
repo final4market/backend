@@ -103,5 +103,7 @@ public class ChatDTO {
 				+ ", chatStatus=" + chatStatus + "]";
 	}
 
+    
+    
  
 }

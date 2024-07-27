@@ -28,11 +28,23 @@
 		<result column="REVIEW" property="review"/>
 		<result column="SALE_STATUS" property="saleStatus"/>
 		<result column="PROFILE_PATH" property="profileNo"/>
+		<result column="REVIEW_SCORE" property="reviewScore"/>
 	</resultMap>
 	
 	<resultMap type="com.market.dto.MemberProfileDTO" id="profile">
 		<id column="MEMBER_PROFILE_NO" property="memberProfileNo" />
 		<result column="MEMBER_PROFILE_PATH" property="memberProfilePath"/>
+	</resultMap>
+
+	<resultMap type="com.market.dto.MemberAddressDTO" id="address">
+		<id column="MEMBER_ADDRESS_NO" property="memberAddressNo"/>
+		<result column="MEMBER_ID" property="memberId"/>
+		<result column="ADDRESS_NAME" property="addressName"/>
+		<result column="ADDRESS" property="address"/>
+		<result column="POSTAL_CODE" property="postalCode"/>
+		<result column="MAIN_ADDRESS" property="mainAddress"/>
+		<result column="MEMBER_NAME" property="memberName"/>
+		<result column="MEMBER_PHONE_NUMBER" property="memberPhoneNumber"/>
 	</resultMap>
 
 	<select id="selectAllMembers" resultMap="member">
@@ -88,17 +100,18 @@
         DELETE FROM member WHERE member_id=#{memberId}
     </delete>
     <select id="storeInfo" resultMap="store" parameterType="String">
-		SELECT 
-		P.PRODUCT_NO ,
-		P.MEMBER_ID AS SELLER_ID,
-		(SELECT BUYER_ID FROM REVIEW r WHERE R.PRODUCT_NO = P.PRODUCT_NO) AS BUYER_ID,
-		P.PRODUCT_PRICE AS SALE_PRICE,
-		P.PRODUCT_SALE AS SALE_STATUS,
-		(SELECT COUNT(*) FROM PRODUCT p2 WHERE P2.MEMBER_ID = #{memberId}) AS SALE_COUNT,
-		(SELECT COUNT(*) FROM FAVORITES f WHERE F.SELLER_ID = #{memberId}) AS FOLLOWER_COUNT,
-		(SELECT REVIEW FROM REVIEW r WHERE R.PRODUCT_NO = P.PRODUCT_NO) AS REVIEW
-		FROM PRODUCT p
-		WHERE P.MEMBER_ID = #{memberId}
+	SELECT P.PRODUCT_NO,
+       P.MEMBER_ID AS SELLER_ID,
+       r.BUYER_ID,
+       P.PRODUCT_PRICE AS SALE_PRICE,
+       P.PRODUCT_SALE AS SALE_STATUS,
+       (SELECT COUNT(*) FROM PRODUCT p2 WHERE P2.MEMBER_ID = #{memberId}) AS SALE_COUNT,
+       (SELECT COUNT(*) FROM follow f WHERE F.SELLER_ID = #{memberId}) AS FOLLOWER_COUNT,
+       r.REVIEW	,
+       r.REVIEW_SCORE
+	   FROM PRODUCT p
+	   LEFT JOIN REVIEW r ON r.PRODUCT_NO = P.PRODUCT_NO
+	   WHERE P.MEMBER_ID = #{memberId}
 	</select>
 	
 	<select id="profileNo" parameterType="String">
@@ -138,5 +151,41 @@
 
 	<select id="selectMemberScore" parameterType="String" resultType="map">
 		SELECT REVIEW_SCORE FROM REVIEW WHERE SELLER_ID = #{MEMBER_ID}
+	</select>
+	
+	<insert id="insertFollow" parameterType="map">
+		insert into follow values(#{buyerId},#{sellerId})
+	</insert>
+	
+	<delete id="deleteFollow" parameterType="map">
+		delete from follow where buyer_id = #{buyerId} and seller_id = #{sellerId}
+	</delete>
+	
+	<select id="selectMemberAddress" parameterType="String" resultMap="address">
+		select * from member_delivery_address where member_id = #{memberId} 
+	</select>
+	
+	<select id="currentAddressNO" resultType="int">
+		SELECT ADDRESS_NO.NEXTVAL FROM DUAL
+	</select>
+
+	<insert id="insertMemberAddress" parameterType="com.market.dto.MemberAddressDTO">
+		insert into member_delivery_address values(#{memberAddressNo},#{memberId},#{address},#{postalCode},#{mainAddress},#{memberName},#{memberPhoneNumber},#{addressName})
+	</insert>
+	
+	<delete id="deleteMemberAddress" parameterType="int">
+		delete from member_delivery_address where member_address_no = #{memberAddressNo}
+	</delete>
+	
+	<update id="changeMainAddressExisting" parameterType="address">
+		update member_delivery_address set main_address = 0 where member_id = #{memberId} and main_address = 1
+	</update>
+	
+	<update id="changeMainAddressNew" parameterType="address">
+		update member_delivery_address set main_address = 1 where member_id = #{memberId} and member_address_no = #{memberAddressNo}	
+ 	</update>
+ 	
+ 	<select id="selectFollowStatus" parameterType="String">
+		select buyer_id from follow where seller_id = #{memberId}
 	</select>
 </mapper>

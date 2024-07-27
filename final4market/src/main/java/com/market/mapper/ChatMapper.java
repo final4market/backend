@@ -24,4 +24,6 @@ public interface ChatMapper {
 	int nextMessageNo();
 
 	int insertMessage(ChatDTO messageDto);
+
+	ChatDTO selectImageFile(String imagePath);
 }

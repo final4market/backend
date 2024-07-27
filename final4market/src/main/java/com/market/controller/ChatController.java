@@ -1,20 +1,32 @@
 package com.market.controller;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.market.dto.ChatDTO;
 import com.market.service.ChatService;
+
+import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -58,6 +70,44 @@ public class ChatController {
     	return 0;
     }
     
+    @PostMapping("/uploadFile")
+    public ResponseEntity<Map<String, String>> receiveFile(@RequestParam("file") MultipartFile file) throws IllegalStateException, IOException {
+        File root = new File("c:\\fileupload");
+        if (!root.exists()) {
+            root.mkdirs();
+        }
+        
+        String originalFilename = file.getOriginalFilename();
+        String fileExtension = originalFilename != null && originalFilename.contains(".")
+                ? originalFilename.substring(originalFilename.lastIndexOf("."))
+                : "";
+        String uniqueFilename = UUID.randomUUID().toString() + fileExtension;
+        File serverFile = new File(root, uniqueFilename);
+        file.transferTo(serverFile);
+
+        String fileUrl = "/file/ajax/down/" + uniqueFilename; // 클라이언트에서 접근할 수 있는 URL
+        Map<String, String> response = new HashMap<>();
+        response.put("filePath", fileUrl);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+    
+    @GetMapping("/file/ajax/down/{fileName}")
+    public void fileAjaxDownload(@PathVariable String fileName, HttpServletResponse response) throws IOException {
+        File file = new File("c:\\fileupload\\" + fileName);
+        response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
+        response.setHeader("Content-Transfer-Encoding", "binary");
+        response.setContentLength((int) file.length());
+
+        try (FileInputStream fis = new FileInputStream(file);
+             BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream())) {
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = fis.read(buffer)) != -1) {
+                bos.write(buffer, 0, bytesRead);
+            }
+        }
+    }
     
     // WebSocket으로 채팅 메시지 수신 및 저장
     @MessageMapping("/message")

@@ -12,7 +12,7 @@
     <result column="product_no" property="productNo"/>
     <result column="chat_content" property="chatContent"/>
     <result column="chat_date" property="chatDate" jdbcType="VARCHAR"/>
-    <result column="chat_status" property="chatStatus" jdbcType="VARCHAR"/>
+    <result column="chat_status" property="chatStatus"/>
   </resultMap>
 
   <select id="selectAllChat" resultMap="ChatResultMap">
@@ -58,4 +58,8 @@
   <insert id="insertMessage" parameterType="chat">
   	insert into chat(CHAT_NO,RECEIVER_ID,SENDER_ID,PRODUCT_NO,CHAT_CONTENT,MESSAGE_NO) values(#{chatNo},#{receiverId},#{senderId},#{productNo},#{chatContent},#{messageNo})
   </insert>
+  
+  <select id="selectImageFile" parameterType="String" resultMap="ChatResultMap">
+  	select chat_content from chat where chat_content = #{imagePath}
+  </select>
 </mapper>

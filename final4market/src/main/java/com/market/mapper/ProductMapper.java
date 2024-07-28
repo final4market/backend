@@ -48,11 +48,10 @@ public interface ProductMapper {
 	int insertProductLike(Map<String, Object> map);
 
 	int deleteProductLike(Map<String, Object> map);
-
-	MyPageProductDTO myPageInterest(int productNo);
 	
 	List<String> selectLikeStatus(int productNo);
 
 	int updateProductSaleSatus(int productNo);
 
+	List<MyPageProductDTO> myPageInterest(String memberId);
 }

@@ -107,4 +107,8 @@ public class ProductService {
 	public int updateProductSaleSatus(int productNo) {
 		return mapper.updateProductSaleSatus(productNo);
 	}
+
+	public List<MyPageProductDTO> myPageInterest(String memberId) {
+		return mapper.myPageInterest(memberId);
+	}
 }

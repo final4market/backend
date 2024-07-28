@@ -66,6 +66,17 @@
 		<result column="REVIEW_SCORE" property="memberScore"/>
 	</resultMap>
 
+	<resultMap type="com.market.dto.MyPageInfoDTO" id="myPageInfo">
+		<result column="PROFILE_PATH" property="memberProfilePath"/>
+		<result column="MEMBER_ID" property="memberId"/>
+		<result column="MEMBER_PASSWD" property="memberPasswd"/>
+		<result column="MEMBER_NAME" property="memberName"/>
+		<result column="MEMBER_NICK" property="memberNick"/>
+		<result column="MEMBER_PHONE_NUMBER" property="memberPhoneNumber"/>
+		<result column="MEMBER_EAMIL" property="memberEmail"/>
+		<result column="MEMBER_ADDRESS" property="memberAddress"/>
+	</resultMap>
+
 	<select id="selectAllMembers" resultMap="member">
        SELECT m.member_id, m.member_name, m.member_nick, m.member_email, m.member_address,
        m.member_profile_no, m.member_grade, g.grade_name,
@@ -168,6 +179,18 @@
 		    WHERE M.MEMBER_ID = R.SELLER_ID) AS REVIEW_SCORE
 		FROM
 		    MEMBER M
+		LEFT JOIN
+			MEMBER_PROFILE MP ON M.MEMBER_PROFILE_NO = MP.MEMBER_PROFILE_NO
+		WHERE
+			M.MEMBER_ID = #{MEMBER_ID}
+	</select>
+
+	<select id="myPageInfo" parameterType="String" resultMap="myPageInfo">
+		SELECT
+			MP.PROFILE_PATH, M.MEMBER_ID, M.MEMBER_PASSWD, M.MEMBER_NAME, M.MEMBER_NICK,
+			M.MEMBER_PHONE_NUMBER, M.MEMBER_EMAIL, M.MEMBER_ADDRESS
+		FROM
+			MEMBER M
 		LEFT JOIN
 			MEMBER_PROFILE MP ON M.MEMBER_PROFILE_NO = MP.MEMBER_PROFILE_NO
 		WHERE

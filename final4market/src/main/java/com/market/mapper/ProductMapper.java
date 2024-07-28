@@ -60,5 +60,9 @@ public interface ProductMapper {
 
 	int updateProductSaleSatus(int productNo);
 
+	List<ProductDTO> categoryProductInfo(int categoryNo);
+
+	List<ProductImageDTO> categoryProductImg(List<String> productNos);
+
 }
 

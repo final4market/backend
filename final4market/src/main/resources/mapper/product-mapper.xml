@@ -160,5 +160,19 @@
 	<update id="updateProductSaleSatus" parameterType="int">
 		update product set product_sale = '완료' where product_no = #{productNo}
 	</update>
+	
+	<select id="categoryProductInfo" parameterType="int" resultMap="product">
+		select * from product where category_no = #{categoryNo}
+	</select>
+	
+		<select id="categoryProductImg" parameterType="list" resultType="map">
+	    SELECT product_no,PRODUCT_IMAGE_PATH  
+	    FROM product_image 
+	    WHERE product_no IN 
+	    <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+	        #{item}
+	    </foreach>
+	</select>
+	
 </mapper>
 

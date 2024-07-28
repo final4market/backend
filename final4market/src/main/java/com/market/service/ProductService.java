@@ -139,5 +139,15 @@ public class ProductService {
 		return mapper.updateProductSaleSatus(productNo);
 	}
 
+	public List<ProductDTO> categoryProductInfo(int categoryNo) {
+		return mapper.categoryProductInfo(categoryNo);
+	}
+
+	public List<ProductImageDTO> categoryProductImg(List<String> productNos) {
+		return mapper.categoryProductImg(productNos);
+	}
+
+
+
 }
 

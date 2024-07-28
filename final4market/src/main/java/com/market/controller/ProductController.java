@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -183,4 +184,21 @@ public class ProductController {
 		return map;
 	}
 	
+	@GetMapping("/categoryProductInfo")
+	public List<ProductDTO> categoryProductInfo(int categoryNo){
+		
+		List<ProductDTO> list = productService.categoryProductInfo(categoryNo);
+		
+		return list;
+	}
+	
+	@PostMapping("/categoryProductImg")
+	public List<ProductImageDTO> categoryProductImg(@RequestBody Map<String, Object> productNo){
+		System.out.println(productNo);
+		List<String> productNos = (List<String>) productNo.get("productNo");
+		System.out.println(productNos);
+		List<ProductImageDTO> list = productService.categoryProductImg(productNos);
+		return list;
+	}
+
 }

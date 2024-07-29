@@ -48,10 +48,6 @@
         WHERE product_image_no = #{productImageNo}
     </select>
 
-    <insert id="insertProductImage" parameterType="com.market.models.ProductImage" useGeneratedKeys="true" keyProperty="productImageNo">
-        INSERT INTO product_images (product_image_path, product_no)
-        VALUES (#{productImagePath}, #{productNo})
-    </insert>
 
     <update id="updateProductImage" parameterType="com.market.models.ProductImage">
         UPDATE product_images

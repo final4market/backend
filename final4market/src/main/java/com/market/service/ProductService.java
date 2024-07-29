@@ -11,117 +11,115 @@ import com.market.dto.DeliveryDTO;
 import com.market.dto.MyPageProductDTO;
 import com.market.dto.ProductDTO;
 import com.market.dto.ProductImageDTO;
-
 import com.market.mapper.ProductMapper;
 
 @Service
 public class ProductService {
-	private ProductMapper mapper;
+    private ProductMapper mapper;
 
-	public ProductService(ProductMapper mapper) {
-		this.mapper = mapper;
-	}
-
-	public List<ProductDTO> selectAllProduct() {
-		return mapper.selectAllProduct();
-	}
-
-	public List<ProductImageDTO> productImage(int productNo) {
-		return mapper.productImage(productNo);
-		
-	}
-	
-	//이미지 키 저장을 위한 새로운 메서드
-	public void saveProductImages(int productNo, List<String> imageKeys) {
-	    for (String imageKey : imageKeys) {
-	        ProductImageDTO productImageDTO = new ProductImageDTO(imageKey, productNo);
-	        insertProductImage(productImageDTO);
-	    }
-	}
-
-	public ProductDTO productInfo(int productNo) {
-		return mapper.productInfo(productNo);
-	}
-
-	public DeliveryDTO deliveryInfo(int productNo) {
-		return mapper.deliveryInfo(productNo);
-	}
-
-	public List<CategoryDTO> categoryInfo(int categoryNo) {
-		return mapper.categoryInfo(categoryNo);
-	}
-
-	public List<CategoryDTO> selectAllCategory() {
-		return mapper.selectAllCategory();
-	}
-
-	public int insertProduct(ProductDTO dto) {
-		return mapper.insertProduct(dto);
-	}
-
-	public int getProductNo() {
-		return mapper.getProductNo();
-	}
-	
-	public int countImagesForProduct(int productNo) {
-        return mapper.countImagesForProduct(productNo);
+    public ProductService(ProductMapper mapper) {
+        this.mapper = mapper;
     }
 
-	public List<CategoryDTO> selectParentCategory(int parNum) {
-		return mapper.selectParentCategory(parNum);
-	}
+    public List<ProductDTO> selectAllProduct() {
+        return mapper.selectAllProduct();
+    }
 
-	public int insertProductImage(ProductImageDTO productImageDTO) {
-		return mapper.insertProductImage(productImageDTO);
-	}
+    public List<ProductImageDTO> productImage(int productNo) {
+        return mapper.productImage(productNo);
+    }
 
-	public List<ProductImageDTO> selectAllProductImage() {
-		return mapper.selectAllProductImage();
-	}
+ 
+    public ProductDTO productInfo(int productNo) {
+        return mapper.productInfo(productNo);
+    }
 
-	public List<ProductDTO> selectSellerAllProduct() {
-		return mapper.selectSellerAllProduct();
-	}
+    public DeliveryDTO deliveryInfo(int productNo) {
+        return mapper.deliveryInfo(productNo);
+    }
 
-	public List<String> productNo(String memberId) {
-		return mapper.productNo(memberId);
-	}
+    public List<CategoryDTO> categoryInfo(int categoryNo) {
+        return mapper.categoryInfo(categoryNo);
+    }
 
-	public List<String> sellerProductImage(String productNo) {
-		return mapper.sellerProductImage(productNo);
-	}
+    public List<CategoryDTO> selectAllCategory() {
+        return mapper.selectAllCategory();
+    }
 
-	public int sellerProductPrice(String productNo) {
-		return mapper.sellerProductPrice(productNo);
-	}
+    public int insertProduct(ProductDTO dto) {
+        return mapper.insertProduct(dto);
+    }
 
-	public MyPageProductDTO myPageProduct(int productNo) {
-		return mapper.myPageProduct(productNo);
-	}
+    public int getProductNo() {
+        return mapper.getProductNo();
+    }
 
-	public MyPageProductDTO myPageInterest(int productNo) {
-		return mapper.myPageInterest(productNo);
-	}
+    public List<CategoryDTO> selectParentCategory(int parNum) {
+        return mapper.selectParentCategory(parNum);
+    }
+    
+ // 이미지 키 저장을 위한 새로운 메서드
+    public void saveProductImages(int productNo, List<String> imageKeys) {
+        for (int i = 0; i < imageKeys.size(); i++) {
+            String imageKey = imageKeys.get(i);
+            if (imageKey != null && !imageKey.isEmpty()) {  // null 값 필터링
+                ProductImageDTO productImageDTO = new ProductImageDTO(productNo, i, imageKey);
+                insertProductImage(productImageDTO);
+            }
+        }
+    }
 
-	public int insertProductLike(String memberId, int productNo) {
-		Map<String, Object> map = new HashMap<>();
-		map.put("memberId", memberId);
-		map.put("productNo", productNo);
-		return mapper.insertProductLike(map);
-	}
+    public int insertProductImage(ProductImageDTO productImageDTO) {
+        return mapper.insertProductImage(productImageDTO);
+    }
 
-	public int deleteProductLike(String memberId, int productNo) {
-		Map<String, Object> map = new HashMap<>();
-		map.put("memberId", memberId);
-		map.put("productNo", productNo);
-		return mapper.deleteProductLike(map);
-	}
-	
-	public List<String> selectLikeStatus(int productNo) {
-		return mapper.selectLikeStatus(productNo);
-	}
+    public List<ProductImageDTO> selectAllProductImage() {
+        return mapper.selectAllProductImage();
+    }
 
-	public int updateProductSaleSatus(int productNo) {
-		return mapper.updateProductSaleSatus(productNo);
-	}
+    public List<ProductDTO> selectSellerAllProduct() {
+        return mapper.selectSellerAllProduct();
+    }
+
+    public List<String> productNo(String memberId) {
+        return mapper.productNo(memberId);
+    }
+
+    public List<String> sellerProductImage(String productNo) {
+        return mapper.sellerProductImage(productNo);
+    }
+
+    public int sellerProductPrice(String productNo) {
+        return mapper.sellerProductPrice(productNo);
+    }
+
+    public MyPageProductDTO myPageProduct(int productNo) {
+        return mapper.myPageProduct(productNo);
+    }
+
+    public MyPageProductDTO myPageInterest(int productNo) {
+        return mapper.myPageInterest(productNo);
+    }
+
+    public int insertProductLike(String memberId, int productNo) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("memberId", memberId);
+        map.put("productNo", productNo);
+        return mapper.insertProductLike(map);
+    }
+
+    public int deleteProductLike(String memberId, int productNo) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("memberId", memberId);
+        map.put("productNo", productNo);
+        return mapper.deleteProductLike(map);
+    }
+
+    public List<String> selectLikeStatus(int productNo) {
+        return mapper.selectLikeStatus(productNo);
+    }
+
+    public int updateProductSaleSatus(int productNo) {
+        return mapper.updateProductSaleSatus(productNo);
+    }
 }

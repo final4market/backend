@@ -5,7 +5,7 @@ import java.io.File;
 import org.apache.ibatis.type.Alias;
 
 @Alias("productImage")
-public class ProductImageDTO {
+public class ProductImageDTO {       
     private int productNo;
     private int productImageNo;
     private String productImagePath;
@@ -13,14 +13,10 @@ public class ProductImageDTO {
     public ProductImageDTO() {
     }
 
-    public ProductImageDTO(String productImagePath, int productNo) {
+    public ProductImageDTO(int productNo, int productImageNo, String productImagePath) {
+    	this.productNo = productNo;
+        this.productImageNo = productImageNo;
         this.productImagePath = productImagePath;
-        this.productNo = productNo;
-    }
-    
-    public ProductImageDTO(File file, int productNo) {
-        this.productNo = productNo;
-        this.productImagePath = file.getAbsolutePath();
     }
 
     public int getProductNo() {

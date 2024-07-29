@@ -121,7 +121,7 @@
 
     <insert id="insertProductImage" parameterType="com.market.dto.ProductImageDTO">
         INSERT INTO PRODUCT_IMAGE(PRODUCT_IMAGE_PATH, product_no)
-        VALUES (#{path}, #{productNo})
+        VALUES (#{productImagePath}, #{productNo})
     </insert>
 
     <!-- Additional Select statements -->

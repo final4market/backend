@@ -50,6 +50,10 @@ public class ProductService {
 		return mapper.insertProduct(dto);
 	}
 
+	public int updateProduct(ProductDTO dto) {
+		return mapper.updateProduct(dto);
+		
+	}
 	public int getProductNo() {
 		return mapper.getProductNo();
 	}
@@ -60,6 +64,11 @@ public class ProductService {
 
 	public int insertProductImage(ProductImageDTO productImageDTO) {
 		return mapper.insertProductImage(productImageDTO);
+	}
+	
+	public int updateProductImage(ProductImageDTO productImageDTO) {
+		return mapper.updateProductImage(productImageDTO);
+		
 	}
 
 	public List<ProductImageDTO> selectAllProductImage() {
@@ -153,5 +162,9 @@ public class ProductService {
 	public ProductDTO productUpdate(int productNo) {
 		return mapper.productUpdate(productNo);
 	}
+
+	
+
+	
 }
 

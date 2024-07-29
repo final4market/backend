@@ -89,6 +89,13 @@ public class ProductController {
 		return productService.selectParentCategory(parNum);
 	}
 	
+	
+	@GetMapping("/api/product/update/view/{productNo}")
+	public ProductDTO productUpdate(@PathVariable int productNo ) {
+	    return productService.productUpdate(productNo);
+	   
+	}
+	
 
 	@PostMapping("/product/insert")
 	public Map<String, Object> insertProduct(@RequestParam Map<String, String> params,
@@ -155,15 +162,74 @@ public class ProductController {
 	    }
 	    return map;
 	}
-	
-	@GetMapping("/api/product/update/{productNo}")
-	public ProductDTO productUpdate(@RequestParam int productNo) {
-	    System.out.println(productNo);
-	    return productService.productUpdate(productNo);
-	   
+
+	@PostMapping("/product/update/{productNo}")
+	public Map<String, Object> updateProduct(@RequestParam Map<String, String> params,@PathVariable int productNo,
+	                                          @RequestParam("file") MultipartFile[] file) throws NumberFormatException {
+	    Map<String, Object> map = new HashMap<>();
+	    try {
+	        ProductDTO dto = new ProductDTO();
+	        dto.setProductTitle(params.get("productTitle"));
+	        dto.setProductPrice(Integer.parseInt(params.get("productPrice")));
+	        dto.setCategoryNo(Integer.parseInt(params.get("categoryNo")));
+	        dto.setProductContent(params.get("productContent"));
+	        dto.setProductStatus(params.get("productStatus"));
+	        dto.setMemberId(params.get("memberId"));
+	       
+	        
+	        // deliveryCharge 값이 null일 경우를 처리
+	        String deliveryChargeStr = params.get("deliveryCharge");
+	        dto.setDeliveryCharge(deliveryChargeStr != null && !deliveryChargeStr.isEmpty() ? Integer.parseInt(deliveryChargeStr) : 0);
+	        
+	        String deliveryNoStr = params.get("deliveryNo");
+	        if (deliveryNoStr != null && !deliveryNoStr.isEmpty()) {
+	            dto.setDeliveryNo(Integer.parseInt(deliveryNoStr));
+	        } else {
+	            dto.setDeliveryNo(0);
+	        }
+	        
+	        String tradeArea = params.get("tradeArea");
+	        if (tradeArea != null && !tradeArea.isEmpty()) {
+	            dto.setTradeArea(tradeArea);
+	        } else {
+	            dto.setTradeArea("0"); // 기본값 설정
+	        }
+	        
+	        dto.setProductNo(productNo);
+	        
+	        productService.updateProduct(dto);
+	        
+	        File root = new File("c:\\fileupload");
+	        if (!root.exists()) {
+	            root.mkdirs();
+	        }
+	        
+	        for (int i = 0; i < file.length; i++) {
+	            if (file[i].getSize() == 0) {
+	                continue;
+	            }
+	            File f = new File(root, file[i].getOriginalFilename());
+	            file[i].transferTo(f);
+	            ProductImageDTO productImageDTO = new ProductImageDTO(f, productNo, i);
+	            productService.updateProductImage(productImageDTO);
+	        }
+	        
+	        map.put("msg", "상품 등록 성공");
+	        map.put("result", true);
+	    } catch (IllegalArgumentException e) {
+	        e.printStackTrace();
+	        map.put("msg", "입력 값 오류 다시입력해세요: " + e.getMessage());
+	        map.put("result", false);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        map.put("msg", "상품 등록 실패");
+	        map.put("result", false);
+	    }
+	    return map;
 	}
 	
-	@GetMapping("api/product/category/parent/{categoryNumber}")
+	
+	@GetMapping("/api/product/category/parent/{categoryNumber}")
 	public int parentCategory(@PathVariable int categoryNumber) {
 		return  productService.parentCategory(categoryNumber);
 	}
@@ -236,6 +302,10 @@ public class ProductController {
 		
 		return map;
 	}
+	
+	
+	
+	
 	
 	@GetMapping("/selectLikeStatus")
 	public List<String> selectLikeStatus(int productNo) {

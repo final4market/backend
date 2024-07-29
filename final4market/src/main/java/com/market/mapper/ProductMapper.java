@@ -85,4 +85,8 @@ public interface ProductMapper {
 
 	ProductDTO productUpdate(int productNo);
 
+	 int updateProduct(ProductDTO dto);
+
+	int updateProductImage(ProductImageDTO productImageDTO);
+
 }

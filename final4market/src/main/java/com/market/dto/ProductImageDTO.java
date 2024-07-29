@@ -5,6 +5,8 @@ import java.io.File;
 import org.apache.ibatis.type.Alias;
 
 @Alias("productImage")
+
+
 public class ProductImageDTO {       
     private int productNo;
     private int productImageNo;

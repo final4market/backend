@@ -5,9 +5,15 @@ import java.util.Map;
 
 import com.market.dto.MemberAddressDTO;
 import com.market.dto.MemberDTO;
+
+import com.market.dto.MemberProfileDTO;
+import com.market.dto.ReviewDTO;
+
 import com.market.dto.MyPageProfileDTO;
+
 import com.market.dto.StoreDTO;
 import com.market.models.Member;
+
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -26,9 +32,14 @@ public interface MemberMapper {
 
 	int profileNo(String memberId);
 
+
+
+   
+
 	String profilePath(int profileNo);
 
 	List<String> buyerProfileNo(List<String> buyerIds);
+
 
 	List<Map<String, Object>> buyerProfilePath(List<String> buyerProfileNo);
 

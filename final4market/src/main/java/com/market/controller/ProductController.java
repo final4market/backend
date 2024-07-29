@@ -75,15 +75,21 @@ public class ProductController {
 		return list; 
 	}
 	
-	@GetMapping("/api/product/product/list")
-	public List<ProductDTO> selectAllProduct() {
-	return productService.selectAllProduct();
+	@GetMapping("/api/product/newproductlist")
+	public List<ProductDTO> newproductlist() {
+	return productService.newproductlist();
+	}
+	
+	@GetMapping("/api/product/hotproductlist")
+	public List<ProductDTO> hotproductlist() {
+	return productService.hotproductlist();
 	}
 	
 	@GetMapping("/api/product/category/list")
 	public List<CategoryDTO> selectAllCategory() {
 		return productService.selectAllCategory();
 	}
+	
 	@GetMapping("/api/product/category/list/{parNum}")
 	public List<CategoryDTO> selectParentCategory(@PathVariable int parNum) {
 		return productService.selectParentCategory(parNum);

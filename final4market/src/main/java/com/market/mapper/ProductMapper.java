@@ -23,7 +23,8 @@ public interface ProductMapper {
 
 	List<CategoryDTO> categoryInfo(int categoryNo);
 
-	List<ProductDTO> selectAllProduct();
+	List<ProductDTO> newproductlist();
+	List<ProductDTO> hotproductlist();
 
 	int insertProduct(ProductDTO dto);
 
@@ -88,5 +89,7 @@ public interface ProductMapper {
 	 int updateProduct(ProductDTO dto);
 
 	int updateProductImage(ProductImageDTO productImageDTO);
+
+	
 
 }

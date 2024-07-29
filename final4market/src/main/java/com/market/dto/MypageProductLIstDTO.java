@@ -4,13 +4,104 @@ import java.sql.Date;
 
 public class MypageProductLIstDTO {
   
+	private int productNo;
 	private String memberId;
-    private int productNo;
 	private int productPrice;
+	private int productCount;
+	private Date productDate;
+	private String productStatus;
+	private String productContent;
 	private String productSale;
 	private String productTitle;
+	private int productLike;
+	private int categoryNo;
+	private int deliveryNo;
+	private String tradeArea;
+	public int getProductCount() {
+		return productCount;
+	}
+
+
+	public void setProductCount(int productCount) {
+		this.productCount = productCount;
+	}
+
+
+	public String getProductStatus() {
+		return productStatus;
+	}
+
+
+	public void setProductStatus(String productStatus) {
+		this.productStatus = productStatus;
+	}
+
+
+	public String getProductContent() {
+		return productContent;
+	}
+
+
+	public void setProductContent(String productContent) {
+		this.productContent = productContent;
+	}
+
+
+	public int getProductLike() {
+		return productLike;
+	}
+
+
+	public void setProductLike(int productLike) {
+		this.productLike = productLike;
+	}
+
+
+	public int getCategoryNo() {
+		return categoryNo;
+	}
+
+
+	public void setCategoryNo(int categoryNo) {
+		this.categoryNo = categoryNo;
+	}
+
+
+	public int getDeliveryNo() {
+		return deliveryNo;
+	}
+
+
+	public void setDeliveryNo(int deliveryNo) {
+		this.deliveryNo = deliveryNo;
+	}
+
+
+	public String getTradeArea() {
+		return tradeArea;
+	}
+
+
+	public void setTradeArea(String tradeArea) {
+		this.tradeArea = tradeArea;
+	}
+
+
+	public int getDeliveryCharge() {
+		return deliveryCharge;
+	}
+
+
+	public void setDeliveryCharge(int deliveryCharge) {
+		this.deliveryCharge = deliveryCharge;
+	}
+
+
+	private int deliveryCharge;
 	private String productImagePath;
-	private Date productDate;
+	
+	
+	
 	public Date getProductDate() {
 		return productDate;
 	}

@@ -22,10 +22,14 @@ public class ProductService {
 		this.mapper = mapper;
 	}
 
-	public List<ProductDTO> selectAllProduct() {
-		return mapper.selectAllProduct();
+	public List<ProductDTO> newproductlist() {
+		return mapper.newproductlist();
 	}
 
+	public List<ProductDTO> hotproductlist() {
+		return mapper.hotproductlist();
+	}
+	
 	public List<ProductImageDTO> productImage(int productNo) {
 		return mapper.productImage(productNo);
 	}
@@ -162,6 +166,7 @@ public class ProductService {
 	public ProductDTO productUpdate(int productNo) {
 		return mapper.productUpdate(productNo);
 	}
+
 
 	
 

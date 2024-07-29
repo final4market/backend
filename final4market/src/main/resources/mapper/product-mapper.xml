@@ -44,7 +44,7 @@
         <result column="PARENT_CATEGORY_NO" property="parentCategoryNo" />
     </resultMap>
     
-      <resultMap type="com.market.dto.MypageProductLIstDTO" id="productSalesList">
+      <resultMap type="com.market.dto.MypageProductLIstDTO" id="productList">
        <id column="PRODUCT_NO" property="productNo" />
         <result column="MEMBER_ID" property="memberId"/>
          <result column="PRODUCT_PRICE" property="productPrice"/>
@@ -53,7 +53,9 @@
          <result column="PRODUCT_IMAGE_PATH" property="productImagePath" />
          <result column="TH_DATE" property="thDate" />
           <result column="buyer_id" property="buyerId"/>
+          <result column="PRODUCT_IMAGE_PATH" property="productImagePath"/>
            <result column="PRODUCT_DATE" property="productDate"/>
+            <result column="PRODUCT_COUNT" property="productCount"/>
     </resultMap>
 
 	<resultMap type="com.market.dto.MyPageProductDTO" id="myPageProduct">
@@ -84,8 +86,22 @@
         CONNECT BY PRIOR PARENT_CATEGORY_NO = CATEGORY_NO
     </select>
 
-    <select id="selectAllProduct" resultMap="product">
-        SELECT * FROM product
+  <select id="newproductlist" resultMap="productList">
+    <![CDATA[
+    SELECT * FROM MEMBER_PRODUCT_LIST_VIEW
+    WHERE PRODUCT_DATE BETWEEN TRUNC(SYSDATE) - 7 AND TRUNC(SYSDATE)
+    AND PRODUCT_SALE ='판매중'
+    ]]>
+</select>
+
+
+ <select id="hotproductlist" resultMap="productList">
+        <![CDATA[
+        SELECT * FROM MEMBER_PRODUCT_LIST_VIEW
+        WHERE PRODUCT_DATE BETWEEN TRUNC(SYSDATE) - 30 AND TRUNC(SYSDATE)
+        AND PRODUCT_SALE = '판매중'
+        ORDER BY PRODUCT_COUNT DESC;
+        ]]>
     </select>
 
     <select id="selectParentCategory" resultMap="category">
@@ -165,14 +181,14 @@
     </select>
 
 
-    <select id="productSaleslist" parameterType="String"  resultMap="productSalesList">
+    <select id="productSaleslist" parameterType="String"  resultMap="productList">
         SELECT * FROM MEMBER_PRODUCT_LIST_VIEW WHERE MEMBER_ID = #{memberId}
          AND PRODUCT_SALE ='판매중'
          AND product_image_no=0
         ORDER BY PRODUCT_DATE DESC 
     </select>
     
-    <select id="productsoldoutlist" parameterType="String"  resultMap="productSalesList">
+    <select id="productsoldoutlist" parameterType="String"  resultMap="productList">
         SELECT * FROM MEMBER_PRODUCT_LIST_VIEW WHERE MEMBER_ID = #{memberId}
          AND PRODUCT_SALE ='완료'
          AND product_image_no=0
@@ -180,7 +196,7 @@
     </select>
     
 
-        <select id="ProductPurchaseHistory" parameterType="String"  resultMap="productSalesList">
+        <select id="ProductPurchaseHistory" parameterType="String"  resultMap="productList">
         SELECT * FROM MEMBER_PRODUCT_LIST_VIEW WHERE buyer_id = #{buyerId}
         AND product_image_no=0
         ORDER BY TH_DATE DESC

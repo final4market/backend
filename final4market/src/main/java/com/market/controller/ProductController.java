@@ -152,9 +152,11 @@ public class ProductController {
 	        
 
 	        // Save images with numbering
+	        String baseUrl = "https://lucky4market-imgsrvr.s3.ap-northeast-2.amazonaws.com/";
 	        List<String> imageKeys = Arrays.asList(imageKey0, imageKey1, imageKey2).stream()
-                    .filter(key -> key != null && !key.isEmpty())
-                    .collect(Collectors.toList());
+	            .filter(key -> key != null && !key.isEmpty())
+	            .map(key -> baseUrl + key)  // Prepend base URL to each image key
+	            .collect(Collectors.toList());
 	        System.out.println(imageKeys);
 
 	        
@@ -220,13 +222,15 @@ productService.insertProduct(dto);
 
 
 // Save images with numbering
+String baseUrl = "https://lucky4market-imgsrvr.s3.ap-northeast-2.amazonaws.com/";
 List<String> imageKeys = Arrays.asList(imageKey0, imageKey1, imageKey2).stream()
-.filter(key -> key != null && !key.isEmpty())
-.collect(Collectors.toList());
+    .filter(key -> key != null && !key.isEmpty())
+    .map(key -> baseUrl + key)  // Prepend base URL to each image key
+    .collect(Collectors.toList());
 System.out.println(imageKeys);
 
 
-productService.saveProductImages(productNo, imageKeys);
+productService.saveProductImages(productNo,imageKeys);
 
 map.put("msg", "상품 등록 성공");
 map.put("result", true);

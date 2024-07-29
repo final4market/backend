@@ -174,7 +174,9 @@
 
 	<select id="myPageProfile" parameterType="String" resultMap="myPageProfile">
 		SELECT
-		    MP.PROFILE_PATH, M.MEMBER_ID, M.MEMBER_NICK,
+		    MP.PROFILE_PATH,
+		    M.MEMBER_ID,
+		    M.MEMBER_NICK,
 		    (SELECT ROUND(AVG(REVIEW_SCORE), 2)
 		    FROM REVIEW R
 		    WHERE M.MEMBER_ID = R.SELLER_ID) AS REVIEW_SCORE

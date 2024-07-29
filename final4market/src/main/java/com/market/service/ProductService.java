@@ -28,6 +28,15 @@ public class ProductService {
 
 	public List<ProductImageDTO> productImage(int productNo) {
 		return mapper.productImage(productNo);
+		
+	}
+	
+	//이미지 키 저장을 위한 새로운 메서드
+	public void saveProductImages(int productNo, List<String> imageKeys) {
+	    for (String imageKey : imageKeys) {
+	        ProductImageDTO productImageDTO = new ProductImageDTO(imageKey, productNo);
+	        insertProductImage(productImageDTO);
+	    }
 	}
 
 	public ProductDTO productInfo(int productNo) {
@@ -53,6 +62,10 @@ public class ProductService {
 	public int getProductNo() {
 		return mapper.getProductNo();
 	}
+	
+	public int countImagesForProduct(int productNo) {
+        return mapper.countImagesForProduct(productNo);
+    }
 
 	public List<CategoryDTO> selectParentCategory(int parNum) {
 		return mapper.selectParentCategory(parNum);

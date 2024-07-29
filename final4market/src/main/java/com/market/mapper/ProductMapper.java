@@ -55,4 +55,6 @@ public interface ProductMapper {
 
 	int updateProductSaleSatus(int productNo);
 
+	int countImagesForProduct(int productNo);
+ 
 }

@@ -232,7 +232,7 @@
 		update product set product_sale = '완료' where product_no = #{productNo}
 	</update>
 	
-	<select id=" productUpdate" parameterType="com.market.dto.ProductDTO" resultMap="product">
+	<select id="productUpdate" parameterType="com.market.dto.ProductDTO" resultMap="product">
 	SELECT * FROM PRODUCT WHERE PRODUCT_NO = #{productNo}
 	</select>
 	

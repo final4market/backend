@@ -11,16 +11,17 @@ import com.market.dto.DeliveryDTO;
 import com.market.dto.MyPageProductDTO;
 import com.market.dto.ProductDTO;
 import com.market.dto.ProductImageDTO;
-
 import com.market.mapper.ProductMapper;
 
 @Service
 public class ProductService {
+
 	private ProductMapper mapper;
 
 	public ProductService(ProductMapper mapper) {
 		this.mapper = mapper;
 	}
+
 
 	public List<ProductDTO> newproductlist() {
 		return mapper.newproductlist();
@@ -49,7 +50,14 @@ public class ProductService {
 	public List<CategoryDTO> selectAllCategory() {
 		return mapper.selectAllCategory();
 	}
+  
+    public List<ProductDTO> selectAllProduct() {
+        return mapper.selectAllProduct();
+    }
 
+  
+  
+  
 	public int insertProduct(ProductDTO dto) {
 		return mapper.insertProduct(dto);
 	}
@@ -75,9 +83,14 @@ public class ProductService {
 		
 	}
 
-	public List<ProductImageDTO> selectAllProductImage() {
+	public List<ProductImageDTO> 
+    ProductImage() {
 		return mapper.selectAllProductImage();
 	}
+  
+    public List<ProductImageDTO> selectAllProductImage() {
+        return mapper.selectAllProductImage();
+    }
 
 	public List<ProductDTO> selectSellerAllProduct() {
 		return mapper.selectSellerAllProduct();
@@ -167,9 +180,23 @@ public class ProductService {
 		return mapper.productUpdate(productNo);
 	}
 
+    public List<ProductImageDTO> productImage(int productNo) {
+        return mapper.productImage(productNo);
+    }
 
-	
+	 // 이미지 키 저장을 위한 새로운 메서드
+    public void saveProductImages(int productNo, List<String> imageKeys) {
+        for (int i = 0; i < imageKeys.size(); i++) {
+            String imageKey = imageKeys.get(i);
+            if (imageKey != null && !imageKey.isEmpty()) {  // null 값 필터링
+                ProductImageDTO productImageDTO = new ProductImageDTO(productNo, i, imageKey);
+                insertProductImage(productImageDTO);
+            }
+        }
+    }
+
 
 	
 }
+
 

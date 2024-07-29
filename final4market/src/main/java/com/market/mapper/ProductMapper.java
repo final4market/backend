@@ -82,6 +82,7 @@ public interface ProductMapper {
 	int updateProductSaleSatus(int productNo);
 
 
+
 	int parentCategory(int categoryNumber);
 
 	ProductDTO productUpdate(int productNo);
@@ -90,6 +91,6 @@ public interface ProductMapper {
 
 	int updateProductImage(ProductImageDTO productImageDTO);
 
-	
+
 
 }

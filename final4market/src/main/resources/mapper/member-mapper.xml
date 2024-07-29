@@ -73,7 +73,8 @@
 		<result column="MEMBER_NAME" property="memberName"/>
 		<result column="MEMBER_NICK" property="memberNick"/>
 		<result column="MEMBER_PHONE_NUMBER" property="memberPhoneNumber"/>
-		<result column="MEMBER_EAMIL" property="memberEmail"/>
+		<result column="MEMBER_EAMIL_ID" property="memberEmailId"/>
+		<result column="MEMBER_EAMIL_DOMAIN" property="memberEmailDomain"/>
 		<result column="MEMBER_ADDRESS" property="memberAddress"/>
 	</resultMap>
 
@@ -187,14 +188,21 @@
 
 	<select id="myPageInfo" parameterType="String" resultMap="myPageInfo">
 		SELECT
-			MP.PROFILE_PATH, M.MEMBER_ID, M.MEMBER_PASSWD, M.MEMBER_NAME, M.MEMBER_NICK,
-			M.MEMBER_PHONE_NUMBER, M.MEMBER_EMAIL, M.MEMBER_ADDRESS
+		    MP.PROFILE_PATH,
+		    M.MEMBER_ID,
+		    M.MEMBER_PASSWD,
+		    M.MEMBER_NAME,
+		    M.MEMBER_NICK,
+		    M.MEMBER_PHONE_NUMBER,
+		    SUBSTR(M.MEMBER_EMAIL, 1, INSTR(M.MEMBER_EMAIL, '@') - 1) AS MEMBER_EAMIL_ID,
+		    SUBSTR(M.MEMBER_EMAIL, INSTR(M.MEMBER_EMAIL, '@') + 1) AS MEMBER_EAMIL_DOMAIN,
+		    M.MEMBER_ADDRESS
 		FROM
-			MEMBER M
+		    MEMBER M
 		LEFT JOIN
-			MEMBER_PROFILE MP ON M.MEMBER_PROFILE_NO = MP.MEMBER_PROFILE_NO
+		    MEMBER_PROFILE MP ON M.MEMBER_PROFILE_NO = MP.MEMBER_PROFILE_NO
 		WHERE
-			M.MEMBER_ID = #{MEMBER_ID}
+		    M.MEMBER_ID = #{MEMBER_ID}
 	</select>
 
     <select id="getMemberWithGradeName" parameterType="String" resultMap="MemberResultMap">

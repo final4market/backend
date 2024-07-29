@@ -7,21 +7,24 @@ public class MyPageInfoDTO {
 	private String memberName;
 	private String memberNick;
 	private String memberPhoneNumber;
-	private String memberEmail;
+	private String memberEmailId;
+	private String memberEmailDomain;
 	private String memberAddress;
 
 	public MyPageInfoDTO() {
 	}
 
 	public MyPageInfoDTO(String memberProfilePath, String memberId, String memberPasswd, String memberName,
-			String memberNick, String memberPhoneNumber, String memberEmail, String memberAddress) {
+			String memberNick, String memberPhoneNumber, String memberEmailId, String memberEmailDomain,
+			String memberAddress) {
 		this.memberProfilePath = memberProfilePath;
 		this.memberId = memberId;
 		this.memberPasswd = memberPasswd;
 		this.memberName = memberName;
 		this.memberNick = memberNick;
 		this.memberPhoneNumber = memberPhoneNumber;
-		this.memberEmail = memberEmail;
+		this.memberEmailId = memberEmailId;
+		this.memberEmailDomain = memberEmailDomain;
 		this.memberAddress = memberAddress;
 	}
 
@@ -73,12 +76,20 @@ public class MyPageInfoDTO {
 		this.memberPhoneNumber = memberPhoneNumber;
 	}
 
-	public String getMemberEmail() {
-		return memberEmail;
+	public String getMemberEmailId() {
+		return memberEmailId;
 	}
 
-	public void setMemberEmail(String memberEmail) {
-		this.memberEmail = memberEmail;
+	public void setMemberEmailId(String memberEmailId) {
+		this.memberEmailId = memberEmailId;
+	}
+
+	public String getMemberEmailDomain() {
+		return memberEmailDomain;
+	}
+
+	public void setMemberEmailDomain(String memberEmailDomain) {
+		this.memberEmailDomain = memberEmailDomain;
 	}
 
 	public String getMemberAddress() {
@@ -93,6 +104,7 @@ public class MyPageInfoDTO {
 	public String toString() {
 		return "MyPageInfoDTO [memberProfilePath=" + memberProfilePath + ", memberId=" + memberId + ", memberPasswd="
 				+ memberPasswd + ", memberName=" + memberName + ", memberNick=" + memberNick + ", memberPhoneNumber="
-				+ memberPhoneNumber + ", memberEmail=" + memberEmail + ", memberAddress=" + memberAddress + "]";
+				+ memberPhoneNumber + ", memberEmailId=" + memberEmailId + ", memberEmailDomain=" + memberEmailDomain
+				+ ", memberAddress=" + memberAddress + "]";
 	}
 }

@@ -31,9 +31,6 @@ public class ProductService {
 		return mapper.hotproductlist();
 	}
 	
-	public List<ProductImageDTO> productImage(int productNo) {
-		return mapper.productImage(productNo);
-	}
 
 	public ProductDTO productInfo(int productNo) {
 		return mapper.productInfo(productNo);
@@ -51,12 +48,7 @@ public class ProductService {
 		return mapper.selectAllCategory();
 	}
   
-    public List<ProductDTO> selectAllProduct() {
-        return mapper.selectAllProduct();
-    }
 
-  
-  
   
 	public int insertProduct(ProductDTO dto) {
 		return mapper.insertProduct(dto);

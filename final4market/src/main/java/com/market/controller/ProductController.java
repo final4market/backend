@@ -177,69 +177,71 @@ public class ProductController {
 
 
 	@PostMapping("/product/update/{productNo}")
-	public Map<String, Object> updateProduct(@RequestParam Map<String, String> params,@PathVariable int productNo,
-	                                          @RequestParam("file") MultipartFile[] file) throws NumberFormatException {
-	    Map<String, Object> map = new HashMap<>();
-	    try {
-	        ProductDTO dto = new ProductDTO();
-	        dto.setProductTitle(params.get("productTitle"));
-	        dto.setProductPrice(Integer.parseInt(params.get("productPrice")));
-	        dto.setCategoryNo(Integer.parseInt(params.get("categoryNo")));
-	        dto.setProductContent(params.get("productContent"));
-	        dto.setProductStatus(params.get("productStatus"));
-	        dto.setMemberId(params.get("memberId"));
-	       
-	        
-	        // deliveryCharge 값이 null일 경우를 처리
-	        String deliveryChargeStr = params.get("deliveryCharge");
-	        dto.setDeliveryCharge(deliveryChargeStr != null && !deliveryChargeStr.isEmpty() ? Integer.parseInt(deliveryChargeStr) : 0);
-	        
-	        String deliveryNoStr = params.get("deliveryNo");
-	        if (deliveryNoStr != null && !deliveryNoStr.isEmpty()) {
-	            dto.setDeliveryNo(Integer.parseInt(deliveryNoStr));
-	        } else {
-	            dto.setDeliveryNo(0);
-	        }
-	        
-	        String tradeArea = params.get("tradeArea");
-	        if (tradeArea != null && !tradeArea.isEmpty()) {
-	            dto.setTradeArea(tradeArea);
-	        } else {
-	            dto.setTradeArea("0"); // 기본값 설정
-	        }
-	        
-	        dto.setProductNo(productNo);
-	        
-	        productService.updateProduct(dto);
-	        
-	        File root = new File("c:\\fileupload");
-	        if (!root.exists()) {
-	            root.mkdirs();
-	        }
-	        
-	        for (int i = 0; i < file.length; i++) {
-	            if (file[i].getSize() == 0) {
-	                continue;
-	            }
-	            File f = new File(root, file[i].getOriginalFilename());
-	            file[i].transferTo(f);
-	            ProductImageDTO productImageDTO = new ProductImageDTO(f, productNo, i);
-	            productService.updateProductImage(productImageDTO);
-	        }
-	        
-	        map.put("msg", "상품 등록 성공");
-	        map.put("result", true);
-	    } catch (IllegalArgumentException e) {
-	        e.printStackTrace();
-	        map.put("msg", "입력 값 오류 다시입력해세요: " + e.getMessage());
-	        map.put("result", false);
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        map.put("msg", "상품 등록 실패");
-	        map.put("result", false);
-	    }
-	    return map;
-	}
+	public Map<String, Object> updateProduct(@RequestParam Map<String, String> params,
+            @RequestParam(value = "imageKey0", required = false) String imageKey0,
+            @RequestParam(value = "imageKey1", required = false) String imageKey1,
+            @RequestParam(value = "imageKey2", required = false) String imageKey2) throws NumberFormatException {
+
+Map<String, Object> map = new HashMap<>();
+try {
+ProductDTO dto = new ProductDTO();
+dto.setProductTitle(params.get("productTitle"));
+dto.setProductPrice(Integer.parseInt(params.get("productPrice")));
+dto.setCategoryNo(Integer.parseInt(params.get("categoryNo")));
+dto.setProductContent(params.get("productContent"));
+dto.setProductStatus(params.get("productStatus"));
+dto.setMemberId(params.get("memberId"));
+
+
+
+// deliveryCharge 값이 null일 경우를 처리
+
+String deliveryChargeStr = params.get("deliveryCharge");
+dto.setDeliveryCharge(deliveryChargeStr != null && !deliveryChargeStr.isEmpty() ? Integer.parseInt(deliveryChargeStr) : 0);
+
+String deliveryNoStr = params.get("deliveryNo");
+if (deliveryNoStr != null && !deliveryNoStr.isEmpty()) {
+dto.setDeliveryNo(Integer.parseInt(deliveryNoStr));
+} else {
+dto.setDeliveryNo(0);
+}
+
+String tradeArea = params.get("tradeArea");
+if (tradeArea != null && !tradeArea.isEmpty()) {
+dto.setTradeArea(tradeArea);
+} else {
+dto.setTradeArea("0");
+}
+
+int productNo = productService.getProductNo();
+dto.setProductNo(productNo);
+
+productService.insertProduct(dto);
+
+
+// Save images with numbering
+List<String> imageKeys = Arrays.asList(imageKey0, imageKey1, imageKey2).stream()
+.filter(key -> key != null && !key.isEmpty())
+.collect(Collectors.toList());
+System.out.println(imageKeys);
+
+
+productService.saveProductImages(productNo, imageKeys);
+
+map.put("msg", "상품 등록 성공");
+map.put("result", true);
+map.put("productNo", productNo);
+} catch (IllegalArgumentException e) {
+e.printStackTrace();
+map.put("msg", "입력 값 오류 다시 입력해 주세요: " + e.getMessage());
+map.put("result", false);
+} catch (Exception e) {
+e.printStackTrace();
+map.put("msg", "상품 등록 실패");
+map.put("result", false);
+}
+return map;
+}
 	
 	
 	@GetMapping("/api/product/category/parent/{categoryNumber}")
@@ -319,34 +321,7 @@ public class ProductController {
 	    return productImages;
 	}
 		
-	
-	@GetMapping("/file")
-	public void fileDown(int productNo, int productImageNo, HttpServletResponse response) throws IOException {
-	    //파일 정보 읽어옴
-		ProductImageDTO dto = productService.selectFile(productNo,productImageNo);
-	    System.out.println(dto);
-	    //출력 스트림 연결 데이터 전송
-	    File file = new File(dto.getProductImagePath());
-	    
-	    response.setHeader("Content-Disposition", "attachement;fileName="+dto.getFileName());
-	    response.setHeader("Content-Transfer-Encoding", "binary");
-	    response.setContentLength((int)file.length());
-	    
-	    FileInputStream fis = new FileInputStream(file);
-	    BufferedOutputStream bos = new BufferedOutputStream(response.getOutputStream());
-	    
-	    byte[] buffer = new byte[1024*1024];
-	    
-	    while(true) {
-	        int size = fis.read(buffer);
-	        if(size == -1) break;
-	        bos.write(buffer, 0, size);
-	        bos.flush();
-	    }
-	    
-	    bos.close();
-	    fis.close();
-	}
+
 
 	@GetMapping("/insertProductLike")
 	public Map<String, Object> productLike(String memberId, int productNo) {

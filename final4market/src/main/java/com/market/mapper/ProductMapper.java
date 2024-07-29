@@ -42,7 +42,7 @@ public interface ProductMapper {
 
 	List<String> sellerProductImage(String productNo);
 
-	int sellerProductPrice(String productNo);
+	ProductDTO sellerProductPrice(String productNo);
 
 	List<ProductImageDTO> selectProductImage(int productNo);
 

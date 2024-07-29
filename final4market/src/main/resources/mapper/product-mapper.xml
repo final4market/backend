@@ -125,8 +125,8 @@
         SELECT PRODUCT_IMAGE_PATH FROM product_image WHERE product_no = #{productNo}
     </select>
 
-    <select id="sellerProductPrice" parameterType="String">
-        SELECT product_price FROM product WHERE product_no = #{productNo}
+    <select id="sellerProductPrice" parameterType="String" resultMap="product">
+        SELECT product_title,product_price FROM product WHERE product_no = #{productNo}
     </select>
 
 	<select id="selectProductImage" parameterType="int" resultType="map">

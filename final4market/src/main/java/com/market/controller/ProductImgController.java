@@ -51,6 +51,7 @@ public class ProductImgController {
         response.put("preSignedUrl", preSignedUrl.toString());
         response.put("objectKey", objectKey);
         System.out.println("리턴된 objectKey: " + objectKey);
+
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 

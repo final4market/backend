@@ -1,21 +1,20 @@
 package com.market.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.market.models.Member;
 import com.market.dto.MemberDTO;
+import com.market.service.MemberService;
 import com.market.service.AuthenticationService;
 
 
@@ -27,11 +26,42 @@ public class AuthenticationController {
 
     @Autowired
     private AuthenticationService authService;
+    
+    @Autowired
+    private MemberService memberService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+    
+    @PostMapping("/preRegister")
+    public ResponseEntity<?> preRegister(@RequestBody MemberDTO memberDTO) {
+        String memberName = memberDTO.getMemberName();
+        String memberPhoneNo = memberDTO.getMemberPhoneNo();
+        
+        Map<String, String> params = new HashMap<>();
+        params.put("memberName", memberName);
+        params.put("memberPhoneNo", memberPhoneNo);
+        
+        List<MemberDTO> members = memberService.searchMembers(params);
 
-    @PostMapping("/signup")
+        if (!members.isEmpty()) {
+            return ResponseEntity.status(409).body("이미 가입된 전화번호입니다");
+        } else {
+            return ResponseEntity.ok("회원 가입을 계속해주세요");
+        }
+    }
+    
+    @PostMapping("/checkIdAvailability")
+    public ResponseEntity<Map<String, Object>> checkIdAvailability(@RequestBody Map<String, String> params) {
+        boolean idExists = memberService.isMemberIdExists(params.get("memberId"));
+        
+        Map<String, Object> response = new HashMap<>();
+        response.put("exists", idExists);
+        
+        return ResponseEntity.ok(response);
+    }
+    
+    @PostMapping("/registerMember")
     public ResponseEntity<MemberDTO> registerMember(@RequestBody MemberDTO memberDTO) {
     	String encodedPassword = passwordEncoder.encode(memberDTO.getMemberPasswd());
 

@@ -99,7 +99,6 @@ public class ProductController {
 		return productService.selectParentCategory(parNum);
 	}
 	
-
 	
 	@GetMapping("/api/product/update/view/{productNo}")
 	public ProductDTO productUpdate(@PathVariable int productNo ) {
@@ -107,7 +106,6 @@ public class ProductController {
 	   
 	}
 	
-
 
 	@PostMapping("/product/insert")
 	public Map<String, Object> insertProduct(@RequestParam Map<String, String> params,
@@ -150,7 +148,6 @@ public class ProductController {
 	        dto.setProductNo(productNo);
 
 	        productService.insertProduct(dto);
-	        
 
 	        // Save images with numbering
 	        List<String> imageKeys = Arrays.asList(imageKey0, imageKey1, imageKey2).stream()

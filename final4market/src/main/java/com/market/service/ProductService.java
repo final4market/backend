@@ -101,6 +101,7 @@ public class ProductService {
 		return mapper.sellerProductImage(productNo);
 	}
 
+
 	public ProductDTO sellerProductPrice(String productNo) {
 		return mapper.sellerProductPrice(productNo);
 	}

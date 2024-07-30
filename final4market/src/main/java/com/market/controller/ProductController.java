@@ -3,8 +3,9 @@ package com.market.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.ArrayList;
-
+import java.util.Arrays;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -74,9 +75,12 @@ public class ProductController {
 		return productService.selectParentCategory(parNum);
 	}
 	
-	@PostMapping("product/insert")
+
+	@PostMapping("/product/insert")
 	public Map<String, Object> insertProduct(@RequestParam Map<String, String> params,
-	                                         @RequestParam("imageKeys") List<String> imageKeys) throws NumberFormatException {
+	                                         @RequestParam(value = "imageKey0", required = false) String imageKey0,
+	                                         @RequestParam(value = "imageKey1", required = false) String imageKey1,
+	                                         @RequestParam(value = "imageKey2", required = false) String imageKey2) throws NumberFormatException {
 	    Map<String, Object> map = new HashMap<>();
 	    try {
 	        ProductDTO dto = new ProductDTO();
@@ -85,6 +89,7 @@ public class ProductController {
 	        dto.setCategoryNo(Integer.parseInt(params.get("categoryNo")));
 	        dto.setProductContent(params.get("productContent"));
 	        dto.setProductStatus(params.get("productStatus"));
+	        dto.setMemberId(params.get("memberId"));
 
 	        String deliveryChargeStr = params.get("deliveryCharge");
 	        dto.setDeliveryCharge(deliveryChargeStr != null && !deliveryChargeStr.isEmpty() ? Integer.parseInt(deliveryChargeStr) : 0);
@@ -104,17 +109,17 @@ public class ProductController {
 	        }
 
 	        int productNo = productService.getProductNo();
-            dto.setProductNo(productNo);
+	        dto.setProductNo(productNo);
 
-            productService.insertProduct(dto);
-
-            // 이미지 키 저장
-            for (String imageKey : imageKeys) {
-                int currentImageCount = productService.countImagesForProduct(productNo);
-                ProductImageDTO productImageDTO = new ProductImageDTO(imageKey, productNo);
-                productImageDTO.setProductImageNo(currentImageCount + 1);
-                productService.insertProductImage(productImageDTO);
-            }
+	        productService.insertProduct(dto);	        
+	        
+	        // Save images with numbering
+	        List<String> imageKeys = Arrays.asList(imageKey0, imageKey1, imageKey2).stream()
+                    .filter(key -> key != null && !key.isEmpty())
+                    .collect(Collectors.toList());
+	        System.out.println(imageKeys);
+	        
+	        productService.saveProductImages(productNo, imageKeys);
 
 	        map.put("msg", "상품 등록 성공");
 	        map.put("result", true);

@@ -262,56 +262,56 @@ WHERE CATEGORY_NO =#{categoryNo};
 	
 	
 	
-	 <select id="searchResult" parameterType="String"  resultMap="productList">
-            SELECT * FROM MEMBER_PRODUCT_LIST_VIEW
-        <where>
-            <!-- 최소 가격이 주어진 경우 -->
-            <if test="minPrice != null and minPrice != ''">
-                PRODUCT_PRICE &gt;= #{minPrice}
-            </if>
-            
-            <!-- 최대 가격이 주어진 경우 -->
-            <if test="maxPrice != null and maxPrice != ''">
-                <choose>
-                    <when test="minPrice != null and minPrice != ''">
-                        AND PRODUCT_PRICE &lt;= #{maxPrice}
-                    </when>
-                    <otherwise>
-                        PRODUCT_PRICE &lt;= #{maxPrice}
-                    </otherwise>
-                </choose>
-            </if>
-            
-            <!-- 판매 완료 상태가 주어진 경우 -->
-            <if test="includeSoldOut != null and includeSoldOut != ''">
-                AND PRODUCT_SALE = #{includeSoldOut}
-            </if>
-            
-           <!--  검색 쿼리가 주어진 경우 
-            <if test="searchQuery != null and searchQuery != ''">
-                AND PRODUCT_TITLE LIKE CONCAT('%', #{searchQuery}, '%')
-            </if>-->
-        </where>
+	<select id="searchResult" parameterType="map" resultMap="productList">
+    SELECT * FROM PRODUCT
+    <where>
+        <!-- 최소 가격이 주어진 경우 -->
+        <if test="minPrice != null and minPrice != ''">
+            PRODUCT_PRICE &gt;= #{minPrice}
+        </if>
         
-        <!-- 정렬 조건이 주어진 경우 -->
-        <if test="sortOrder != null and sortOrder != ''">
-            ORDER BY
+        <!-- 최대 가격이 주어진 경우 -->
+        <if test="maxPrice != null and maxPrice != ''">
             <choose>
-                <when test="sortOrder == 'latest'">
-                    PRODUCT_DATE DESC
+                <when test="minPrice != null and minPrice != ''">
+                    AND PRODUCT_PRICE &lt;= #{maxPrice}
                 </when>
-                <when test="sortOrder == 'highToLow'">
-                    PRODUCT_PRICE DESC
-                </when>
-                <when test="sortOrder == 'lowToHigh'">
-                    PRODUCT_PRICE ASC
-                </when>
+                <otherwise>
+                    PRODUCT_PRICE &lt;= #{maxPrice}
+                </otherwise>
             </choose>
         </if>
         
+        <!-- 판매 완료 상태가 주어진 경우 -->
+        <if test="includeSoldOut != null and includeSoldOut != ''">
+            AND PRODUCT_SALE = #{includeSoldOut}
+        </if>
+        
+        <!-- 검색 쿼리가 주어진 경우 -->
+        <if test="searchQuery != null and searchQuery != ''">
+            AND PRODUCT_TITLE LIKE '%' || #{searchQuery} || '%'
+        </if>
+    </where>
+    
+    <!-- 정렬 조건이 주어진 경우 -->
+    <if test="sortOrder != null and sortOrder != ''">
+        ORDER BY
+        <choose>
+            <when test="sortOrder == 'latest'">
+                PRODUCT_DATE DESC
+            </when>
+            <when test="sortOrder == 'highToLow'">
+                PRODUCT_PRICE DESC
+            </when>
+            <when test="sortOrder == 'lowToHigh'">
+                PRODUCT_PRICE ASC
+            </when>
+        </choose>
+    </if>
+</select>
         
         
-    </select>
+ 
 	
 </mapper>
 

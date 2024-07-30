@@ -327,8 +327,7 @@ return map;
 	        @RequestParam(required = false) String sortOrder,
 	        @RequestParam(required = false) String searchQuery
 	    ) {
-	        // 매개변수들을 사용하여 검색 로직 구현
-	        // 예시: productService.search(minPrice, maxPrice, includeSoldOut, sortOrder, searchQuery);
+	     
 	        return productService.searchResult(minPrice, maxPrice, includeSoldOut, sortOrder, searchQuery);
 	    }
   

@@ -38,6 +38,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -255,53 +256,6 @@ return map;
 	
 
 
-	/*
-	 * @PostMapping("/product/insert") public Map<String, Object>
-	 * insertProduct2(@RequestParam Map<String, String> params,
-	 * 
-	 * @RequestParam("file") MultipartFile[] file) throws NumberFormatException {
-	 * Map<String, Object> map = new HashMap<>(); try { ProductDTO dto = new
-	 * ProductDTO(); dto.setProductTitle(params.get("productTitle"));
-	 * dto.setProductPrice(Integer.parseInt(params.get("productPrice")));
-	 * dto.setCategoryNo(Integer.parseInt(params.get("categoryNo")));
-	 * dto.setProductContent(params.get("productContent"));
-	 * dto.setProductStatus(params.get("productStatus"));
-	 * 
-	 * 
-	 * // deliveryCharge 값이 null일 경우를 처리 String deliveryChargeStr =
-	 * params.get("deliveryCharge"); dto.setDeliveryCharge(deliveryChargeStr != null
-	 * && !deliveryChargeStr.isEmpty() ? Integer.parseInt(deliveryChargeStr) : 0);
-	 * 
-	 * String deliveryNoStr = params.get("deliveryNo"); if (deliveryNoStr != null &&
-	 * !deliveryNoStr.isEmpty()) {
-	 * dto.setDeliveryNo(Integer.parseInt(deliveryNoStr)); } else {
-	 * dto.setDeliveryNo(0); }
-	 * 
-	 * String tradeArea = params.get("tradeArea"); if (tradeArea != null &&
-	 * !tradeArea.isEmpty()) { dto.setTradeArea(tradeArea); } else {
-	 * dto.setTradeArea("0"); // 기본값 설정 }
-	 * 
-	 * int productNo = productService.getProductNo(); dto.setProductNo(productNo);
-	 * 
-	 * productService.insertProduct(dto);
-	 * 
-	 * File root = new File("c:\\fileupload"); if (!root.exists()) { root.mkdirs();
-	 * }
-	 * 
-	 * for (int i = 0; i < file.length; i++) { if (file[i].getSize() == 0) {
-	 * continue; } File f = new File(root, file[i].getOriginalFilename());
-	 * file[i].transferTo(f); ProductImageDTO productImageDTO = new
-	 * ProductImageDTO(f, productNo);
-	 * productService.insertProductImage(productImageDTO); }
-	 * 
-	 * map.put("msg", "상품 등록 성공"); map.put("result", true); } catch
-	 * (IllegalArgumentException e) { e.printStackTrace(); map.put("msg",
-	 * "입력 값 오류 다시입력해세요: " + e.getMessage()); map.put("result", false); } catch
-	 * (Exception e) { e.printStackTrace(); map.put("msg", "상품 등록 실패");
-	 * map.put("result", false); } return map; }
-	 */
-
-
 	@GetMapping("/api/product/sellerProductImage")
 	public List<Map<String, Object>> sellerProductImage(String memberId) {
 	    List<String> productNoList = productService.productNo(memberId);
@@ -344,8 +298,7 @@ return map;
 	}
 	
 	
-	
-	
+
 	
 	@GetMapping("/selectLikeStatus")
 	public List<String> selectLikeStatus(int productNo) {
@@ -365,7 +318,19 @@ return map;
 		}
 		return map;
 	}
-	
-	
+
+	  @GetMapping("/api/product/search")
+	    public List<ProductDTO> searchResult(
+	        @RequestParam(required = false) String minPrice,
+	        @RequestParam(required = false) String maxPrice,
+	        @RequestParam(required = false) String includeSoldOut,
+	        @RequestParam(required = false) String sortOrder,
+	        @RequestParam(required = false) String searchQuery
+	    ) {
+	        // 매개변수들을 사용하여 검색 로직 구현
+	        // 예시: productService.search(minPrice, maxPrice, includeSoldOut, sortOrder, searchQuery);
+	        return productService.searchResult(minPrice, maxPrice, includeSoldOut, sortOrder, searchQuery);
+	    }
+  
 
 }

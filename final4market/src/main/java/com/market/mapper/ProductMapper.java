@@ -91,6 +91,10 @@ public interface ProductMapper {
 
 	int updateProductImage(ProductImageDTO productImageDTO);
 
+	List<ProductDTO> searchResult(Map<String, Object> params);
+
+
+
 
 
 }

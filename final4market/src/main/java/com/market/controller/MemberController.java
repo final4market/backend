@@ -155,7 +155,7 @@ public class MemberController {
 		}
 	}
 	
-	@GetMapping("/selectFollowStatus")
+	@GetMapping("/api/member/selectFollowStatus")
 	public List<String> selectFollowStatus(String memberId) {
 		List<String> list = memberService.selectFollowStatus(memberId);
 		return list;

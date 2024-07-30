@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service;
 
 import com.market.dto.MemberAddressDTO;
 import com.market.dto.MemberDTO;
+
+import com.market.dto.MemberProfileDTO;
+import com.market.dto.ReviewDTO;
+
 import com.market.dto.MyPageProfileDTO;
 import com.market.dto.StoreDTO;
 
@@ -36,6 +40,7 @@ public class MemberService {
 	public int deleteMember(String memberId) {
 		return mapper.deleteMember(memberId);
 	}
+
 
 	public List<StoreDTO> storeInfo(String memberId) {
 		return mapper.storeInfo(memberId);

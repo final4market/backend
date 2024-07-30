@@ -102,4 +102,8 @@ public class MemberService {
 	public List<String> selectFollowStatus(String memberId) {
 		return mapper.selectFollowStatus(memberId);
 	}
+
+	public boolean isMemberIdExists(String memberId) {
+	    return mapper.countMembersById(memberId) > 0;
+	}
 }

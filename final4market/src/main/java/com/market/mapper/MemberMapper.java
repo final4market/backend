@@ -67,4 +67,6 @@ public interface MemberMapper {
 	int changeMainAddressNew(MemberAddressDTO dto);
 
 	List<String> selectFollowStatus(String memberId);
+
+	int countMembersById(String memberId);
 }

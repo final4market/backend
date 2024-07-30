@@ -238,4 +238,10 @@
  	<select id="selectFollowStatus" parameterType="String">
 		select buyer_id from follow where seller_id = #{memberId}
 	</select>
+	
+	<select id="countMembersById" parameterType="String" resultType="int">
+    SELECT COUNT(*)
+    FROM member
+    WHERE member_id = #{memberId}
+</select>
 </mapper>

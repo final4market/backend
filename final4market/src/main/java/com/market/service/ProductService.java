@@ -31,9 +31,9 @@ public class ProductService {
 		return mapper.hotproductlist();
 	}
 	
-	public List<ProductImageDTO> productImage(int productNo) {
-		return mapper.productImage(productNo);
-	}
+//	public List<ProductImageDTO> productImage(int productNo) {
+//		return mapper.productImage(productNo);
+//	}
 
 	public ProductDTO productInfo(int productNo) {
 		return mapper.productInfo(productNo);
@@ -51,13 +51,10 @@ public class ProductService {
 		return mapper.selectAllCategory();
 	}
   
-    public List<ProductDTO> selectAllProduct() {
-        return mapper.selectAllProduct();
-    }
+//    public List<ProductDTO> selectAllProduct() {
+//        return mapper.selectAllProduct();
+//    }
 
-  
-  
-  
 	public int insertProduct(ProductDTO dto) {
 		return mapper.insertProduct(dto);
 	}
@@ -104,7 +101,7 @@ public class ProductService {
 		return mapper.sellerProductImage(productNo);
 	}
 
-	public int sellerProductPrice(String productNo) {
+	public ProductDTO sellerProductPrice(String productNo) {
 		return mapper.sellerProductPrice(productNo);
 	}
 
@@ -196,7 +193,13 @@ public class ProductService {
     }
 
 
-	
+	public List<ProductDTO> categoryProductInfo(int categoryNo) {
+		return mapper.categoryProductInfo(categoryNo);
+	}
+
+	public List<ProductImageDTO> categoryProductImg(List<String> productNos) {
+		return mapper.categoryProductImg(productNos);
+	}
 }
 
 

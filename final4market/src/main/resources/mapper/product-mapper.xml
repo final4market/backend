@@ -161,13 +161,6 @@
     VALUES (#{productNo}, #{productImageNo}, #{productImagePath})
 </insert>
 
-
-
-    <insert id="insertProductImage" parameterType="productImage">
-        INSERT INTO PRODUCT_IMAGE(PRODUCT_IMAGE_PATH, PRODUCT_IMAGE_NO, product_no)
-        VALUES (#{productImagePath}, #{productImageNo}, #{productNo})
-   </insert>
-   
        <update id="updateProductImage" parameterType="productImage">
         update PRODUCT_IMAGE
         set PRODUCT_IMAGE_PATH=#{productImagePath}, PRODUCT_IMAGE_NO= #{productImageNo}
@@ -183,8 +176,8 @@
         SELECT PRODUCT_IMAGE_PATH FROM product_image WHERE product_no = #{productNo}
     </select>
 
-    <select id="sellerProductPrice" parameterType="String">
-        SELECT product_price FROM product WHERE product_no = #{productNo}
+    <select id="sellerProductPrice" parameterType="String" resultMap="product">
+        SELECT product_title,product_price FROM product WHERE product_no = #{productNo}
     </select>
 
 
@@ -265,6 +258,17 @@ FROM Category
 WHERE CATEGORY_NO =#{categoryNo};
 	</select>
 	
+		<select id="categoryProductInfo" parameterType="int" resultMap="product">
+		select * from product where category_no = #{categoryNo}
+	</select>
 	
+		<select id="categoryProductImg" parameterType="list" resultType="map">
+	    SELECT product_no,PRODUCT_IMAGE_PATH  
+	    FROM product_image 
+	    WHERE product_no IN 
+	    <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+	        #{item}
+	    </foreach>
+	</select>
 </mapper>
 

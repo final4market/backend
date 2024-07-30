@@ -44,7 +44,7 @@ public interface ProductMapper {
 
 	List<String> sellerProductImage(String productNo);
 
-	int sellerProductPrice(String productNo);
+	ProductDTO sellerProductPrice(String productNo);
 
 
 	List<ProductDTO> productsoldoutlist(String memberId);
@@ -91,6 +91,9 @@ public interface ProductMapper {
 
 	int updateProductImage(ProductImageDTO productImageDTO);
 
+	List<ProductDTO> categoryProductInfo(int categoryNo);
+
+	List<ProductImageDTO> categoryProductImg(List<String> productNos);
 
 
 }

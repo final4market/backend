@@ -124,7 +124,6 @@
     VALUES (#{productNo}, #{productImageNo}, #{productImagePath})
 </insert>
 
-
     <!-- Additional Select statements -->
     <select id="productNo" parameterType="String">
         SELECT product_no FROM product WHERE member_id = #{memberId}

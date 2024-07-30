@@ -75,6 +75,7 @@ public class ProductController {
 		return productService.selectParentCategory(parNum);
 	}
 	
+
 	@PostMapping("/product/insert")
 	public Map<String, Object> insertProduct(@RequestParam Map<String, String> params,
 	                                         @RequestParam(value = "imageKey0", required = false) String imageKey0,
@@ -110,8 +111,7 @@ public class ProductController {
 	        int productNo = productService.getProductNo();
 	        dto.setProductNo(productNo);
 
-	        productService.insertProduct(dto);
-	        
+	        productService.insertProduct(dto);	        
 	        
 	        // Save images with numbering
 	        List<String> imageKeys = Arrays.asList(imageKey0, imageKey1, imageKey2).stream()

@@ -48,7 +48,6 @@
         WHERE product_image_no = #{productImageNo}
     </select>
 
-
     <update id="updateProductImage" parameterType="com.market.models.ProductImage">
         UPDATE product_images
         SET product_image_path = #{productImagePath},

@@ -28,7 +28,6 @@ public class ProductService {
     public List<ProductImageDTO> productImage(int productNo) {
         return mapper.productImage(productNo);
     }
-
  
     public ProductDTO productInfo(int productNo) {
         return mapper.productInfo(productNo);

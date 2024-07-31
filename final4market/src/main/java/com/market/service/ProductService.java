@@ -185,15 +185,19 @@ public class ProductService {
     }
 
 
-    public List<ProductDTO> searchResult(String minPrice, String maxPrice, String includeSoldOut, String sortOrder, String searchQuery) {
+    public List<ProductDTO> searchResult(String minPrice, String maxPrice, String includeSoldOut, String sortOrder, String searchQuery,
+    		String categoryNo, String parentCategoryNo) {
         Map<String, Object> params = new HashMap<>();
         params.put("minPrice", minPrice);
         params.put("maxPrice", maxPrice);
         params.put("includeSoldOut", includeSoldOut);
         params.put("sortOrder", sortOrder);
         params.put("searchQuery", searchQuery);
-
+        params.put("categoryNo", categoryNo);
+        params.put("parentCategoryNo", parentCategoryNo);
+        
         return mapper.searchResult(params);
+        
     }
 
 

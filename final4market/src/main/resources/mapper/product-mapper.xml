@@ -107,7 +107,7 @@
   <select id="newproductlist" resultMap="productList">
     <![CDATA[
     SELECT * FROM MEMBER_PRODUCT_LIST_VIEW
-    WHERE PRODUCT_DATE BETWEEN TRUNC(SYSDATE) - 7 AND TRUNC(SYSDATE)
+    WHERE PRODUCT_DATE BETWEEN (SYSDATE) - 7 AND (SYSDATE)
     AND PRODUCT_SALE ='판매중'
     ]]>
 </select>
@@ -300,6 +300,19 @@ WHERE CATEGORY_NO =#{categoryNo};
         AND PRODUCT_TITLE LIKE '%' || #{searchQuery} || '%'
     </if>
     
+    <if test="categoryNo != null and categoryNo != ''">
+        AND CATEGORY_NO = #{categoryNo}
+    </if>
+    
+    <if test="parentCategoryNo != null and parentCategoryNo != ''">
+        AND CATEGORY_NO IN (
+            SELECT category_no
+            FROM Category
+            START WITH parent_category_no = #{parentCategoryNo}
+            CONNECT BY PRIOR category_no = parent_category_no
+        )
+    </if>
+
     <if test="sortOrder != null and sortOrder != ''">
         ORDER BY
         <choose>
@@ -315,6 +328,7 @@ WHERE CATEGORY_NO =#{categoryNo};
         </choose>
     </if>
 </select>
+
        
   
   <select id="updateloadProductImages" resultMap="myPageProduct">

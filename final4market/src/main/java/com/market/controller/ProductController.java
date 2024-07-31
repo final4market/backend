@@ -326,10 +326,11 @@ return map;
 	        @RequestParam(required = false) String maxPrice,
 	        @RequestParam(required = false) String includeSoldOut,
 	        @RequestParam(required = false) String sortOrder,
-	        @RequestParam(required = false) String searchQuery
+	        @RequestParam(required = false) String searchQuery,
+	        @RequestParam(required = false) String categoryNo,
+	        @RequestParam(required = false) String parentCategoryNo
 	    ) {
-	     
-	        return productService.searchResult(minPrice, maxPrice, includeSoldOut, sortOrder, searchQuery);
+	        return productService.searchResult(minPrice, maxPrice, includeSoldOut, sortOrder, searchQuery, categoryNo, parentCategoryNo);
 	    }
   
 

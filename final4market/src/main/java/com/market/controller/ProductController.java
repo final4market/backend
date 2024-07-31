@@ -332,6 +332,7 @@ return map;
 	        return productService.searchResult(minPrice, maxPrice, includeSoldOut, sortOrder, searchQuery);
 	    }
   
+
 	  @GetMapping("/api/product/{productNo}/images")
 	  public List<ProductImage> updateProductImages(@PathVariable int productNo ) {
 	  	return productService.updateloadProductImages(productNo);
@@ -339,6 +340,7 @@ return map;
 
 
 	
+
 
 
 }

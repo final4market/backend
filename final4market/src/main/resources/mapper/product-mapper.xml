@@ -301,7 +301,8 @@ WHERE CATEGORY_NO =#{categoryNo};
                 PRODUCT_PRICE ASC
             </when>
         </choose>
-      </if>
+
+  
        </select>
        
   
@@ -320,6 +321,7 @@ delete PRODUCT_IMAGE
 where product_no= #{productNo}
 </delete>
         
+
 	
 </mapper>
 

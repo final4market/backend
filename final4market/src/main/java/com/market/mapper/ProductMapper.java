@@ -90,7 +90,7 @@ public interface ProductMapper {
 
 	 int updateProduct(ProductDTO dto);
 
-	List<ProductDTO> searchResult(Map<String, Object> params);
+	
 
 	List<ProductImage> updateProductImages(int productNo);
 
@@ -101,6 +101,9 @@ public interface ProductMapper {
 	void deleteProductImages(int productNo);
 
 	
+
+	List<ProductDTO> searchResult(Map<String, Object> params);
+
 
 
 

@@ -31,6 +31,7 @@
 		<result column="REVIEW_SCORE" property="reviewScore"/>
 	</resultMap>
 	
+	
     <resultMap type="com.market.dto.MemberProfileDTO" id="profile">
         <id column="MEMBER_PROFILE_NO" property="memberProfileNo" />
         <result column="MEMBER_PROFILE_PATH" property="memberProfilePath"/>
@@ -52,6 +53,7 @@
 	<resultMap type="com.market.dto.MemberAddressDTO" id="address">
 		<id column="MEMBER_ADDRESS_NO" property="memberAddressNo"/>
 		<result column="MEMBER_ID" property="memberId"/>
+		<result column="ADDRESS_NAME" property="addressName"/>
 		<result column="ADDRESS" property="address"/>
 		<result column="POSTAL_CODE" property="postalCode"/>
 		<result column="MAIN_ADDRESS" property="mainAddress"/>
@@ -118,8 +120,9 @@
     <delete id="deleteMember" parameterType="String">
         DELETE FROM member WHERE member_id=#{memberId}
     </delete>
+    
     <select id="storeInfo" resultMap="store" parameterType="String">
- 	SELECT P.PRODUCT_NO,
+	SELECT P.PRODUCT_NO,
        P.MEMBER_ID AS SELLER_ID,
        r.BUYER_ID,
        P.PRODUCT_PRICE AS SALE_PRICE,
@@ -130,9 +133,9 @@
        r.REVIEW_SCORE
 	   FROM PRODUCT p
 	   LEFT JOIN REVIEW r ON r.PRODUCT_NO = P.PRODUCT_NO
-	   WHERE P.MEMBER_ID = #{memberId}
+	   WHERE P.MEMBER_ID = #{memberId
     </select>
-        
+
     <select id="profileNo" parameterType="String">
         SELECT m.MEMBER_PROFILE_NO  FROM "MEMBER" M WHERE M.MEMBER_ID = #{memberId}
     </select>

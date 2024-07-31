@@ -7,23 +7,23 @@
   <resultMap id="ChatResultMap" type="com.market.dto.ChatDTO">
     <id column="chat_no" property="chatNo"/>
     <result column="message_no" property="messageNo"/>
-    <result column="seller_id" property="sellerId"/>
-    <result column="buyer_id" property="buyerId"/>
+    <result column="receiver_id" property="receiverId"/>
     <result column="sender_id" property="senderId"/>
     <result column="product_no" property="productNo"/>
     <result column="chat_content" property="chatContent"/>
     <result column="chat_date" property="chatDate" jdbcType="VARCHAR"/>
+    <result column="chat_status" property="chatStatus"/>
   </resultMap>
 
   <select id="selectAllChat" resultMap="ChatResultMap">
-    SELECT chat_no, seller_id, buyer_id, product_no, chat_content, chat_date
+    SELECT chat_no, receiver_id, sender_id, product_no, chat_content, chat_date
     FROM chat
   </select>
   
   <select id="selectChatRoom" resultMap="ChatResultMap" parameterType="String">
 		SELECT *
 		FROM CHAT c
-		WHERE (buyer_id = #{memberId} OR seller_id = #{memberId})
+		WHERE (receiver_id = #{memberId} OR sender_id = #{memberId})
 		  AND CHAT_DATE = (
 		    SELECT MAX(chat_date)
 		    FROM CHAT sub
@@ -31,10 +31,35 @@
 		)
   </select>
   
-  <select id="selectChatInfo" resultMap="ChatResultMap" parameterType="String">
-  		SELECT *
-		FROM CHAT c
-		WHERE (buyer_id = #{memberId} OR seller_id = #{memberId})
-		order by chat_date
+  <select id="selectChatInfo" resultMap="ChatResultMap" parameterType="int">
+		SELECT *
+		FROM CHAT
+		WHERE chat_no = #{chatNo}
+		ORDER BY chat_date
+
+  </select>
+  
+  <select id="chatRoomExist" resultType="int" parameterType="map">
+  	select chat_no from chat WHERE (receiver_id = #{memberId} OR sender_id = #{memberId}) and product_no = #{productNo}
+  </select>
+  
+  <select id="nextChatNo" resultType="int">
+  	SELECT CHAT_NO_SEQ.NEXTVAL FROM DUAL
+  </select>
+  
+  <insert id="createChatRoom" parameterType="chat">
+  	insert into chat(CHAT_NO,RECEIVER_ID,SENDER_ID,PRODUCT_NO) values(#{chatNo},#{receiverId},#{senderId},#{productNo})
+  </insert>
+  
+   <select id="nextMessageNo" resultType="int">
+  	SELECT MESSAGE_NO_SEQ.NEXTVAL FROM DUAL
+  </select>
+  
+  <insert id="insertMessage" parameterType="chat">
+  	insert into chat(CHAT_NO,RECEIVER_ID,SENDER_ID,PRODUCT_NO,CHAT_CONTENT,MESSAGE_NO) values(#{chatNo},#{receiverId},#{senderId},#{productNo},#{chatContent},#{messageNo})
+  </insert>
+  
+  <select id="selectImageFile" parameterType="String" resultMap="ChatResultMap">
+  	select chat_content from chat where chat_content = #{imagePath}
   </select>
 </mapper>

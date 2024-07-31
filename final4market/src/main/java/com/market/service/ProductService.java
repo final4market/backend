@@ -82,10 +82,6 @@ public class ProductService {
 		return mapper.sellerProductPrice(productNo);
 	}
 
-	public List<MyPageProductDTO> myPageProduct(String memberId) {
-		return mapper.myPageProduct(memberId);
-	}
-
 	public int insertProductLike(String memberId, int productNo) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("memberId", memberId);
@@ -99,13 +95,17 @@ public class ProductService {
 		map.put("productNo", productNo);
 		return mapper.deleteProductLike(map);
 	}
-	
+
 	public List<String> selectLikeStatus(int productNo) {
 		return mapper.selectLikeStatus(productNo);
 	}
 
 	public int updateProductSaleSatus(int productNo) {
 		return mapper.updateProductSaleSatus(productNo);
+	}
+
+	public List<MyPageProductDTO> myPageProduct(String memberId) {
+		return mapper.myPageProduct(memberId);
 	}
 
 	public List<MyPageProductDTO> myPageInterest(String memberId) {

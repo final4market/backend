@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.market.dto.MemberAddressDTO;
 import com.market.dto.MemberDTO;
-import com.market.dto.MyPageInfoDTO;
+import com.market.dto.MyPageMyInfoDTO;
 import com.market.dto.MyPageProfileDTO;
 import com.market.dto.StoreDTO;
 import com.market.models.Member;
@@ -33,8 +33,6 @@ public interface MemberMapper {
 
 	List<Map<String, Object>> buyerProfilePath(List<String> buyerProfileNo);
 
-	List<MyPageProfileDTO> myPageProfile(String memberId);
-
 	List<MemberDTO> selectAllMembers1();
 
 	List<MemberDTO> searchMembers1(Map<String, String> params);
@@ -56,7 +54,7 @@ public interface MemberMapper {
 	int deleteFollow(Map<String, Object> map);
 
 	List<MemberAddressDTO> selectMemberAddress(String memberId);
-	
+
 	int insertMemberAddress(MemberAddressDTO dto);
 
 	int currentAddressNO();
@@ -69,5 +67,9 @@ public interface MemberMapper {
 
 	List<String> selectFollowStatus(String memberId);
 
-	List<MyPageInfoDTO> myPageInfo(String memberId);
+	List<MyPageProfileDTO> myPageProfile(String memberId);
+
+	List<MyPageMyInfoDTO> myPageMyInfo(String memberId);
+
+	int updateMyInfo(MyPageMyInfoDTO dto);
 }

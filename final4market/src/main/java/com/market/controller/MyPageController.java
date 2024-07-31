@@ -1,13 +1,19 @@
 package com.market.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.market.dto.MyPageInfoDTO;
+import com.market.dto.MyPageMyInfoDTO;
 import com.market.dto.MyPageProductDTO;
 import com.market.dto.MyPageProfileDTO;
 import com.market.service.MemberService;
@@ -34,13 +40,22 @@ public class MyPageController {
 		return productService.myPageProduct(memberId);
 	}
 
-	@GetMapping("/api/member/myPageInfo/{memberId}")
-	public List<MyPageInfoDTO> myPageInfo(@PathVariable String memberId) {
-		return memberService.myPageInfo(memberId);
+	@GetMapping("/api/member/myPageMyInfo/{memberId}")
+	public List<MyPageMyInfoDTO> myPageMyInfo(@PathVariable String memberId) {
+		return memberService.myPageMyInfo(memberId);
 	}
 
 	@GetMapping("api/product/myPageInterest/{memberId}")
 	public List<MyPageProductDTO> myPageInterest(@PathVariable String memberId) {
 		return productService.myPageInterest(memberId);
+	}
+	
+	@PutMapping("/api/member/myPageMyInfo/update")
+	public ResponseEntity<Map<String, Object>> updateMyInfo(@RequestBody MyPageMyInfoDTO dto) {
+		int count = memberService.updateMyInfo(dto);
+		Map<String, Object> map = new HashMap<>();
+		map.put("count", count);
+		map.put("msg", count == 0 ? "회원 정보 수정 실패" : "회원 정보 수정 성공");
+		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 }

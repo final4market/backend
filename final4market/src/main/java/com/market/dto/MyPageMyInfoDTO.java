@@ -1,28 +1,32 @@
 package com.market.dto;
 
-public class MyPageInfoDTO {
+public class MyPageMyInfoDTO {
 	private String memberProfilePath;
 	private String memberId;
 	private String memberPasswd;
 	private String memberName;
 	private String memberNick;
-	private String memberPhoneNumber;
+	private String memberPhoneNumber1;
+	private String memberPhoneNumber2;
+	private String memberPhoneNumber3;
 	private String memberEmailId;
 	private String memberEmailDomain;
 	private String memberAddress;
 
-	public MyPageInfoDTO() {
+	public MyPageMyInfoDTO() {
 	}
 
-	public MyPageInfoDTO(String memberProfilePath, String memberId, String memberPasswd, String memberName,
-			String memberNick, String memberPhoneNumber, String memberEmailId, String memberEmailDomain,
-			String memberAddress) {
+	public MyPageMyInfoDTO(String memberProfilePath, String memberId, String memberPasswd, String memberName,
+			String memberNick, String memberPhoneNumber1, String memberPhoneNumber2, String memberPhoneNumber3,
+			String memberEmailId, String memberEmailDomain, String memberAddress) {
 		this.memberProfilePath = memberProfilePath;
 		this.memberId = memberId;
 		this.memberPasswd = memberPasswd;
 		this.memberName = memberName;
 		this.memberNick = memberNick;
-		this.memberPhoneNumber = memberPhoneNumber;
+		this.memberPhoneNumber1 = memberPhoneNumber1;
+		this.memberPhoneNumber2 = memberPhoneNumber2;
+		this.memberPhoneNumber3 = memberPhoneNumber3;
 		this.memberEmailId = memberEmailId;
 		this.memberEmailDomain = memberEmailDomain;
 		this.memberAddress = memberAddress;
@@ -68,12 +72,28 @@ public class MyPageInfoDTO {
 		this.memberNick = memberNick;
 	}
 
-	public String getMemberPhoneNumber() {
-		return memberPhoneNumber;
+	public String getMemberPhoneNumber1() {
+		return memberPhoneNumber1;
 	}
 
-	public void setMemberPhoneNumber(String memberPhoneNumber) {
-		this.memberPhoneNumber = memberPhoneNumber;
+	public void setMemberPhoneNumber1(String memberPhoneNumber1) {
+		this.memberPhoneNumber1 = memberPhoneNumber1;
+	}
+
+	public String getMemberPhoneNumber2() {
+		return memberPhoneNumber2;
+	}
+
+	public void setMemberPhoneNumber2(String memberPhoneNumber2) {
+		this.memberPhoneNumber2 = memberPhoneNumber2;
+	}
+
+	public String getMemberPhoneNumber3() {
+		return memberPhoneNumber3;
+	}
+
+	public void setMemberPhoneNumber3(String memberPhoneNumber3) {
+		this.memberPhoneNumber3 = memberPhoneNumber3;
 	}
 
 	public String getMemberEmailId() {
@@ -102,9 +122,10 @@ public class MyPageInfoDTO {
 
 	@Override
 	public String toString() {
-		return "MyPageInfoDTO [memberProfilePath=" + memberProfilePath + ", memberId=" + memberId + ", memberPasswd="
-				+ memberPasswd + ", memberName=" + memberName + ", memberNick=" + memberNick + ", memberPhoneNumber="
-				+ memberPhoneNumber + ", memberEmailId=" + memberEmailId + ", memberEmailDomain=" + memberEmailDomain
+		return "MyPageMyInfoDTO [memberProfilePath=" + memberProfilePath + ", memberId=" + memberId + ", memberPasswd="
+				+ memberPasswd + ", memberName=" + memberName + ", memberNick=" + memberNick + ", memberPhoneNumber1="
+				+ memberPhoneNumber1 + ", memberPhoneNumber2=" + memberPhoneNumber2 + ", memberPhoneNumber3="
+				+ memberPhoneNumber3 + ", memberEmailId=" + memberEmailId + ", memberEmailDomain=" + memberEmailDomain
 				+ ", memberAddress=" + memberAddress + "]";
 	}
 }

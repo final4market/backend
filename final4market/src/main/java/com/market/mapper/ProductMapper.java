@@ -43,15 +43,15 @@ public interface ProductMapper {
 
 	int sellerProductPrice(String productNo);
 
-	List<MyPageProductDTO> myPageProduct(String memberId);
-
 	int insertProductLike(Map<String, Object> map);
 
 	int deleteProductLike(Map<String, Object> map);
-	
+
 	List<String> selectLikeStatus(int productNo);
 
 	int updateProductSaleSatus(int productNo);
+
+	List<MyPageProductDTO> myPageProduct(String memberId);
 
 	List<MyPageProductDTO> myPageInterest(String memberId);
 }

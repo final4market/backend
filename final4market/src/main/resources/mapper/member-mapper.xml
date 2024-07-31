@@ -66,13 +66,15 @@
 		<result column="REVIEW_SCORE" property="memberScore"/>
 	</resultMap>
 
-	<resultMap type="com.market.dto.MyPageInfoDTO" id="myPageInfo">
+	<resultMap type="com.market.dto.MyPageMyInfoDTO" id="myPageMyInfo">
 		<result column="PROFILE_PATH" property="memberProfilePath"/>
 		<result column="MEMBER_ID" property="memberId"/>
 		<result column="MEMBER_PASSWD" property="memberPasswd"/>
 		<result column="MEMBER_NAME" property="memberName"/>
 		<result column="MEMBER_NICK" property="memberNick"/>
-		<result column="MEMBER_PHONE_NUMBER" property="memberPhoneNumber"/>
+		<result column="MEMBER_PHONE_NUMBER1" property="memberPhoneNumber1"/>
+		<result column="MEMBER_PHONE_NUMBER2" property="memberPhoneNumber2"/>
+		<result column="MEMBER_PHONE_NUMBER3" property="memberPhoneNumber3"/>
 		<result column="MEMBER_EAMIL_ID" property="memberEmailId"/>
 		<result column="MEMBER_EAMIL_DOMAIN" property="memberEmailDomain"/>
 		<result column="MEMBER_ADDRESS" property="memberAddress"/>
@@ -126,7 +128,7 @@
                 </if>
             WHERE member_id = #{memberId}
     </update>
-    
+
     <delete id="deleteMember" parameterType="String">
         DELETE FROM member WHERE member_id=#{memberId}
     </delete>
@@ -171,41 +173,6 @@
             #{item}
         </foreach>
     </select>
-
-	<select id="myPageProfile" parameterType="String" resultMap="myPageProfile">
-		SELECT
-		    MP.PROFILE_PATH,
-		    M.MEMBER_ID,
-		    M.MEMBER_NICK,
-		    (SELECT ROUND(AVG(REVIEW_SCORE), 2)
-		    FROM REVIEW R
-		    WHERE M.MEMBER_ID = R.SELLER_ID) AS REVIEW_SCORE
-		FROM
-		    MEMBER M
-		LEFT JOIN
-			MEMBER_PROFILE MP ON M.MEMBER_PROFILE_NO = MP.MEMBER_PROFILE_NO
-		WHERE
-			M.MEMBER_ID = #{MEMBER_ID}
-	</select>
-
-	<select id="myPageInfo" parameterType="String" resultMap="myPageInfo">
-		SELECT
-		    MP.PROFILE_PATH,
-		    M.MEMBER_ID,
-		    M.MEMBER_PASSWD,
-		    M.MEMBER_NAME,
-		    M.MEMBER_NICK,
-		    M.MEMBER_PHONE_NUMBER,
-		    SUBSTR(M.MEMBER_EMAIL, 1, INSTR(M.MEMBER_EMAIL, '@') - 1) AS MEMBER_EAMIL_ID,
-		    SUBSTR(M.MEMBER_EMAIL, INSTR(M.MEMBER_EMAIL, '@') + 1) AS MEMBER_EAMIL_DOMAIN,
-		    M.MEMBER_ADDRESS
-		FROM
-		    MEMBER M
-		LEFT JOIN
-		    MEMBER_PROFILE MP ON M.MEMBER_PROFILE_NO = MP.MEMBER_PROFILE_NO
-		WHERE
-		    M.MEMBER_ID = #{MEMBER_ID}
-	</select>
 
     <select id="getMemberWithGradeName" parameterType="String" resultMap="MemberResultMap">
         SELECT m.member_id, m.member_name, m.member_passwd, m.member_nick, m.member_email, 
@@ -271,4 +238,58 @@
  	<select id="selectFollowStatus" parameterType="String">
 		select buyer_id from follow where seller_id = #{memberId}
 	</select>
+
+	<select id="myPageProfile" parameterType="String" resultMap="myPageProfile">
+		SELECT
+		    MP.PROFILE_PATH,
+		    M.MEMBER_ID,
+		    M.MEMBER_NICK,
+		    (SELECT ROUND(AVG(REVIEW_SCORE), 2)
+		    FROM REVIEW R
+		    WHERE M.MEMBER_ID = R.SELLER_ID) AS REVIEW_SCORE
+		FROM
+		    MEMBER M
+		LEFT JOIN
+			MEMBER_PROFILE MP ON M.MEMBER_PROFILE_NO = MP.MEMBER_PROFILE_NO
+		WHERE
+			M.MEMBER_ID = #{MEMBER_ID}
+	</select>
+
+	<select id="myPageMyInfo" parameterType="String" resultMap="myPageMyInfo">
+		SELECT
+		    MP.PROFILE_PATH,
+		    M.MEMBER_ID,
+		    M.MEMBER_PASSWD,
+		    M.MEMBER_NAME,
+		    M.MEMBER_NICK,
+		    SUBSTR(M.MEMBER_PHONE_NUMBER, 1, 3) AS MEMBER_PHONE_NUMBER1,
+	        SUBSTR(M.MEMBER_PHONE_NUMBER, 5, 4) AS MEMBER_PHONE_NUMBER2,
+	        SUBSTR(M.MEMBER_PHONE_NUMBER, 10, 4) AS MEMBER_PHONE_NUMBER3,
+		    SUBSTR(M.MEMBER_EMAIL, 1, INSTR(M.MEMBER_EMAIL, '@') - 1) AS MEMBER_EAMIL_ID,
+		    SUBSTR(M.MEMBER_EMAIL, INSTR(M.MEMBER_EMAIL, '@') + 1) AS MEMBER_EAMIL_DOMAIN,
+		    M.MEMBER_ADDRESS
+		FROM
+		    MEMBER M
+		LEFT JOIN
+		    MEMBER_PROFILE MP ON M.MEMBER_PROFILE_NO = MP.MEMBER_PROFILE_NO
+		WHERE
+		    M.MEMBER_ID = #{MEMBER_ID}
+	</select>
+
+	<update id="updateMyInfo" parameterType="com.market.dto.MyPageMyInfoDTO">
+		UPDATE
+			MEMBER M
+		LEFT JOIN
+			MEMBER_PROFILE MP ON M.MEMBER_PROFILE_NO = MP.MEMBER_PROFILE_NO
+		SET
+	        M.MEMBER_PASSWD = #{memberPasswd},
+	        M.MEMBER_NAME = #{memberName},
+	        M.MEMBER_NICK = #{memberNick},
+	        M.MEMBER_PHONE_NUMBER = CONCAT(#{memberPhoneNumber1}, '-', #{memberPhoneNumber2}, '-', #{memberPhoneNumber3}),
+	        M.MEMBER_EMAIL = CONCAT(#{memberEmailId}, '@', #{memberEmailDomain}),
+	        M.MEMBER_ADDRESS = #{memberAddress},
+	        MP.PROFILE_PATH = #{memberProfilePath}
+	    WHERE
+        	M.MEMBER_ID = #{memberId}
+	</update>
 </mapper>

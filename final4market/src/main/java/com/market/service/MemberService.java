@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.market.dto.MemberAddressDTO;
 import com.market.dto.MemberDTO;
-import com.market.dto.MyPageInfoDTO;
+import com.market.dto.MyPageMyInfoDTO;
 import com.market.dto.MyPageProfileDTO;
 import com.market.dto.StoreDTO;
 
@@ -58,10 +58,6 @@ public class MemberService {
 		return mapper.buyerProfilePath(buyerProfileNo);
 	}
 
-	public List<MyPageProfileDTO> myPageProfile(String memberId) {
-		return mapper.myPageProfile(memberId);
-	}
-
 	public int insertFollow(String buyerId, String sellerId) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("buyerId", buyerId);
@@ -79,7 +75,7 @@ public class MemberService {
 	public List<MemberAddressDTO> selectMemberAddress(String memberId) {
 		return mapper.selectMemberAddress(memberId);
 	}
-	
+
 	public int insertMemberAddress(MemberAddressDTO dto) {
 		return mapper.insertMemberAddress(dto);
 	}
@@ -104,7 +100,15 @@ public class MemberService {
 		return mapper.selectFollowStatus(memberId);
 	}
 
-	public List<MyPageInfoDTO> myPageInfo(String memberId) {
-		return mapper.myPageInfo(memberId);
+	public List<MyPageProfileDTO> myPageProfile(String memberId) {
+		return mapper.myPageProfile(memberId);
+	}
+
+	public List<MyPageMyInfoDTO> myPageMyInfo(String memberId) {
+		return mapper.myPageMyInfo(memberId);
+	}
+
+	public int updateMyInfo(MyPageMyInfoDTO dto) {
+		return mapper.updateMyInfo(dto);
 	}
 }

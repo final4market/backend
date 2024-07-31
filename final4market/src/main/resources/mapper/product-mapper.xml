@@ -139,6 +139,22 @@
         SELECT product_price FROM product WHERE product_no = #{productNo}
     </select>
 
+	<insert id="insertProductLike" parameterType="map">
+		insert into INTEREST_PRODUCT values(#{memberId},#{productNo})
+	</insert>
+	
+	<delete id="deleteProductLike" parameterType="map">
+		delete from INTEREST_PRODUCT where buyer_id = #{memberId} and product_no = #{productNo}
+	</delete>	
+	
+	<select id="selectLikeStatus" parameterType="int">
+		select buyer_id from INTEREST_PRODUCT where product_no = #{productNo}
+	</select>
+	
+	<update id="updateProductSaleSatus" parameterType="int">
+		update product set product_sale = '완료' where product_no = #{productNo}
+	</update>
+
 	<select id="myPageProduct" parameterType="String" resultMap="myPageProduct">
 		SELECT
 		    P.PRODUCT_NO, M.MEMBER_ID, PI.PRODUCT_IMAGE_PATH, P.PRODUCT_PRICE, P.PRODUCT_TITLE,
@@ -165,20 +181,4 @@
 		WHERE
     		IP.BUYER_ID = #{MEMBER_ID}
 	</select>
-
-	<insert id="insertProductLike" parameterType="map">
-		insert into INTEREST_PRODUCT values(#{memberId},#{productNo})
-	</insert>
-	
-	<delete id="deleteProductLike" parameterType="map">
-		delete from INTEREST_PRODUCT where buyer_id = #{memberId} and product_no = #{productNo}
-	</delete>	
-	
-	<select id="selectLikeStatus" parameterType="int">
-		select buyer_id from INTEREST_PRODUCT where product_no = #{productNo}
-	</select>
-	
-	<update id="updateProductSaleSatus" parameterType="int">
-		update product set product_sale = '완료' where product_no = #{productNo}
-	</update>
 </mapper>

@@ -132,7 +132,7 @@
 	   LEFT JOIN REVIEW r ON r.PRODUCT_NO = P.PRODUCT_NO
 	   WHERE P.MEMBER_ID = #{memberId}
     </select>
-    
+        
     <select id="profileNo" parameterType="String">
         SELECT m.MEMBER_PROFILE_NO  FROM "MEMBER" M WHERE M.MEMBER_ID = #{memberId}
     </select>
@@ -182,6 +182,13 @@
         JOIN member_grade g ON m.member_grade = g.member_grade 
         WHERE m.member_id = #{memberId}
     </select>
+    
+    <select id="findMemberIdByNameAndPhone" resultType="string">
+    	SELECT member_id
+    	FROM member
+    	WHERE member_name = #{memberName}
+    	AND member_phone_number = #{memberPhoneNo}
+	</select>
     
     <insert id="insertMember" parameterType="com.market.models.Member">
         INSERT INTO member (member_id, member_name, member_passwd, member_email,

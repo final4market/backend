@@ -106,4 +106,8 @@ public class MemberService {
 	public boolean isMemberIdExists(String memberId) {
 	    return mapper.countMembersById(memberId) > 0;
 	}
+
+	public String findMemberIdByNameAndPhone(String memberName, String memberPhoneNo) {
+		return mapper.findMemberIdByNameAndPhone(memberName, memberPhoneNo);
+	}
 }

@@ -80,4 +80,6 @@ public interface MemberMapper {
 	List<String> selectFollowStatus(String memberId);
 
 	int countMembersById(String memberId);
+
+	String findMemberIdByNameAndPhone(String memberName, String memberPhoneNo);
 }

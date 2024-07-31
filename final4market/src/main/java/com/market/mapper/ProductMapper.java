@@ -12,6 +12,7 @@ import com.market.dto.MyPageProductDTO;
 import com.market.dto.ProductDTO;
 import com.market.dto.ProductImageDTO;
 import com.market.dto.ProductLikeDTO;
+import com.market.models.ProductImage;
 
 @Mapper
 public interface ProductMapper {
@@ -89,7 +90,19 @@ public interface ProductMapper {
 
 	 int updateProduct(ProductDTO dto);
 
+	List<ProductDTO> searchResult(Map<String, Object> params);
+
+	List<ProductImage> updateProductImages(int productNo);
+
 	int updateProductImage(ProductImageDTO productImageDTO);
+
+	List<ProductImage> updateloadProductImages(int productNo);
+
+	void deleteProductImages(int productNo);
+
+	
+
+
 
 
 

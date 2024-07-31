@@ -17,7 +17,7 @@ public class S3Service {
     private AmazonS3 s3Client;
 
     public S3Service() {
-    	BasicAWSCredentials awsCreds = new BasicAWSCredentials("서비스","서비스키");
+    	BasicAWSCredentials awsCreds = new BasicAWSCredentials("서비스키", "서비스키");
         this.s3Client = AmazonS3ClientBuilder.standard()
         		.withRegion("ap-northeast-2")
                 .withCredentials(new AWSStaticCredentialsProvider(awsCreds))

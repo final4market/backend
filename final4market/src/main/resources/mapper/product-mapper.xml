@@ -161,12 +161,6 @@
         VALUES (#{productImagePath}, #{productImageNo}, #{productNo})
    </insert>
    
-       <update id="updateProductImage" parameterType="productImage">
-        update PRODUCT_IMAGE
-        set PRODUCT_IMAGE_PATH=#{productImagePath}, PRODUCT_IMAGE_NO= #{productImageNo}
-         where product_no= #{productNo}
-   </update>
-
  
     <select id="productNo" parameterType="String">
         SELECT product_no FROM product WHERE member_id = #{memberId}
@@ -258,6 +252,74 @@ FROM Category
 WHERE CATEGORY_NO =#{categoryNo};
 	</select>
 	
+	
+	
+	
+	
+	<select id="searchResult" parameterType="map" resultMap="productList">
+    SELECT * FROM PRODUCT
+    <where>
+        <!-- 최소 가격이 주어진 경우 -->
+        <if test="minPrice != null and minPrice != ''">
+            PRODUCT_PRICE &gt;= #{minPrice}
+        </if>
+        
+        <!-- 최대 가격이 주어진 경우 -->
+        <if test="maxPrice != null and maxPrice != ''">
+            <choose>
+                <when test="minPrice != null and minPrice != ''">
+                    AND PRODUCT_PRICE &lt;= #{maxPrice}
+                </when>
+                <otherwise>
+                    PRODUCT_PRICE &lt;= #{maxPrice}
+                </otherwise>
+            </choose>
+        </if>
+        
+        <!-- 판매 완료 상태가 주어진 경우 -->
+        <if test="includeSoldOut != null and includeSoldOut != ''">
+            AND PRODUCT_SALE = #{includeSoldOut}
+        </if>
+        
+        <!-- 검색 쿼리가 주어진 경우 -->
+        <if test="searchQuery != null and searchQuery != ''">
+            AND PRODUCT_TITLE LIKE '%' || #{searchQuery} || '%'
+        </if>
+    </where>
+    
+    <!-- 정렬 조건이 주어진 경우 -->
+    <if test="sortOrder != null and sortOrder != ''">
+        ORDER BY
+        <choose>
+            <when test="sortOrder == 'latest'">
+                PRODUCT_DATE DESC
+            </when>
+            <when test="sortOrder == 'highToLow'">
+                PRODUCT_PRICE DESC
+            </when>
+            <when test="sortOrder == 'lowToHigh'">
+                PRODUCT_PRICE ASC
+            </when>
+        </choose>
+      </if>
+       </select>
+       
+  
+  <select id="updateloadProductImages" resultMap="myPageProduct">
+	SELECT * FROM Product_Image WHERE PRODUCT_NO = #{productNo}
+	</select>
+         
+         <update id="updateProductImage" parameterType="productImage">
+        update  PRODUCT_IMAGE set PRODUCT_IMAGE_PATH= #{productImagePath},
+         PRODUCT_IMAGE_NO=#{productImageNo} 
+         where product_no= #{productNo}
+   </update>
+
+<delete id="deleteProductImages">
+delete PRODUCT_IMAGE
+where product_no= #{productNo}
+</delete>
+        
 	
 </mapper>
 

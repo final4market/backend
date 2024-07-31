@@ -12,6 +12,7 @@ import com.market.dto.MyPageProductDTO;
 import com.market.dto.ProductDTO;
 import com.market.dto.ProductImageDTO;
 import com.market.mapper.ProductMapper;
+import com.market.models.ProductImage;
 
 @Service
 public class ProductService {
@@ -70,10 +71,6 @@ public class ProductService {
 		return mapper.insertProductImage(productImageDTO);
 	}
 	
-	public int updateProductImage(ProductImageDTO productImageDTO) {
-		return mapper.updateProductImage(productImageDTO);
-		
-	}
 
 	public List<ProductImageDTO> 
     ProductImage() {
@@ -188,7 +185,58 @@ public class ProductService {
     }
 
 
+    public List<ProductDTO> searchResult(String minPrice, String maxPrice, String includeSoldOut, String sortOrder, String searchQuery) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("minPrice", minPrice);
+        params.put("maxPrice", maxPrice);
+        params.put("includeSoldOut", includeSoldOut);
+        params.put("sortOrder", sortOrder);
+        params.put("searchQuery", searchQuery);
+
+        return mapper.searchResult(params);
+    }
+
+
+	public void updateProductImages(int productNo, List<String> imageKeys) {
+		  for (int i = 0; i < imageKeys.size(); i++) {
+	            String imageKey = imageKeys.get(i);
+	            if (imageKey != null && !imageKey.isEmpty()) {  // null 값 필터링
+	                ProductImageDTO productImageDTO = new ProductImageDTO(productNo, i, imageKey);
+	                updateProductImage(productImageDTO);
+	            }
+	        }
+	    }
+
+
+	private int updateProductImage(ProductImageDTO productImageDTO) {
+		return mapper.updateProductImage(productImageDTO);
+		
+	}
+
+
+	public List<ProductImage> updateloadProductImages(int productNo) {
+		return mapper.updateloadProductImages(productNo);
+	}
+
+
+	public void deleteProductImages(int productNo) {
+		mapper.deleteProductImages(productNo);
+		
+	}
+
+
 	
-}
+		
+	}
+
+
+  
+
+
+
+	
+
+	
+
 
 

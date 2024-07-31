@@ -53,24 +53,13 @@ public class SecurityConfig {
                 return corsConfig;
             }))
             .authorizeHttpRequests(auth -> auth
-
-
-                   
-                  
-
-                    .requestMatchers("/api/auth/**", "/api/auth/signup", "/file/**", "/api/product/**", "/api/member/**", "/product/insert", "/api/product/update").permitAll() //전체 허용
-                    .requestMatchers(HttpMethod.GET, "/images/**").permitAll() // GET 리퀘스트 전체 허용
-                    .requestMatchers(HttpMethod.POST, "/images/**").hasAnyRole("ADMIN", "USER")
-                    .requestMatchers(HttpMethod.PUT, "/images/**").hasAnyRole("ADMIN", "USER") // PUT 리퀘스트 관리자, 일반회원 허용
-                    .requestMatchers(HttpMethod.DELETE, "/images/**").hasAnyRole("ADMIN", "USER") // DELETE 리퀘스트 관리자, 일반회원 허용
-                    .requestMatchers("/api/admin/**").hasRole("ADMIN") //관리자만 사용
-
-                    .anyRequest().authenticated()
+                    .requestMatchers("/**").permitAll() // Allow all requests
                 )
             .sessionManagement(session -> session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-            )
-            .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+            );
+            // Ensure JWT filter is not added
+            // .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class); 
 
         return http.build();
     }

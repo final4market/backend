@@ -10,7 +10,10 @@ public class MyPageMyInfoDTO {
 	private String memberPhoneNumber3;
 	private String memberEmailId;
 	private String memberEmailDomain;
+	private String memberPostalCode;
 	private String memberAddress;
+	private String memberDetailAddress;
+	private String memberProfileNo;
 	private String memberProfilePath;
 
 	public MyPageMyInfoDTO() {
@@ -18,7 +21,8 @@ public class MyPageMyInfoDTO {
 
 	public MyPageMyInfoDTO(String memberId, String memberPasswd, String memberName, String memberNick,
 			String memberPhoneNumber1, String memberPhoneNumber2, String memberPhoneNumber3, String memberEmailId,
-			String memberEmailDomain, String memberAddress, String memberProfilePath) {
+			String memberEmailDomain, String memberPostalCode, String memberAddress, String memberDetailAddress,
+			String memberProfileNo, String memberProfilePath) {
 		this.memberId = memberId;
 		this.memberPasswd = memberPasswd;
 		this.memberName = memberName;
@@ -28,7 +32,10 @@ public class MyPageMyInfoDTO {
 		this.memberPhoneNumber3 = memberPhoneNumber3;
 		this.memberEmailId = memberEmailId;
 		this.memberEmailDomain = memberEmailDomain;
+		this.memberPostalCode = memberPostalCode;
 		this.memberAddress = memberAddress;
+		this.memberDetailAddress = memberDetailAddress;
+		this.memberProfileNo = memberProfileNo;
 		this.memberProfilePath = memberProfilePath;
 	}
 
@@ -104,12 +111,36 @@ public class MyPageMyInfoDTO {
 		this.memberEmailDomain = memberEmailDomain;
 	}
 
+	public String getMemberPostalCode() {
+		return memberPostalCode;
+	}
+
+	public void setMemberPostalCode(String memberPostalCode) {
+		this.memberPostalCode = memberPostalCode;
+	}
+
 	public String getMemberAddress() {
 		return memberAddress;
 	}
 
 	public void setMemberAddress(String memberAddress) {
 		this.memberAddress = memberAddress;
+	}
+
+	public String getMemberDetailAddress() {
+		return memberDetailAddress;
+	}
+
+	public void setMemberDetailAddress(String memberDetailAddress) {
+		this.memberDetailAddress = memberDetailAddress;
+	}
+
+	public String getMemberProfileNo() {
+		return memberProfileNo;
+	}
+
+	public void setMemberProfileNo(String memberProfileNo) {
+		this.memberProfileNo = memberProfileNo;
 	}
 
 	public String getMemberProfilePath() {
@@ -125,7 +156,8 @@ public class MyPageMyInfoDTO {
 		return "MyPageMyInfoDTO [memberId=" + memberId + ", memberPasswd=" + memberPasswd + ", memberName=" + memberName
 				+ ", memberNick=" + memberNick + ", memberPhoneNumber1=" + memberPhoneNumber1 + ", memberPhoneNumber2="
 				+ memberPhoneNumber2 + ", memberPhoneNumber3=" + memberPhoneNumber3 + ", memberEmailId=" + memberEmailId
-				+ ", memberEmailDomain=" + memberEmailDomain + ", memberAddress=" + memberAddress
-				+ ", memberProfilePath=" + memberProfilePath + "]";
+				+ ", memberEmailDomain=" + memberEmailDomain + ", memberPostalCode=" + memberPostalCode
+				+ ", memberAddress=" + memberAddress + ", memberDetailAddress=" + memberDetailAddress
+				+ ", memberProfileNo=" + memberProfileNo + ", memberProfilePath=" + memberProfilePath + "]";
 	}
 }

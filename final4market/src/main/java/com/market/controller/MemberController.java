@@ -30,13 +30,13 @@ public class MemberController {
         this.memberService = memberService;
     }
 
-    @GetMapping
+    @GetMapping("/admin/allMembers")
     public ResponseEntity<List<MemberDTO>> selectAllMembers() {
         List<MemberDTO> members = memberService.selectAllMembers();
         return ResponseEntity.ok(members);
     }
 
-    @GetMapping("/admin/search")
+    @GetMapping("/admin/searchMembers")
     public ResponseEntity<List<MemberDTO>> searchMembers(@RequestParam Map<String, String> params) {
         List<MemberDTO> members = memberService.searchMembers(params);
         return ResponseEntity.ok(members);

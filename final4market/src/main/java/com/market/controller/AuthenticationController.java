@@ -122,12 +122,17 @@ public class AuthenticationController {
         String memberName = memberDTO.getMemberName();
         String memberPhoneNo = memberDTO.getMemberPhoneNo();
         
+        LOGGER.debug("Starting member search for password reset");
+        LOGGER.debug("Member ID: {}", memberId);
+        LOGGER.debug("Member Name: {}", memberName);
+        LOGGER.debug("Member Phone Number: {}", memberPhoneNo);
+        
         Map<String, String> params = new HashMap<>();
         params.put("memberId", memberId);
         params.put("memberName", memberName);
         params.put("memberPhoneNo", memberPhoneNo);
         
-        List<MemberDTO> members = memberService.searchMembers(params);
+        List<MemberDTO> members = memberService.checkMemberMatch(params);
 
         if (!members.isEmpty()) {
             return ResponseEntity.ok("일치하는 회원 정보 있음. 비밀번호 재설정으로 연결합니다");
@@ -136,9 +141,28 @@ public class AuthenticationController {
         }
     }
 
-    @PutMapping("/updatePassword")
-    public void updatePassword(@RequestBody MemberDTO memberDTO) {
-        authService.updatePassword(memberDTO.getMemberId(), memberDTO.getMemberPasswd());
+    @PostMapping("/resetPassword")
+    public ResponseEntity<?> resetPassword(@RequestBody MemberDTO memberDTO) {
+        String memberId = memberDTO.getMemberId();
+        String newPasswd = memberDTO.getMemberPasswd();
+
+        // 현재 회원 정보 가져오기
+        Member member = memberService.getMemberById(memberId);
+        if (member == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("일치하는 회원 정보 없음");
+        }
+
+        // 새로운 비밀번호가 기존 비밀번호와 같은지 조회
+        if (passwordEncoder.matches(newPasswd, member.getMemberPasswd())) {
+            return ResponseEntity.badRequest().body("직전 비밀번호와 동일한 비밀번호를 사용할 수 없습니다. 새로운 비밀번호를 입력해주세요.");
+        }
+
+        // 새로운 비밀번호가 기존 비밀번호와 같지 않은 경우 새로운 비밀번호로 업데이트
+        String encodedPassword = passwordEncoder.encode(newPasswd);
+        member.setMemberPasswd(encodedPassword);
+        memberService.updateMemberEntity(member);
+
+        return ResponseEntity.ok("비밀번호 수정 성공");
     }
     
 }

@@ -16,6 +16,7 @@ import com.market.dto.MyPageProfileDTO;
 import com.market.dto.StoreDTO;
 
 import com.market.mapper.MemberMapper;
+import com.market.models.Member;
 
 @Service
 public class MemberService {
@@ -33,6 +34,7 @@ public class MemberService {
 		return mapper.searchMembers(params);
 	}
 
+
 	public int updateMember(MemberDTO dto) {
 		return mapper.updateMember(dto);
 	}
@@ -40,7 +42,26 @@ public class MemberService {
 	public int deleteMember(String memberId) {
 		return mapper.deleteMember(memberId);
 	}
+	
+	public boolean isMemberIdExists(String memberId) {
+	    return mapper.countMembersById(memberId) > 0;
+	}
 
+	public String findMemberIdByNameAndPhone(String memberName, String memberPhoneNo) {
+		return mapper.findMemberIdByNameAndPhone(memberName, memberPhoneNo);
+	}
+	
+	public Member getMemberById(String memberId) {
+		return mapper.getMemberById(memberId);
+	}
+	
+	public List<MemberDTO> checkMemberMatch(Map<String, String> params) {
+		return mapper.checkMemberMatch(params);
+	}
+	
+	public void updateMemberEntity(Member member) {
+		mapper.updateMemberEntity(member);		
+	}
 
 	public List<StoreDTO> storeInfo(String memberId) {
 		return mapper.storeInfo(memberId);
@@ -108,11 +129,5 @@ public class MemberService {
 		return mapper.selectFollowStatus(memberId);
 	}
 
-	public boolean isMemberIdExists(String memberId) {
-	    return mapper.countMembersById(memberId) > 0;
-	}
 
-	public String findMemberIdByNameAndPhone(String memberName, String memberPhoneNo) {
-		return mapper.findMemberIdByNameAndPhone(memberName, memberPhoneNo);
-	}
 }

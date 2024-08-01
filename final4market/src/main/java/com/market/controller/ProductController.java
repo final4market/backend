@@ -16,6 +16,7 @@ import java.util.Arrays;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -249,6 +250,20 @@ map.put("result", false);
 return map;
 }
 	
+	@DeleteMapping("/product/deleteImage/{productNo}/{deleteImages}")
+    public int deleteProductImage(@PathVariable int productNo, @PathVariable String deleteImages) {
+        // 쉼표로 구분된 이미지 번호를 리스트로 변환
+        List<String> imageList = Arrays.asList(deleteImages.split(","));
+
+        // 삭제 로직 구현
+        for (String imageNo : imageList) {
+            System.out.println("삭제할 이미지: " + productNo + " and imageNo: " + imageNo);
+            // 여기서 실제 삭제 로직을 구현하세요
+        }
+
+        // 예시로 성공적으로 삭제된 경우 1을 반환, 실패하면 다른 코드를 반환할 수 있음
+        return 1;
+    }
 	
 	@GetMapping("/api/product/category/parent/{categoryNumber}")
 	public int parentCategory(@PathVariable int categoryNumber) {

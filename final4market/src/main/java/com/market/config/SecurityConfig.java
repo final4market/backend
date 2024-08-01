@@ -58,8 +58,7 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.POST, "/images/**").hasAnyRole("ADMIN", "USER")
                     .requestMatchers(HttpMethod.PUT, "/images/**").hasAnyRole("ADMIN", "USER") // PUT 리퀘스트 관리자, 일반회원 허용
                     .requestMatchers(HttpMethod.DELETE, "/images/**").hasAnyRole("ADMIN", "USER") // DELETE 리퀘스트 관리자, 일반회원 허용
-                    .requestMatchers("/api/admin/**").hasRole("ADMIN") //관리자만 사용
-
+                    .requestMatchers("/admin/**").hasRole("ADMIN") //관리자만 사용
                     .anyRequest().authenticated()
                 )
             .sessionManagement(session -> session

@@ -119,7 +119,85 @@
     
     <delete id="deleteMember" parameterType="String">
         DELETE FROM member WHERE member_id=#{memberId}
-    </delete>
+    </delete>    
+
+    <select id="getMemberWithGradeName" parameterType="String" resultMap="MemberResultMap">
+        SELECT m.member_id, m.member_name, m.member_passwd, m.member_nick, m.member_email, 
+               m.member_address, m.member_profile_no, m.member_grade, g.grade_name, 
+               m.member_phone_number, m.register_date 
+        FROM member m 
+        JOIN member_grade g ON m.member_grade = g.member_grade 
+        WHERE m.member_id = #{memberId}
+    </select>
+    
+    	<select id="getMemberByIdWithPassword" parameterType="String" resultMap="MemberResultMap">
+        SELECT *
+        FROM member
+        WHERE member_id = #{memberId}
+    </select>
+    
+    <select id="findMemberIdByNameAndPhone" resultType="string">
+    	SELECT member_id
+    	FROM member
+    	WHERE member_name = #{memberName}
+    	AND member_phone_number = #{memberPhoneNo}
+	</select>
+	
+	<select id="countMembersById" parameterType="String" resultType="int">
+    SELECT COUNT(*)
+    FROM member
+    WHERE member_id = #{memberId}
+</select>
+    
+    <insert id="insertMember" parameterType="com.market.models.Member">
+        INSERT INTO member (member_id, member_name, member_passwd, member_email,
+                            member_profile_no, member_grade, member_phone_number, register_date)
+        VALUES (#{memberId}, #{memberName}, #{memberPasswd}, #{memberEmail},
+                #{memberProfileNo}, #{memberGrade}, #{memberPhoneNo}, #{memberRegDate})
+    </insert>
+    
+    <select id="checkMemberMatch" parameterType="map" resultMap="member">
+    SELECT m.member_id, m.member_name, m.member_passwd, m.member_nick, m.member_email, m.member_address,
+           m.member_profile_no, m.member_grade, g.grade_name, m.member_phone_number, m.register_date
+    FROM member m
+    JOIN member_grade g ON m.member_grade = g.member_grade
+    WHERE m.member_grade IN (0, 1, 2)
+    <if test="memberId != null and memberId != ''">
+        AND m.member_id = #{memberId}
+    </if>
+    <if test="memberName != null and memberName != ''">
+        AND LOWER(m.member_name) = LOWER(#{memberName})
+    </if>
+    <if test="memberPhoneNo != null and memberPhoneNo != ''">
+        AND m.member_phone_number = #{memberPhoneNo}
+    </if>
+</select>
+    
+    <select id="getMemberById" parameterType="String" resultMap="MemberResultMap">
+    SELECT * FROM member WHERE member_id = #{memberId}
+</select> 
+    
+    <update id="updateMemberEntity" parameterType="com.market.models.Member">
+    UPDATE member
+    SET 
+        member_name = #{memberName},
+        member_email = #{memberEmail}, 
+        member_phone_number = #{memberPhoneNo},
+        member_grade = #{memberGrade},
+        member_passwd = #{memberPasswd}
+    <if test="memberNick != null and memberNick != ''">
+        , member_nick = #{memberNick}
+    </if>
+    <if test="memberAddr != null and memberAddr != ''">
+        , member_address = #{memberAddr}
+    </if>
+    WHERE member_id = #{memberId}
+</update>
+   
+    
+    <update id="updatePassword">
+        UPDATE member SET member_passwd = #{memberPasswd} WHERE member_id = #{memberId}
+    </update>
     
     <select id="storeInfo" resultMap="store" parameterType="String">
 	SELECT P.PRODUCT_NO,
@@ -176,42 +254,6 @@
 		WHERE
 			M.MEMBER_ID = #{MEMBER_ID}
 	</select>
-
-    <select id="getMemberWithGradeName" parameterType="String" resultMap="MemberResultMap">
-        SELECT m.member_id, m.member_name, m.member_passwd, m.member_nick, m.member_email, 
-               m.member_address, m.member_profile_no, m.member_grade, g.grade_name, 
-               m.member_phone_number, m.register_date 
-        FROM member m 
-        JOIN member_grade g ON m.member_grade = g.member_grade 
-        WHERE m.member_id = #{memberId}
-    </select>
-    
-    <select id="findMemberIdByNameAndPhone" resultType="string">
-    	SELECT member_id
-    	FROM member
-    	WHERE member_name = #{memberName}
-    	AND member_phone_number = #{memberPhoneNo}
-	</select>
-    
-    <insert id="insertMember" parameterType="com.market.models.Member">
-        INSERT INTO member (member_id, member_name, member_passwd, member_email,
-                            member_profile_no, member_grade, member_phone_number, register_date)
-        VALUES (#{memberId}, #{memberName}, #{memberPasswd}, #{memberEmail},
-                #{memberProfileNo}, #{memberGrade}, #{memberPhoneNo}, #{memberRegDate})
-    </insert>
-    
-    <select id="getMemberByIdWithPassword" resultMap="MemberResultMap">
-        SELECT m.member_id, m.member_name, m.member_passwd, m.member_nick, m.member_email, 
-               m.member_address, m.member_profile_no, m.member_grade, g.grade_name, 
-               m.member_phone_number, m.register_date 
-        FROM member m 
-        JOIN member_grade g ON m.member_grade = g.member_grade 
-        WHERE m.member_id = #{memberId}
-    </select>
-    
-    <update id="updatePassword">
-        UPDATE member SET member_passwd = #{memberPasswd} WHERE member_id = #{memberId}
-    </update>
 	
 	<insert id="insertFollow" parameterType="map">
 		insert into FOLLOW values(#{buyerId},#{sellerId})
@@ -248,10 +290,4 @@
  	<select id="selectFollowStatus" parameterType="String">
 		select buyer_id from follow where seller_id = #{memberId}
 	</select>
-	
-	<select id="countMembersById" parameterType="String" resultType="int">
-    SELECT COUNT(*)
-    FROM member
-    WHERE member_id = #{memberId}
-</select>
 </mapper>

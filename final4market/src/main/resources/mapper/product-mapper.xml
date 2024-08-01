@@ -299,12 +299,7 @@ WHERE CATEGORY_NO =#{categoryNo};
     <if test="searchQuery != null and searchQuery != ''">
         AND PRODUCT_TITLE LIKE '%' || #{searchQuery} || '%'
     </if>
-    
-    <if test="categoryNo != null and categoryNo != ''">
-        AND CATEGORY_NO = #{categoryNo}
-    </if>
-    
-    <if test="parentCategoryNo != null and parentCategoryNo != ''">
+     <if test="parentCategoryNo != null and parentCategoryNo != ''">
         AND CATEGORY_NO IN (
             SELECT category_no
             FROM Category
@@ -312,6 +307,11 @@ WHERE CATEGORY_NO =#{categoryNo};
             CONNECT BY PRIOR category_no = parent_category_no
         )
     </if>
+    <if test="categoryNo != null and categoryNo != ''">
+        AND CATEGORY_NO = #{categoryNo}
+    </if>
+    
+   
 
     <if test="sortOrder != null and sortOrder != ''">
         ORDER BY

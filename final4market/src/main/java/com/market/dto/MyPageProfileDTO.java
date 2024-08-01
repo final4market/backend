@@ -1,27 +1,19 @@
 package com.market.dto;
 
 public class MyPageProfileDTO {
-	private String memberProfilePath;
 	private String memberId;
 	private String memberNick;
+	private String memberProfilePath;
 	private double memberScore;
 
 	public MyPageProfileDTO() {
 	}
 
-	public MyPageProfileDTO(String memberProfilePath, String memberId, String memberNick, double memberScore) {
-		this.memberProfilePath = memberProfilePath;
+	public MyPageProfileDTO(String memberId, String memberNick, String memberProfilePath, double memberScore) {
 		this.memberId = memberId;
 		this.memberNick = memberNick;
-		this.memberScore = memberScore;
-	}
-
-	public String getMemberProfilePath() {
-		return memberProfilePath;
-	}
-
-	public void setMemberProfilePath(String memberProfilePath) {
 		this.memberProfilePath = memberProfilePath;
+		this.memberScore = memberScore;
 	}
 
 	public String getMemberId() {
@@ -40,6 +32,14 @@ public class MyPageProfileDTO {
 		this.memberNick = memberNick;
 	}
 
+	public String getMemberProfilePath() {
+		return memberProfilePath;
+	}
+
+	public void setMemberProfilePath(String memberProfilePath) {
+		this.memberProfilePath = memberProfilePath;
+	}
+
 	public double getMemberScore() {
 		return memberScore;
 	}
@@ -50,7 +50,7 @@ public class MyPageProfileDTO {
 
 	@Override
 	public String toString() {
-		return "MyPageProfileDTO [memberProfilePath=" + memberProfilePath + ", memberId=" + memberId + ", memberNick="
-				+ memberNick + ", memberScore=" + memberScore + "]";
+		return "MyPageProfileDTO [memberId=" + memberId + ", memberNick=" + memberNick + ", memberProfilePath="
+				+ memberProfilePath + ", memberScore=" + memberScore + "]";
 	}
 }

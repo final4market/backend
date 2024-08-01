@@ -52,6 +52,7 @@ public class MyPageController {
 	
 	@PutMapping("/api/member/myPageMyInfo/update")
 	public ResponseEntity<Map<String, Object>> updateMyInfo(@RequestBody MyPageMyInfoDTO dto) {
+		System.out.println("updateMyInfo : " + dto);
 		int count = memberService.updateMyInfo(dto);
 		Map<String, Object> map = new HashMap<>();
 		map.put("count", count);

@@ -67,7 +67,6 @@
 	</resultMap>
 
 	<resultMap type="com.market.dto.MyPageMyInfoDTO" id="myPageMyInfo">
-		<result column="PROFILE_PATH" property="memberProfilePath"/>
 		<result column="MEMBER_ID" property="memberId"/>
 		<result column="MEMBER_PASSWD" property="memberPasswd"/>
 		<result column="MEMBER_NAME" property="memberName"/>
@@ -78,6 +77,7 @@
 		<result column="MEMBER_EAMIL_ID" property="memberEmailId"/>
 		<result column="MEMBER_EAMIL_DOMAIN" property="memberEmailDomain"/>
 		<result column="MEMBER_ADDRESS" property="memberAddress"/>
+		<result column="PROFILE_PATH" property="memberProfilePath"/>
 	</resultMap>
 
 	<select id="selectAllMembers" resultMap="member">
@@ -257,7 +257,6 @@
 
 	<select id="myPageMyInfo" parameterType="String" resultMap="myPageMyInfo">
 		SELECT
-		    MP.PROFILE_PATH,
 		    M.MEMBER_ID,
 		    M.MEMBER_PASSWD,
 		    M.MEMBER_NAME,
@@ -267,7 +266,8 @@
 	        SUBSTR(M.MEMBER_PHONE_NUMBER, 10, 4) AS MEMBER_PHONE_NUMBER3,
 		    SUBSTR(M.MEMBER_EMAIL, 1, INSTR(M.MEMBER_EMAIL, '@') - 1) AS MEMBER_EAMIL_ID,
 		    SUBSTR(M.MEMBER_EMAIL, INSTR(M.MEMBER_EMAIL, '@') + 1) AS MEMBER_EAMIL_DOMAIN,
-		    M.MEMBER_ADDRESS
+		    M.MEMBER_ADDRESS,
+		    MP.PROFILE_PATH
 		FROM
 		    MEMBER M
 		LEFT JOIN
@@ -279,8 +279,6 @@
 	<update id="updateMyInfo" parameterType="com.market.dto.MyPageMyInfoDTO">
 		UPDATE
 			MEMBER M
-		LEFT JOIN
-			MEMBER_PROFILE MP ON M.MEMBER_PROFILE_NO = MP.MEMBER_PROFILE_NO
 		SET
 	        M.MEMBER_PASSWD = #{memberPasswd},
 	        M.MEMBER_NAME = #{memberName},
@@ -288,7 +286,7 @@
 	        M.MEMBER_PHONE_NUMBER = CONCAT(#{memberPhoneNumber1}, '-', #{memberPhoneNumber2}, '-', #{memberPhoneNumber3}),
 	        M.MEMBER_EMAIL = CONCAT(#{memberEmailId}, '@', #{memberEmailDomain}),
 	        M.MEMBER_ADDRESS = #{memberAddress},
-	        MP.PROFILE_PATH = #{memberProfilePath}
+	        (UPDATE MEMBER_PROFILE INTO PROFILE_PATH = #{memberProfilePath})
 	    WHERE
         	M.MEMBER_ID = #{memberId}
 	</update>

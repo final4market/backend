@@ -1,7 +1,6 @@
 package com.market.dto;
 
 public class MyPageMyInfoDTO {
-	private String memberProfilePath;
 	private String memberId;
 	private String memberPasswd;
 	private String memberName;
@@ -12,14 +11,14 @@ public class MyPageMyInfoDTO {
 	private String memberEmailId;
 	private String memberEmailDomain;
 	private String memberAddress;
+	private String memberProfilePath;
 
 	public MyPageMyInfoDTO() {
 	}
 
-	public MyPageMyInfoDTO(String memberProfilePath, String memberId, String memberPasswd, String memberName,
-			String memberNick, String memberPhoneNumber1, String memberPhoneNumber2, String memberPhoneNumber3,
-			String memberEmailId, String memberEmailDomain, String memberAddress) {
-		this.memberProfilePath = memberProfilePath;
+	public MyPageMyInfoDTO(String memberId, String memberPasswd, String memberName, String memberNick,
+			String memberPhoneNumber1, String memberPhoneNumber2, String memberPhoneNumber3, String memberEmailId,
+			String memberEmailDomain, String memberAddress, String memberProfilePath) {
 		this.memberId = memberId;
 		this.memberPasswd = memberPasswd;
 		this.memberName = memberName;
@@ -30,13 +29,6 @@ public class MyPageMyInfoDTO {
 		this.memberEmailId = memberEmailId;
 		this.memberEmailDomain = memberEmailDomain;
 		this.memberAddress = memberAddress;
-	}
-
-	public String getMemberProfilePath() {
-		return memberProfilePath;
-	}
-
-	public void setMemberProfilePath(String memberProfilePath) {
 		this.memberProfilePath = memberProfilePath;
 	}
 
@@ -120,12 +112,20 @@ public class MyPageMyInfoDTO {
 		this.memberAddress = memberAddress;
 	}
 
+	public String getMemberProfilePath() {
+		return memberProfilePath;
+	}
+
+	public void setMemberProfilePath(String memberProfilePath) {
+		this.memberProfilePath = memberProfilePath;
+	}
+
 	@Override
 	public String toString() {
-		return "MyPageMyInfoDTO [memberProfilePath=" + memberProfilePath + ", memberId=" + memberId + ", memberPasswd="
-				+ memberPasswd + ", memberName=" + memberName + ", memberNick=" + memberNick + ", memberPhoneNumber1="
-				+ memberPhoneNumber1 + ", memberPhoneNumber2=" + memberPhoneNumber2 + ", memberPhoneNumber3="
-				+ memberPhoneNumber3 + ", memberEmailId=" + memberEmailId + ", memberEmailDomain=" + memberEmailDomain
-				+ ", memberAddress=" + memberAddress + "]";
+		return "MyPageMyInfoDTO [memberId=" + memberId + ", memberPasswd=" + memberPasswd + ", memberName=" + memberName
+				+ ", memberNick=" + memberNick + ", memberPhoneNumber1=" + memberPhoneNumber1 + ", memberPhoneNumber2="
+				+ memberPhoneNumber2 + ", memberPhoneNumber3=" + memberPhoneNumber3 + ", memberEmailId=" + memberEmailId
+				+ ", memberEmailDomain=" + memberEmailDomain + ", memberAddress=" + memberAddress
+				+ ", memberProfilePath=" + memberProfilePath + "]";
 	}
 }

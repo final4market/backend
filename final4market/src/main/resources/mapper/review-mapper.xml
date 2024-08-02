@@ -34,6 +34,8 @@
     <result column="review" property="review"/>
     <result column="review_date" property="reviewDate"/>
     <result column="review_score" property="reviewScore"/>
+    <result column="PRODUCT_IMAGE_PATH" property="productImagePath" />
+        <result column="PRODUCT_IMAGE_NO" property="productImageNo" />
   </resultMap>
   
   
@@ -51,6 +53,7 @@
  <select id="wroteReviewList" resultMap="review">
  select * from review
  where product_no = #{productNo}
+ order by review_date DESC
  </select>
  
   <delete id="reviewDelete" parameterType="map">

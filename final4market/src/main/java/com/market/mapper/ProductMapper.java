@@ -113,4 +113,8 @@ public interface ProductMapper {
 
 	int insertTransaction(Map<String, Object> map);
 
+	int productStatusUpdate(Map<String, Object> map);
+
+	int ProductStatusDelete(int productNo);
+
 }

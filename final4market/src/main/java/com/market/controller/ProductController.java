@@ -315,7 +315,7 @@ return map;
 	
 
 	
-	@GetMapping("/selectLikeStatus")
+	@GetMapping("/api/product/selectLikeStatus")
 	public List<String> selectLikeStatus(@RequestParam("productNo") int productNo) {
 		List<String> list = productService.selectLikeStatus(productNo);
 		return list;
@@ -380,6 +380,17 @@ return map;
 		productService.insertTransaction(productNo, memberId);
 	}
 
+	@PutMapping("/productStatusUpdate")
+    public String productStatusUpdate(@RequestParam("status") String status, @RequestParam("productNo") int productNo) {
+		System.out.println(status);
+        productService.productStatusUpdate(status,productNo);
+        return null;
+    }
 
+    @PutMapping("/ProductStatusDelete")
+    public void ProductStatusDelete(@RequestParam("productNo") int productNo) {
+
+        productService.ProductStatusDelete(productNo);
+    }
 
 }

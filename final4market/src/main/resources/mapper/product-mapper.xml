@@ -377,7 +377,13 @@ where product_no= #{productNo}
 and PRODUCT_IMAGE_NO =#{imageNo}
 </delete>
         
+<update id="productStatusUpdate" parameterType="map">
+        update product set product_sale = #{status} where product_no = #{productNo}
+    </update>
 
+    <update id="ProductStatusDelete" parameterType="int">
+        update product set product_sale = '삭제' where product_no = #{productNo}
+    </update>
 	
 
 </mapper>

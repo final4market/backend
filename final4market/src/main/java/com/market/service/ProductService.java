@@ -264,7 +264,18 @@ public class ProductService {
 		
 	}
 
+	public int productStatusUpdate(String status, int productNo) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("status", status);
+        map.put("productNo", productNo);
+        return mapper.productStatusUpdate(map);
 
+    }
+
+
+    public int ProductStatusDelete(int productNo) {
+        return mapper.ProductStatusDelete(productNo);
+    }
 		
 	}
 

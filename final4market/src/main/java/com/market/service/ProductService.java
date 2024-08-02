@@ -106,7 +106,6 @@ public class ProductService {
 		return mapper.sellerProductPrice(productNo);
 	}
 
-
 	public List<ProductDTO> ProductPurchaseHistory(String buyerId) {
 		return mapper.ProductPurchaseHistory(buyerId);
 	}
@@ -130,15 +129,6 @@ public class ProductService {
 	public List<ProductImageDTO> selectProductImage(int productNo) {
 		return mapper.selectProductImage(productNo);}
 
-	public MyPageProductDTO myPageProduct(int productNo) {
-		return mapper.myPageProduct(productNo);
-
-	}
-
-	public MyPageProductDTO myPageInterest(int productNo) {
-		return mapper.myPageInterest(productNo);
-	}
-
 	public int insertProductLike(String memberId, int productNo) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("memberId", memberId);
@@ -152,7 +142,7 @@ public class ProductService {
 		map.put("productNo", productNo);
 		return mapper.deleteProductLike(map);
 	}
-	
+
 	public List<String> selectLikeStatus(int productNo) {
 		return mapper.selectLikeStatus(productNo);
 	}
@@ -161,13 +151,9 @@ public class ProductService {
 		return mapper.productDelete(productNo) ;
 	}
 
-
-
 	public int updateProductSaleSatus(int productNo) {
 		return mapper.updateProductSaleSatus(productNo);
 	}
-
-
 
 	public int parentCategory(int categoryNumber) {
 		return mapper. parentCategory(categoryNumber);
@@ -193,7 +179,6 @@ public class ProductService {
         }
     }
 
-
 	public List<ProductDTO> categoryProductInfo(int categoryNo) {
 		return mapper.categoryProductInfo(categoryNo);
 	}
@@ -203,4 +188,11 @@ public class ProductService {
 	}
 }
 
+	public List<MyPageProductDTO> myPageProduct(String memberId) {
+		return mapper.myPageProduct(memberId);
+	}
 
+	public List<MyPageProductDTO> myPageInterestProduct(String memberId) {
+		return mapper.myPageInterestProduct(memberId);
+	}
+}

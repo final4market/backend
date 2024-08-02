@@ -1,68 +1,88 @@
 package com.market.dto;
 
 public class MyPageProductDTO {
-	private String ProductImagePath;
-	private String ProductTitle;
-	private int ProductPrice;
-	private int InterestCount;
-	private int ChatCount;
+	private int productNo;
+	private String memberId;
+	private String productImagePath;
+	private String productTitle;
+	private int productPrice;
+	private int interestCount;
+	private int chatCount;
 
 	public MyPageProductDTO() {
 	}
 
-	public MyPageProductDTO(String productImagePath, String productTitle, int productPrice, int interestCount,
-			int chatCount) {
-		ProductImagePath = productImagePath;
-		ProductTitle = productTitle;
-		ProductPrice = productPrice;
-		InterestCount = interestCount;
-		ChatCount = chatCount;
+	public MyPageProductDTO(int productNo, String memberId, String productImagePath, String productTitle,
+			int productPrice, int interestCount, int chatCount) {
+		this.productNo = productNo;
+		this.memberId = memberId;
+		this.productImagePath = productImagePath;
+		this.productTitle = productTitle;
+		this.productPrice = productPrice;
+		this.interestCount = interestCount;
+		this.chatCount = chatCount;
+	}
+
+	public int getProductNo() {
+		return productNo;
+	}
+
+	public void setProductNo(int productNo) {
+		this.productNo = productNo;
+	}
+
+	public String getMemberId() {
+		return memberId;
+	}
+
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
 	}
 
 	public String getProductImagePath() {
-		return ProductImagePath;
+		return productImagePath;
 	}
 
 	public void setProductImagePath(String productImagePath) {
-		ProductImagePath = productImagePath;
+		this.productImagePath = productImagePath;
 	}
 
 	public String getProductTitle() {
-		return ProductTitle;
+		return productTitle;
 	}
 
 	public void setProductTitle(String productTitle) {
-		ProductTitle = productTitle;
+		this.productTitle = productTitle;
 	}
 
 	public int getProductPrice() {
-		return ProductPrice;
+		return productPrice;
 	}
 
 	public void setProductPrice(int productPrice) {
-		ProductPrice = productPrice;
+		this.productPrice = productPrice;
 	}
 
 	public int getInterestCount() {
-		return InterestCount;
+		return interestCount;
 	}
 
 	public void setInterestCount(int interestCount) {
-		InterestCount = interestCount;
+		this.interestCount = interestCount;
 	}
 
 	public int getChatCount() {
-		return ChatCount;
+		return chatCount;
 	}
 
 	public void setChatCount(int chatCount) {
-		ChatCount = chatCount;
+		this.chatCount = chatCount;
 	}
 
 	@Override
 	public String toString() {
-		return "MyPageProductDTO [ProductImagePath=" + ProductImagePath + ", ProductTitle=" + ProductTitle
-				+ ", ProductPrice=" + ProductPrice + ", InterestCount=" + InterestCount + ", ChatCount=" + ChatCount
-				+ "]";
+		return "MyPageProductDTO [productNo=" + productNo + ", memberId=" + memberId + ", productImagePath="
+				+ productImagePath + ", productTitle=" + productTitle + ", productPrice=" + productPrice
+				+ ", interestCount=" + interestCount + ", chatCount=" + chatCount + "]";
 	}
 }

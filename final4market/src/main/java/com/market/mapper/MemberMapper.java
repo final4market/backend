@@ -5,15 +5,14 @@ import java.util.Map;
 
 import com.market.dto.MemberAddressDTO;
 import com.market.dto.MemberDTO;
-
+import com.market.dto.MyPageMyInfoDTO;
+import com.market.dto.MyPageProfileDTO;
+import com.market.dto.MyPageReceivedReviewDTO;
 import com.market.dto.MemberProfileDTO;
 import com.market.dto.ReviewDTO;
-
-import com.market.dto.MyPageProfileDTO;
-
 import com.market.dto.StoreDTO;
-import com.market.models.Member;
 
+import com.market.models.Member;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -54,8 +53,6 @@ public interface MemberMapper {
 
 	List<Map<String, Object>> buyerProfilePath(List<String> buyerProfileNo);
 
-	MyPageProfileDTO myPageProfile(String memberId);
-
 	List<MemberDTO> selectAllMembers1();
 
 	List<MemberDTO> searchMembers1(Map<String, String> params);
@@ -69,7 +66,7 @@ public interface MemberMapper {
 	int deleteFollow(Map<String, Object> map);
 
 	List<MemberAddressDTO> selectMemberAddress(String memberId);
-	
+
 	int insertMemberAddress(MemberAddressDTO dto);
 
 	int currentAddressNO();
@@ -81,4 +78,12 @@ public interface MemberMapper {
 	int changeMainAddressNew(MemberAddressDTO dto);
 
 	List<String> selectFollowStatus(String memberId);
+
+	List<MyPageProfileDTO> myPageProfile(String memberId);
+
+	List<MyPageMyInfoDTO> myPageMyInfo(String memberId);
+
+	int updateMyInfo(MyPageMyInfoDTO dto);
+
+	List<MyPageReceivedReviewDTO> myPageReceivedReview(String memberId);
 }

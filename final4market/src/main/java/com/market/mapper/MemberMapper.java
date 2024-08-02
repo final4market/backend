@@ -31,7 +31,7 @@ public interface MemberMapper {
 
 	Member getMemberByIdWithPassword(@Param("memberId") String memberId);
 
-	String findMemberIdByNameAndPhone(String memberName, String memberPhoneNo);
+	String findMemberIdByNameAndPhone(@Param("memberName") String memberName, @Param("memberPhoneNo") String memberPhoneNo);
 	
 	int countMembersById(String memberId);
 	

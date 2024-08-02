@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.market.mapper.ReportMapper">
+
+    <resultMap id="reportResultMap" type="report">
+        <id property="productNo" column="PRODUCT_NO"/>
+        <id property="claimerId" column="CLAIMER_ID"/>
+        <id property="sellerId" column="SELLER_ID"/>
+        <result property="reportDate" column="REPORT_DATE"/>
+        <result property="reportContent" column="REPORT_CONTENT"/>
+        <result property="reportStatus" column="REPORT_STATUS"/>
+        <result property="reportReadStatus" column="READ_STATUS"/>
+    </resultMap>
+
+    <select id="getAllReports" resultMap="reportResultMap">
+        SELECT R.PRODUCT_NO, R.CLAIMER_ID, R.SELLER_ID, R.REPORT_DATE, R.REPORT_CONTENT, R.REPORT_STATUS, RS.READ_STATUS
+        FROM REPORT R
+        LEFT JOIN REPORT_READ_STATUS RS
+        ON R.PRODUCT_NO = RS.PRODUCT_NO
+        AND R.CLAIMER_ID = RS.CLAIMER_ID
+        AND R.SELLER_ID = RS.SELLER_ID
+        WHERE RS.ADMIN_ID = #{adminId}
+    </select>
+
+    <select id="getFilteredReports" parameterType="map" resultMap="reportResultMap">
+    SELECT R.PRODUCT_NO, R.CLAIMER_ID, R.SELLER_ID, R.REPORT_DATE, R.REPORT_CONTENT, R.REPORT_STATUS, RS.READ_STATUS
+    FROM REPORT R
+    LEFT JOIN REPORT_READ_STATUS RS
+    ON R.PRODUCT_NO = RS.PRODUCT_NO
+    AND R.CLAIMER_ID = RS.CLAIMER_ID
+    AND R.SELLER_ID = RS.SELLER_ID
+    WHERE RS.ADMIN_ID = #{params.adminId}
+    <if test="params.productNo != null and params.productNo != ''">
+        AND R.PRODUCT_NO = #{params.productNo}
+    </if>
+    <if test="params.sellerId != null and params.sellerId != ''">
+        AND R.SELLER_ID LIKE '%' || #{params.sellerId} || '%'
+    </if>
+    <if test="params.claimerId != null and params.claimerId != ''">
+        AND R.CLAIMER_ID LIKE '%' || #{params.claimerId} || '%'
+    </if>
+    <if test="params.startDate != null and params.endDate != null">
+        AND R.REPORT_DATE BETWEEN TRUNC(TO_DATE(#{params.startDate}, 'YYYY-MM-DD')) AND TRUNC(TO_DATE(#{params.endDate}, 'YYYY-MM-DD')) + INTERVAL '1' DAY
+    </if>
+    <if test="params.processStatus != null and params.processStatus != ''">
+        AND R.REPORT_STATUS = #{params.processStatus}
+    </if>
+</select>
+    
+    <select id="getReportById" parameterType="map" resultMap="reportResultMap">
+        SELECT R.PRODUCT_NO, R.CLAIMER_ID, R.SELLER_ID, R.REPORT_DATE, R.REPORT_CONTENT, R.REPORT_STATUS, RS.READ_STATUS
+        FROM REPORT R
+        LEFT JOIN REPORT_READ_STATUS RS
+        ON R.PRODUCT_NO = RS.PRODUCT_NO
+        AND R.CLAIMER_ID = RS.CLAIMER_ID
+        AND R.SELLER_ID = RS.SELLER_ID
+        WHERE R.PRODUCT_NO = #{productNo} AND R.CLAIMER_ID = #{claimerId} AND R.SELLER_ID = #{sellerId}
+    </select>
+
+    <update id="updateReportStatus">
+        UPDATE REPORT
+        SET REPORT_STATUS = #{reportStatus}
+        WHERE PRODUCT_NO = #{productNo} AND CLAIMER_ID = #{claimerId} AND SELLER_ID = #{sellerId}
+    </update>
+    
+    <update id="updateReadStatus" parameterType="map">
+        UPDATE REPORT_READ_STATUS
+        SET READ_STATUS = #{readStatus}
+        WHERE PRODUCT_NO = #{productNo} AND CLAIMER_ID = #{claimerId} AND SELLER_ID = #{sellerId} AND ADMIN_ID = #{adminId}
+    </update>
+    
+    	<insert id="insertReport" parameterType="report">
+	    INSERT INTO REPORT (
+	        PRODUCT_NO,
+	        CLAIMER_ID,
+	        SELLER_ID,
+	        REPORT_CONTENT
+	    )
+	    VALUES (
+	        #{productNo},
+	        #{claimerId},
+	        #{sellerId},
+	        #{reportContent}
+	    )
+		</insert>
+
+</mapper>

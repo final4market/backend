@@ -1,0 +1,85 @@
+<!-- resources/mapper/ImageMapper.xml -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.market.mapper.ImageMapper">
+	<!-- ProductImage result map -->
+    <resultMap id="ProductImageResultMap" type="com.market.models.ProductImage">
+        <id column="product_image_no" property="productImageNo" />
+        <result column="product_no" property="productNo" />
+        <result column="product_image_path" property="productImagePath" />
+    </resultMap>
+    
+    <!-- Product result map -->
+    <resultMap id="ProductResultMap" type="com.market.models.Product">
+        <id column="product_no" property="productNo" />
+        <result column="member_id" property="memberId" />
+        <result column="product_price" property="productPrice" />
+        <result column="product_count" property="productCount" />
+        <result column="product_date" property="productDate" />
+        <result column="product_status" property="productStatus" />
+        <result column="product_content" property="productContent" />
+        <result column="product_sale" property="productSale" />
+        <result column="product_title" property="productTitle" />
+        <result column="product_like" property="productLike" />
+        <result column="category_no" property="categoryNo" />
+        <result column="delivery_no" property="deliveryNo" />
+        <result column="trade_area" property="tradeArea" />
+        <result column="delivery_charge" property="deliveryCharge" />
+    </resultMap>
+    
+    <!-- MemberProfile result map -->
+    <resultMap id="MemberProfileResultMap" type="com.market.models.MemberProfile">
+        <id column="member_profile_no" property="memberProfileNo" />
+        <result column="profile_path" property="profilePath" />
+        <result column="member_id" property="memberId" />
+    </resultMap>
+    
+    <select id="findProductById" parameterType="int" resultMap="ProductResultMap">
+        SELECT product_no, member_id, product_price, product_count, product_date, product_status, product_content, product_sale, product_title, product_like, category_no, delivery_no, trade_area, delivery_charge
+        FROM product
+        WHERE product_no = #{productNo}
+    </select>
+	
+    <select id="findProductImageById" parameterType="int" resultMap="ProductImageResultMap">
+        SELECT product_image_no, product_no, product_image_path
+        FROM product_images
+        WHERE product_image_no = #{productImageNo}
+    </select>
+
+    <update id="updateProductImage" parameterType="com.market.models.ProductImage">
+        UPDATE product_images
+        SET product_image_path = #{productImagePath},
+            product_no = #{productNo}
+        WHERE product_image_no = #{productImageNo}
+    </update>
+
+    <delete id="deleteProductImage" parameterType="int">
+        DELETE FROM product_images WHERE product_image_no = #{productImageNo}
+    </delete>
+
+    <!-- MemberProfile queries -->
+    <select id="findMemberProfileById" parameterType="int" resultMap="MemberProfileResultMap">
+        SELECT member_profile_no, profile_path, member_id
+        FROM MEMBER_PROFILE
+        WHERE member_profile_no = #{memberProfileNo}
+    </select>
+
+    <insert id="insertMemberProfile" parameterType="com.market.models.MemberProfile" useGeneratedKeys="true" keyProperty="memberProfileNo">
+        INSERT INTO MEMBER_PROFILE (profile_path, member_id)
+        VALUES (#{profilePath}, #{memberId})
+    </insert>
+
+    <update id="updateMemberProfile" parameterType="com.market.models.MemberProfile">
+        UPDATE MEMBER_PROFILE
+        SET profile_path = #{profilePath},
+            member_id = #{memberId}
+        WHERE member_profile_no = #{memberProfileNo}
+    </update>
+
+    <delete id="deleteMemberProfile" parameterType="int">
+        DELETE FROM MEMBER_PROFILE WHERE member_profile_no = #{memberProfileNo}
+    </delete>
+
+</mapper>

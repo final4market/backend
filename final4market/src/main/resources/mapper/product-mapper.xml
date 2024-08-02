@@ -168,7 +168,7 @@
 		    M.MEMBER_ID = #{MEMBER_ID}
 	</select>
 
-	<select id="myPageInterest" parameterType="String" resultMap="myPageProduct">
+	<select id="myPageInterestProduct" parameterType="String" resultMap="myPageProduct">
 		SELECT
     		P.PRODUCT_NO, M.MEMBER_ID, PI.PRODUCT_IMAGE_PATH, P.PRODUCT_PRICE, P.PRODUCT_TITLE,
     		(SELECT COUNT(BUYER_ID) FROM INTEREST_PRODUCT IP WHERE P.PRODUCT_NO = IP.PRODUCT_NO) AS INTEREST_COUNT,

@@ -108,7 +108,7 @@ public class ProductService {
 		return mapper.myPageProduct(memberId);
 	}
 
-	public List<MyPageProductDTO> myPageInterest(String memberId) {
-		return mapper.myPageInterest(memberId);
+	public List<MyPageProductDTO> myPageInterestProduct(String memberId) {
+		return mapper.myPageInterestProduct(memberId);
 	}
 }

@@ -4,23 +4,29 @@ import java.sql.Date;
 
 public class MyPageReceivedReviewDTO {
 	private int productNo;
-	private String memberId;
-	private String review;
-	private String sellerId;
+	private String productImagePath;
+	private String productTitle;
+	private int productPrice;
+	private String buyerId;
+	private String buyerNick;
 	private Date reviewDate;
 	private int reviewScore;
+	private String review;
 
 	public MyPageReceivedReviewDTO() {
 	}
 
-	public MyPageReceivedReviewDTO(int productNo, String memberId, String review, String sellerId, Date reviewDate,
-			int reviewScore) {
+	public MyPageReceivedReviewDTO(int productNo, String productImagePath, String productTitle, int productPrice,
+			String buyerId, String buyerNick, Date reviewDate, int reviewScore, String review) {
 		this.productNo = productNo;
-		this.memberId = memberId;
-		this.review = review;
-		this.sellerId = sellerId;
+		this.productImagePath = productImagePath;
+		this.productTitle = productTitle;
+		this.productPrice = productPrice;
+		this.buyerId = buyerId;
+		this.buyerNick = buyerNick;
 		this.reviewDate = reviewDate;
 		this.reviewScore = reviewScore;
+		this.review = review;
 	}
 
 	public int getProductNo() {
@@ -31,28 +37,44 @@ public class MyPageReceivedReviewDTO {
 		this.productNo = productNo;
 	}
 
-	public String getMemberId() {
-		return memberId;
+	public String getProductImagePath() {
+		return productImagePath;
 	}
 
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
+	public void setProductImagePath(String productImagePath) {
+		this.productImagePath = productImagePath;
 	}
 
-	public String getReview() {
-		return review;
+	public String getProductTitle() {
+		return productTitle;
 	}
 
-	public void setReview(String review) {
-		this.review = review;
+	public void setProductTitle(String productTitle) {
+		this.productTitle = productTitle;
 	}
 
-	public String getSellerId() {
-		return sellerId;
+	public int getProductPrice() {
+		return productPrice;
 	}
 
-	public void setSellerId(String sellerId) {
-		this.sellerId = sellerId;
+	public void setProductPrice(int productPrice) {
+		this.productPrice = productPrice;
+	}
+
+	public String getBuyerId() {
+		return buyerId;
+	}
+
+	public void setBuyerId(String buyerId) {
+		this.buyerId = buyerId;
+	}
+
+	public String getBuyerNick() {
+		return buyerNick;
+	}
+
+	public void setBuyerNick(String buyerNick) {
+		this.buyerNick = buyerNick;
 	}
 
 	public Date getReviewDate() {
@@ -71,9 +93,19 @@ public class MyPageReceivedReviewDTO {
 		this.reviewScore = reviewScore;
 	}
 
+	public String getReview() {
+		return review;
+	}
+
+	public void setReview(String review) {
+		this.review = review;
+	}
+
 	@Override
 	public String toString() {
-		return "MyPageReceivedReviewDTO [productNo=" + productNo + ", memberId=" + memberId + ", review=" + review
-				+ ", sellerId=" + sellerId + ", reviewDate=" + reviewDate + ", reviewScore=" + reviewScore + "]";
+		return "MyPageReceivedReviewDTO [productNo=" + productNo + ", productImagePath=" + productImagePath
+				+ ", productTitle=" + productTitle + ", productPrice=" + productPrice + ", buyerId=" + buyerId
+				+ ", buyerNick=" + buyerNick + ", reviewDate=" + reviewDate + ", reviewScore=" + reviewScore
+				+ ", review=" + review + "]";
 	}
 }

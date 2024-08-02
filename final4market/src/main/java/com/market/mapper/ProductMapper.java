@@ -53,5 +53,5 @@ public interface ProductMapper {
 
 	List<MyPageProductDTO> myPageProduct(String memberId);
 
-	List<MyPageProductDTO> myPageInterest(String memberId);
+	List<MyPageProductDTO> myPageInterestProduct(String memberId);
 }

@@ -104,10 +104,12 @@
             UPDATE member
             SET 
                 member_name = #{memberName}, 
-                member_nick = #{memberNick},
                 member_email = #{memberEmail}, 
                 member_phone_number = #{memberPhoneNo},
                 member_grade = #{memberGrade}
+                <if test="memberNick != null and memberNick != ''">
+                    , member_nick = #{memberNick}
+                </if>
                 <if test="memberAddr != null and memberAddr != ''">
                     , member_address = #{memberAddr}
                 </if>

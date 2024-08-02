@@ -42,8 +42,7 @@ public class MemberController {
         return ResponseEntity.ok(members);
     }
 
-
-    @PutMapping("/admin/update")
+    @PutMapping("/admin/updateMember")
     public ResponseEntity<Map<String, Object>> updateMember(@RequestBody MemberDTO dto) {
         int count = memberService.updateMember(dto);        
         Map<String, Object> map = new HashMap<>();
@@ -52,7 +51,7 @@ public class MemberController {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
-    @DeleteMapping("/admin/{memberId}")
+    @DeleteMapping("/admin/deleteMember/{memberId}")
     public ResponseEntity<Map<String, Object>> deleteMember(@PathVariable String memberId) {
         int count = memberService.deleteMember(memberId);
         Map<String, Object> map = new HashMap<>();

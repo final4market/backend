@@ -57,7 +57,7 @@ public class AuthenticationService {
     }
 
     private String generateJwtToken(Member member) {
-    	long expirationTimeInMillis = 1000 * 60 * 5;
+    	long expirationTimeInMillis = 1000 * 60 * 20;
     	
     	List<String> roles = mapGradeToRoles(member.getMemberGrade());
     	LOGGER.debug("Roles assigned to token: {}", roles);

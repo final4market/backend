@@ -334,16 +334,14 @@ WHERE CATEGORY_NO =#{categoryNo};
   <select id="updateloadProductImages" resultMap="myPageProduct">
 	SELECT * FROM Product_Image WHERE PRODUCT_NO = #{productNo}
 	</select>
-         
-         <update id="updateProductImage" parameterType="productImage">
-        update  PRODUCT_IMAGE set PRODUCT_IMAGE_PATH= #{productImagePath},
-         PRODUCT_IMAGE_NO=#{productImageNo} 
-         where product_no= #{productNo}
-   </update>
+
+
+  
 
 <delete id="deleteProductImages">
 delete PRODUCT_IMAGE
 where product_no= #{productNo}
+and PRODUCT_IMAGE_NO =#{imageNo}
 </delete>
         
 

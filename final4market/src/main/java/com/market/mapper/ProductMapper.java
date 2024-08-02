@@ -2,8 +2,10 @@ package com.market.mapper;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.market.dto.CategoryDTO;
 import com.market.dto.ChatDTO;
@@ -98,13 +100,17 @@ public interface ProductMapper {
 
 	List<ProductImage> updateloadProductImages(int productNo);
 
-	void deleteProductImages(int productNo);
+	int deleteProductImages(int productNo, String imageNo);
 
 	
 
 	List<ProductDTO> searchResult(Map<String, Object> params);
 
 
+	 Set<Integer> getExistingImageNumbers(@Param("productNo") int productNo);
+
+	    // 이미지를 삽입하는 메소드
+	    void insertProductImage(@Param("productImageDTO") ProductImageDTO productImageDTO, @Param("imageNo") int imageNo);
 
 
 

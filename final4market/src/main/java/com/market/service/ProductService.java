@@ -1,11 +1,15 @@
 package com.market.service;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.market.dao.ProductImageDAO;
 import com.market.dto.CategoryDTO;
 import com.market.dto.DeliveryDTO;
 import com.market.dto.MyPageProductDTO;
@@ -16,12 +20,17 @@ import com.market.models.ProductImage;
 
 @Service
 public class ProductService {
+    
+    private final ProductImageDAO productImageDAO;
+    private final ProductMapper mapper;
 
-	private ProductMapper mapper;
+    @Autowired
+    public ProductService(ProductImageDAO productImageDAO, ProductMapper mapper) {
+        this.productImageDAO = productImageDAO;
+        this.mapper = mapper;
+    }
 
-	public ProductService(ProductMapper mapper) {
-		this.mapper = mapper;
-	}
+
 
 
 	public List<ProductDTO> newproductlist() {
@@ -201,22 +210,47 @@ public class ProductService {
     }
 
 
+    public void updateProductImages(int productNo, List<String> imageKeys) {
+        // 1. 이미 존재하는 이미지 번호를 데이터베이스에서 가져옵니다.
+    	for (int j = 0; j < imageKeys.size(); j++) {
+        Set<Integer> existingImageNumbers = fetchExistingImageNumbers(productNo);
+    
+        // 2. 사용할 수 있는 이미지 번호를 찾습니다.
+        Set<Integer> availableImageNumbers = new HashSet<>();
+        
+        
+        for (int i = 0; i < 3; i++) {
+            if (!existingImageNumbers.contains(i)) {
+                availableImageNumbers.add(i);
+               System.out.println("사용가능한 이미지 번호"+availableImageNumbers);
+            }
+        }
+        System.out.println("리스트 크기: " + imageKeys.size());
+        // 3. 유효한 이미지 키에 대해 이미지를 삽입합니다.
+       
+        for (int i = 0; i < 3; i++) {
+            if (availableImageNumbers.contains(i)) {
+            	 String imageKey = imageKeys.get(j);
+                 System.out.println("가져오는"+imageKey);
+                 if (imageKey != null && !imageKey.isEmpty()) {
+                     ProductImageDTO productImageDTO = new ProductImageDTO(productNo, imageKey);
+                     updateProductImage(productImageDTO, i);  // 인덱스를 전달합니다.
+                     break;
+            }
+               
+                }}
+           
+        }
+    }
+    // 기존 이미지 번호를 가져오는 메소드
+    private Set<Integer> fetchExistingImageNumbers(int productNo) {
+        return productImageDAO.getExistingImageNumbers(productNo);
+    }
 
-	public void updateProductImages(int productNo, List<String> imageKeys) {
-		  for (int i = 0; i < imageKeys.size(); i++) {
-	            String imageKey = imageKeys.get(i);
-	            if (imageKey != null && !imageKey.isEmpty()) {  // null 값 필터링
-	                ProductImageDTO productImageDTO = new ProductImageDTO(productNo, i, imageKey);
-	                updateProductImage(productImageDTO);
-	            }
-	        }
-	    }
-
-
-	private int updateProductImage(ProductImageDTO productImageDTO) {
-		return mapper.updateProductImage(productImageDTO);
-		
-	}
+    // 이미지를 삽입하는 메소드
+    private void updateProductImage(ProductImageDTO productImageDTO, int productImageNo) {
+        productImageDAO.updateProductImage(productImageDTO, productImageNo);
+    }
 
 
 	public List<ProductImage> updateloadProductImages(int productNo) {
@@ -224,8 +258,8 @@ public class ProductService {
 	}
 
 
-	public void deleteProductImages(int productNo) {
-		mapper.deleteProductImages(productNo);
+	public void deleteProductImages(int productNo, String imageNo) {
+		mapper.deleteProductImages(productNo,imageNo);
 		
 	}
 

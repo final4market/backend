@@ -10,6 +10,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -52,8 +53,12 @@ public class SecurityConfig {
                 return corsConfig;
             }))
             .authorizeHttpRequests(auth -> auth
-                    .requestMatchers("/api/auth/**", "/api/auth/signup", "/file/**", "/api/product/**", "/api/member/**").permitAll() //공개 허용
-                    .requestMatchers("/api/admin/**").hasRole("ADMIN")
+                    .requestMatchers("/api/auth/**", "/file/**", "/api/product/**", "/api/member/**", "/product/insert", "/api/product/update").permitAll() //전체 허용
+                    .requestMatchers(HttpMethod.GET, "/images/**").permitAll() // GET 리퀘스트 전체 허용
+                    .requestMatchers(HttpMethod.POST, "/images/**").hasAnyRole("ADMIN", "USER")
+                    .requestMatchers(HttpMethod.PUT, "/images/**").hasAnyRole("ADMIN", "USER") // PUT 리퀘스트 관리자, 일반회원 허용
+                    .requestMatchers(HttpMethod.DELETE, "/images/**").hasAnyRole("ADMIN", "USER") // DELETE 리퀘스트 관리자, 일반회원 허용
+                    .requestMatchers("/admin/**").hasRole("ADMIN") //관리자만 사용
                     .anyRequest().authenticated()
                 )
             .sessionManagement(session -> session

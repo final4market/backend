@@ -8,7 +8,10 @@ import com.market.dto.MemberDTO;
 import com.market.dto.MyPageMyInfoDTO;
 import com.market.dto.MyPageProfileDTO;
 import com.market.dto.MyPageReceivedReviewDTO;
+import com.market.dto.MemberProfileDTO;
+import com.market.dto.ReviewDTO;
 import com.market.dto.StoreDTO;
+
 import com.market.models.Member;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -23,10 +26,26 @@ public interface MemberMapper {
 	int updateMember(MemberDTO dto);
 
 	int deleteMember(String memberId);
+	
+	Member getMemberWithGradeName(@Param("memberId") String memberId);
+
+	Member getMemberByIdWithPassword(@Param("memberId") String memberId);
+
+	String findMemberIdByNameAndPhone(String memberName, String memberPhoneNo);
+	
+	int countMembersById(String memberId);
+	
+	void insertMember(Member member);
+
+	List<MemberDTO> checkMemberMatch(Map<String, String> params);
+
+	Member getMemberById(String memberId);
+
+	void updateMemberEntity(Member member);
 
 	List<StoreDTO> storeInfo(String memberId);
 
-	int profileNo(String memberId);
+	int profileNo(String memberId); 
 
 	String profilePath(int profileNo);
 
@@ -41,14 +60,6 @@ public interface MemberMapper {
 	int updateMember1(MemberDTO dto);
 
 	int deleteMember1(String memberId);
-
-	Member getMemberWithGradeName(@Param("memberId") String memberId);
-
-	void insertMember(Member member);
-
-	Member getMemberByIdWithPassword(@Param("memberId") String memberId);
-
-	void updatePassword(@Param("memberId") String memberId, @Param("memberPasswd") String memberPasswd);
 
 	int insertFollow(Map<String, Object> map);
 

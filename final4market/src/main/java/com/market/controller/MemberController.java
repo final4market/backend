@@ -29,20 +29,19 @@ public class MemberController {
         this.memberService = memberService;
     }
 
-    @GetMapping
+    @GetMapping("/admin/allMembers")
     public ResponseEntity<List<MemberDTO>> selectAllMembers() {
         List<MemberDTO> members = memberService.selectAllMembers();
         return ResponseEntity.ok(members);
     }
 
-    @GetMapping("/admin/search")
+    @GetMapping("/admin/searchMembers")
     public ResponseEntity<List<MemberDTO>> searchMembers(@RequestParam Map<String, String> params) {
         List<MemberDTO> members = memberService.searchMembers(params);
         return ResponseEntity.ok(members);
     }
 
-
-    @PutMapping("/admin/update")
+    @PutMapping("/admin/updateMember")
     public ResponseEntity<Map<String, Object>> updateMember(@RequestBody MemberDTO dto) {
         int count = memberService.updateMember(dto);        
         Map<String, Object> map = new HashMap<>();
@@ -51,7 +50,7 @@ public class MemberController {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
 
-    @DeleteMapping("/admin/{memberId}")
+    @DeleteMapping("/admin/deleteMember/{memberId}")
     public ResponseEntity<Map<String, Object>> deleteMember(@PathVariable String memberId) {
         int count = memberService.deleteMember(memberId);
         Map<String, Object> map = new HashMap<>();
@@ -154,7 +153,7 @@ public class MemberController {
 		}
 	}
 	
-	@GetMapping("/selectFollowStatus")
+	@GetMapping("/api/member/selectFollowStatus")
 	public List<String> selectFollowStatus(String memberId) {
 		List<String> list = memberService.selectFollowStatus(memberId);
 		return list;

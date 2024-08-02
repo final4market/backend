@@ -54,7 +54,7 @@ public class MyPageController {
 	
 	@PutMapping("/api/member/myPageMyInfo/update")
 	public ResponseEntity<Map<String, Object>> updateMyInfo(@RequestBody MyPageMyInfoDTO dto) {
-		System.out.println("updateMyInfo : " + dto);
+//		System.out.println("updateMyInfo : " + dto);
 		int count = memberService.updateMyInfo(dto);
 		Map<String, Object> map = new HashMap<>();
 		map.put("count", count);
@@ -62,8 +62,8 @@ public class MyPageController {
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 
-	@GetMapping("api/product/myPageReceivedReview/{memberId}")
+	@GetMapping("/api/product/myPageReceivedReview/{memberId}")
 	public List<MyPageReceivedReviewDTO> myPageReceivedReview(@PathVariable String memberId) {
-		return memberService.myPageReceivedReview(memberId);
+		return productService.myPageReceivedReview(memberId);
 	}
 }

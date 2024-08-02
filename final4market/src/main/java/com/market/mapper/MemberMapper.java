@@ -73,6 +73,4 @@ public interface MemberMapper {
 	List<MyPageMyInfoDTO> myPageMyInfo(String memberId);
 
 	int updateMyInfo(MyPageMyInfoDTO dto);
-
-	List<MyPageReceivedReviewDTO> myPageReceivedReview(String memberId);
 }

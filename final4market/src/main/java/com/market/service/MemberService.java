@@ -112,8 +112,4 @@ public class MemberService {
 	public int updateMyInfo(MyPageMyInfoDTO dto) {
 		return mapper.updateMyInfo(dto);
 	}
-
-	public List<MyPageReceivedReviewDTO> myPageReceivedReview(String memberId) {
-		return mapper.myPageReceivedReview(memberId);
-	}
 }

@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.market.dto.CategoryDTO;
 import com.market.dto.DeliveryDTO;
 import com.market.dto.MyPageProductDTO;
+import com.market.dto.MyPageReceivedReviewDTO;
 import com.market.dto.ProductDTO;
 import com.market.dto.ProductImageDTO;
 
@@ -54,4 +55,6 @@ public interface ProductMapper {
 	List<MyPageProductDTO> myPageProduct(String memberId);
 
 	List<MyPageProductDTO> myPageInterestProduct(String memberId);
+
+	List<MyPageReceivedReviewDTO> myPageReceivedReview(String memberId);
 }

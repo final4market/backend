@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.market.dto.CategoryDTO;
 import com.market.dto.DeliveryDTO;
 import com.market.dto.MyPageProductDTO;
+import com.market.dto.MyPageReceivedReviewDTO;
 import com.market.dto.ProductDTO;
 import com.market.dto.ProductImageDTO;
 
@@ -110,5 +111,9 @@ public class ProductService {
 
 	public List<MyPageProductDTO> myPageInterestProduct(String memberId) {
 		return mapper.myPageInterestProduct(memberId);
+	}
+
+	public List<MyPageReceivedReviewDTO> myPageReceivedReview(String memberId) {
+		return mapper.myPageReceivedReview(memberId);
 	}
 }

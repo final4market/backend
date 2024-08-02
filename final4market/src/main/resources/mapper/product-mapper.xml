@@ -67,25 +67,20 @@
 		<result column="CHAT_COUNT" property="chatCount"/>
 	</resultMap>
 
-  <resultMap type="com.market.dto.ProductSearchViewDTO" id="productSearchView">
+    
+      <resultMap type="com.market.dto.ProductMainViewDTO" id="productMainView">
         <id column="PRODUCT_NO" property="productNo" />
-        <result column="MEMBER_ID" property="memberId"/>
         <result column="PRODUCT_PRICE" property="productPrice"/>
         <result column="PRODUCT_COUNT" property="productCount"/>
-        <result column="PRODUCT_DATE" property="productDate"/>
+         <result column="PRODUCT_DATE" property="productDate"/>
         <result column="PRODUCT_STATUS" property="productStatus"/>
-        <result column="PRODUCT_CONTENT" property="productContent"/>
         <result column="PRODUCT_SALE" property="productSale"/>
         <result column="PRODUCT_TITLE" property="productTitle"/>
         <result column="CATEGORY_NO" property="categoryNo"/>
-        <result column="DELIVERY_NO" property="deliveryNo"/>
-        <result column="TRADE_AREA" property="tradeArea"/>
-        <result column="DELIVERY_CHARGE" property="deliveryCharge"/>
         <result column="PRODUCT_LIKE" property="productLike"/>
         <result column="PRODUCT_IMAGE_PATH" property="productImagePath" />
         <result column="PRODUCT_IMAGE_NO" property="productImageNo" />
     </resultMap>
-    
     <select id="productImage" parameterType="int" resultMap="productImage">
         SELECT * FROM product_image WHERE product_no = #{productNo}
     </select>
@@ -105,18 +100,18 @@
         CONNECT BY PRIOR PARENT_CATEGORY_NO = CATEGORY_NO
     </select>
 
-  <select id="newproductlist" resultMap="productList">
+  <select id="newproductlist" resultMap="productMainView">
     <![CDATA[
-    SELECT * FROM MEMBER_PRODUCT_LIST_VIEW
+    SELECT * FROM product_Main_view
     WHERE PRODUCT_DATE BETWEEN (SYSDATE) - 7 AND (SYSDATE)
     AND PRODUCT_SALE ='판매중'
     ]]>
 </select>
 
 
- <select id="hotproductlist" resultMap="productList">
+ <select id="hotproductlist" resultMap="productMainView">
         <![CDATA[
-        SELECT * FROM MEMBER_PRODUCT_LIST_VIEW
+        SELECT * FROM product_Main_view
         WHERE PRODUCT_DATE BETWEEN TRUNC(SYSDATE) - 30 AND TRUNC(SYSDATE)
         AND PRODUCT_SALE = '판매중'
         ORDER BY PRODUCT_COUNT DESC
@@ -312,8 +307,8 @@ WHERE CATEGORY_NO =#{categoryNo};
 	
 	
 	
-<select id="searchResult" parameterType="map" resultMap="productSearchView">
-    SELECT * FROM product_search_view
+<select id="searchResult" parameterType="map" resultMap="productMainView">
+    SELECT * FROM product_Main_view
     WHERE product_image_no = '0'
     <if test="minPrice != null and minPrice != ''">
         AND PRODUCT_PRICE &gt;= #{minPrice}

@@ -56,27 +56,27 @@ public class ProductController {
 	}
 
 	@GetMapping("/api/product/productImage")
-	public List<ProductImageDTO> productImage(int productNo) {
+	public List<ProductImageDTO> productImage(@RequestParam("productNo") int productNo) {
 		List<ProductImageDTO> list = productService.productImage(productNo);
 		System.out.println(list);
 		return list;
 	}
 	
 	@GetMapping("/api/product/productInfo")
-	public ProductDTO productInfo(int productNo) {
+	public ProductDTO productInfo(@RequestParam("productNo") int productNo) {
 		ProductDTO dto = productService.productInfo(productNo);
 		return dto; 
 	}
 	
 	@GetMapping("/api/product/deliveryInfo")
-	public DeliveryDTO deliveryInfo(int productNo) {
+	public DeliveryDTO deliveryInfo(@RequestParam("productNo") int productNo) {
 		DeliveryDTO dto = productService.deliveryInfo(productNo);
 		System.out.println(dto);
 		return dto; 
 	}
 	
 	@GetMapping("/api/product/categoryInfo")
-	public List<CategoryDTO> categoryInfo(int categoryNo) {
+	public List<CategoryDTO> categoryInfo(@RequestParam("categoryNo") int categoryNo) {
 		List<CategoryDTO> list = productService.categoryInfo(categoryNo);
 		return list; 
 	}
@@ -272,7 +272,7 @@ return map;
 
 
 	@GetMapping("/api/product/sellerProductImage")
-	public List<Map<String, Object>> sellerProductImage(String memberId) {
+	public List<Map<String, Object>> sellerProductImage(@RequestParam("memberId") String memberId) {
 	    List<String> productNoList = productService.productNo(memberId);
 	    List<Map<String, Object>> productImages = new ArrayList<>();
 	    
@@ -298,7 +298,7 @@ return map;
 
 
 	@GetMapping("/insertProductLike")
-	public Map<String, Object> productLike(String memberId, int productNo) {
+	public Map<String, Object> productLike(@RequestParam("memberId") String memberId, @RequestParam("productNo") int productNo) {
 		Map<String, Object> map = new HashMap<>();
 		try {			
 			productService.insertProductLike(memberId, productNo);
@@ -316,13 +316,13 @@ return map;
 
 	
 	@GetMapping("/selectLikeStatus")
-	public List<String> selectLikeStatus(int productNo) {
+	public List<String> selectLikeStatus(@RequestParam("productNo") int productNo) {
 		List<String> list = productService.selectLikeStatus(productNo);
 		return list;
 	}
 	
 	@PutMapping("/updateProductSaleSatus")
-	public Map<String, Object> updateProductSaleSatus(int productNo){
+	public Map<String, Object> updateProductSaleSatus(@RequestParam("productNo") int productNo){
 		System.out.println(productNo);
 		Map<String, Object> map = new HashMap<>();
 		try {
@@ -336,7 +336,7 @@ return map;
 
 	
 	@GetMapping("/api/product/categoryProductInfo")
-	public List<ProductDTO> categoryProductInfo(int categoryNo){
+	public List<ProductDTO> categoryProductInfo(@RequestParam("categoryNo") int categoryNo){
 		
 		List<ProductDTO> list = productService.categoryProductInfo(categoryNo);
 		
@@ -375,7 +375,7 @@ return map;
 	}
 	
 	@PostMapping("/insertTransaction")
-	public void updateTransaction(int productNo, String memberId) {
+	public void updateTransaction(@RequestParam("productNo") int productNo, @RequestParam("memberId") String memberId) {
 		System.out.println(productNo);
 		productService.insertTransaction(productNo, memberId);
 	}

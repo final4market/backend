@@ -230,7 +230,7 @@
        r.REVIEW_SCORE
 	   FROM PRODUCT p
 	   LEFT JOIN REVIEW r ON r.PRODUCT_NO = P.PRODUCT_NO
-	   WHERE P.MEMBER_ID = #{memberId
+	   WHERE P.MEMBER_ID = #{memberId}
     </select>
 
     <select id="profileNo" parameterType="String">

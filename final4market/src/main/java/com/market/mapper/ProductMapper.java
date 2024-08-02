@@ -2,8 +2,10 @@ package com.market.mapper;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.market.dto.CategoryDTO;
 import com.market.dto.ChatDTO;
@@ -12,6 +14,7 @@ import com.market.dto.MyPageProductDTO;
 import com.market.dto.ProductDTO;
 import com.market.dto.ProductImageDTO;
 import com.market.dto.ProductLikeDTO;
+import com.market.models.ProductImage;
 
 @Mapper
 public interface ProductMapper {
@@ -53,8 +56,6 @@ public interface ProductMapper {
 
 	List<ProductDTO> productSaleslist(String memberId);
 
-  /*확인필요*/
-	ProductImageDTO selectProductdFile(Map<String, Object> map);
 
 	List<ProductImageDTO> selectProductImage(int productNo);
 
@@ -80,9 +81,29 @@ public interface ProductMapper {
 
 	int updateProduct(ProductDTO dto);
 
+	
+
+	List<ProductImage> updateProductImages(int productNo);
+
 	int updateProductImage(ProductImageDTO productImageDTO);
 
 	List<ProductDTO> categoryProductInfo(int categoryNo);
+
+	List<ProductImage> updateloadProductImages(int productNo);
+
+	int deleteProductImages(int productNo, String imageNo);
+
+	
+
+	List<ProductDTO> searchResult(Map<String, Object> params);
+
+
+	 Set<Integer> getExistingImageNumbers(@Param("productNo") int productNo);
+
+	    // 이미지를 삽입하는 메소드
+	    void insertProductImage(@Param("productImageDTO") ProductImageDTO productImageDTO, @Param("imageNo") int imageNo);
+
+
 
 	List<ProductImageDTO> categoryProductImg(List<String> productNos);
   

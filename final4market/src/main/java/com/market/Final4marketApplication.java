@@ -7,7 +7,7 @@ import org.mybatis.spring.annotation.MapperScan;
 
 
 @SpringBootApplication
-@MapperScan("com.market.mapper")
+@MapperScan({"com.market.dao", "com.market.mapper"})  
 public class Final4marketApplication {
 
 	public static void main(String[] args) {

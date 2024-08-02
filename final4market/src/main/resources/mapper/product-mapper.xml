@@ -67,7 +67,25 @@
 		<result column="CHAT_COUNT" property="chatCount"/>
 	</resultMap>
 
- 
+  <resultMap type="com.market.dto.ProductSearchViewDTO" id="productSearchView">
+        <id column="PRODUCT_NO" property="productNo" />
+        <result column="MEMBER_ID" property="memberId"/>
+        <result column="PRODUCT_PRICE" property="productPrice"/>
+        <result column="PRODUCT_COUNT" property="productCount"/>
+        <result column="PRODUCT_DATE" property="productDate"/>
+        <result column="PRODUCT_STATUS" property="productStatus"/>
+        <result column="PRODUCT_CONTENT" property="productContent"/>
+        <result column="PRODUCT_SALE" property="productSale"/>
+        <result column="PRODUCT_TITLE" property="productTitle"/>
+        <result column="CATEGORY_NO" property="categoryNo"/>
+        <result column="DELIVERY_NO" property="deliveryNo"/>
+        <result column="TRADE_AREA" property="tradeArea"/>
+        <result column="DELIVERY_CHARGE" property="deliveryCharge"/>
+        <result column="PRODUCT_LIKE" property="productLike"/>
+        <result column="PRODUCT_IMAGE_PATH" property="productImagePath" />
+        <result column="PRODUCT_IMAGE_NO" property="productImageNo" />
+    </resultMap>
+    
     <select id="productImage" parameterType="int" resultMap="productImage">
         SELECT * FROM product_image WHERE product_no = #{productNo}
     </select>
@@ -90,7 +108,7 @@
   <select id="newproductlist" resultMap="productList">
     <![CDATA[
     SELECT * FROM MEMBER_PRODUCT_LIST_VIEW
-    WHERE PRODUCT_DATE BETWEEN TRUNC(SYSDATE) - 7 AND TRUNC(SYSDATE)
+    WHERE PRODUCT_DATE BETWEEN (SYSDATE) - 7 AND (SYSDATE)
     AND PRODUCT_SALE ='판매중'
     ]]>
 </select>
@@ -157,17 +175,19 @@
     </update>
 
 
-    <insert id="insertProductImage" parameterType="com.market.dto.ProductImageDTO">
-    INSERT INTO PRODUCT_IMAGE (product_no, product_image_no, product_image_path)
-    VALUES (#{productNo}, #{productImageNo}, #{productImagePath})
-</insert>
 
        <update id="updateProductImage" parameterType="com.market.dto.ProductImageDTO">
         update PRODUCT_IMAGE
         set PRODUCT_IMAGE_PATH=#{productImagePath}, PRODUCT_IMAGE_NO= #{productImageNo}
          where product_no= #{productNo}
    </update>
-
+   
+    <insert id="insertProductImage" parameterType="productImage">
+        INSERT INTO PRODUCT_IMAGE(PRODUCT_IMAGE_PATH, PRODUCT_IMAGE_NO, product_no)
+        VALUES (#{productImagePath}, #{productImageNo}, #{productNo})
+   </insert>
+   
+ 
     <select id="productNo" parameterType="String">
         SELECT product_no FROM product WHERE member_id = #{memberId}
     </select>
@@ -275,6 +295,7 @@ WHERE CATEGORY_NO =#{categoryNo};
 		select * from product where category_no = #{categoryNo}
 	</select>
 	
+
 		<select id="categoryProductImg" parameterType="list" resultType="map">
 	    SELECT product_no,PRODUCT_IMAGE_PATH  
 	    FROM product_image 
@@ -287,4 +308,81 @@ WHERE CATEGORY_NO =#{categoryNo};
 		<insert id="insertTransaction" parameterType="map">
 		insert into transaction(buyer_id, product_no) values(#{memberId},#{productNo})
 	</insert>
+
+	
+	
+	
+<select id="searchResult" parameterType="map" resultMap="productSearchView">
+    SELECT * FROM product_search_view
+    WHERE product_image_no = '0'
+    <if test="minPrice != null and minPrice != ''">
+        AND PRODUCT_PRICE &gt;= #{minPrice}
+    </if>
+    
+    <if test="maxPrice != null and maxPrice != ''">
+        <choose>
+            <when test="minPrice != null and minPrice != ''">
+                AND PRODUCT_PRICE &lt;= #{maxPrice}
+            </when>
+            <otherwise>
+                AND PRODUCT_PRICE &lt;= #{maxPrice}
+            </otherwise>
+        </choose>
+    </if>
+    
+    <if test="includeSoldOut != null and includeSoldOut != ''">
+        AND PRODUCT_SALE = #{includeSoldOut}
+    </if>
+    
+    <if test="searchQuery != null and searchQuery != ''">
+        AND PRODUCT_TITLE LIKE '%' || #{searchQuery} || '%'
+    </if>
+     <if test="parentCategoryNo != null and parentCategoryNo != ''">
+        AND CATEGORY_NO IN (
+            SELECT category_no
+            FROM Category
+            START WITH parent_category_no = #{parentCategoryNo}
+            CONNECT BY PRIOR category_no = parent_category_no
+        )
+    </if>
+    <if test="categoryNo != null and categoryNo != ''">
+        AND CATEGORY_NO = #{categoryNo}
+    </if>
+    
+   
+
+    <if test="sortOrder != null and sortOrder != ''">
+        ORDER BY
+        <choose>
+            <when test="sortOrder == 'latest'">
+                PRODUCT_DATE DESC
+            </when>
+            <when test="sortOrder == 'highToLow'">
+                PRODUCT_PRICE DESC
+            </when>
+            <when test="sortOrder == 'lowToHigh'">
+                PRODUCT_PRICE ASC
+            </when>
+        </choose>
+    </if>
+</select>
+
+       
+  
+  <select id="updateloadProductImages" resultMap="myPageProduct">
+	SELECT * FROM Product_Image WHERE PRODUCT_NO = #{productNo}
+	</select>
+
+
+  
+
+<delete id="deleteProductImages">
+delete PRODUCT_IMAGE
+where product_no= #{productNo}
+and PRODUCT_IMAGE_NO =#{imageNo}
+</delete>
+        
+
+	
+
 </mapper>

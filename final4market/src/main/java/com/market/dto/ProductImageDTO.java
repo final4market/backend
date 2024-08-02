@@ -10,7 +10,12 @@ public class ProductImageDTO {
     private int productImageNo;
     private String productImagePath;
 
-    public ProductImageDTO() {
+    public ProductImageDTO(int productNo, String productImagePath) {
+		this.productNo = productNo;
+		this.productImagePath = productImagePath;
+	}
+
+	public ProductImageDTO() {
     }
 
 

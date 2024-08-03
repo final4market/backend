@@ -118,30 +118,10 @@
         ]]>
     </select>
 
-    <select id="selectParentCategory" resultMap="category">
+<select id="selectParentCategory" resultMap="category" parameterType="int">
         SELECT category_no, category_name, parent_category_no
         FROM Category
-        <if test="parentNumber == 1">
-            START WITH parent_category_no = 1
-        </if>
-        <if test="parentNumber == 2">
-            START WITH parent_category_no = 2
-        </if>
-        <if test="parentNumber == 3">
-            START WITH parent_category_no = 3
-        </if>
-        <if test="parentNumber == 4">
-            START WITH parent_category_no = 4
-        </if>
-        <if test="parentNumber == 5">
-            START WITH parent_category_no = 5
-        </if>
-        <if test="parentNumber == 6">
-            START WITH parent_category_no = 6
-        </if>
-        <if test="parentNumber == 7">
-            START WITH parent_category_no = 7
-        </if>
+            START WITH parent_category_no = #{parNum}
         CONNECT BY PRIOR category_no = parent_category_no
         ORDER SIBLINGS BY category_no
     </select>

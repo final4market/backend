@@ -385,5 +385,15 @@ and PRODUCT_IMAGE_NO =#{imageNo}
         update product set product_sale = '삭제' where product_no = #{productNo}
     </update>
 	
+	<select id="getProductPreview" parameterType="int" resultType="productPreview">
+        SELECT p.PRODUCT_TITLE AS productTitle, 
+               p.PRODUCT_CONTENT AS productContent, 
+               p.PRODUCT_SALE AS productSale, 
+               p.MEMBER_ID AS sellerId, 
+               pi.PRODUCT_IMAGE_PATH AS productImagePath
+        FROM product p
+        LEFT JOIN product_image pi ON p.PRODUCT_NO = pi.PRODUCT_NO
+        WHERE p.PRODUCT_NO = #{productNo} AND pi.PRODUCT_IMAGE_NO = 0
+    </select>
 
 </mapper>

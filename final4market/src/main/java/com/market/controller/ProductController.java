@@ -15,6 +15,7 @@ import java.util.Arrays;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +29,7 @@ import com.market.dto.CategoryDTO;
 import com.market.dto.DeliveryDTO;
 import com.market.dto.ProductDTO;
 import com.market.dto.ProductImageDTO;
+import com.market.dto.ProductPreviewDTO;
 import com.market.models.ProductImage;
 import com.market.service.ProductService;
 
@@ -391,6 +393,13 @@ return map;
     public void ProductStatusDelete(@RequestParam("productNo") int productNo) {
 
         productService.ProductStatusDelete(productNo);
+    }
+    
+    @Transactional
+    @GetMapping("/api/product/productPreview")
+    public ResponseEntity<ProductPreviewDTO> getProductPreview(@RequestParam int productNo) {
+        ProductPreviewDTO productPreview = productService.getProductPreview(productNo);
+        return ResponseEntity.ok(productPreview);
     }
 
 }

@@ -59,6 +59,19 @@ public class MemberController {
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
     
+    @GetMapping("/admin/adminNickname/{memberId}")
+    public ResponseEntity<Map<String, String>> getMemberNickname(@PathVariable String memberId) {
+    	System.out.println("가져온 아이디: " + memberId);
+        try {
+            String memberNick = memberService.getAdminNickname(memberId);
+            Map<String, String> response = new HashMap<>();
+            response.put("memberNick", memberNick);
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+    
     @GetMapping("/api/member/storeInfo")
     public List<StoreDTO> storeInfo(@RequestParam("memberId") String memberId) {
         List<StoreDTO> list = memberService.storeInfo(memberId);

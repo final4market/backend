@@ -139,6 +139,13 @@
     <delete id="deleteMember" parameterType="String">
         DELETE FROM member WHERE member_id=#{memberId}
     </delete>    
+    
+    <select id="getAdminNickname" parameterType="String" resultType="string">
+    SELECT m.member_nick
+    FROM member m
+    WHERE m.member_id = #{memberId} 
+    AND m.member_grade = 0
+</select>
 
     <select id="getMemberWithGradeName" parameterType="String" resultMap="MemberResultMap">
         SELECT m.member_id, m.member_name, m.member_passwd, m.member_nick, m.member_email, 

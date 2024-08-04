@@ -5,9 +5,11 @@ import java.util.Map;
 
 import com.market.dto.MemberAddressDTO;
 import com.market.dto.MemberDTO;
+import com.market.dto.MyPageFollowListDTO;
 import com.market.dto.MyPageMyInfoDTO;
 import com.market.dto.MyPageProfileDTO;
 import com.market.dto.MyPageReceivedReviewDTO;
+import com.market.dto.SellerPageProfileDTO;
 import com.market.dto.StoreDTO;
 import com.market.models.Member;
 
@@ -73,4 +75,8 @@ public interface MemberMapper {
 	List<MyPageMyInfoDTO> myPageMyInfo(String memberId);
 
 	int updateMyInfo(MyPageMyInfoDTO dto);
+
+	List<MyPageFollowListDTO> myPageFollowList(String memberId);
+
+	List<SellerPageProfileDTO> sellerPageProfile(String sellerId);
 }

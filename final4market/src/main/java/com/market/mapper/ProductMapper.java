@@ -11,6 +11,8 @@ import com.market.dto.MyPageProductDTO;
 import com.market.dto.MyPageReceivedReviewDTO;
 import com.market.dto.ProductDTO;
 import com.market.dto.ProductImageDTO;
+import com.market.dto.SellerPageProductDTO;
+import com.market.dto.SellerPageReceivedReviewDTO;
 
 @Mapper
 public interface ProductMapper {
@@ -57,4 +59,8 @@ public interface ProductMapper {
 	List<MyPageProductDTO> myPageInterestProduct(String memberId);
 
 	List<MyPageReceivedReviewDTO> myPageReceivedReview(String memberId);
+
+	List<SellerPageProductDTO> sellerPageProduct(String sellerId);
+
+	List<SellerPageReceivedReviewDTO> sellerPageReceivedReview(String sellerId);
 }

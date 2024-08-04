@@ -7,13 +7,13 @@ import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.market.dto.MyPageFollowListDTO;
 import com.market.dto.MyPageMyInfoDTO;
 import com.market.dto.MyPageProductDTO;
 import com.market.dto.MyPageProfileDTO;
@@ -54,7 +54,6 @@ public class MyPageController {
 	
 	@PutMapping("/api/member/myPageMyInfo/update")
 	public ResponseEntity<Map<String, Object>> updateMyInfo(@RequestBody MyPageMyInfoDTO dto) {
-//		System.out.println("updateMyInfo : " + dto);
 		int count = memberService.updateMyInfo(dto);
 		Map<String, Object> map = new HashMap<>();
 		map.put("count", count);
@@ -65,5 +64,10 @@ public class MyPageController {
 	@GetMapping("/api/product/myPageReceivedReview/{memberId}")
 	public List<MyPageReceivedReviewDTO> myPageReceivedReview(@PathVariable String memberId) {
 		return productService.myPageReceivedReview(memberId);
+	}
+
+	@GetMapping("/api/member/myPageFollowList/{memberId}")
+	public List<MyPageFollowListDTO> myPageFollowList(@PathVariable String memberId) {
+		return memberService.myPageFollowList(memberId);
 	}
 }

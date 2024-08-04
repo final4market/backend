@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 
 import com.market.dto.MemberAddressDTO;
 import com.market.dto.MemberDTO;
+import com.market.dto.MyPageFollowListDTO;
 import com.market.dto.MyPageMyInfoDTO;
 import com.market.dto.MyPageProfileDTO;
 import com.market.dto.MyPageReceivedReviewDTO;
+import com.market.dto.SellerPageProfileDTO;
 import com.market.dto.StoreDTO;
 
 import com.market.mapper.MemberMapper;
@@ -111,5 +113,13 @@ public class MemberService {
 
 	public int updateMyInfo(MyPageMyInfoDTO dto) {
 		return mapper.updateMyInfo(dto);
+	}
+
+	public List<MyPageFollowListDTO> myPageFollowList(String memberId) {
+		return mapper.myPageFollowList(memberId);
+	}
+
+	public List<SellerPageProfileDTO> sellerPageProfile(String sellerId) {
+		return mapper.sellerPageProfile(sellerId);
 	}
 }

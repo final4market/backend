@@ -12,7 +12,8 @@ import com.market.dto.MyPageProductDTO;
 import com.market.dto.MyPageReceivedReviewDTO;
 import com.market.dto.ProductDTO;
 import com.market.dto.ProductImageDTO;
-
+import com.market.dto.SellerPageProductDTO;
+import com.market.dto.SellerPageReceivedReviewDTO;
 import com.market.mapper.ProductMapper;
 
 @Service
@@ -115,5 +116,13 @@ public class ProductService {
 
 	public List<MyPageReceivedReviewDTO> myPageReceivedReview(String memberId) {
 		return mapper.myPageReceivedReview(memberId);
+	}
+
+	public List<SellerPageProductDTO> sellerPageProduct(String sellerId) {
+		return mapper.sellerPageProduct(sellerId);
+	}
+
+	public List<SellerPageReceivedReviewDTO> sellerPageReceivedReview(String sellerId) {
+		return mapper.sellerPageReceivedReview(sellerId);
 	}
 }

@@ -2,6 +2,7 @@ package com.market.controller;
 
 import com.market.dto.MemberAddressDTO;
 import com.market.dto.MemberDTO;
+import com.market.dto.SellerPageProfileDTO;
 import com.market.service.MemberService;
 
 import org.springframework.http.HttpStatus;
@@ -159,5 +160,9 @@ public class MemberController {
 		List<String> list = memberService.selectFollowStatus(memberId);
 		return list;
 	}
-	
+
+	@GetMapping("/api/member/sellerPageProfile/{sellerId}")
+	public List<SellerPageProfileDTO> sellerPageProfile(@PathVariable String sellerId) {
+		return memberService.sellerPageProfile(sellerId);
+	}
 }

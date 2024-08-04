@@ -13,8 +13,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.market.dto.CategoryDTO;
 import com.market.dto.DeliveryDTO;
+import com.market.dto.MyPageReceivedReviewDTO;
 import com.market.dto.ProductDTO;
 import com.market.dto.ProductImageDTO;
+import com.market.dto.SellerPageProductDTO;
+import com.market.dto.SellerPageReceivedReviewDTO;
 import com.market.service.ProductService;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -199,6 +202,14 @@ public class ProductController {
 		}
 		return map;
 	}
-	
-	
+
+	@GetMapping("/api/product/sellerPageProduct/{sellerId}")
+	public List<SellerPageProductDTO> sellerPageProduct(@PathVariable String sellerId) {
+		return productService.sellerPageProduct(sellerId);
+	}
+
+	@GetMapping("/api/product/myPageReceivedReview/{sellerId}")
+	public List<SellerPageReceivedReviewDTO> sellerPageReceivedReview(@PathVariable String sellerId) {
+		return productService.sellerPageReceivedReview(sellerId);
+	}
 }

@@ -13,17 +13,16 @@ import com.market.dao.ProductImageDAO;
 import com.market.dto.CategoryDTO;
 import com.market.dto.DeliveryDTO;
 import com.market.dto.MyPageProductDTO;
-import com.market.dto.MyPageReceivedReviewDTO;
 import com.market.dto.ProductDTO;
 import com.market.dto.ProductImageDTO;
 import com.market.dto.ProductPreviewDTO;
-import com.market.dto.SellerPageProductDTO;
-import com.market.dto.SellerPageReceivedReviewDTO;
+
 import com.market.mapper.ProductMapper;
 import com.market.models.ProductImage;
 
 @Service
-public class ProductService {    
+public class ProductService {
+    
     private final ProductImageDAO productImageDAO;
     private final ProductMapper mapper;
 
@@ -37,6 +36,9 @@ public class ProductService {
 		return mapper.newproductlist();
 	}
 
+	public List<ProductDTO> hotproductlist() {
+		return mapper.hotproductlist();
+	}
 
 
 	public ProductDTO productInfo(int productNo) {
@@ -54,11 +56,15 @@ public class ProductService {
 	public List<CategoryDTO> selectAllCategory() {
 		return mapper.selectAllCategory();
 	}
-	
+  
 	public int insertProduct(ProductDTO dto) {
 		return mapper.insertProduct(dto);
 	}
 
+	public int updateProduct(ProductDTO dto) {
+		return mapper.updateProduct(dto);
+		
+	}
 	public int getProductNo() {
 		return mapper.getProductNo();
 	}
@@ -70,10 +76,15 @@ public class ProductService {
 	public int insertProductImage(ProductImageDTO productImageDTO) {
 		return mapper.insertProductImage(productImageDTO);
 	}
+	
 
-	public List<ProductImageDTO> selectAllProductImage() {
+	public List<ProductImageDTO> ProductImage() {
 		return mapper.selectAllProductImage();
 	}
+  
+    public List<ProductImageDTO> selectAllProductImage() {
+        return mapper.selectAllProductImage();
+    }
 
 	public List<ProductDTO> selectSellerAllProduct() {
 		return mapper.selectSellerAllProduct();
@@ -87,10 +98,11 @@ public class ProductService {
 		return mapper.sellerProductImage(productNo);
 	}
 
+
 	public ProductDTO sellerProductPrice(String productNo) {
 		return mapper.sellerProductPrice(productNo);
 	}
-	
+
 	public List<ProductDTO> ProductPurchaseHistory(String buyerId) {
 		return mapper.ProductPurchaseHistory(buyerId);
 	}
@@ -125,6 +137,13 @@ public class ProductService {
 		return mapper.selectLikeStatus(productNo);
 	}
 
+	public int productDelete(int productNo) {
+		return mapper.productDelete(productNo) ;
+	}
+
+	public int updateProductSaleSatus(int productNo) {
+		return mapper.updateProductSaleSatus(productNo);
+	}
 
 	public int parentCategory(int categoryNumber) {
 		return mapper. parentCategory(categoryNumber);
@@ -139,6 +158,16 @@ public class ProductService {
         return mapper.productImage(productNo);
     }
 
+	 // 이미지 키 저장을 위한 새로운 메서드
+    public void saveProductImages(int productNo, List<String> imageKeys) {
+        for (int i = 0; i < imageKeys.size(); i++) {
+            String imageKey = imageKeys.get(i);
+            if (imageKey != null && !imageKey.isEmpty()) {  // null 값 필터링
+                ProductImageDTO productImageDTO = new ProductImageDTO(productNo, i, imageKey);
+                insertProductImage(productImageDTO);
+            }
+        }
+    }
 
 	public List<ProductDTO> categoryProductInfo(int categoryNo) {
 		return mapper.categoryProductInfo(categoryNo);
@@ -148,6 +177,7 @@ public class ProductService {
 	public List<ProductImageDTO> categoryProductImg(List<String> productNos) {
 		return mapper.categoryProductImg(productNos);
 	}
+
 
 	public List<MyPageProductDTO> myPageProduct(String memberId) {
 		return mapper.myPageProduct(memberId);
@@ -251,20 +281,6 @@ public class ProductService {
         return mapper.getProductPreview(productNo);
     }
     
-    public List<MyPageReceivedReviewDTO> myPageReceivedReview(String memberId) {
-		return mapper.myPageReceivedReview(memberId);
-	}
-
-	public List<SellerPageProductDTO> sellerPageProduct(String sellerId) {
-		return mapper.sellerPageProduct(sellerId);
-	}
-
-	public List<SellerPageReceivedReviewDTO> sellerPageReceivedReview(String sellerId) {
-		return mapper.sellerPageReceivedReview(sellerId);
-	}
-
-	public int productDelete(int productNo) {
-		return 0;
-	}
-    
 }
+
+

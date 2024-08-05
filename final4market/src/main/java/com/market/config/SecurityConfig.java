@@ -54,7 +54,7 @@ public class SecurityConfig {
             }))
             .authorizeHttpRequests(auth -> auth
 
-                    .requestMatchers("/api/auth/**", "/file/**", "/api/product/**", "/api/member/**", "/product/insert", "/api/product/update").permitAll() //전체 허용
+                    .requestMatchers("/api/auth/**", "/file/**", "/api/product/**", "/api/member/**", "/product/insert", "/api/product/update", "/api/seller/**").permitAll() //전체 허용
                     .requestMatchers(HttpMethod.GET, "/images/**").permitAll() // GET 리퀘스트 전체 허용
                     .requestMatchers(HttpMethod.POST, "/images/**").hasAnyRole("ADMIN", "USER")
                     .requestMatchers(HttpMethod.PUT, "/images/**").hasAnyRole("ADMIN", "USER") // PUT 리퀘스트 관리자, 일반회원 허용

@@ -55,6 +55,9 @@
           <result column="buyer_id" property="buyerId"/>
            <result column="PRODUCT_DATE" property="productDate"/>
             <result column="PRODUCT_COUNT" property="productCount"/>
+    <result column="review" property="review"/>
+    <result column="review_date" property="reviewDate"/>
+    <result column="review_score" property="reviewScore"/>
     </resultMap>
 
 	<resultMap type="com.market.dto.MyPageProductDTO" id="myPageProduct">
@@ -364,7 +367,7 @@ WHERE CATEGORY_NO =#{categoryNo};
 
        
   
-  <select id="updateloadProductImages" resultMap="myPageProduct">
+  <select id="updateloadProductImages" resultMap="productImage">
 	SELECT * FROM Product_Image WHERE PRODUCT_NO = #{productNo}
 	</select>
 

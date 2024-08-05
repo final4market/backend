@@ -11,114 +11,114 @@ import com.market.dto.CategoryDTO;
 import com.market.dto.ChatDTO;
 import com.market.dto.DeliveryDTO;
 import com.market.dto.MyPageProductDTO;
+import com.market.dto.MyPageReceivedReviewDTO;
 import com.market.dto.ProductDTO;
 import com.market.dto.ProductImageDTO;
 import com.market.dto.ProductLikeDTO;
 import com.market.dto.ProductPreviewDTO;
-
+import com.market.dto.SellerPageProductDTO;
+import com.market.dto.SellerPageReceivedReviewDTO;
 import com.market.models.ProductImage;
 
 @Mapper
 public interface ProductMapper {
-	List<ProductImageDTO> productImage(int productNo);
+    List<ProductImageDTO> productImage(int productNo);
 
-	ProductDTO productInfo(int productNo);
+    ProductDTO productInfo(int productNo);
 
-	DeliveryDTO deliveryInfo(int productNo);
+    DeliveryDTO deliveryInfo(int productNo);
 
-	List<CategoryDTO> categoryInfo(int categoryNo);
+    List<CategoryDTO> categoryInfo(int categoryNo);
 
-	List<ProductDTO> newproductlist();
-  
-	List<ProductDTO> hotproductlist();
+    List<ProductDTO> selectAllProduct();
 
-	int insertProduct(ProductDTO dto);
+    List<ProductDTO> newproductlist();
 
-	int getProductNo();
+    List<ProductDTO> hotproductlist();
 
-	List<CategoryDTO> selectAllCategory();
+    int insertProduct(ProductDTO dto);
 
-	List<CategoryDTO> selectParentCategory(int parNum);
+    int getProductNo();
 
-	int insertProductImage(ProductImageDTO productImageDTO);
+    List<CategoryDTO> selectAllCategory();
 
-	List<ProductImageDTO> selectAllProductImage();
+    List<CategoryDTO> selectParentCategory(int parNum);
 
-	List<ProductDTO> selectSellerAllProduct();
+    int insertProductImage(ProductImageDTO productImageDTO);
 
-	List<String> productNo(String memberId);
+    List<ProductImageDTO> selectAllProductImage();
 
-	List<String> sellerProductImage(String productNo);
+    List<ProductDTO> selectSellerAllProduct();
 
-	ProductDTO sellerProductPrice(String productNo);
+    List<String> productNo(String memberId);
 
-	List<ProductDTO> productsoldoutlist(String memberId);
+    List<String> sellerProductImage(String productNo);
 
-	List<ProductDTO> ProductPurchaseHistory(String buyerId);
+    ProductDTO sellerProductPrice(String productNo);
 
-	List<ProductDTO> productSaleslist(String memberId);
+    List<ProductDTO> productsoldoutlist(String memberId);
 
+    List<ProductDTO> ProductPurchaseHistory(String buyerId);
 
-	List<ProductImageDTO> selectProductImage(int productNo);
+    List<ProductDTO> productSaleslist(String memberId);
 
-	List<ProductDTO> selectProductPrice(int productNo);
+    List<ProductImageDTO> selectProductImage(int productNo);
 
-	List<ProductLikeDTO> selectProductLike(int productNo);
+    List<ProductDTO> selectProductPrice(int productNo);
 
-	List<ChatDTO> selectProductChat(int productNo);
+    List<ProductLikeDTO> selectProductLike(int productNo);
 
-	int insertProductLike(Map<String, Object> map);
+    List<ChatDTO> selectProductChat(int productNo);
 
-	int deleteProductLike(Map<String, Object> map);
+    int insertProductLike(Map<String, Object> map);
 
-	int productDelete(int productNo);
+    int deleteProductLike(Map<String, Object> map);
 
-	List<String> selectLikeStatus(int productNo);
+    int productDelete(int productNo);
 
-	int updateProductSaleSatus(int productNo);
+    List<String> selectLikeStatus(int productNo);
 
-	int parentCategory(int categoryNumber);
+    int updateProductSaleStatus(int productNo);
 
-	ProductDTO productUpdate(int productNo);
+    int parentCategory(int categoryNumber);
 
-	int updateProduct(ProductDTO dto);
+    ProductDTO productUpdate(int productNo);
 
-	
+    int updateProduct(ProductDTO dto);
 
-	List<ProductImage> updateProductImages(int productNo);
+    List<ProductImage> updateProductImages(int productNo);
 
-	int updateProductImage(ProductImageDTO productImageDTO);
+    int updateProductImage(ProductImageDTO productImageDTO);
 
-	List<ProductDTO> categoryProductInfo(int categoryNo);
+    List<ProductDTO> categoryProductInfo(int categoryNo);
 
-	List<ProductImage> updateloadProductImages(int productNo);
+    List<ProductImage> updateloadProductImages(int productNo);
 
-	int deleteProductImages(int productNo, String imageNo);
+    int deleteProductImages(@Param("productNo") int productNo, @Param("imageNo") String imageNo);
 
-	
+    List<ProductDTO> searchResult(Map<String, Object> params);
 
-	List<ProductDTO> searchResult(Map<String, Object> params);
+    Set<Integer> getExistingImageNumbers(@Param("productNo") int productNo);
 
+    void insertProductImage(@Param("productImageDTO") ProductImageDTO productImageDTO, @Param("imageNo") int imageNo);
 
-	 Set<Integer> getExistingImageNumbers(@Param("productNo") int productNo);
+    List<ProductImageDTO> categoryProductImg(List<String> productNos);
 
-	    // 이미지를 삽입하는 메소드
-	    void insertProductImage(@Param("productImageDTO") ProductImageDTO productImageDTO, @Param("imageNo") int imageNo);
+    List<MyPageProductDTO> myPageProduct(String memberId);
 
+    List<MyPageProductDTO> myPageInterestProduct(String memberId);
 
+    int insertTransaction(Map<String, Object> map);
 
-	List<ProductImageDTO> categoryProductImg(List<String> productNos);
-  
-	List<MyPageProductDTO> myPageProduct(String memberId);
+    int productStatusUpdate(Map<String, Object> map);
 
-	List<MyPageProductDTO> myPageInterestProduct(String memberId);
+    int ProductStatusDelete(int productNo);
+    
+    ProductPreviewDTO getProductPreview(@Param("productNo") int productNo);
 
-	int insertTransaction(Map<String, Object> map);
+    List<MyPageReceivedReviewDTO> myPageReceivedReview(String memberId);
 
-	int productStatusUpdate(Map<String, Object> map);
+    List<SellerPageProductDTO> sellerPageProduct(String sellerId);
 
-	int ProductStatusDelete(int productNo);
-	
-	ProductPreviewDTO getProductPreview(@Param("productNo") int productNo);
-
+    List<SellerPageReceivedReviewDTO> sellerPageReceivedReview(String sellerId);
 }

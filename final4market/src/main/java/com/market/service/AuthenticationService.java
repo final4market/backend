@@ -7,8 +7,6 @@ import org.springframework.stereotype.Service;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
-
-import com.market.config.SecurityConfig;
 import com.market.mapper.MemberMapper;
 import com.market.models.Member;
 import javax.crypto.SecretKey;
@@ -23,7 +21,7 @@ public class AuthenticationService {
     private final MemberMapper mapper;
     private final PasswordEncoder passwordEncoder;
     private final SecretKey key;
-    private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationService.class);
+    private final Logger logger = LoggerFactory.getLogger(AuthenticationService.class);
 
     @Autowired
     public AuthenticationService(MemberMapper mapper, PasswordEncoder passwordEncoder, @Value("${jwt.secret}") String jwtSecret) {
@@ -41,32 +39,36 @@ public class AuthenticationService {
         Member member = mapper.getMemberByIdWithPassword(memberId);
         if (member != null) {    	
             boolean isPasswordMatch = passwordEncoder.matches(memberPasswd, member.getMemberPasswd());
-            LOGGER.info("비밀번호 일치 여부: {}", isPasswordMatch);
+            logger.info("비밀번호 일치 여부: {}", isPasswordMatch);
 
             if (isPasswordMatch) {
                 String token = generateJwtToken(member);
                 System.out.println(token);
                 return token;
             }else {
-                LOGGER.warn("{} 아이디와 비밀번호가 일치하지 않습니다", memberId);
+                logger.warn("{} 아이디와 비밀번호가 일치하지 않습니다", memberId);
             }
         } else {
-            LOGGER.warn("아이디가 {}인 회원이 존재하지 않습니다", memberId);
+            logger.warn("아이디가 {}인 회원이 존재하지 않습니다", memberId);
         }
         return null;
     }
 
+    public void updatePassword(String memberId, String newPasswd) {
+        String encodedPasswd = passwordEncoder.encode(newPasswd);
+        mapper.updatePassword(memberId, encodedPasswd);
+    }
+
     private String generateJwtToken(Member member) {
-    	long expirationTimeInMillis = 1000 * 60 * 20;
+    	long expirationTimeInMillis = 1000 * 60 * 60 * 24;
     	
     	List<String> roles = mapGradeToRoles(member.getMemberGrade());
-    	LOGGER.debug("Roles assigned to token: {}", roles);
     	
         return Jwts.builder()
                 .setSubject(member.getMemberId())
                 .claim("role", roles)
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + expirationTimeInMillis)) // 5분
+                .setExpiration(new Date(System.currentTimeMillis() + expirationTimeInMillis)) // 24시간
                 .signWith(key, SignatureAlgorithm.HS512)
                 .compact();
     }

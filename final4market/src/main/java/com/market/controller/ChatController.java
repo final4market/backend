@@ -72,4 +72,3 @@ public class ChatController {
         return ResponseEntity.ok("메시지 전송 완료");
     }
 }
-

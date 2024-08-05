@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,23 +16,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.market.dto.ChatDTO;
 import com.market.dto.MemberDTO;
-import com.market.dto.MemberProfileDTO;
-import com.market.dto.ProductDTO;
-import com.market.dto.ProductImageDTO;
-import com.market.dto.ProductLikeDTO;
-import com.market.dto.ReviewDTO;
+import com.market.dto.MyPageFollowListDTO;
 import com.market.dto.MyPageMyInfoDTO;
 import com.market.dto.MyPageProductDTO;
 import com.market.dto.MyPageProfileDTO;
 import com.market.dto.MyPageReceivedReviewDTO;
-
-import org.springframework.web.bind.annotation.RestController;
-
+import com.market.dto.ProductDTO;
+import com.market.dto.ProductImageDTO;
+import com.market.dto.ReviewDTO;
+import com.market.dto.ReviewListDTO;
 import com.market.service.MemberService;
 import com.market.service.ProductService;
 import com.market.service.ReviewService;
+
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -42,9 +38,7 @@ public class MyPageController {
 	private ProductService productService;
 	private ReviewService reviewService;
 
-
-	public MyPageController(MemberService memberService,
-			ProductService productService, ReviewService reviewService) {
+	public MyPageController(MemberService memberService, ProductService productService, ReviewService reviewService) {
 		this.memberService = memberService;
 		this.productService = productService;
 		this.reviewService = reviewService;
@@ -191,7 +185,6 @@ public class MyPageController {
 	
 	@PutMapping("/api/member/myPageMyInfo/update")
 	public ResponseEntity<Map<String, Object>> updateMyInfo(@RequestBody MyPageMyInfoDTO dto) {
-		System.out.println("updateMyInfo : " + dto);
 		int count = memberService.updateMyInfo(dto);
 		Map<String, Object> map = new HashMap<>();
 		map.put("count", count);
@@ -199,9 +192,13 @@ public class MyPageController {
 		return new ResponseEntity<>(map, HttpStatus.OK);
 	}
 
-	@GetMapping("api/product/myPageReceivedReview/{memberId}")
+	@GetMapping("/api/product/myPageReceivedReview/{memberId}")
 	public List<MyPageReceivedReviewDTO> myPageReceivedReview(@PathVariable String memberId) {
-		return memberService.myPageReceivedReview(memberId);
+		return productService.myPageReceivedReview(memberId);
+	}
 
+	@GetMapping("/api/member/myPageFollowList/{memberId}")
+	public List<MyPageFollowListDTO> myPageFollowList(@PathVariable String memberId) {
+		return memberService.myPageFollowList(memberId);
 	}
 }

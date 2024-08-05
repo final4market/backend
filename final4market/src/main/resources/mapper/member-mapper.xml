@@ -31,7 +31,6 @@
 		<result column="REVIEW_SCORE" property="reviewScore"/>
 	</resultMap>
 	
-	
     <resultMap type="com.market.dto.MemberProfileDTO" id="profile">
         <id column="MEMBER_PROFILE_NO" property="memberProfileNo" />
         <result column="MEMBER_PROFILE_PATH" property="memberProfilePath"/>
@@ -53,7 +52,6 @@
 	<resultMap type="com.market.dto.MemberAddressDTO" id="address">
 		<id column="MEMBER_ADDRESS_NO" property="memberAddressNo"/>
 		<result column="MEMBER_ID" property="memberId"/>
-		<result column="ADDRESS_NAME" property="addressName"/>
 		<result column="ADDRESS" property="address"/>
 		<result column="POSTAL_CODE" property="postalCode"/>
 		<result column="MAIN_ADDRESS" property="mainAddress"/>
@@ -62,13 +60,15 @@
 	</resultMap>
 
 	<resultMap type="com.market.dto.MyPageProfileDTO" id="myPageProfile">
-		<result column="PROFILE_PATH" property="memberProfilePath"/>
+		<result column="MEMBER_PROFILE_PATH" property="memberProfilePath"/>
 		<result column="MEMBER_ID" property="memberId"/>
 		<result column="MEMBER_NICK" property="memberNick"/>
 		<result column="REVIEW_SCORE" property="memberScore"/>
 	</resultMap>
 
 	<resultMap type="com.market.dto.MyPageMyInfoDTO" id="myPageMyInfo">
+		<result column="MEMBER_PROFILE_NO" property="memberProfileNo"/>
+		<result column="MEMBER_PROFILE_PATH" property="memberProfilePath"/>
 		<result column="MEMBER_ID" property="memberId"/>
 		<result column="MEMBER_PASSWD" property="memberPasswd"/>
 		<result column="MEMBER_NAME" property="memberName"/>
@@ -81,8 +81,27 @@
 		<result column="MEMBER_POSTAL_CODE" property="memberPostalCode"/>
 		<result column="MEMBER_ADDRESS" property="memberAddress"/>
 		<result column="MEMBER_DETAIL_ADDRESS" property="memberDetailAddress"/>
-		<result column="MEMBER_PROFILE_NO" property="memberProfileNo"/>
-		<result column="MEMBER_PROFILE_PATH" property="memberProfilePath"/>
+	</resultMap>
+
+	<resultMap type="com.market.dto.MyPageFollowListDTO" id="myPageFollowList">
+		<result column="SELLER_PROFILE_PATH" property="sellerProfilePath"/>
+		<result column="SELLER_ID" property="sellerId"/>
+		<result column="SELLER_NICK" property="sellerNick"/>
+		<result column="SELLER_FOLLOW_COUNT" property="sellerFollowCount"/>
+	</resultMap>
+
+	<resultMap type="com.market.dto.SellerPageProfileDTO" id="sellerPageProfile">
+		<result column="SELLER_PROFILE_PATH" property="sellerProfilePath"/>
+		<result column="SELLER_ID" property="sellerId"/>
+		<result column="SELLER_NICK" property="sellerNick"/>
+		<result column="SELLER_SCORE" property="sellerScore"/>
+	</resultMap>
+
+	<resultMap type="com.market.dto.SellerPageFollowListDTO" id="sellerPageFollowList">
+		<result column="SELLER_PROFILE_PATH" property="sellerProfilePath"/>
+		<result column="SELLER_ID" property="sellerId"/>
+		<result column="SELLER_NICK" property="sellerNick"/>
+		<result column="SELLER_FOLLOW_COUNT" property="sellerFollowCount"/>
 	</resultMap>
 
 	<select id="selectAllMembers" resultMap="member">
@@ -117,7 +136,7 @@
         </if>
      </select>   
     
-     <update id="updateMember" parameterType="com.market.dto.MemberDTO">
+    <update id="updateMember" parameterType="com.market.dto.MemberDTO">
             UPDATE member
             SET 
                 member_name = #{memberName}, 
@@ -135,10 +154,11 @@
                 </if>
             WHERE member_id = #{memberId}
     </update>
-
+    
     <delete id="deleteMember" parameterType="String">
         DELETE FROM member WHERE member_id=#{memberId}
-    </delete>    
+
+    </delete>  
 
     <select id="getAdminNickname" parameterType="String" resultType="string">
     SELECT m.member_nick
@@ -219,14 +239,13 @@
     </if>
     WHERE member_id = #{memberId}
 </update>
-   
     
     <update id="updatePassword">
         UPDATE member SET member_passwd = #{memberPasswd} WHERE member_id = #{memberId}
     </update>
     
     <select id="storeInfo" resultMap="store" parameterType="String">
-	SELECT P.PRODUCT_NO,
+ 	SELECT P.PRODUCT_NO,
        P.MEMBER_ID AS SELLER_ID,
        r.BUYER_ID,
        P.PRODUCT_PRICE AS SALE_PRICE,
@@ -239,7 +258,7 @@
 	   LEFT JOIN REVIEW r ON r.PRODUCT_NO = P.PRODUCT_NO
 	   WHERE P.MEMBER_ID = #{memberId}
     </select>
-
+    
     <select id="profileNo" parameterType="String">
         SELECT m.MEMBER_PROFILE_NO  FROM "MEMBER" M WHERE M.MEMBER_ID = #{memberId}
     </select>
@@ -309,8 +328,8 @@
 		    M.MEMBER_ID,
 		    M.MEMBER_NICK,
 		    (SELECT ROUND(AVG(REVIEW_SCORE), 2)
-		    FROM REVIEW R
-		    WHERE M.MEMBER_ID = R.SELLER_ID) AS REVIEW_SCORE
+		     FROM REVIEW R
+		     WHERE M.MEMBER_ID = R.SELLER_ID) AS REVIEW_SCORE
 		FROM
 		    MEMBER M
 		LEFT JOIN
@@ -321,6 +340,7 @@
 
 	<select id="myPageMyInfo" parameterType="String" resultMap="myPageMyInfo">
 	    SELECT
+	        MP.PROFILE_PATH AS MEMBER_PROFILE_PATH,
 	        M.MEMBER_ID,
 	        M.MEMBER_PASSWD,
 	        M.MEMBER_NAME,
@@ -333,8 +353,7 @@
 	        SUBSTR(M.MEMBER_ADDRESS, 1, INSTR(M.MEMBER_ADDRESS, '+') - 1) AS MEMBER_POSTAL_CODE,
 	        SUBSTR(M.MEMBER_ADDRESS, INSTR(M.MEMBER_ADDRESS, '+') + 1,
 	               INSTR(M.MEMBER_ADDRESS, '+', INSTR(M.MEMBER_ADDRESS, '+') + 1) - INSTR(M.MEMBER_ADDRESS, '+') - 1) AS MEMBER_ADDRESS,
-	        SUBSTR(M.MEMBER_ADDRESS, INSTR(M.MEMBER_ADDRESS, '+', INSTR(M.MEMBER_ADDRESS, '+') + 1) + 1) AS MEMBER_DETAIL_ADDRESS,
-	        MP.PROFILE_PATH AS MEMBER_PROFILE_PATH
+	        SUBSTR(M.MEMBER_ADDRESS, INSTR(M.MEMBER_ADDRESS, '+', INSTR(M.MEMBER_ADDRESS, '+') + 1) + 1) AS MEMBER_DETAIL_ADDRESS
 	    FROM
 	        MEMBER M
 	    LEFT JOIN
@@ -352,9 +371,54 @@
 	        M.MEMBER_NICK = #{memberNick},
 	        M.MEMBER_PHONE_NUMBER = CONCAT(#{memberPhoneNumber1}, '-', #{memberPhoneNumber2}, '-', #{memberPhoneNumber3}),
 	        M.MEMBER_EMAIL = CONCAT(#{memberEmailId}, '@', #{memberEmailDomain}),
-	        M.MEMBER_ADDRESS = #{memberAddress},
-	        (UPDATE MEMBER_PROFILE INTO PROFILE_PATH = #{memberProfilePath})
+	        M.MEMBER_ADDRESS = #{memberAddress}
 	    WHERE
-        	M.MEMBER_ID = #{memberId}
+        	M.MEMBER_ID = #{MEMBER_ID}
 	</update>
+
+	s
+	         WHERE F.SELLER_ID = M.MEMBER_ID) AS SELLER_FOLLOW_COUNT
+	    FROM
+	        FOLLOW F
+	    JOIN
+	        MEMBER M ON F.SELLER_ID = M.MEMBER_ID
+	    LEFT JOIN
+	        MEMBER_PROFILE MP ON M.MEMBER_PROFILE_NO = MP.MEMBER_PROFILE_NO
+	    WHERE
+	        F.BUYER_ID = #{MEMBER_ID}
+	</select>
+
+	<select id="sellerPageProfile" parameterType="String" resultMap="sellerPageProfile">
+		SELECT
+		    MP.PROFILE_PATH AS SELLER_PROFILE_PATH,
+		    M.MEMBER_ID AS SELLER_ID,
+		    M.MEMBER_NICK AS SELLER_NICK,
+		    (SELECT ROUND(AVG(R.REVIEW_SCORE), 2)
+		     FROM REVIEW R
+		     WHERE M.MEMBER_ID = R.SELLER_ID) AS SELLER_SCORE
+		FROM
+		    MEMBER M
+		LEFT JOIN
+		    MEMBER_PROFILE MP ON M.MEMBER_PROFILE_NO = MP.MEMBER_PROFILE_NO
+		WHERE
+		    M.MEMBER_ID = #{SELLER_ID}
+	</select>
+
+	<select id="sellerPageFollowList" parameterType="String" resultMap="sellerPageFollowList">
+	    SELECT
+	        MP.PROFILE_PATH AS SELLER_PROFILE_PATH,
+	        M.MEMBER_ID AS SELLER_ID,
+	        M.MEMBER_NICK AS SELLER_NICK,
+	        (SELECT COUNT(*)
+	         FROM FOLLOW F
+	         WHERE F.SELLER_ID = M.MEMBER_ID) AS SELLER_FOLLOW_COUNT
+	    FROM
+	        FOLLOW F
+	    JOIN
+	        MEMBER M ON F.SELLER_ID = M.MEMBER_ID
+	    LEFT JOIN
+	        MEMBER_PROFILE MP ON M.MEMBER_PROFILE_NO = MP.MEMBER_PROFILE_NO
+	    WHERE
+	        F.BUYER_ID = #{SELLER_ID}
+	</select>
 </mapper>

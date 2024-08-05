@@ -1,4 +1,4 @@
-		package com.market.dto;
+package com.market.dto;
 
 import org.apache.ibatis.type.Alias;
 import org.springframework.web.bind.annotation.RestController;
@@ -7,19 +7,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class MemberAddressDTO {
 	private int memberAddressNo;
 	private String memberId;
-	private String addressName;
 	private String address;
 	private String postalCode;
 	private int mainAddress;
 	private String memberName;
 	private String memberPhoneNumber;
-	
-	public MemberAddressDTO(int memberAddressNo, String memberId, String addressName, String address, String postalCode,
-			int mainAddress, String memberName, String memberPhoneNumber) {
+
+	public MemberAddressDTO(int memberAddressNo, String memberId, String address, String postalCode, int mainAddress,
+			String memberName, String memberPhoneNumber) {
 		super();
 		this.memberAddressNo = memberAddressNo;
 		this.memberId = memberId;
-		this.addressName = addressName;
 		this.address = address;
 		this.postalCode = postalCode;
 		this.mainAddress = mainAddress;
@@ -44,14 +42,6 @@ public class MemberAddressDTO {
 
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
-	}
-
-	public String getAddressName() {
-		return addressName;
-	}
-
-	public void setAddressName(String addressName) {
-		this.addressName = addressName;
 	}
 
 	public String getAddress() {
@@ -96,11 +86,11 @@ public class MemberAddressDTO {
 
 	@Override
 	public String toString() {
-		return "MemberAddressDTO [memberAddressNo=" + memberAddressNo + ", memberId=" + memberId + ", addressName="
-				+ addressName + ", address=" + address + ", postalCode=" + postalCode + ", mainAddress=" + mainAddress
-				+ ", memberName=" + memberName + ", memberPhoneNumber=" + memberPhoneNumber + "]";
+		return "MemberAddressDTO [memberAddressNo=" + memberAddressNo + ", memberId=" + memberId + ", address="
+				+ address + ", postalCode=" + postalCode + ", mainAddress=" + mainAddress + ", memberName=" + memberName
+				+ ", memberPhoneNumber=" + memberPhoneNumber + "]";
 	}
-
+	
 	
 	
 }

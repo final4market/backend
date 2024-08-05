@@ -15,4 +15,3 @@
         VALUES (#{productImageNo}, #{productImageDTO.productImagePath}, #{productImageDTO.productNo})
     </insert>
 </mapper>
-

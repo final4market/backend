@@ -1,6 +1,8 @@
 package com.market.dto;
 
 public class MyPageMyInfoDTO {
+	private int memberProfileNo;
+	private String memberProfilePath;
 	private String memberId;
 	private String memberPasswd;
 	private String memberName;
@@ -13,16 +15,16 @@ public class MyPageMyInfoDTO {
 	private String memberPostalCode;
 	private String memberAddress;
 	private String memberDetailAddress;
-	private String memberProfileNo;
-	private String memberProfilePath;
 
 	public MyPageMyInfoDTO() {
 	}
 
-	public MyPageMyInfoDTO(String memberId, String memberPasswd, String memberName, String memberNick,
-			String memberPhoneNumber1, String memberPhoneNumber2, String memberPhoneNumber3, String memberEmailId,
-			String memberEmailDomain, String memberPostalCode, String memberAddress, String memberDetailAddress,
-			String memberProfileNo, String memberProfilePath) {
+	public MyPageMyInfoDTO(int memberProfileNo, String memberProfilePath, String memberId, String memberPasswd,
+			String memberName, String memberNick, String memberPhoneNumber1, String memberPhoneNumber2,
+			String memberPhoneNumber3, String memberEmailId, String memberEmailDomain, String memberPostalCode,
+			String memberAddress, String memberDetailAddress) {
+		this.memberProfileNo = memberProfileNo;
+		this.memberProfilePath = memberProfilePath;
 		this.memberId = memberId;
 		this.memberPasswd = memberPasswd;
 		this.memberName = memberName;
@@ -35,7 +37,21 @@ public class MyPageMyInfoDTO {
 		this.memberPostalCode = memberPostalCode;
 		this.memberAddress = memberAddress;
 		this.memberDetailAddress = memberDetailAddress;
+	}
+
+	public int getMemberProfileNo() {
+		return memberProfileNo;
+	}
+
+	public void setMemberProfileNo(int memberProfileNo) {
 		this.memberProfileNo = memberProfileNo;
+	}
+
+	public String getMemberProfilePath() {
+		return memberProfilePath;
+	}
+
+	public void setMemberProfilePath(String memberProfilePath) {
 		this.memberProfilePath = memberProfilePath;
 	}
 
@@ -135,29 +151,13 @@ public class MyPageMyInfoDTO {
 		this.memberDetailAddress = memberDetailAddress;
 	}
 
-	public String getMemberProfileNo() {
-		return memberProfileNo;
-	}
-
-	public void setMemberProfileNo(String memberProfileNo) {
-		this.memberProfileNo = memberProfileNo;
-	}
-
-	public String getMemberProfilePath() {
-		return memberProfilePath;
-	}
-
-	public void setMemberProfilePath(String memberProfilePath) {
-		this.memberProfilePath = memberProfilePath;
-	}
-
 	@Override
 	public String toString() {
-		return "MyPageMyInfoDTO [memberId=" + memberId + ", memberPasswd=" + memberPasswd + ", memberName=" + memberName
+		return "MyPageMyInfoDTO [memberProfileNo=" + memberProfileNo + ", memberProfilePath=" + memberProfilePath
+				+ ", memberId=" + memberId + ", memberPasswd=" + memberPasswd + ", memberName=" + memberName
 				+ ", memberNick=" + memberNick + ", memberPhoneNumber1=" + memberPhoneNumber1 + ", memberPhoneNumber2="
 				+ memberPhoneNumber2 + ", memberPhoneNumber3=" + memberPhoneNumber3 + ", memberEmailId=" + memberEmailId
 				+ ", memberEmailDomain=" + memberEmailDomain + ", memberPostalCode=" + memberPostalCode
-				+ ", memberAddress=" + memberAddress + ", memberDetailAddress=" + memberDetailAddress
-				+ ", memberProfileNo=" + memberProfileNo + ", memberProfilePath=" + memberProfilePath + "]";
+				+ ", memberAddress=" + memberAddress + ", memberDetailAddress=" + memberDetailAddress + "]";
 	}
 }

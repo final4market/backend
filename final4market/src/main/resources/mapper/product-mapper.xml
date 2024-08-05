@@ -374,9 +374,6 @@ and PRODUCT_IMAGE_NO =#{imageNo}
 		update product set product_sale = '삭제' where product_no = #{productNo}
 	</update>
 
-	<!-- 접속한 아이디가 해당 상품에 좋아요를 했는지 확인 -->
-	<select id="selectLikeStatus" parameterType="int" resultMap="">
-		select buyer_id from INTEREST_PRODUCT where product_no = #{productNo}
-	</select>
+
 
 </mapper>

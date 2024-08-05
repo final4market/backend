@@ -364,7 +364,7 @@ return map;
 	  }
 
 
-
+	
 	@PostMapping("/api/product/categoryProductImg")
 	public List<ProductImageDTO> categoryProductImg(@RequestBody Map<String, Object> productNo){
 		System.out.println(productNo);
@@ -384,6 +384,7 @@ return map;
 	public void productStatusUpdate(@RequestParam("status") String status, @RequestParam("productNo") int productNo) {
 		productService.productStatusUpdate(status,productNo);
 	}
+	
 	@PutMapping("/ProductStatusDelete")
 	public void ProductStatusDelete(@RequestParam("productNo") int productNo) {
 		productService.productStatusUpdate(productNo);

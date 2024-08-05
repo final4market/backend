@@ -37,7 +37,9 @@ public class ReportController {
 
     @GetMapping("/reports")
     public ResponseEntity<List<ReportDTO>> getAllReports(HttpServletRequest request) {
+
         String adminId = request.getHeader("AdminId");
+
         List<ReportDTO> reports = reportService.getAllReports(adminId);
         return ResponseEntity.ok(reports);
     }
@@ -45,8 +47,10 @@ public class ReportController {
     @GetMapping("/reports/filtered")
     public ResponseEntity<List<ReportDTO>> getFilteredReports(HttpServletRequest request,
                                                               @RequestParam Map<String, String> params) {
+
         String adminId = request.getHeader("AdminId");
         String claimerId = request.getHeader("ClaimerId");
+
         params.put("adminId", adminId);
         if (claimerId != null) {
             params.put("claimerId", claimerId);
@@ -95,6 +99,7 @@ public class ReportController {
                                                                 @RequestParam("sellerId") String sellerId,
                                                                 @RequestParam("readStatus") char readStatus,
                                                                 HttpServletRequest request) {
+
         String claimerId = request.getHeader("ClaimerId");
         String adminId = request.getHeader("AdminId");
         

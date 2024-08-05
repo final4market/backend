@@ -16,6 +16,7 @@ import com.market.dto.MyPageProductDTO;
 import com.market.dto.ProductDTO;
 import com.market.dto.ProductImageDTO;
 import com.market.dto.ProductPreviewDTO;
+
 import com.market.mapper.ProductMapper;
 import com.market.models.ProductImage;
 
@@ -30,7 +31,6 @@ public class ProductService {
         this.productImageDAO = productImageDAO;
         this.mapper = mapper;
     }
-
 
 	public List<ProductDTO> newproductlist() {
 		return mapper.newproductlist();
@@ -282,4 +282,5 @@ public class ProductService {
     }
     
 }
+
 

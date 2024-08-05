@@ -220,10 +220,10 @@
 	</insert>
 	
 
-	<delete id="productDelete" parameterType="map">
-    delete from product
+	<update id="productDelete" parameterType="map">
+    update product set  product_sale = '삭제'
      where product_no = #{productNo}
-  </delete>
+  </update>
 
 <delete id="deleteProductLike" parameterType="map">
 		delete from INTEREST_PRODUCT where buyer_id = #{memberId} and product_no = #{productNo}
@@ -300,6 +300,7 @@ WHERE CATEGORY_NO =#{categoryNo};
 <select id="searchResult" parameterType="map" resultMap="productMainView">
     SELECT * FROM product_Main_view
     WHERE product_image_no = '0'
+     AND PRODUCT_SALE != '삭제' 
     <if test="minPrice != null and minPrice != ''">
         AND PRODUCT_PRICE &gt;= #{minPrice}
     </if>

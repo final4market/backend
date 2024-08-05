@@ -126,7 +126,7 @@ public class MyPageController {
 	    }
 	}
 	
-	@DeleteMapping("/product/delete/{productNo}")
+	@PutMapping("/product/delete/{productNo}")
 	public ResponseEntity<String> productDelete(@PathVariable int productNo) {
 	    int result = productService.productDelete(productNo);
 	    if (result > 0) {

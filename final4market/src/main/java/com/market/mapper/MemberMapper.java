@@ -27,11 +27,13 @@ public interface MemberMapper {
 
 	int deleteMember(String memberId);
 	
+	String getAdminNickname(String memberId);
+	
 	Member getMemberWithGradeName(@Param("memberId") String memberId);
 
 	Member getMemberByIdWithPassword(@Param("memberId") String memberId);
 
-	String findMemberIdByNameAndPhone(String memberName, String memberPhoneNo);
+	String findMemberIdByNameAndPhone(@Param("memberName") String memberName, @Param("memberPhoneNo") String memberPhoneNo);
 	
 	int countMembersById(String memberId);
 	

@@ -15,6 +15,7 @@ import com.market.dto.DeliveryDTO;
 import com.market.dto.MyPageProductDTO;
 import com.market.dto.ProductDTO;
 import com.market.dto.ProductImageDTO;
+import com.market.dto.ProductPreviewDTO;
 import com.market.mapper.ProductMapper;
 import com.market.models.ProductImage;
 
@@ -29,8 +30,6 @@ public class ProductService {
         this.productImageDAO = productImageDAO;
         this.mapper = mapper;
     }
-
-
 
 
 	public List<ProductDTO> newproductlist() {
@@ -264,7 +263,23 @@ public class ProductService {
 		
 	}
 
+	public int productStatusUpdate(String status, int productNo) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("status", status);
+        map.put("productNo", productNo);
+        return mapper.productStatusUpdate(map);
 
-		
-	}
+    }
+
+
+    public int ProductStatusDelete(int productNo) {
+        return mapper.ProductStatusDelete(productNo);
+    }
+    
+    // 상품 미리보기 가져오기
+    public ProductPreviewDTO getProductPreview(int productNo) {
+        return mapper.getProductPreview(productNo);
+    }
+    
+}
 

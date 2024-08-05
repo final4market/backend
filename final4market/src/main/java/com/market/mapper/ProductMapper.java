@@ -14,6 +14,7 @@ import com.market.dto.MyPageProductDTO;
 import com.market.dto.ProductDTO;
 import com.market.dto.ProductImageDTO;
 import com.market.dto.ProductLikeDTO;
+import com.market.dto.ProductPreviewDTO;
 import com.market.models.ProductImage;
 
 @Mapper
@@ -113,4 +114,9 @@ public interface ProductMapper {
 
 	int insertTransaction(Map<String, Object> map);
 
+	int productStatusUpdate(Map<String, Object> map);
+
+	int ProductStatusDelete(int productNo);
+	
+	ProductPreviewDTO getProductPreview(@Param("productNo") int productNo);
 }

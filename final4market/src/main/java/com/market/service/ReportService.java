@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.market.dto.ReportDTO;
 import com.market.mapper.ReportMapper;
@@ -18,11 +19,13 @@ public class ReportService {
 
     @Autowired
     private ReportMapper reportMapper;
-
+    
+    @Transactional
     public List<ReportDTO> getAllReports(String adminId) {
         return reportMapper.getAllReports(adminId);
     }
     
+    @Transactional
     public List<ReportDTO> getFilteredReports(Map<String, String> params) {
     	System.out.println("Params in service: " + params);
     	return reportMapper.getFilteredReports(params);

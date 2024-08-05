@@ -15,6 +15,7 @@ import java.util.Arrays;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +29,7 @@ import com.market.dto.CategoryDTO;
 import com.market.dto.DeliveryDTO;
 import com.market.dto.ProductDTO;
 import com.market.dto.ProductImageDTO;
+import com.market.dto.ProductPreviewDTO;
 import com.market.models.ProductImage;
 import com.market.service.ProductService;
 
@@ -315,7 +317,7 @@ return map;
 	
 
 	
-	@GetMapping("/selectLikeStatus")
+	@GetMapping("/api/product/selectLikeStatus")
 	public List<String> selectLikeStatus(@RequestParam("productNo") int productNo) {
 		List<String> list = productService.selectLikeStatus(productNo);
 		return list;
@@ -380,6 +382,24 @@ return map;
 		productService.insertTransaction(productNo, memberId);
 	}
 
+	@PutMapping("/productStatusUpdate")
+    public String productStatusUpdate(@RequestParam("status") String status, @RequestParam("productNo") int productNo) {
+		System.out.println(status);
+        productService.productStatusUpdate(status,productNo);
+        return null;
+    }
 
+    @PutMapping("/ProductStatusDelete")
+    public void ProductStatusDelete(@RequestParam("productNo") int productNo) {
+
+        productService.ProductStatusDelete(productNo);
+    }
+    
+    @Transactional
+    @GetMapping("/api/product/productPreview")
+    public ResponseEntity<ProductPreviewDTO> getProductPreview(@RequestParam int productNo) {
+        ProductPreviewDTO productPreview = productService.getProductPreview(productNo);
+        return ResponseEntity.ok(productPreview);
+    }
 
 }

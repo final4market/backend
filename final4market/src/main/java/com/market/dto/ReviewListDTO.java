@@ -25,8 +25,26 @@ public class ReviewListDTO {
    private String sellerId;
    private Date reviewDate;
    private int reviewScore;
+   private int productImageNo;
+   private String productImagePath;
 
-   public ReviewListDTO() {
+   public int getProductImageNo() {
+	return productImageNo;
+}
+
+public void setProductImageNo(int productImageNo) {
+	this.productImageNo = productImageNo;
+}
+
+public String getProductImagePath() {
+	return productImagePath;
+}
+
+public void setProductImagePath(String productImagePath) {
+	this.productImagePath = productImagePath;
+}
+
+public ReviewListDTO() {
 	
 }
 

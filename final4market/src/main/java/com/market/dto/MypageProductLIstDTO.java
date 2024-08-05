@@ -13,10 +13,59 @@ public class MypageProductLIstDTO {
 	private String productContent;
 	private String productSale;
 	private String productTitle;
-	private int productLike;
 	private int categoryNo;
 	private int deliveryNo;
 	private String tradeArea;
+	private int deliveryCharge;
+	private String productImagePath;
+	private String review;
+	private String sellerId;
+	private Date reviewDate;
+	private int reviewScore;
+	private Date thDate;
+	private String buyerId;
+	public String getReview() {
+		return review;
+	}
+
+
+	public void setReview(String review) {
+		this.review = review;
+	}
+
+
+	public String getSellerId() {
+		return sellerId;
+	}
+
+
+	public void setSellerId(String sellerId) {
+		this.sellerId = sellerId;
+	}
+
+
+	public Date getReviewDate() {
+		return reviewDate;
+	}
+
+
+	public void setReviewDate(Date reviewDate) {
+		this.reviewDate = reviewDate;
+	}
+
+
+	public int getReviewScore() {
+		return reviewScore;
+	}
+
+
+	public void setReviewScore(int reviewScore) {
+		this.reviewScore = reviewScore;
+	}
+
+
+	
+	
 	public int getProductCount() {
 		return productCount;
 	}
@@ -47,14 +96,7 @@ public class MypageProductLIstDTO {
 	}
 
 
-	public int getProductLike() {
-		return productLike;
-	}
 
-
-	public void setProductLike(int productLike) {
-		this.productLike = productLike;
-	}
 
 
 	public int getCategoryNo() {
@@ -97,8 +139,7 @@ public class MypageProductLIstDTO {
 	}
 
 
-	private int deliveryCharge;
-	private String productImagePath;
+	
 	
 	
 	
@@ -112,8 +153,7 @@ public class MypageProductLIstDTO {
 	}
 
 
-	private Date thDate;
-	private String buyerId;
+	
 
 
 	public MypageProductLIstDTO() {

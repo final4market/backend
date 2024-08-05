@@ -66,7 +66,7 @@ public class SecurityConfig {
                     .anyRequest().authenticated()
                 )
             .sessionManagement(session -> session
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             // Ensure JWT filter is not added
            .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 

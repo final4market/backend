@@ -63,14 +63,6 @@ public class MypageProductLIstDTO {
 		this.reviewScore = reviewScore;
 	}
 
-
-	
-	
-	public int getProductCount() {
-		return productCount;
-	}
-
-
 	public void setProductCount(int productCount) {
 		this.productCount = productCount;
 	}
@@ -94,9 +86,6 @@ public class MypageProductLIstDTO {
 	public void setProductContent(String productContent) {
 		this.productContent = productContent;
 	}
-
-
-
 
 
 	public int getCategoryNo() {
@@ -137,10 +126,6 @@ public class MypageProductLIstDTO {
 	public void setDeliveryCharge(int deliveryCharge) {
 		this.deliveryCharge = deliveryCharge;
 	}
-
-
-	
-	
 	
 	
 	public Date getProductDate() {
@@ -151,9 +136,6 @@ public class MypageProductLIstDTO {
 	public void setProductDate(Date productDate) {
 		this.productDate = productDate;
 	}
-
-
-	
 
 
 	public MypageProductLIstDTO() {

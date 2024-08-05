@@ -52,12 +52,12 @@
          <result column="PRODUCT_TITLE" property="productTitle"/>
          <result column="PRODUCT_IMAGE_PATH" property="productImagePath" />
          <result column="TH_DATE" property="thDate" />
-          <result column="buyer_id" property="buyerId"/>
-           <result column="PRODUCT_DATE" property="productDate"/>
-            <result column="PRODUCT_COUNT" property="productCount"/>
-    <result column="review" property="review"/>
-    <result column="review_date" property="reviewDate"/>
-    <result column="review_score" property="reviewScore"/>
+         <result column="buyer_id" property="buyerId"/>
+         <result column="PRODUCT_DATE" property="productDate"/>
+         <result column="PRODUCT_COUNT" property="productCount"/>
+    	 <result column="review" property="review"/>
+    	 <result column="review_date" property="reviewDate"/>
+    	 <result column="review_score" property="reviewScore"/>
     </resultMap>
 
 	<resultMap type="com.market.dto.MyPageProductDTO" id="myPageProduct">
@@ -84,18 +84,23 @@
         <result column="PRODUCT_IMAGE_PATH" property="productImagePath" />
         <result column="PRODUCT_IMAGE_NO" property="productImageNo" />
     </resultMap>
+    
+    <!-- 해당 상품의 이미지 가져옴  -->
     <select id="productImage" parameterType="int" resultMap="productImage">
         SELECT * FROM product_image WHERE product_no = #{productNo}
     </select>
-
+	
+	<!-- 해당 상품의 정보 가져옴  -->
     <select id="productInfo" parameterType="int" resultMap="product">
         SELECT * FROM PRODUCT_VIEW WHERE PRODUCT_NO = #{productNo}
     </select>
-
+	
+	<!-- 해당 상품의 배송정보 가져옴  -->
     <select id="deliveryInfo" parameterType="int" resultMap="delivery">
         SELECT * FROM delivery_view WHERE product_no = #{productNo}
     </select>
 
+	<!-- 해당 상품의 카테고리정보 가져옴  -->
     <select id="categoryInfo" parameterType="int" resultMap="category">
         SELECT *
         FROM CATEGORY
@@ -121,30 +126,11 @@
         ]]>
     </select>
 
-    <select id="selectParentCategory" resultMap="category">
+
+<select id="selectParentCategory" resultMap="category" parameterType="int">
         SELECT category_no, category_name, parent_category_no
         FROM Category
-        <if test="parentNumber == 1">
-            START WITH parent_category_no = 1
-        </if>
-        <if test="parentNumber == 2">
-            START WITH parent_category_no = 2
-        </if>
-        <if test="parentNumber == 3">
-            START WITH parent_category_no = 3
-        </if>
-        <if test="parentNumber == 4">
-            START WITH parent_category_no = 4
-        </if>
-        <if test="parentNumber == 5">
-            START WITH parent_category_no = 5
-        </if>
-        <if test="parentNumber == 6">
-            START WITH parent_category_no = 6
-        </if>
-        <if test="parentNumber == 7">
-            START WITH parent_category_no = 7
-        </if>
+            START WITH parent_category_no = #{parNum}
         CONNECT BY PRIOR category_no = parent_category_no
         ORDER SIBLINGS BY category_no
     </select>
@@ -172,8 +158,6 @@
         where product_no= #{productNo}
     </update>
 
-
-
        <update id="updateProductImage" parameterType="com.market.dto.ProductImageDTO">
         update PRODUCT_IMAGE
         set PRODUCT_IMAGE_PATH=#{productImagePath}, PRODUCT_IMAGE_NO= #{productImageNo}
@@ -185,7 +169,7 @@
         VALUES (#{productImagePath}, #{productImageNo}, #{productNo})
    </insert>
    
- 
+ 	<!-- 해당 멤버의 상품 번호 가져옴  -->
     <select id="productNo" parameterType="String">
         SELECT product_no FROM product WHERE member_id = #{memberId}
     </select>
@@ -229,7 +213,8 @@
 	<select id="selectProductImage" parameterType="int" resultType="map">
 		SELECT PRODUCT_IMAGE_PATH FROM PRODUCT_IMAGE WHERE PRODUCT_NO = #{productNo}
  </select>
-
+	
+	<!-- 해당 제품에 관심을 가진 아이디를 저장  -->
 	<insert id="insertProductLike" parameterType="map">
 		insert into INTEREST_PRODUCT values(#{memberId},#{productNo})
 	</insert>
@@ -244,10 +229,12 @@
 		delete from INTEREST_PRODUCT where buyer_id = #{memberId} and product_no = #{productNo}
 	</delete>
 	
+	<!-- 해당 상품의 관심을 가지고 있는 아이디를 가져옴  -->
 	<select id="selectLikeStatus" parameterType="int">
 		select buyer_id from INTEREST_PRODUCT where product_no = #{productNo}
 	</select>
 	
+	<!-- 해당 제품이 팔렸을때 완료로 업데이트 함  -->
 	<update id="updateProductSaleSatus" parameterType="int">
 		update product set product_sale = '완료' where product_no = #{productNo}
 	</update>
@@ -365,30 +352,26 @@ WHERE CATEGORY_NO =#{categoryNo};
     </if>
 </select>
 
-       
-  
   <select id="updateloadProductImages" resultMap="productImage">
 	SELECT * FROM Product_Image WHERE PRODUCT_NO = #{productNo}
 	</select>
-
-
-  
 
 <delete id="deleteProductImages">
 delete PRODUCT_IMAGE
 where product_no= #{productNo}
 and PRODUCT_IMAGE_NO =#{imageNo}
 </delete>
-        
-<update id="productStatusUpdate" parameterType="map">
-        update product set product_sale = #{status} where product_no = #{productNo}
-    </update>
 
-    <update id="ProductStatusDelete" parameterType="int">
-        update product set product_sale = '삭제' where product_no = #{productNo}
-    </update>
-	
-	<select id="getProductPreview" parameterType="int" resultType="productPreview">
+    <!-- 상품 현재 판매여부 업데이트  -->
+	<update id="productStatusUpdate" parameterType="map">
+		update product set product_sale = #{status} where product_no = #{productNo}
+	</update>
+    <!-- 상품 현재 삭제여부 업데이트  -->
+	<update id="ProductStatusDelete" parameterType="map">
+		update product set product_sale = '삭제' where product_no = #{productNo}
+	</update>
+
+<select id="getProductPreview" parameterType="int" resultType="productPreview">
         SELECT p.PRODUCT_TITLE AS productTitle, 
                p.PRODUCT_CONTENT AS productContent, 
                p.PRODUCT_SALE AS productSale, 

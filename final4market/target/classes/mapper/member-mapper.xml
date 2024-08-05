@@ -139,7 +139,7 @@
     <delete id="deleteMember" parameterType="String">
         DELETE FROM member WHERE member_id=#{memberId}
     </delete>    
-    
+
     <select id="getAdminNickname" parameterType="String" resultType="string">
     SELECT m.member_nick
     FROM member m

@@ -45,6 +45,7 @@ public void setProductImagePath(String productImagePath) {
 }
 
 public ReviewListDTO() {
+
 	
 }
 

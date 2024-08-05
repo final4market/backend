@@ -30,6 +30,7 @@ import com.market.dto.DeliveryDTO;
 import com.market.dto.ProductDTO;
 import com.market.dto.ProductImageDTO;
 import com.market.dto.ProductPreviewDTO;
+
 import com.market.models.ProductImage;
 import com.market.service.ProductService;
 
@@ -364,8 +365,6 @@ return map;
 	  public List<ProductImage> updateProductImages(@PathVariable int productNo ) {
 	  	return productService.updateloadProductImages(productNo);
 	  }
-
-
 
 	@PostMapping("/api/product/categoryProductImg")
 	public List<ProductImageDTO> categoryProductImg(@RequestBody Map<String, Object> productNo){

@@ -45,7 +45,7 @@ public class MemberService {
 	public String getAdminNickname(String memberId) {
 		return mapper.getAdminNickname(memberId);
 	}
-	
+
 	public boolean isMemberIdExists(String memberId) {
 	    return mapper.countMembersById(memberId) > 0;
 	}
@@ -143,4 +143,5 @@ public class MemberService {
 	public List<MyPageReceivedReviewDTO> myPageReceivedReview(String memberId) {
 		return mapper.myPageReceivedReview(memberId);
 	}
+
 }

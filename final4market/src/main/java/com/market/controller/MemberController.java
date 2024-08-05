@@ -2,6 +2,10 @@ package com.market.controller;
 
 import com.market.dto.MemberAddressDTO;
 import com.market.dto.MemberDTO;
+import com.market.dto.MyPageFollowListDTO;
+import com.market.dto.MyPageReceivedReviewDTO;
+import com.market.dto.SellerPageFollowListDTO;
+import com.market.dto.SellerPageProfileDTO;
 import com.market.service.MemberService;
 
 import org.springframework.http.HttpStatus;
@@ -11,12 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.market.dto.StoreDTO;
 
@@ -159,5 +157,14 @@ public class MemberController {
 		List<String> list = memberService.selectFollowStatus(memberId);
 		return list;
 	}
-	
+
+	@GetMapping("/api/member/sellerPageProfile/{sellerId}")
+	public List<SellerPageProfileDTO> sellerPageProfile(@PathVariable String sellerId) {
+		return memberService.sellerPageProfile(sellerId);
+	}
+
+	@GetMapping("/api/member/sellerPageFollowList/{sellerId}")
+	public List<SellerPageFollowListDTO> sellerPageFollowList(@PathVariable String sellerId) {
+		return memberService.sellerPageFollowList(sellerId);
+	}
 }

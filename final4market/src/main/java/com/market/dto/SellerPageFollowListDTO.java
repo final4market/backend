@@ -1,15 +1,16 @@
 package com.market.dto;
 
-public class MyPageFollowListDTO {
+public class SellerPageFollowListDTO {
 	private String sellerProfilePath;
 	private String sellerId;
 	private String sellerNick;
 	private String sellerFollowCount;
 
-	public MyPageFollowListDTO() {
+	public SellerPageFollowListDTO() {
 	}
 
-	public MyPageFollowListDTO(String sellerProfilePath, String sellerId, String sellerNick, String sellerFollowCount) {
+	public SellerPageFollowListDTO(String sellerProfilePath, String sellerId, String sellerNick,
+			String sellerFollowCount) {
 		this.sellerProfilePath = sellerProfilePath;
 		this.sellerId = sellerId;
 		this.sellerNick = sellerNick;
@@ -50,7 +51,7 @@ public class MyPageFollowListDTO {
 
 	@Override
 	public String toString() {
-		return "MyPageFollowListDTO [sellerProfilePath=" + sellerProfilePath + ", sellerId=" + sellerId
+		return "SellerPageFollowListDTO [sellerProfilePath=" + sellerProfilePath + ", sellerId=" + sellerId
 				+ ", sellerNick=" + sellerNick + ", sellerFollowCount=" + sellerFollowCount + "]";
 	}
 }

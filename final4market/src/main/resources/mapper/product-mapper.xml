@@ -65,6 +65,28 @@
 		<result column="REVIEW" property="review"/>
 	</resultMap>
 
+	<resultMap type="com.market.dto.SellerPageProductDTO" id="sellerPageProduct">
+		<id column="PRODUCT_NO" property="productNo"/>
+		<result column="SELLER_ID" property="sellerId"/>
+		<result column="PRODUCT_IMAGE_PATH" property="productImagePath"/>
+		<result column="PRODUCT_TITLE" property="productTitle"/>
+		<result column="PRODUCT_PRICE" property="productPrice"/>
+		<result column="INTEREST_COUNT" property="interestCount"/>
+		<result column="CHAT_COUNT" property="chatCount"/>
+	</resultMap>
+
+	<resultMap type="com.market.dto.SellerPageReceivedReviewDTO" id="sellerPageReceivedReview">
+		<id column="PRODUCT_NO" property="productNo"/>
+		<result column="PRODUCT_IMAGE_PATH" property="productImagePath"/>
+		<result column="PRODUCT_TITLE" property="productTitle"/>
+		<result column="PRODUCT_PRICE" property="productPrice"/>
+		<result column="BUYER_ID" property="buyerId"/>
+		<result column="BUYER_NICK" property="buyerNick"/>
+		<result column="REVIEW_DATE" property="reviewDate"/>
+		<result column="REVIEW_SCORE" property="reviewScore"/>
+		<result column="REVIEW" property="review"/>
+	</resultMap>
+
     <!-- Select statements -->
     <select id="productImage" parameterType="int" resultMap="productImage">
         SELECT * FROM product_image WHERE product_no = #{productNo}
@@ -174,8 +196,12 @@
 		    PI.PRODUCT_IMAGE_PATH,
 		    P.PRODUCT_PRICE,
 		    P.PRODUCT_TITLE,
-		    (SELECT COUNT(BUYER_ID) FROM INTEREST_PRODUCT IP WHERE P.PRODUCT_NO = IP.PRODUCT_NO) AS INTEREST_COUNT,
-		    (SELECT COUNT(DISTINCT CHAT_NO) FROM CHAT C WHERE P.PRODUCT_NO = C.PRODUCT_NO) AS CHAT_COUNT
+		    (SELECT COUNT(BUYER_ID)
+		     FROM INTEREST_PRODUCT IP
+		     WHERE P.PRODUCT_NO = IP.PRODUCT_NO) AS INTEREST_COUNT,
+		    (SELECT COUNT(DISTINCT CHAT_NO)
+		     FROM CHAT C
+		     WHERE P.PRODUCT_NO = C.PRODUCT_NO) AS CHAT_COUNT
 		FROM
 		    PRODUCT P
 		    LEFT JOIN MEMBER M ON P.MEMBER_ID = M.MEMBER_ID
@@ -191,8 +217,12 @@
     		PI.PRODUCT_IMAGE_PATH,
     		P.PRODUCT_PRICE,
     		P.PRODUCT_TITLE,
-    		(SELECT COUNT(BUYER_ID) FROM INTEREST_PRODUCT IP WHERE P.PRODUCT_NO = IP.PRODUCT_NO) AS INTEREST_COUNT,
-    		(SELECT COUNT(DISTINCT CHAT_NO) FROM CHAT C WHERE P.PRODUCT_NO = C.PRODUCT_NO) AS CHAT_COUNT
+    		(SELECT COUNT(BUYER_ID)
+    		 FROM INTEREST_PRODUCT IP
+    		 WHERE P.PRODUCT_NO = IP.PRODUCT_NO) AS INTEREST_COUNT,
+    		(SELECT COUNT(DISTINCT CHAT_NO)
+    		 FROM CHAT C
+    		 WHERE P.PRODUCT_NO = C.PRODUCT_NO) AS CHAT_COUNT
 		FROM
     		PRODUCT P
 		    JOIN INTEREST_PRODUCT IP ON P.PRODUCT_NO = IP.PRODUCT_NO
@@ -219,5 +249,45 @@
 	        LEFT JOIN MEMBER M ON R.BUYER_ID = M.MEMBER_ID
 	    WHERE
 	        R.SELLER_ID = #{MEMBER_ID}
+	</select>
+
+	<select id="sellerPageProduct" parameterType="String" resultMap="sellerPageProduct">
+		SELECT
+		    P.PRODUCT_NO,
+		    M.MEMBER_ID AS SELLER_ID,
+		    PI.PRODUCT_IMAGE_PATH,
+		    P.PRODUCT_PRICE,
+		    P.PRODUCT_TITLE,
+		    (SELECT COUNT(BUYER_ID)
+		     FROM INTEREST_PRODUCT IP
+		     WHERE P.PRODUCT_NO = IP.PRODUCT_NO) AS INTEREST_COUNT,
+		    (SELECT COUNT(DISTINCT CHAT_NO)
+		     FROM CHAT C
+		     WHERE P.PRODUCT_NO = C.PRODUCT_NO) AS CHAT_COUNT
+		FROM
+		    PRODUCT P
+		    LEFT JOIN MEMBER M ON P.MEMBER_ID = M.MEMBER_ID
+		    LEFT JOIN PRODUCT_IMAGE PI ON P.PRODUCT_NO = PI.PRODUCT_NO
+		WHERE
+		    M.MEMBER_ID = #{SELLER_ID}
+	</select>
+
+	<select id="sellerPageReceivedReview" parameterType="String" resultMap="sellerPageReceivedReview">
+	    SELECT
+	        P.PRODUCT_NO,
+	        PI.PRODUCT_IMAGE_PATH,
+	        P.PRODUCT_TITLE,
+	        R.BUYER_ID,
+	        M.MEMBER_NICK AS BUYER_NICK,
+	        R.REVIEW_DATE,
+	        R.REVIEW_SCORE,
+	        R.REVIEW
+	    FROM
+	        REVIEW R
+	        JOIN PRODUCT P ON R.PRODUCT_NO = P.PRODUCT_NO
+	        LEFT JOIN PRODUCT_IMAGE PI ON P.PRODUCT_NO = PI.PRODUCT_NO
+	        LEFT JOIN MEMBER M ON R.BUYER_ID = M.MEMBER_ID
+	    WHERE
+	        R.SELLER_ID = #{SELLER_ID}
 	</select>
 </mapper>

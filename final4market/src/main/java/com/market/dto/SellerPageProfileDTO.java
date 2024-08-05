@@ -1,19 +1,19 @@
 package com.market.dto;
 
-public class MyPageFollowListDTO {
+public class SellerPageProfileDTO {
 	private String sellerProfilePath;
 	private String sellerId;
 	private String sellerNick;
-	private String sellerFollowCount;
+	private double sellerScore;
 
-	public MyPageFollowListDTO() {
+	public SellerPageProfileDTO() {
 	}
 
-	public MyPageFollowListDTO(String sellerProfilePath, String sellerId, String sellerNick, String sellerFollowCount) {
+	public SellerPageProfileDTO(String sellerProfilePath, String sellerId, String sellerNick, double sellerScore) {
 		this.sellerProfilePath = sellerProfilePath;
 		this.sellerId = sellerId;
 		this.sellerNick = sellerNick;
-		this.sellerFollowCount = sellerFollowCount;
+		this.sellerScore = sellerScore;
 	}
 
 	public String getSellerProfilePath() {
@@ -40,17 +40,17 @@ public class MyPageFollowListDTO {
 		this.sellerNick = sellerNick;
 	}
 
-	public String getSellerFollowCount() {
-		return sellerFollowCount;
+	public double getSellerScore() {
+		return sellerScore;
 	}
 
-	public void setSellerFollowCount(String sellerFollowCount) {
-		this.sellerFollowCount = sellerFollowCount;
+	public void setSellerScore(double sellerScore) {
+		this.sellerScore = sellerScore;
 	}
 
 	@Override
 	public String toString() {
-		return "MyPageFollowListDTO [sellerProfilePath=" + sellerProfilePath + ", sellerId=" + sellerId
-				+ ", sellerNick=" + sellerNick + ", sellerFollowCount=" + sellerFollowCount + "]";
+		return "SellerPageProfileDTO [sellerProfilePath=" + sellerProfilePath + ", sellerId=" + sellerId
+				+ ", sellerNick=" + sellerNick + ", sellerScore=" + sellerScore + "]";
 	}
 }

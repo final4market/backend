@@ -53,8 +53,6 @@ public class SecurityConfig {
                 return corsConfig;
             }))
             .authorizeHttpRequests(auth -> auth
-
-
                     .requestMatchers("/api/auth/**", "/file/**", "/api/product/**", "/api/member/**", "/product/insert", "/api/product/update", "/api/seller/**").permitAll() //전체 허용
                     .requestMatchers(HttpMethod.GET, "/images/**").permitAll() // GET 리퀘스트 전체 허용
                     .requestMatchers(HttpMethod.POST, "/images/**").hasAnyRole("ADMIN", "USER")

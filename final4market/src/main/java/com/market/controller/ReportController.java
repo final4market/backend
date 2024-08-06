@@ -37,7 +37,9 @@ public class ReportController {
 
     @GetMapping("/reports")
     public ResponseEntity<List<ReportDTO>> getAllReports(HttpServletRequest request) {
-        String adminId = request.getHeader("Admin-Id");
+
+        String adminId = request.getHeader("AdminId");
+
         List<ReportDTO> reports = reportService.getAllReports(adminId);
         return ResponseEntity.ok(reports);
     }
@@ -45,8 +47,10 @@ public class ReportController {
     @GetMapping("/reports/filtered")
     public ResponseEntity<List<ReportDTO>> getFilteredReports(HttpServletRequest request,
                                                               @RequestParam Map<String, String> params) {
-        String adminId = request.getHeader("Admin-Id");
-        String claimerId = request.getHeader("Claimer-Id");
+
+        String adminId = request.getHeader("AdminId");
+        String claimerId = request.getHeader("ClaimerId");
+
         params.put("adminId", adminId);
         if (claimerId != null) {
             params.put("claimerId", claimerId);
@@ -81,7 +85,7 @@ public class ReportController {
         String sellerId = body.get("sellerId");
         char reportStatus = body.get("reportStatus").charAt(0);
 
-        String claimerId = request.getHeader("Claimer-Id");
+        String claimerId = request.getHeader("ClaimerId");
 
         int count = reportService.updateReportStatus(productNo, claimerId, sellerId, reportStatus);
         Map<String, Object> response = new HashMap<>();
@@ -95,13 +99,28 @@ public class ReportController {
                                                                 @RequestParam("sellerId") String sellerId,
                                                                 @RequestParam("readStatus") char readStatus,
                                                                 HttpServletRequest request) {
-        String claimerId = request.getHeader("Claimer-Id");
-        String adminId = request.getHeader("Admin-Id");
-        int count = reportService.updateReadStatus(productNo, claimerId, sellerId, adminId, readStatus);
+
+        String claimerId = request.getHeader("ClaimerId");
+        String adminId = request.getHeader("AdminId");
+        
         Map<String, Object> response = new HashMap<>();
-        response.put("count", count);
-        response.put("msg", count == 0 ? "신고 읽기 상태 수정 실패" : "신고 읽기 상태 수정 성공");
-        return new ResponseEntity<>(response, HttpStatus.OK);
+
+        if (claimerId == null || adminId == null) {
+            response.put("count", 0);
+            response.put("msg", "헤더 정보가 누락되었습니다.");
+            return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+        }
+
+        try {
+            int count = reportService.updateReadStatus(productNo, claimerId, sellerId, adminId, readStatus);
+            response.put("count", count);
+            response.put("msg", count == 0 ? "신고 읽기 상태 수정 실패" : "신고 읽기 상태 수정 성공");
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            response.put("count", 0);
+            response.put("msg", "서버 오류 발생: " + e.getMessage());
+            return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
     
     @PostMapping("/insertReport")

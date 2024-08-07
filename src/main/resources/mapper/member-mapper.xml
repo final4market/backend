@@ -1,0 +1,496 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.market.mapper.MemberMapper">
+
+    <resultMap type="com.market.dto.MemberDTO" id="member">
+        <id column="member_id" property="memberId" />
+        <result column="member_name" property="memberName" />
+        <result column="member_passwd" property="memberPasswd" />
+        <result column="member_nick" property="memberNick" />
+        <result column="member_email" property="memberEmail" />
+        <result column="member_address" property="memberAddr" />
+        <result column="member_profile_no" property="memberProfileNo" />
+        <result column="member_grade" property="memberGrade" />
+        <result column="grade_name" property="memberGradeName" />
+        <result column="member_phone_number" property="memberPhoneNo" />
+        <result column="register_date" property="memberRegDate" />
+    </resultMap>
+    
+    <resultMap type="com.market.dto.StoreDTO" id="store">
+		<id column="SELLER_ID" property="sellerId" />
+		<result column="BUYER_ID" property="buyerId"/>
+		<result column="PRODUCT_NO" property="productNo"/>
+		<result column="FOLLOWER_COUNT" property="followerCount"/>
+		<result column="SALE_COUNT" property="saleCount"/>
+		<result column="SALE_PRICE" property="salePrice"/>
+		<result column="REVIEW" property="review"/>
+		<result column="SALE_STATUS" property="saleStatus"/>
+		<result column="PROFILE_PATH" property="profileNo"/>
+		<result column="REVIEW_SCORE" property="reviewScore"/>
+	</resultMap>
+	
+	
+    <resultMap type="com.market.dto.MemberProfileDTO" id="profile">
+        <id column="MEMBER_PROFILE_NO" property="memberProfileNo" />
+        <result column="MEMBER_PROFILE_PATH" property="memberProfilePath"/>
+    </resultMap>
+    
+    <resultMap type="com.market.models.Member" id="MemberResultMap">
+        <id column="member_id" property="memberId" />
+        <result column="member_name" property="memberName" />
+        <result column="member_passwd" property="memberPasswd" />
+        <result column="member_nick" property="memberNick" />
+        <result column="member_email" property="memberEmail" />
+        <result column="member_address" property="memberAddr" />
+        <result column="member_profile_no" property="memberProfileNo" />
+        <result column="member_grade" property="memberGrade" />
+        <result column="member_phone_number" property="memberPhoneNo" />
+        <result column="register_date" property="memberRegDate" />
+    </resultMap>
+
+	<resultMap type="com.market.dto.MemberAddressDTO" id="address">
+		<id column="MEMBER_ADDRESS_NO" property="memberAddressNo"/>
+		<result column="MEMBER_ID" property="memberId"/>
+		<result column="ADDRESS_NAME" property="addressName"/>
+		<result column="ADDRESS" property="address"/>
+		<result column="POSTAL_CODE" property="postalCode"/>
+		<result column="MAIN_ADDRESS" property="mainAddress"/>
+		<result column="MEMBER_NAME" property="memberName"/>
+		<result column="MEMBER_PHONE_NUMBER" property="memberPhoneNumber"/>
+	</resultMap>
+
+	<resultMap type="com.market.dto.MyPageProfileDTO" id="myPageProfile">
+		<result column="MEMBER_PROFILE_PATH" property="memberProfilePath"/>
+		<result column="MEMBER_ID" property="memberId"/>
+		<result column="MEMBER_NICK" property="memberNick"/>
+		<result column="REVIEW_SCORE" property="memberScore"/>
+	</resultMap>
+
+	<resultMap type="com.market.dto.MyPageMyInfoDTO" id="myPageMyInfo">
+		<result column="MEMBER_PROFILE_NO" property="memberProfileNo"/>
+		<result column="MEMBER_PROFILE_PATH" property="memberProfilePath"/>
+		<result column="MEMBER_ID" property="memberId"/>
+		<result column="MEMBER_PASSWD" property="memberPasswd"/>
+		<result column="MEMBER_NAME" property="memberName"/>
+		<result column="MEMBER_NICK" property="memberNick"/>
+		<result column="MEMBER_PHONE_NUMBER1" property="memberPhoneNumber1"/>
+		<result column="MEMBER_PHONE_NUMBER2" property="memberPhoneNumber2"/>
+		<result column="MEMBER_PHONE_NUMBER3" property="memberPhoneNumber3"/>
+		<result column="MEMBER_EAMIL_ID" property="memberEmailId"/>
+		<result column="MEMBER_EAMIL_DOMAIN" property="memberEmailDomain"/>
+		<result column="MEMBER_POSTAL_CODE" property="memberPostalCode"/>
+		<result column="MEMBER_ADDRESS" property="memberAddress"/>
+		<result column="MEMBER_DETAIL_ADDRESS" property="memberDetailAddress"/>
+	</resultMap>
+
+	<resultMap type="com.market.dto.MyPageReceivedReviewDTO" id="myPageReceivedReview">
+		<id column="PRODUCT_NO" property="productNo"/>
+		<result column="PRODUCT_IMAGE_PATH" property="productImagePath"/>
+		<result column="PRODUCT_TITLE" property="productTitle"/>
+		<result column="PRODUCT_PRICE" property="productPrice"/>
+		<result column="BUYER_ID" property="buyerId"/>
+		<result column="BUYER_NICK" property="buyerNick"/>
+		<result column="REVIEW_DATE" property="reviewDate"/>
+		<result column="REVIEW_SCORE" property="reviewScore"/>
+		<result column="REVIEW" property="review"/>
+	</resultMap>
+
+	<resultMap type="com.market.dto.MyPageFollowListDTO" id="myPageFollowList">
+		<result column="SELLER_PROFILE_PATH" property="sellerProfilePath"/>
+		<result column="SELLER_ID" property="sellerId"/>
+		<result column="SELLER_NICK" property="sellerNick"/>
+		<result column="SELLER_FOLLOW_COUNT" property="sellerFollowCount"/>
+	</resultMap>
+
+	<resultMap type="com.market.dto.SellerPageProfileDTO" id="sellerPageProfile">
+		<result column="SELLER_PROFILE_PATH" property="sellerProfilePath"/>
+		<result column="SELLER_ID" property="sellerId"/>
+		<result column="SELLER_NICK" property="sellerNick"/>
+		<result column="SELLER_SCORE" property="sellerScore"/>
+	</resultMap>
+
+	<resultMap type="com.market.dto.SellerPageReceivedReviewDTO" id="sellerPageReceivedReview">
+		<id column="PRODUCT_NO" property="productNo"/>
+		<result column="PRODUCT_IMAGE_PATH" property="productImagePath"/>
+		<result column="PRODUCT_TITLE" property="productTitle"/>
+		<result column="PRODUCT_PRICE" property="productPrice"/>
+		<result column="BUYER_ID" property="buyerId"/>
+		<result column="BUYER_NICK" property="buyerNick"/>
+		<result column="REVIEW_DATE" property="reviewDate"/>
+		<result column="REVIEW_SCORE" property="reviewScore"/>
+		<result column="REVIEW" property="review"/>
+	</resultMap>
+
+	<resultMap type="com.market.dto.SellerPageFollowListDTO" id="sellerPageFollowList">
+		<result column="SELLER_PROFILE_PATH" property="sellerProfilePath"/>
+		<result column="SELLER_ID" property="sellerId"/>
+		<result column="SELLER_NICK" property="sellerNick"/>
+		<result column="SELLER_FOLLOW_COUNT" property="sellerFollowCount"/>
+	</resultMap>
+	
+	<select id="selectAllMembers" resultMap="member">
+       SELECT m.member_id, m.member_name, m.member_nick, m.member_email, m.member_address,
+       m.member_profile_no, m.member_grade, g.grade_name,
+       m.member_phone_number, m.register_date
+        FROM member m
+        JOIN member_grade g ON m.member_grade = g.member_grade
+        WHERE m.member_grade IN (1, 2)
+    </select>
+    
+    <select id="searchMembers" parameterType="map" resultMap="member">
+        SELECT m.member_id, m.member_name, m.member_passwd, m.member_nick, m.member_email, m.member_address,
+               m.member_profile_no, m.member_grade, g.grade_name, m.member_phone_number, m.register_date
+        FROM member m
+        JOIN member_grade g ON m.member_grade = g.member_grade
+        WHERE m.member_grade IN (1, 2)
+        <if test="memberId != null and memberId != ''">
+            AND m.member_id LIKE '%' || #{memberId} || '%'
+        </if>
+        <if test="memberName != null and memberName != ''">
+            AND LOWER(m.member_name) LIKE '%' || LOWER(#{memberName}) || '%'
+        </if>
+        <if test="memberNick != null and memberNick != ''">
+            AND LOWER(m.member_nick) LIKE '%' || LOWER(#{memberNick}) || '%'
+        </if>
+        <if test="memberEmail != null and memberEmail != ''">
+            AND m.member_email LIKE '%' || #{memberEmail} || '%'
+        </if>
+        <if test="memberPhoneNo != null and memberPhoneNo != ''">
+            AND m.member_phone_number LIKE '%' || #{memberPhoneNo} || '%'
+        </if>
+     </select>   
+    
+     <update id="updateMember" parameterType="com.market.dto.MemberDTO">
+            UPDATE member
+            SET 
+                member_name = #{memberName}, 
+                member_email = #{memberEmail}, 
+                member_phone_number = #{memberPhoneNo},
+                member_grade = #{memberGrade}
+                <if test="memberNick != null and memberNick != ''">
+                    , member_nick = #{memberNick}
+                </if>
+                <if test="memberAddr != null and memberAddr != ''">
+                    , member_address = #{memberAddr}
+                </if>
+                <if test="memberPasswd != null and memberPasswd != ''">
+                    , member_passwd = #{memberPasswd}
+                </if>
+            WHERE member_id = #{memberId}
+    </update>
+
+    <delete id="deleteMember" parameterType="String">
+        DELETE FROM member WHERE member_id=#{memberId}
+    </delete>    
+
+    <select id="getAdminNickname" parameterType="String" resultType="string">
+    SELECT m.member_nick
+    FROM member m
+    WHERE m.member_id = #{memberId} 
+    AND m.member_grade = 0
+</select>
+
+    <select id="getMemberWithGradeName" parameterType="String" resultMap="MemberResultMap">
+        SELECT m.member_id, m.member_name, m.member_passwd, m.member_nick, m.member_email, 
+               m.member_address, m.member_profile_no, m.member_grade, g.grade_name, 
+               m.member_phone_number, m.register_date 
+        FROM member m 
+        JOIN member_grade g ON m.member_grade = g.member_grade 
+        WHERE m.member_id = #{memberId}
+    </select>
+    
+    	<select id="getMemberByIdWithPassword" parameterType="String" resultMap="MemberResultMap">
+        SELECT *
+        FROM member
+        WHERE member_id = #{memberId}
+    </select>
+    
+    <select id="findMemberIdByNameAndPhone" resultType="string">
+    	SELECT member_id
+    	FROM member
+    	WHERE member_name = #{memberName}
+    	AND member_phone_number = #{memberPhoneNo}
+	</select>
+	
+	<select id="countMembersById" parameterType="String" resultType="int">
+    SELECT COUNT(*)
+    FROM member
+    WHERE member_id = #{memberId}
+</select>
+    
+    <insert id="insertMember" parameterType="com.market.models.Member">
+        INSERT INTO member (member_id, member_name, member_passwd, member_email,
+                            member_profile_no, member_grade, member_phone_number, register_date)
+        VALUES (#{memberId}, #{memberName}, #{memberPasswd}, #{memberEmail},
+                #{memberProfileNo}, #{memberGrade}, #{memberPhoneNo}, #{memberRegDate})
+    </insert>
+    
+    <select id="checkMemberMatch" parameterType="map" resultMap="member">
+    SELECT m.member_id, m.member_name, m.member_passwd, m.member_nick, m.member_email, m.member_address,
+           m.member_profile_no, m.member_grade, g.grade_name, m.member_phone_number, m.register_date
+    FROM member m
+    JOIN member_grade g ON m.member_grade = g.member_grade
+    WHERE m.member_grade IN (0, 1, 2)
+    <if test="memberId != null and memberId != ''">
+        AND m.member_id = #{memberId}
+    </if>
+    <if test="memberName != null and memberName != ''">
+        AND LOWER(m.member_name) = LOWER(#{memberName})
+    </if>
+    <if test="memberPhoneNo != null and memberPhoneNo != ''">
+        AND m.member_phone_number = #{memberPhoneNo}
+    </if>
+</select>
+    
+    <select id="getMemberById" parameterType="String" resultMap="MemberResultMap">
+    SELECT * FROM member WHERE member_id = #{memberId}
+</select> 
+    
+    <update id="updateMemberEntity" parameterType="com.market.models.Member">
+    UPDATE member
+    SET 
+        member_name = #{memberName},
+        member_email = #{memberEmail}, 
+        member_phone_number = #{memberPhoneNo},
+        member_grade = #{memberGrade},
+        member_passwd = #{memberPasswd}
+    <if test="memberNick != null and memberNick != ''">
+        , member_nick = #{memberNick}
+    </if>
+    <if test="memberAddr != null and memberAddr != ''">
+        , member_address = #{memberAddr}
+    </if>
+    WHERE member_id = #{memberId}
+</update>
+   
+    
+    <update id="updatePassword">
+        UPDATE member SET member_passwd = #{memberPasswd} WHERE member_id = #{memberId}
+    </update>
+    
+    <select id="storeInfo" resultMap="store" parameterType="String">
+	SELECT P.PRODUCT_NO,
+       P.MEMBER_ID AS SELLER_ID,
+       r.BUYER_ID,
+       P.PRODUCT_PRICE AS SALE_PRICE,
+       P.PRODUCT_SALE AS SALE_STATUS,
+       (SELECT COUNT(*) FROM PRODUCT p2 WHERE P2.MEMBER_ID = #{memberId}) AS SALE_COUNT,
+       (SELECT COUNT(*) FROM follow f WHERE F.SELLER_ID = #{memberId}) AS FOLLOWER_COUNT,
+       r.REVIEW	,
+       r.REVIEW_SCORE
+	   FROM PRODUCT p
+	   LEFT JOIN REVIEW r ON r.PRODUCT_NO = P.PRODUCT_NO
+	   WHERE P.MEMBER_ID = #{memberId}
+    </select>
+
+    <select id="profileNo" parameterType="String">
+        SELECT m.MEMBER_PROFILE_NO  FROM "MEMBER" M WHERE M.MEMBER_ID = #{memberId}
+    </select>
+    
+    <select id="profilePath" parameterType="int">
+        SELECT MP.PROFILE_PATH  FROM MEMBER_PROFILE mp WHERE MP.MEMBER_PROFILE_NO = #{profileNo}
+    </select>
+    
+    <select id="buyerProfileNo" parameterType="list" resultType="string">
+        SELECT m.MEMBER_PROFILE_NO 
+        FROM MEMBER M 
+        WHERE M.MEMBER_ID IN 
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="buyerProfilePath" parameterType="list" resultType="map">
+        SELECT M.MEMBER_ID AS memberId, MP.PROFILE_PATH AS profilePath 
+        FROM MEMBER_PROFILE MP
+        JOIN MEMBER M ON MP.MEMBER_PROFILE_NO = M.MEMBER_PROFILE_NO
+        WHERE MP.MEMBER_PROFILE_NO IN 
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+	
+	<insert id="insertFollow" parameterType="map">
+		insert into FOLLOW values(#{buyerId},#{sellerId})
+	</insert>
+	
+	<delete id="deleteFollow" parameterType="map">
+		delete from FOLLOW where buyer_id = #{buyerId} and seller_id = #{sellerId}
+	</delete>
+	
+	<select id="selectMemberAddress" parameterType="String" resultMap="address">
+		select * from member_delivery_address where member_id = #{memberId}
+	</select>
+	
+	<select id="currentAddressNO" resultType="int">
+		SELECT ADDRESS_NO.NEXTVAL FROM DUAL
+	</select>
+
+	<insert id="insertMemberAddress" parameterType="com.market.dto.MemberAddressDTO">
+		insert into member_delivery_address values(#{memberAddressNo},#{memberId},#{address},#{postalCode},#{mainAddress},#{memberName},#{memberPhoneNumber},#{addressName})
+	</insert>
+	
+	<delete id="deleteMemberAddress" parameterType="int">
+		delete from member_delivery_address where member_address_no = #{memberAddressNo}
+	</delete>
+	
+	<update id="changeMainAddressExisting" parameterType="address">
+		update member_delivery_address set main_address = 0 where member_id = #{memberId} and main_address = 1
+	</update>
+	
+	<update id="changeMainAddressNew" parameterType="address">
+		update member_delivery_address set main_address = 1 where member_id = #{memberId} and member_address_no = #{memberAddressNo}	
+ 	</update>
+ 	
+ 	<select id="selectFollowStatus" parameterType="String">
+		select buyer_id from follow where seller_id = #{memberId}
+	</select>
+
+	<select id="myPageProfile" parameterType="String" resultMap="myPageProfile">
+		SELECT
+		    MP.PROFILE_PATH,
+		    M.MEMBER_ID,
+		    M.MEMBER_NICK,
+		    (SELECT ROUND(AVG(REVIEW_SCORE), 2)
+		    FROM REVIEW R
+		    WHERE M.MEMBER_ID = R.SELLER_ID) AS REVIEW_SCORE
+		FROM
+		    MEMBER M
+		LEFT JOIN
+			MEMBER_PROFILE MP ON M.MEMBER_PROFILE_NO = MP.MEMBER_PROFILE_NO
+		WHERE
+			M.MEMBER_ID = #{MEMBER_ID}
+	</select>
+
+	<select id="myPageMyInfo" parameterType="String" resultMap="myPageMyInfo">
+	    SELECT
+	    	MP.PROFILE_PATH AS MEMBER_PROFILE_PATH,
+	        M.MEMBER_ID,
+	        M.MEMBER_PASSWD,
+	        M.MEMBER_NAME,
+	        M.MEMBER_NICK,
+	        SUBSTR(M.MEMBER_PHONE_NUMBER, 1, 3) AS MEMBER_PHONE_NUMBER1,
+	        SUBSTR(M.MEMBER_PHONE_NUMBER, 5, 4) AS MEMBER_PHONE_NUMBER2,
+	        SUBSTR(M.MEMBER_PHONE_NUMBER, 10, 4) AS MEMBER_PHONE_NUMBER3,
+	        SUBSTR(M.MEMBER_EMAIL, 1, INSTR(M.MEMBER_EMAIL, '@') - 1) AS MEMBER_EMAIL_ID,
+	        SUBSTR(M.MEMBER_EMAIL, INSTR(M.MEMBER_EMAIL, '@') + 1) AS MEMBER_EMAIL_DOMAIN,
+	        SUBSTR(M.MEMBER_ADDRESS, 1, INSTR(M.MEMBER_ADDRESS, '+') - 1) AS MEMBER_POSTAL_CODE,
+	        SUBSTR(M.MEMBER_ADDRESS, INSTR(M.MEMBER_ADDRESS, '+') + 1,
+	               INSTR(M.MEMBER_ADDRESS, '+', INSTR(M.MEMBER_ADDRESS, '+') + 1) - INSTR(M.MEMBER_ADDRESS, '+') - 1) AS MEMBER_ADDRESS,
+	       SUBSTR(M.MEMBER_ADDRESS, INSTR(M.MEMBER_ADDRESS, '+', INSTR(M.MEMBER_ADDRESS, '+') + 1) + 1) AS MEMBER_DETAIL_ADDRESS
+	    FROM
+	        MEMBER M
+	    LEFT JOIN
+	        MEMBER_PROFILE MP ON M.MEMBER_PROFILE_NO = MP.MEMBER_PROFILE_NO
+	    WHERE
+	        M.MEMBER_ID = #{MEMBER_ID}
+	</select>
+
+	<update id="updateMyInfo" parameterType="com.market.dto.MyPageMyInfoDTO">
+		UPDATE
+			MEMBER M
+		SET
+	        M.MEMBER_PASSWD = #{memberPasswd},
+	        M.MEMBER_NAME = #{memberName},
+	        M.MEMBER_NICK = #{memberNick},
+	        M.MEMBER_PHONE_NUMBER = CONCAT(#{memberPhoneNumber1}, '-', #{memberPhoneNumber2}, '-', #{memberPhoneNumber3}),
+	        M.MEMBER_EMAIL = CONCAT(#{memberEmailId}, '@', #{memberEmailDomain}),
+	        M.MEMBER_ADDRESS = #{memberAddress}
+	    WHERE
+        M.MEMBER_ID = #{MEMBER_ID}
+	</update>
+
+	<select id="myPageReceivedReview" parameterType="String" resultMap="myPageReceivedReview">
+	    SELECT
+	        P.PRODUCT_NO,
+	        PI.PRODUCT_IMAGE_PATH,
+	        P.PRODUCT_TITLE,
+	        P.PRODUCT_PRICE,
+	        R.BUYER_ID,
+	        M.MEMBER_NICK AS BUYER_NICK,
+	        R.REVIEW_DATE,
+	        R.REVIEW_SCORE,
+	        R.REVIEW
+	    FROM
+	        REVIEW R
+	        JOIN PRODUCT P ON R.PRODUCT_NO = P.PRODUCT_NO
+	        LEFT JOIN PRODUCT_IMAGE PI ON P.PRODUCT_NO = PI.PRODUCT_NO
+	        LEFT JOIN MEMBER M ON R.BUYER_ID = M.MEMBER_ID
+	    WHERE
+	        R.SELLER_ID = #{MEMBER_ID}
+	</select>
+
+	<select id="myPageFollowList" parameterType="String" resultMap="myPageFollowList">
+	    SELECT
+	        MP.PROFILE_PATH AS SELLER_PROFILE_PATH,
+	        M.MEMBER_ID AS SELLER_ID,
+	        M.MEMBER_NICK AS SELLER_NICK,
+	        (SELECT COUNT(*)
+	         FROM FOLLOW F
+	         WHERE F.SELLER_ID = M.MEMBER_ID) AS SELLER_FOLLOW_COUNT
+	    FROM
+	        FOLLOW F
+	    JOIN
+	        MEMBER M ON F.SELLER_ID = M.MEMBER_ID
+	    LEFT JOIN
+	        MEMBER_PROFILE MP ON M.MEMBER_PROFILE_NO = MP.MEMBER_PROFILE_NO
+	    WHERE
+	        F.BUYER_ID = #{MEMBER_ID}
+	</select>
+
+	<select id="sellerPageProfile" parameterType="String" resultMap="sellerPageProfile">
+		SELECT
+		    MP.PROFILE_PATH AS SELLER_PROFILE_PATH,
+		    M.MEMBER_ID AS SELLER_ID,
+		    M.MEMBER_NICK AS SELLER_NICK,
+		    (SELECT ROUND(AVG(R.REVIEW_SCORE), 2)
+		     FROM REVIEW R
+		     WHERE M.MEMBER_ID = R.SELLER_ID) AS SELLER_SCORE
+		FROM
+		    MEMBER M
+		LEFT JOIN
+		    MEMBER_PROFILE MP ON M.MEMBER_PROFILE_NO = MP.MEMBER_PROFILE_NO
+		WHERE
+		    M.MEMBER_ID = #{SELLER_ID}
+	</select>
+
+	<select id="sellerPageReceivedReview" parameterType="String" resultMap="sellerPageReceivedReview">
+	    SELECT
+	        P.PRODUCT_NO,
+	        PI.PRODUCT_IMAGE_PATH,
+	        P.PRODUCT_TITLE,
+	        P.PRODUCT_PRICE,
+	        R.BUYER_ID,
+	        M.MEMBER_NICK AS BUYER_NICK,
+	        R.REVIEW_DATE,
+	        R.REVIEW_SCORE,
+	        R.REVIEW
+	    FROM
+	        REVIEW R
+	        JOIN PRODUCT P ON R.PRODUCT_NO = P.PRODUCT_NO
+	        LEFT JOIN PRODUCT_IMAGE PI ON P.PRODUCT_NO = PI.PRODUCT_NO
+	        LEFT JOIN MEMBER M ON R.BUYER_ID = M.MEMBER_ID
+	    WHERE
+	        R.SELLER_ID = #{SELLER_ID}
+	</select>
+
+	<select id="sellerPageFollowList" parameterType="String" resultMap="sellerPageFollowList">
+	    SELECT
+	        MP.PROFILE_PATH AS SELLER_PROFILE_PATH,
+	        M.MEMBER_ID AS SELLER_ID,
+	        M.MEMBER_NICK AS SELLER_NICK,
+	        (SELECT COUNT(*)
+	         FROM FOLLOW F
+	         WHERE F.SELLER_ID = M.MEMBER_ID) AS SELLER_FOLLOW_COUNT
+	    FROM
+	        FOLLOW F
+	    JOIN
+	        MEMBER M ON F.SELLER_ID = M.MEMBER_ID
+	    LEFT JOIN
+	        MEMBER_PROFILE MP ON M.MEMBER_PROFILE_NO = MP.MEMBER_PROFILE_NO
+	    WHERE
+	        F.BUYER_ID = #{SELLER_ID}
+	</select>
+</mapper>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.market.mapper.ChatMapper">
+  <resultMap id="ChatResultMap" type="com.market.dto.ChatDTO">
+    <id column="chat_no" property="chatNo"/>
+    <result column="message_no" property="messageNo"/>
+    <result column="receiver_id" property="receiverId"/>
+    <result column="sender_id" property="senderId"/>
+    <result column="product_no" property="productNo"/>
+    <result column="chat_content" property="chatContent"/>
+    <result column="chat_date" property="chatDate" jdbcType="VARCHAR"/>
+    <result column="chat_status" property="chatStatus"/>
+  </resultMap>
+
+  <select id="selectAllChat" resultMap="ChatResultMap">
+    SELECT chat_no, receiver_id, sender_id, product_no, chat_content, chat_date
+    FROM chat
+  </select>
+  <!-- 로그인한 아이디가 속한 채팅방 정보 --> 
+  <select id="selectChatRoom" resultMap="ChatResultMap" parameterType="String">
+		SELECT *
+		FROM CHAT c
+		WHERE (receiver_id = #{memberId} OR sender_id = #{memberId})
+		  AND CHAT_DATE = (
+		    SELECT MAX(chat_date)
+		    FROM CHAT sub
+		    WHERE sub.chat_no = c.chat_no
+		)
+  </select>
+  
+  <!-- 해당 채팅방에 관한 정보  -->
+  <select id="selectChatInfo" resultMap="ChatResultMap" parameterType="int">
+		SELECT *
+		FROM CHAT
+		WHERE chat_no = #{chatNo}
+		ORDER BY chat_date
+
+  </select>
+  <!-- 처음 대화를 시도할때 해당유저와의 채팅방이 있는지 확인 -->
+  <select id="chatRoomExist" resultType="int" parameterType="map">
+  	select chat_no from chat WHERE (receiver_id = #{memberId} OR sender_id = #{memberId}) and product_no = #{productNo}
+  </select>
+  
+  <!-- 채팅방 생성에 필요한 채팅방 번호 가져옴 -->	  
+  <select id="nextChatNo" resultType="int">
+  	SELECT CHAT_NO_SEQ.NEXTVAL FROM DUAL
+  </select>
+  
+  <!-- 채팅방 생성  --> 
+  <insert id="createChatRoom" parameterType="chat">
+  	insert into chat(CHAT_NO,RECEIVER_ID,SENDER_ID,PRODUCT_NO) values(#{chatNo},#{receiverId},#{senderId},#{productNo})
+  </insert>
+  
+  <!-- 메세지 생성에 필요한 다음 메세지 번호 가져옴 -->
+   <select id="nextMessageNo" resultType="int">
+  	SELECT MESSAGE_NO_SEQ.NEXTVAL FROM DUAL
+  </select>
+  
+  <!-- 메세지 저장  -->
+  <insert id="insertMessage" parameterType="chat">
+  	insert into chat(CHAT_NO,RECEIVER_ID,SENDER_ID,PRODUCT_NO,CHAT_CONTENT,MESSAGE_NO) values(#{chatNo},#{receiverId},#{senderId},#{productNo},#{chatContent},#{messageNo})
+  </insert>
+  
+  <!-- 채팅방에 있는 내용중 이미지 파일을	 가져옴  -->
+  <select id="selectImageFile" parameterType="String" resultMap="ChatResultMap">
+  	select chat_content from chat where chat_content = #{imagePath}
+  </select>
+</mapper>

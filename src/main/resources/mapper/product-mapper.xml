@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.market.mapper.ProductMapper">
+
+	<!-- ResultMap for ProductDTO -->
+	<resultMap type="com.market.dto.ProductDTO" id="product">
+		<id column="PRODUCT_NO" property="productNo" />
+		<result column="MEMBER_ID" property="memberId" />
+		<result column="PRODUCT_PRICE" property="productPrice" />
+		<result column="PRODUCT_COUNT" property="productCount" />
+		<result column="PRODUCT_DATE" property="productDate" />
+		<result column="PRODUCT_STATUS" property="productStatus" />
+		<result column="PRODUCT_CONTENT" property="productContent" />
+		<result column="PRODUCT_SALE" property="productSale" />
+		<result column="PRODUCT_TITLE" property="productTitle" />
+		<result column="CATEGORY_NO" property="categoryNo" />
+		<result column="DELIVERY_NO" property="deliveryNo" />
+		<result column="TRADE_AREA" property="tradeArea" />
+		<result column="DELIVERY_CHARGE" property="deliveryCharge" />
+		<result column="PRODUCT_LIKE" property="productLike" />
+	</resultMap>
+
+	<!-- ResultMap for ProductImageDTO -->
+	<resultMap type="com.market.dto.ProductImageDTO" id="productImage">
+		<id column="PRODUCT_NO" property="productNo" />
+		<result column="PRODUCT_IMAGE_PATH" property="productImagePath" />
+		<result column="PRODUCT_IMAGE_NO" property="productImageNo" />
+	</resultMap>
+
+	<!-- ResultMap for DeliveryDTO -->
+	<resultMap type="com.market.dto.DeliveryDTO" id="delivery">
+		<id column="DELIVERY_NO" property="deliveryNo" />
+		<result column="DELIVERY_NAME" property="deliveryName" />
+		<result column="TRADE_AREA" property="tradeArea" />
+		<result column="DELIVERY_CHARGE" property="deliveryCharge" />
+	</resultMap>
+
+	<!-- ResultMap for CategoryDTO -->
+	<resultMap type="com.market.dto.CategoryDTO" id="category">
+		<id column="CATEGORY_NO" property="categoryNo" />
+		<result column="CATEGORY_NAME" property="categoryName" />
+		<result column="PARENT_CATEGORY_NO" property="parentCategoryNo" />
+	</resultMap>
+
+	<resultMap type="com.market.dto.MypageProductLIstDTO" id="productList">
+		<id column="PRODUCT_NO" property="productNo" />
+		<result column="MEMBER_ID" property="memberId" />
+		<result column="PRODUCT_PRICE" property="productPrice" />
+		<result column="PRODUCT_SALE" property="productSale" />
+		<result column="PRODUCT_TITLE" property="productTitle" />
+		<result column="PRODUCT_IMAGE_PATH" property="productImagePath" />
+		<result column="TH_DATE" property="thDate" />
+		<result column="buyer_id" property="buyerId" />
+		<result column="PRODUCT_DATE" property="productDate" />
+		<result column="PRODUCT_COUNT" property="productCount" />
+		<result column="review" property="review" />
+		<result column="review_date" property="reviewDate" />
+		<result column="review_score" property="reviewScore" />
+	</resultMap>
+
+	<resultMap type="com.market.dto.MyPageProductDTO" id="myPageProduct">
+		<id column="PRODUCT_NO" property="productNo" />
+		<result column="MEMBER_ID" property="memberId" />
+		<result column="PRODUCT_IMAGE_PATH" property="productImagePath" />
+		<result column="PRODUCT_TITLE" property="productTitle" />
+		<result column="PRODUCT_PRICE" property="productPrice" />
+		<result column="INTEREST_COUNT" property="interestCount" />
+		<result column="CHAT_COUNT" property="chatCount" />
+	</resultMap>
+
+
+	<resultMap type="com.market.dto.ProductMainViewDTO" id="productMainView">
+		<id column="PRODUCT_NO" property="productNo" />
+		<result column="PRODUCT_PRICE" property="productPrice" />
+		<result column="PRODUCT_COUNT" property="productCount" />
+		<result column="PRODUCT_DATE" property="productDate" />
+		<result column="PRODUCT_STATUS" property="productStatus" />
+		<result column="PRODUCT_SALE" property="productSale" />
+		<result column="PRODUCT_TITLE" property="productTitle" />
+		<result column="CATEGORY_NO" property="categoryNo" />
+		<result column="PRODUCT_LIKE" property="productLike" />
+		<result column="PRODUCT_IMAGE_PATH" property="productImagePath" />
+		<result column="PRODUCT_IMAGE_NO" property="productImageNo" />
+	</resultMap>
+
+	<resultMap type="com.market.dto.SellerPageProductDTO" id="sellerPageProduct">
+		<id column="PRODUCT_NO" property="productNo" />
+		<result column="SELLER_ID" property="sellerId" />
+		<result column="PRODUCT_IMAGE_PATH" property="productImagePath" />
+		<result column="PRODUCT_TITLE" property="productTitle" />
+		<result column="PRODUCT_PRICE" property="productPrice" />
+		<result column="INTEREST_COUNT" property="interestCount" />
+		<result column="CHAT_COUNT" property="chatCount" />
+	</resultMap>
+
+	<!-- 해당 상품의 이미지 가져옴  -->
+	<select id="productImage" parameterType="int" resultMap="productImage">
+		SELECT * FROM product_image WHERE product_no = #{productNo}
+	</select>
+
+	<!-- 해당 상품의 정보 가져옴  -->
+	<select id="productInfo" parameterType="int" resultMap="product">
+		SELECT * FROM PRODUCT_VIEW WHERE PRODUCT_NO = #{productNo}
+	</select>
+
+	<!-- 해당 상품의 배송정보 가져옴  -->
+	<select id="deliveryInfo" parameterType="int" resultMap="delivery">
+		SELECT * FROM delivery_view WHERE product_no = #{productNo}
+	</select>
+
+	<!-- 해당 상품의 카테고리정보 가져옴  -->
+	<select id="categoryInfo" parameterType="int" resultMap="category">
+		SELECT *
+		FROM CATEGORY
+		START WITH CATEGORY_NO = #{categoryNo}
+		CONNECT BY PRIOR PARENT_CATEGORY_NO = CATEGORY_NO
+	</select>
+
+	<select id="newproductlist" resultMap="productMainView">
+    <![CDATA[
+    SELECT * FROM product_Main_view
+    WHERE PRODUCT_DATE BETWEEN (SYSDATE) - 7 AND (SYSDATE)
+    AND PRODUCT_SALE ='판매중'
+     ORDER BY PRODUCT_DATE DESC
+    ]]>
+</select>
+
+
+	<select id="hotproductlist" resultMap="productMainView">
+        <![CDATA[
+        SELECT * FROM product_Main_view
+        WHERE PRODUCT_DATE BETWEEN (SYSDATE) - 30 AND (SYSDATE)
+        AND PRODUCT_SALE = '판매중'
+        ORDER BY PRODUCT_COUNT DESC
+        ]]>
+    </select>
+
+
+	<select id="selectParentCategory" resultMap="category" parameterType="int">
+		SELECT category_no, category_name, parent_category_no
+		FROM Category
+		START WITH parent_category_no = #{parNum}
+		CONNECT BY PRIOR category_no = parent_category_no
+		ORDER SIBLINGS BY category_no
+	</select>
+
+	<select id="selectAllCategory" resultMap="category">
+		SELECT category_no, category_name, parent_category_no
+		FROM Category
+		WHERE parent_category_no IS NULL
+	</select>
+
+	<select id="getProductNo" resultType="int">
+		SELECT PRODUCT_seq.nextval FROM dual
+	</select>
+
+
+	<insert id="insertProduct" parameterType="com.market.dto.ProductDTO">
+		INSERT INTO Product (product_no, product_price, product_status,
+		product_content, product_title, category_no, delivery_no, trade_area,
+		delivery_charge, member_id)
+		VALUES (#{productNo}, #{productPrice}, #{productStatus},
+		#{productContent}, #{productTitle}, #{categoryNo}, #{deliveryNo},
+		#{tradeArea}, #{deliveryCharge}, #{memberId})
+	</insert>
+
+	<update id="updateProduct" parameterType="com.market.dto.ProductDTO">
+		update Product set product_price= #{productPrice}, product_status=
+		#{productStatus},
+		product_content=#{productContent}, product_title=#{productTitle},
+		category_no=#{categoryNo},
+		delivery_no=#{deliveryNo}, trade_area=#{tradeArea}, delivery_charge=
+		#{deliveryCharge}, member_id=#{memberId}
+		where product_no= #{productNo}
+	</update>
+
+	<update id="updateProductImage"
+		parameterType="com.market.dto.ProductImageDTO">
+		update PRODUCT_IMAGE
+		set PRODUCT_IMAGE_PATH=#{productImagePath}, PRODUCT_IMAGE_NO=
+		#{productImageNo}
+		where product_no= #{productNo}
+	</update>
+
+	<insert id="insertProductImage" parameterType="productImage">
+		INSERT INTO PRODUCT_IMAGE(PRODUCT_IMAGE_PATH, PRODUCT_IMAGE_NO,
+		product_no)
+		VALUES (#{productImagePath}, #{productImageNo}, #{productNo})
+	</insert>
+
+	<!-- 해당 멤버의 상품 번호 가져옴  -->
+	<select id="productNo" parameterType="String">
+		SELECT product_no FROM product WHERE member_id = #{memberId}
+	</select>
+
+	<select id="sellerProductImage" parameterType="String">
+		SELECT PRODUCT_IMAGE_PATH FROM product_image WHERE product_no =
+		#{productNo}
+	</select>
+
+	<select id="sellerProductPrice" parameterType="String" resultMap="product">
+		SELECT product_title,product_price FROM product WHERE product_no =
+		#{productNo}
+	</select>
+
+	<select id="productSaleslist" parameterType="String" resultMap="productList">
+		SELECT * FROM MEMBER_PRODUCT_LIST_VIEW WHERE MEMBER_ID = #{memberId}
+		AND PRODUCT_SALE ='판매중'
+		AND product_image_no=0
+		ORDER BY PRODUCT_DATE DESC
+	</select>
+
+	<select id="productsoldoutlist" parameterType="String"
+		resultMap="productList">
+		SELECT * FROM MEMBER_PRODUCT_LIST_VIEW WHERE MEMBER_ID = #{memberId}
+		AND PRODUCT_SALE ='완료'
+		AND product_image_no=0
+		ORDER BY TH_DATE DESC
+	</select>
+
+
+	<select id="ProductPurchaseHistory" parameterType="String"
+		resultMap="productList">
+		SELECT * FROM MEMBER_PRODUCT_LIST_VIEW WHERE buyer_id = #{buyerId}
+		AND product_image_no=0
+		ORDER BY TH_DATE DESC
+	</select>
+
+
+	<select id="selectProductdFile" parameterType="map" resultMap="productImage">
+		select PRODUCT_IMAGE_NO, PRODUCT_NO, PRODUCT_IMAGE_PATH from
+		PRODUCT_IMAGE
+		where PRODUCT_NO = #{productNo} and PRODUCT_IMAGE_NO = #{productImageNo}
+	</select>
+
+
+	<select id="selectProductImage" parameterType="int" resultType="map">
+		SELECT PRODUCT_IMAGE_PATH FROM PRODUCT_IMAGE WHERE PRODUCT_NO =
+		#{productNo}
+	</select>
+
+	<!-- 해당 제품에 관심을 가진 아이디를 저장  -->
+	<insert id="insertProductLike" parameterType="map">
+		insert into INTEREST_PRODUCT values(#{memberId},#{productNo})
+	</insert>
+
+
+	<update id="productDelete" parameterType="map">
+		update product set product_sale = '삭제'
+		where product_no = #{productNo}
+	</update>
+
+	<delete id="deleteProductLike" parameterType="map">
+		delete from INTEREST_PRODUCT where buyer_id = #{memberId} and product_no
+		= #{productNo}
+	</delete>
+
+	<!-- 해당 상품의 관심을 가지고 있는 아이디를 가져옴  -->
+	<select id="selectLikeStatus" parameterType="int">
+		select buyer_id from INTEREST_PRODUCT where product_no = #{productNo}
+	</select>
+
+	<!-- 해당 제품이 팔렸을때 완료로 업데이트 함  -->
+	<update id="updateProductSaleSatus" parameterType="int">
+		update product set product_sale = '완료' where product_no = #{productNo}
+	</update>
+
+		<select id="myPageProduct" parameterType="String" resultMap="myPageProduct">
+		SELECT
+		    P.PRODUCT_NO,
+		    M.MEMBER_ID,
+		    PI.PRODUCT_IMAGE_PATH,
+		    P.PRODUCT_PRICE,
+		    P.PRODUCT_TITLE,
+		    (SELECT COUNT(BUYER_ID)
+		     FROM INTEREST_PRODUCT IP
+		     WHERE P.PRODUCT_NO = IP.PRODUCT_NO) AS INTEREST_COUNT,
+		    (SELECT COUNT(DISTINCT CHAT_NO)
+		     FROM CHAT C
+		     WHERE P.PRODUCT_NO = C.PRODUCT_NO) AS CHAT_COUNT
+		FROM
+		    PRODUCT P
+		    LEFT JOIN MEMBER M ON P.MEMBER_ID = M.MEMBER_ID
+		    LEFT JOIN PRODUCT_IMAGE PI ON P.PRODUCT_NO = PI.PRODUCT_NO
+		WHERE
+		    M.MEMBER_ID = #{MEMBER_ID}
+	</select>
+
+	<select id="myPageInterestProduct" parameterType="String" resultMap="myPageProduct">
+		SELECT
+    		P.PRODUCT_NO,
+    		M.MEMBER_ID,
+    		PI.PRODUCT_IMAGE_PATH,
+    		P.PRODUCT_PRICE,
+    		P.PRODUCT_TITLE,
+    		(SELECT COUNT(BUYER_ID)
+    		 FROM INTEREST_PRODUCT IP
+    		 WHERE P.PRODUCT_NO = IP.PRODUCT_NO) AS INTEREST_COUNT,
+    		(SELECT COUNT(DISTINCT CHAT_NO)
+    		 FROM CHAT C
+    		 WHERE P.PRODUCT_NO = C.PRODUCT_NO) AS CHAT_COUNT
+		FROM
+    		PRODUCT P
+		    JOIN INTEREST_PRODUCT IP ON P.PRODUCT_NO = IP.PRODUCT_NO
+		    LEFT JOIN MEMBER M ON P.MEMBER_ID = M.MEMBER_ID
+		    LEFT JOIN PRODUCT_IMAGE PI ON P.PRODUCT_NO = PI.PRODUCT_NO
+		WHERE
+    		IP.BUYER_ID = #{MEMBER_ID}
+	</select>
+
+	<select id="productUpdate" parameterType="com.market.dto.ProductDTO"
+		resultMap="product">
+		SELECT * FROM PRODUCT WHERE PRODUCT_NO = #{productNo}
+	</select>
+
+	<select id=" parentCategory" resultType="int">
+		SELECT PARENT_CATEGORY_NO
+		FROM Category
+		WHERE CATEGORY_NO =#{categoryNo};
+	</select>
+
+	<select id="categoryProductInfo" parameterType="int" resultMap="product">
+		select * from product where category_no = #{categoryNo}
+	</select>
+
+
+	<select id="categoryProductImg" parameterType="list" resultType="map">
+		SELECT product_no,PRODUCT_IMAGE_PATH FROM product_image WHERE product_no
+		IN <foreach item="item" index="index" collection="list" open="("
+			separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+
+	<insert id="insertTransaction" parameterType="map">
+		insert into transaction(buyer_id, product_no)
+		values(#{memberId},#{productNo})
+	</insert>
+
+
+	<select id="searchResult" parameterType="map" resultMap="productMainView">
+		SELECT * FROM product_Main_view WHERE product_image_no = '0' AND
+		PRODUCT_SALE != '삭제' <if test="minPrice != null and minPrice != ''">
+			AND PRODUCT_PRICE &gt;= #{minPrice}
+		</if>
+    
+    <if
+			test="maxPrice != null and maxPrice != ''">
+			<choose>
+				<when test="minPrice != null and minPrice != ''">
+					AND PRODUCT_PRICE &lt;= #{maxPrice}
+				</when>
+				<otherwise>
+					AND PRODUCT_PRICE &lt;= #{maxPrice}
+				</otherwise>
+			</choose>
+		</if>
+    
+    <if
+			test="includeSoldOut != null and includeSoldOut != ''">
+			AND PRODUCT_SALE = #{includeSoldOut}
+		</if>
+    
+    <if
+			test="searchQuery != null and searchQuery != ''">
+			AND PRODUCT_TITLE LIKE '%' || #{searchQuery} || '%'
+		</if>
+     <if
+			test="parentCategoryNo != null and parentCategoryNo != ''">
+			AND CATEGORY_NO IN (
+			SELECT category_no
+			FROM Category
+			START WITH parent_category_no = #{parentCategoryNo}
+			CONNECT BY PRIOR category_no = parent_category_no
+			)
+		</if>
+    <if
+			test="categoryNo != null and categoryNo != ''">
+			AND CATEGORY_NO = #{categoryNo}
+		</if>
+    
+   
+
+    <if
+			test="sortOrder != null and sortOrder != ''"> ORDER BY <choose>
+				<when test="sortOrder == 'latest'">
+					PRODUCT_DATE DESC
+				</when>
+				<when test="sortOrder == 'highToLow'">
+					PRODUCT_PRICE DESC
+				</when>
+				<when test="sortOrder == 'lowToHigh'">
+					PRODUCT_PRICE ASC
+				</when>
+			</choose>
+		</if>
+	</select>
+
+	<select id="updateloadProductImages" resultMap="productImage">
+		SELECT * FROM Product_Image WHERE PRODUCT_NO = #{productNo}
+	</select>
+
+	<delete id="deleteProductImages">
+		delete PRODUCT_IMAGE
+		where product_no= #{productNo}
+		and PRODUCT_IMAGE_NO =#{imageNo}
+</delete>
+
+	<!-- 상품 현재 판매여부 업데이트  -->
+	<update id="productStatusUpdate" parameterType="map">
+		update product set product_sale = #{status} where product_no =
+		#{productNo}
+	</update>
+	<!-- 상품 현재 삭제여부 업데이트  -->
+	<update id="ProductStatusDelete" parameterType="map">
+		update product set product_sale = '삭제' where product_no = #{productNo}
+	</update>
+
+	<select id="sellerPageProduct" parameterType="String" resultMap="sellerPageProduct">
+		SELECT
+		    P.PRODUCT_NO,
+		    M.MEMBER_ID AS SELLER_ID,
+		    PI.PRODUCT_IMAGE_PATH,
+		    P.PRODUCT_PRICE,
+		    P.PRODUCT_TITLE,
+		    (SELECT COUNT(BUYER_ID)
+		     FROM INTEREST_PRODUCT IP
+		     WHERE P.PRODUCT_NO = IP.PRODUCT_NO) AS INTEREST_COUNT,
+		    (SELECT COUNT(DISTINCT CHAT_NO)
+		     FROM CHAT C
+		     WHERE P.PRODUCT_NO = C.PRODUCT_NO) AS CHAT_COUNT
+		FROM
+		    PRODUCT P
+		    LEFT JOIN MEMBER M ON P.MEMBER_ID = M.MEMBER_ID
+		    LEFT JOIN PRODUCT_IMAGE PI ON P.PRODUCT_NO = PI.PRODUCT_NO
+		WHERE
+		    M.MEMBER_ID = #{SELLER_ID}
+	</select>
+	
+	<select id="getProductPreview" parameterType="int" resultType="productPreview">
+        SELECT p.PRODUCT_TITLE AS productTitle, 
+               p.PRODUCT_CONTENT AS productContent, 
+               p.PRODUCT_SALE AS productSale, 
+               p.MEMBER_ID AS sellerId, 
+               pi.PRODUCT_IMAGE_PATH AS productImagePath
+        FROM product p
+        LEFT JOIN product_image pi ON p.PRODUCT_NO = pi.PRODUCT_NO
+        WHERE p.PRODUCT_NO = #{productNo} AND pi.PRODUCT_IMAGE_NO = 0
+    </select>
+
+</mapper>
